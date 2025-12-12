@@ -146,6 +146,10 @@
 
         // Debug Mode Cheat Code Handler
         const DebugCheatCode = {
+            // Configuration
+            DEBUG_TIMEOUT_MINUTES: 10,
+            
+            // State
             sequence: [],
             targetSequence: ['d', 'e', 'b', 'u', 'g'],
             debugModeActive: false,
@@ -158,8 +162,8 @@
             },
 
             handleKeyPress: function(e) {
-                // Only track letter keys
-                if (e.key.length === 1 && e.key.match(/[a-z]/i)) {
+                // Only track letter keys (more efficient character check)
+                if (e.key.length === 1 && ((e.key >= 'a' && e.key <= 'z') || (e.key >= 'A' && e.key <= 'Z'))) {
                     this.sequence.push(e.key.toLowerCase());
                     
                     // Keep only last 5 keys
@@ -186,22 +190,20 @@
                 DEBUG_MODE = true;
                 document.getElementById('debug-warning-modal').classList.add('hidden');
                 
-                // Set 10 minute timeout
-                const tenMinutes = 10 * 60 * 1000;
-                this.debugModeEndTime = Date.now() + tenMinutes;
+                // Set timeout using configured duration
+                const timeoutMs = this.DEBUG_TIMEOUT_MINUTES * 60 * 1000;
+                this.debugModeEndTime = Date.now() + timeoutMs;
                 
                 this.debugModeTimeout = setTimeout(() => {
                     this.deactivateDebugMode();
-                }, tenMinutes);
+                }, timeoutMs);
 
                 // Show indicator and start timer
                 document.getElementById('debug-mode-indicator').classList.remove('hidden');
                 this.startTimer();
 
-                // Refresh current question to show debug markers
-                if (APP && APP.mode === 'drill') {
-                    APP.setupDrillUI();
-                }
+                // Refresh UI to show debug markers
+                this.refreshDebugUI();
             },
 
             cancelDebugMode: function() {
@@ -223,7 +225,12 @@
                     this.timerInterval = null;
                 }
 
-                // Refresh current question to remove debug markers
+                // Refresh UI to remove debug markers
+                this.refreshDebugUI();
+            },
+
+            refreshDebugUI: function() {
+                // Refresh current question to show/hide debug markers
                 if (APP && APP.mode === 'drill') {
                     APP.setupDrillUI();
                 }
