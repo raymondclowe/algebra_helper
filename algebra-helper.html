@@ -28,6 +28,46 @@
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex flex-col items-center justify-center p-4">
 
+    <!-- Debug Mode Warning Modal -->
+    <div id="debug-warning-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+        <div class="bg-gray-800 rounded-xl shadow-2xl border-2 border-yellow-500 max-w-md w-full p-6 fade-in">
+            <div class="text-center mb-4">
+                <span class="text-5xl">⚠️</span>
+                <h2 class="text-2xl font-bold text-yellow-400 mt-2">Debug Mode Activated</h2>
+            </div>
+            <div class="text-gray-300 space-y-3 text-sm mb-6">
+                <p><strong class="text-yellow-400">Warning:</strong> Debug mode visually highlights correct answers.</p>
+                <p>This mode is intended for:</p>
+                <ul class="list-disc list-inside ml-4 space-y-1">
+                    <li>Testing new problem types</li>
+                    <li>Verifying question generation</li>
+                    <li>Development/QA purposes</li>
+                </ul>
+                <p class="text-yellow-400 font-bold">⏱️ Auto-expires in 10 minutes</p>
+                <p class="text-xs text-gray-400 mt-4">Scores and progress in debug mode should not be used for assessment.</p>
+            </div>
+            <div class="flex gap-3">
+                <button onclick="DebugCheatCode.cancelDebugMode()" class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded">
+                    Cancel
+                </button>
+                <button onclick="DebugCheatCode.confirmDebugMode()" class="flex-1 px-4 py-2 bg-yellow-600 hover:bg-yellow-500 text-white font-bold rounded">
+                    I Understand
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Debug Mode Indicator -->
+    <div id="debug-mode-indicator" class="hidden fixed top-4 right-4 bg-yellow-500 text-black px-4 py-2 rounded-lg shadow-lg z-40 border-2 border-yellow-600">
+        <div class="flex items-center gap-2">
+            <span class="text-xl">🐛</span>
+            <div>
+                <div class="font-bold text-sm">DEBUG MODE</div>
+                <div id="debug-timer" class="text-xs font-mono">10:00</div>
+            </div>
+        </div>
+    </div>
+
     <div id="app" class="w-full max-w-2xl bg-gray-800 rounded-xl shadow-2xl border border-gray-700 overflow-hidden">
         
         <!-- HEADER -->
@@ -102,7 +142,134 @@
     </div>
 
     <script>
-        const DEBUG_MODE = false; 
+        let DEBUG_MODE = false; 
+
+        // Debug Mode Cheat Code Handler
+        const DebugCheatCode = {
+            // Configuration
+            DEBUG_TIMEOUT_MINUTES: 10,
+            
+            // State
+            sequence: [],
+            targetSequence: ['d', 'e', 'b', 'u', 'g'],
+            debugModeActive: false,
+            debugModeTimeout: null,
+            debugModeEndTime: null,
+            timerInterval: null,
+
+            init: function() {
+                document.addEventListener('keydown', (e) => this.handleKeyPress(e));
+            },
+
+            handleKeyPress: function(e) {
+                // Only track letter keys (more efficient character check)
+                if (e.key.length === 1 && ((e.key >= 'a' && e.key <= 'z') || (e.key >= 'A' && e.key <= 'Z'))) {
+                    this.sequence.push(e.key.toLowerCase());
+                    
+                    // Keep only last 5 keys
+                    if (this.sequence.length > this.targetSequence.length) {
+                        this.sequence.shift();
+                    }
+
+                    // Check if sequence matches
+                    if (this.sequence.join('') === this.targetSequence.join('')) {
+                        this.sequence = []; // Reset sequence
+                        if (!this.debugModeActive) {
+                            this.showWarning();
+                        }
+                    }
+                }
+            },
+
+            showWarning: function() {
+                const modal = document.getElementById('debug-warning-modal');
+                
+                // Update timeout text dynamically
+                const timeoutText = modal.querySelector('.text-yellow-400.font-bold');
+                if (timeoutText) {
+                    timeoutText.textContent = `⏱️ Auto-expires in ${this.DEBUG_TIMEOUT_MINUTES} minutes`;
+                }
+                
+                modal.classList.remove('hidden');
+            },
+
+            confirmDebugMode: function() {
+                this.debugModeActive = true;
+                DEBUG_MODE = true;
+                document.getElementById('debug-warning-modal').classList.add('hidden');
+                
+                // Set timeout using configured duration
+                const timeoutMs = this.DEBUG_TIMEOUT_MINUTES * 60 * 1000;
+                this.debugModeEndTime = Date.now() + timeoutMs;
+                
+                this.debugModeTimeout = setTimeout(() => {
+                    this.deactivateDebugMode();
+                }, timeoutMs);
+
+                // Show indicator and start timer
+                document.getElementById('debug-mode-indicator').classList.remove('hidden');
+                this.startTimer();
+
+                // Refresh UI to show debug markers
+                this.refreshDebugUI();
+            },
+
+            cancelDebugMode: function() {
+                document.getElementById('debug-warning-modal').classList.add('hidden');
+            },
+
+            deactivateDebugMode: function() {
+                this.debugModeActive = false;
+                DEBUG_MODE = false;
+                document.getElementById('debug-mode-indicator').classList.add('hidden');
+                
+                if (this.debugModeTimeout) {
+                    clearTimeout(this.debugModeTimeout);
+                    this.debugModeTimeout = null;
+                }
+                
+                if (this.timerInterval) {
+                    clearInterval(this.timerInterval);
+                    this.timerInterval = null;
+                }
+
+                // Refresh UI to remove debug markers
+                this.refreshDebugUI();
+            },
+
+            refreshDebugUI: function() {
+                // Refresh current question to show/hide debug markers
+                if (APP && APP.mode === 'drill') {
+                    APP.setupDrillUI();
+                }
+            },
+
+            startTimer: function() {
+                // Set initial display
+                const initialDisplay = `${this.DEBUG_TIMEOUT_MINUTES}:00`;
+                document.getElementById('debug-timer').innerText = initialDisplay;
+                
+                this.updateTimerDisplay();
+                this.timerInterval = setInterval(() => {
+                    this.updateTimerDisplay();
+                }, 1000);
+            },
+
+            updateTimerDisplay: function() {
+                if (!this.debugModeEndTime) return;
+                
+                const remaining = Math.max(0, this.debugModeEndTime - Date.now());
+                const minutes = Math.floor(remaining / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+                
+                const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('debug-timer').innerText = display;
+
+                if (remaining <= 0) {
+                    this.deactivateDebugMode();
+                }
+            }
+        };
 
         const APP = {
             level: 5.0, 
@@ -323,7 +490,10 @@
             }
         };
 
-        window.onload = () => APP.init();
+        window.onload = () => {
+            APP.init();
+            DebugCheatCode.init();
+        };
     </script>
 </body>
 </html>
