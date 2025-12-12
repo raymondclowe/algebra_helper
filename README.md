@@ -179,25 +179,24 @@ We're committed to making Algebra Helper even better. Here's what's planned:
 ### Short Term (Next 3 Months)
 - [ ] **More Problem Types**: Add inequalities, simultaneous equations, and word problems
 - [ ] **Better Mobile UX**: Optimize touch targets and layout for smartphones
-- [ ] **Accessibility Audit**: Ensure full WCAG 2.1 AA compliance
 - [ ] **Performance Metrics**: Track average time per problem and learning velocity
+- [ ] **Explanation Improvements**: More detailed step-by-step breakdowns for wrong answers - more steps for more complex problems
+- [ ] **Spaced Repetition**: Intelligently resurface problems students struggled with
 
 ### Medium Term (6 Months)
 - [ ] **AI-Generated Problems**: Use LLMs to create diverse problems (with human verification)
-- [ ] **Explanation Improvements**: More detailed step-by-step breakdowns for wrong answers
 - [ ] **Topic Selection**: Let students/teachers choose specific algebra topics to practice
 - [ ] **Export Results**: Download practice session summaries as PDF/CSV
+- [ ] **Advanced Pedagogy**: 
+  - Learning path recommendations
+  - Identifying knowledge gaps
+  - Personalized study plans
 
 ### Long Term (12+ Months)
 - [ ] **User Accounts**: Backend storage for progress tracking across devices
 - [ ] **Google One-Tap Login**: Seamless authentication for saving scores
 - [ ] **Teacher Dashboard**: Class-wide analytics and progress monitoring
-- [ ] **Spaced Repetition**: Intelligently resurface problems students struggled with
 - [ ] **Multi-Language Support**: Translate into Spanish, French, Mandarin, etc.
-- [ ] **Advanced Pedagogy**: 
-  - Learning path recommendations
-  - Identifying knowledge gaps
-  - Personalized study plans
 
 ### Research & Innovation
 - Experiment with different feedback mechanisms
