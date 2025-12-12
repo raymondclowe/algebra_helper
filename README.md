@@ -81,9 +81,9 @@ Progress indicators, level advancement, and streak bonuses provide motivation an
 
 ### Important Notes
 
-- ⚠️ Scores are **not saved** in debug mode (currently enabled)
 - 🔒 Future versions will include user accounts for progress tracking
 - 📝 This tool supplements but doesn't replace comprehensive math instruction
+- 🐛 Debug mode is disabled by default; enable it only for development/testing
 
 ---
 
@@ -144,7 +144,7 @@ Generator {
 ```
 
 #### **Debug Mode**
-Set `DEBUG_MODE = true` (line 120) to:
+Set `DEBUG_MODE = true` (line 105) to:
 - Highlight correct answers with yellow border
 - Add visual debug markers
 - Enable rapid testing
@@ -219,12 +219,12 @@ Debug mode is a developer feature that visually highlights the correct answer in
 
 ### How to Enable/Disable
 
-**Enable**: Set `DEBUG_MODE = true` in `algebra-helper.html` (line 120)
+**Enable**: Set `DEBUG_MODE = true` in `algebra-helper.html` (line 105)
 ```javascript
 const DEBUG_MODE = true;  // Correct answers have yellow dashed border
 ```
 
-**Disable**: Set `DEBUG_MODE = false`
+**Disable**: Set `DEBUG_MODE = false` (default for production)
 ```javascript
 const DEBUG_MODE = false; // Production mode
 ```
