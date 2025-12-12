@@ -162,6 +162,24 @@ open algebra-helper.html
 python -m http.server 8000  # then visit http://localhost:8000
 ```
 
+### Deployment
+
+**GitHub Pages**
+
+This project is automatically deployed to GitHub Pages when changes are pushed to the `main` branch:
+
+- **Live URL**: [https://raymondclowe.github.io/algebra_helper/](https://raymondclowe.github.io/algebra_helper/)
+- **Deployment Workflow**: `.github/workflows/static.yml`
+- **Deployment includes**: `index.html`, `algebra-helper.html`, `README.md`
+
+The deployment workflow:
+1. Triggers on push to `main` branch or manual workflow dispatch
+2. Creates a clean deployment directory with only necessary files
+3. Uploads and deploys to GitHub Pages
+4. Completes in ~30 seconds
+
+To deploy to other static hosting services (Netlify, Vercel, etc.), simply upload the HTML files—no build step required!
+
 ### Contributing
 
 This is an open-source educational tool. Contributions welcome! Some ideas:
