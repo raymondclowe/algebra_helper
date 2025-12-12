@@ -182,7 +182,15 @@
             },
 
             showWarning: function() {
-                document.getElementById('debug-warning-modal').classList.remove('hidden');
+                const modal = document.getElementById('debug-warning-modal');
+                
+                // Update timeout text dynamically
+                const timeoutText = modal.querySelector('.text-yellow-400.font-bold');
+                if (timeoutText) {
+                    timeoutText.textContent = `⏱️ Auto-expires in ${this.DEBUG_TIMEOUT_MINUTES} minutes`;
+                }
+                
+                modal.classList.remove('hidden');
             },
 
             confirmDebugMode: function() {
@@ -237,6 +245,10 @@
             },
 
             startTimer: function() {
+                // Set initial display
+                const initialDisplay = `${this.DEBUG_TIMEOUT_MINUTES}:00`;
+                document.getElementById('debug-timer').innerText = initialDisplay;
+                
                 this.updateTimerDisplay();
                 this.timerInterval = setInterval(() => {
                     this.updateTimerDisplay();
