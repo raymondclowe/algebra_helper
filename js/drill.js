@@ -11,10 +11,8 @@ window.Drill = {
             { val: window.APP.currentQ.distractors[2], correct: false }
         ].sort(() => Math.random() - 0.5);
         
-        // Add "Don't know" option for "why" questions
-        if (isWhyQuestion) {
-            opts.push({ val: "Don't know", correct: false, dontKnow: true });
-        }
+        // Add "I don't know" option to ALL questions
+        opts.push({ val: "I don't know", correct: false, dontKnow: true });
 
         opts.forEach(opt => {
             const btn = document.createElement('button');
@@ -24,9 +22,12 @@ window.Drill = {
             btn.dataset.dontKnow = (opt.dontKnow || false).toString();
             btn.onclick = () => this.handleAnswer(btn, opt.correct, opt.dontKnow);
             
-            // Use plain text for "Don't know", LaTeX for others
+            // Use plain text for "I don't know", LaTeX for others
             if (opt.dontKnow) {
-                btn.innerHTML = `<span class="italic text-gray-400">${opt.val}</span>`;
+                btn.innerHTML = `<div class="flex flex-col items-center">
+                    <span class="italic text-gray-400">${opt.val}</span>
+                    <span class="text-xs text-gray-500 mt-1">(no penalty)</span>
+                </div>`;
             } else {
                 btn.innerHTML = `\\( ${opt.val} \\)`;
             }
@@ -44,11 +45,11 @@ window.Drill = {
         const isWhyQuestion = window.APP.currentQ.type === 'why';
 
         if (isDontKnow) {
-            // "Don't know" - neutral outcome (no score change)
+            // "I don't know" - no penalty but reduce difficulty to help the user
             btn.className = "p-4 bg-yellow-600 rounded text-lg border border-yellow-400 flex items-center justify-center min-h-[60px]";
-            delta = 0; // No score change
+            delta = -0.3; // Reduce difficulty to provide easier follow-up questions
             
-            // Don't affect streak or history for "Don't know"
+            // Don't affect streak or history for "I don't know" - no penalty
             
             // Show explanation immediately
             const box = document.getElementById('explanation-box');
