@@ -154,7 +154,7 @@
         </div>
 
         <!-- MAIN AREA -->
-        <div class="p-8 min-h-[250px] md:min-h-[200px] md:max-h-[300px] flex flex-col items-center relative bg-gray-800 overflow-hidden">
+        <div class="p-8 min-h-[200px] md:max-h-[300px] flex flex-col items-center relative bg-gray-800 overflow-hidden">
             <div id="calc-indicator" class="absolute top-4 right-4 opacity-50"></div>
 
             <div class="w-full my-6 flex flex-col items-center">
@@ -194,7 +194,15 @@
     </div>
 
     <script>
-        let DEBUG_MODE = false; 
+        let DEBUG_MODE = false;
+        
+        // Gamification Constants
+        const AUTO_ADVANCE_DELAY_MS = 1500;  // Time before auto-advancing after correct answer
+        const CONFETTI_COUNT = 30;            // Number of confetti particles
+        const CONFETTI_DELAY_STEP_MS = 30;    // Delay between each confetti spawn
+        const SUCCESS_SOUND_FREQUENCY = 800;  // Hz for success beep
+        const SUCCESS_SOUND_VOLUME = 0.3;     // Volume (0-1)
+        const SUCCESS_SOUND_DURATION = 0.3;   // Seconds
 
         // Debug Mode Cheat Code Handler
         const DebugCheatCode = {
@@ -446,7 +454,7 @@
                     // Auto-advance after short delay (no Next button needed)
                     setTimeout(() => {
                         this.nextQuestion();
-                    }, 1500);
+                    }, AUTO_ADVANCE_DELAY_MS);
 
                 } else {
                     btn.className = "p-4 bg-red-600 rounded text-lg border border-red-400 flex items-center justify-center min-h-[60px]";
@@ -519,10 +527,9 @@
             
             triggerConfetti: function() {
                 const colors = ['#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#a78bfa'];
-                const count = 30;
                 const fragment = document.createDocumentFragment(); // Batch DOM operations
                 
-                for (let i = 0; i < count; i++) {
+                for (let i = 0; i < CONFETTI_COUNT; i++) {
                     const confetti = document.createElement('div');
                     confetti.className = 'confetti';
                     confetti.style.left = Math.random() * 100 + '%';
@@ -530,11 +537,11 @@
                     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     const duration = 2 + Math.random() * 2;
                     confetti.style.animation = `confettiFall ${duration}s linear forwards`;
-                    confetti.style.animationDelay = `${i * 30}ms`;
+                    confetti.style.animationDelay = `${i * CONFETTI_DELAY_STEP_MS}ms`;
                     fragment.appendChild(confetti);
                     
                     // Clean up after animation completes
-                    setTimeout(() => confetti.remove(), (duration * 1000) + (i * 30));
+                    setTimeout(() => confetti.remove(), (duration * 1000) + (i * CONFETTI_DELAY_STEP_MS));
                 }
                 
                 document.body.appendChild(fragment); // Single DOM append
@@ -586,14 +593,14 @@
                     oscillator.connect(gainNode);
                     gainNode.connect(this.audioContext.destination);
                     
-                    oscillator.frequency.value = 800;
+                    oscillator.frequency.value = SUCCESS_SOUND_FREQUENCY;
                     oscillator.type = 'sine';
                     
-                    gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
+                    gainNode.gain.setValueAtTime(SUCCESS_SOUND_VOLUME, this.audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + SUCCESS_SOUND_DURATION);
                     
                     oscillator.start(this.audioContext.currentTime);
-                    oscillator.stop(this.audioContext.currentTime + 0.3);
+                    oscillator.stop(this.audioContext.currentTime + SUCCESS_SOUND_DURATION);
                 } catch (e) {
                     // Silent fail if audio not supported
                 }
