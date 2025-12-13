@@ -63,3 +63,70 @@
         transform: translateY(20px); 
     } 
 }
+
+/* Toast Notification */
+.toast { 
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    z-index: 100;
+    animation: toastPop 0.8s ease-out forwards;
+}
+
+@keyframes toastPop { 
+    0% { 
+        opacity: 0; 
+        transform: translate(-50%, -50%) scale(0.5); 
+    } 
+    50% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1.2); 
+    }
+    70% { 
+        transform: translate(-50%, -50%) scale(0.95); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1); 
+    } 
+}
+
+/* Confetti Particles */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    z-index: 99;
+    pointer-events: none;
+}
+
+@keyframes confettiFall {
+    0% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 1; 
+    }
+    100% { 
+        transform: translateY(100vh) rotate(720deg); 
+        opacity: 0; 
+    }
+}
+
+/* Floating Points to Score */
+.float-to-score {
+    position: fixed;
+    font-size: 24px;
+    font-weight: bold;
+    color: #4ade80;
+    z-index: 98;
+    pointer-events: none;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Controlled height for explanation box on desktop */
+@media (min-width: 768px) {
+    .explanation-overlay {
+        max-height: 120px;
+        overflow-y: auto;
+    }
+}
