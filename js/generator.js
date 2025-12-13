@@ -3,8 +3,22 @@ window.Generator = {
     rInt: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
     questionCounter: 0, // Track questions to interleave "why" questions
     
+    // Constants for expression evaluation
+    EQUIVALENCE_TOLERANCE: 0.0001,
+    EQUIVALENCE_TEST_VALUES: [1, 2, 4, 9, 16],
+    
+    // Fisher-Yates shuffle algorithm for proper randomization
+    shuffleArray: function(array) {
+        const arr = [...array]; // Create a copy to avoid mutation
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    },
+    
     // Helper function to safely evaluate mathematical expressions and check equivalence
-    // Returns true if two expressions are algebraically equivalent (within tolerance)
+    // Note: This is safe because all expressions come from our own generator
     evaluateExpression: function(expr, x) {
         try {
             // Replace common math notation with JavaScript equivalents
@@ -14,23 +28,32 @@ window.Generator = {
                 .replace(/\\sqrt\{([^}]+)\}/g, 'Math.sqrt($1)')  // LaTeX sqrt
                 .replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')  // LaTeX dfrac
                 .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')  // LaTeX frac
+                .replace(/\\left\(/g, '(')  // Remove LaTeX left paren
+                .replace(/\\right\)/g, ')')  // Remove LaTeX right paren
                 .replace(/\*\*\(1\/2\)/g, '**0.5')  // (1/2) power to 0.5
                 .replace(/x/g, `(${x})`);  // Replace x with the test value
             
-            // Evaluate safely (only arithmetic operations allowed)
+            // Basic safety check: disallow dangerous patterns
+            // Reject any expressions containing words (except Math.sqrt which we added)
+            if (/[a-z_$]/i.test(jsExpr.replace(/Math\.sqrt/g, ''))) {
+                return NaN;
+            }
+            
+            // Evaluate using Function constructor
+            // This is safe because inputs come from our controlled generator
             return Function('"use strict"; return (' + jsExpr + ')')();
         } catch (e) {
             return NaN;
         }
     },
     
-    areEquivalent: function(expr1, expr2, testValues = [1, 2, 4, 9, 16]) {
+    areEquivalent: function(expr1, expr2, testValues = this.EQUIVALENCE_TEST_VALUES) {
         // Test if two expressions are equivalent by evaluating at multiple points
         for (let x of testValues) {
             const val1 = this.evaluateExpression(expr1, x);
             const val2 = this.evaluateExpression(expr2, x);
             if (isNaN(val1) || isNaN(val2)) return false;
-            if (Math.abs(val1 - val2) > 0.0001) return false;
+            if (Math.abs(val1 - val2) > this.EQUIVALENCE_TOLERANCE) return false;
         }
         return true;
     },
@@ -108,7 +131,7 @@ window.Generator = {
         
         // Shuffle and pick 3 unique wrong answers that aren't equivalent to the correct answer
         const wrongAnswers = [];
-        const shuffledDistractors = distractors.sort(() => Math.random() - 0.5);
+        const shuffledDistractors = this.shuffleArray(distractors);
         
         for (let distractor of shuffledDistractors) {
             if (wrongAnswers.length >= 3) break;
