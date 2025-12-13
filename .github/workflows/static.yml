@@ -37,6 +37,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html algebra-helper.html README.md _site/
+          cp -r js css _site/
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
