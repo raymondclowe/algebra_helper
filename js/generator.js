@@ -331,12 +331,14 @@ window.Generator = {
             const base = this.rInt(2, 8);
             const exp = this.rInt(2, 4);
             const answer = Math.pow(base, exp);
+            // Build the multiplication chain properly
+            const multChain = Array(exp).fill(base).join(' × ');
             return {
                 tex: `${base}^${exp}`,
                 instruction: "Calculate",
                 displayAnswer: `${answer}`,
                 distractors: [`${base * exp}`, `${answer + base}`, `${answer - base}`],
-                explanation: `${base}^${exp} means multiply ${base} by itself ${exp} times: ${base}${'×' + base}.repeat(exp - 1) = ${answer}.`,
+                explanation: `${base}^${exp} means multiply ${base} by itself ${exp} times: ${multChain} = ${answer}.`,
                 calc: false
             };
         }
@@ -623,21 +625,25 @@ window.Generator = {
             };
         } else {
             // Simple infinite series: sum of geometric series
-            const r = [0.5, 0.25, 0.1, '\\frac{1}{2}', '\\frac{1}{4}', '\\frac{1}{3}'][this.rInt(0, 2)];
-            const rVal = typeof r === 'string' ? (r === '\\frac{1}{2}' ? 0.5 : r === '\\frac{1}{4}' ? 0.25 : 0.333) : r;
-            const answer = 1 / (1 - rVal);
-            const answerStr = answer === 2 ? '2' : answer === 4 ? '4' : answer === 1.5 ? '\\frac{3}{2}' : answer.toFixed(2);
+            // Define series ratios with their corresponding values and display formats
+            const seriesOptions = [
+                { r: 0.5, display: '0.5', answer: 2, answerDisplay: '2' },
+                { r: 0.25, display: '0.25', answer: 4, answerDisplay: '4' },
+                { r: 0.1, display: '0.1', answer: 1.111, answerDisplay: '1.11' }
+            ];
+            
+            const series = seriesOptions[this.rInt(0, seriesOptions.length - 1)];
             
             return {
-                tex: `\\sum_{n=0}^{\\infty} ${typeof r === 'number' ? r : r}^n`,
+                tex: `\\sum_{n=0}^{\\infty} (${series.display})^n`,
                 instruction: "Find the sum (if |r| < 1)",
-                displayAnswer: `${answerStr}`,
+                displayAnswer: `${series.answerDisplay}`,
                 distractors: [
                     `\\text{diverges}`,
-                    `${typeof r === 'number' ? r : r}`,
+                    `${series.display}`,
                     `\\infty`
                 ],
-                explanation: `This is a geometric series with first term a=1 and ratio r=${typeof r === 'number' ? r : r}. Since |r| < 1, it converges to S = a/(1-r) = 1/(1-${typeof r === 'number' ? r : r}) = ${answerStr}.`,
+                explanation: `This is a geometric series with first term a=1 and ratio r=${series.display}. Since |r| < 1, it converges to S = a/(1-r) = 1/(1-${series.display}) = ${series.answerDisplay}.`,
                 calc: false
             };
         }
