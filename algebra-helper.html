@@ -24,6 +24,61 @@
         
         @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-20px); } }
         @keyframes floatDown { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(20px); } }
+        
+        /* Toast Notification */
+        .toast { 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            z-index: 100;
+            animation: toastPop 0.8s ease-out forwards;
+        }
+        @keyframes toastPop { 
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); } 
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+            70% { transform: translate(-50%, -50%) scale(0.95); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 
+        }
+        
+        /* Confetti Particles */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 99;
+            pointer-events: none;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        /* Floating Points to Score */
+        .float-to-score {
+            position: fixed;
+            font-size: 24px;
+            font-weight: bold;
+            color: #4ade80;
+            z-index: 98;
+            pointer-events: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        @keyframes floatToScore {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        /* Overlay positioning for explanation box on desktop */
+        @media (min-width: 768px) {
+            .explanation-overlay {
+                position: absolute;
+                bottom: 100%;
+                left: 0;
+                right: 0;
+                margin-bottom: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex flex-col items-center justify-center p-4">
@@ -102,7 +157,7 @@
         </div>
 
         <!-- MAIN AREA -->
-        <div class="p-8 min-h-[350px] flex flex-col items-center relative bg-gray-800">
+        <div class="p-8 min-h-[250px] md:min-h-[200px] flex flex-col items-center relative bg-gray-800">
             <div id="calc-indicator" class="absolute top-4 right-4 opacity-50"></div>
 
             <div class="w-full my-6 flex flex-col items-center">
@@ -112,7 +167,7 @@
                 </div>
             </div>
             
-            <div id="explanation-box" class="hidden w-full mt-6 p-4 bg-gray-900 rounded border-l-4 border-yellow-500 text-left fade-in">
+            <div id="explanation-box" class="hidden w-full mt-6 p-4 bg-gray-900 rounded border-l-4 border-yellow-500 text-left fade-in explanation-overlay">
                 <p class="text-yellow-500 font-bold text-xs uppercase mb-2">Correction</p>
                 <div id="explanation-text" class="text-gray-300 text-base leading-relaxed"></div>
             </div>
@@ -384,6 +439,14 @@
                     
                     if (this.streak >= 3) delta = 0.5; // Acceleration
                     else delta = 0.2; // Base movement
+                    
+                    // Gamification: Toast, Confetti, Points Animation
+                    this.showCorrectFeedback(delta);
+                    
+                    // Auto-advance after short delay (no Next button needed)
+                    setTimeout(() => {
+                        this.nextQuestion();
+                    }, 1500);
 
                 } else {
                     btn.className = "p-4 bg-red-600 rounded text-lg border border-red-400 flex items-center justify-center min-h-[60px]";
@@ -400,12 +463,13 @@
                     box.classList.remove('hidden');
                     document.getElementById('explanation-text').innerHTML = this.currentQ.explanation;
                     MathJax.typesetPromise([box]);
+                    
+                    // Show Next button for wrong answers
+                    document.getElementById('next-btn').classList.remove('hidden');
                 }
                 
                 // Update and Animate Level
                 this.applyLevelChange(delta);
-                
-                document.getElementById('next-btn').classList.remove('hidden');
             },
 
             applyLevelChange: function(delta) {
@@ -421,6 +485,110 @@
                 
                 // Update text instantly
                 document.getElementById('level-display').innerText = this.level.toFixed(1);
+            },
+            
+            showCorrectFeedback: function(delta) {
+                // 1. Show Toast
+                this.showToast();
+                
+                // 2. Trigger Confetti
+                this.triggerConfetti();
+                
+                // 3. Float Points to Score
+                this.floatPointsToScore(delta);
+                
+                // 4. Play Success Sound (optional)
+                this.playSuccessSound();
+            },
+            
+            showToast: function() {
+                const toast = document.createElement('div');
+                const messages = ['Correct! 🎉', 'Nice! ✨', 'Perfect! ⭐', 'Great! 🌟', 'Awesome! 🎯'];
+                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+                
+                toast.className = 'toast bg-green-500 text-white px-8 py-4 rounded-xl shadow-2xl text-2xl font-bold';
+                toast.innerText = randomMsg;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transition = 'opacity 0.3s';
+                    setTimeout(() => toast.remove(), 300);
+                }, 1200);
+            },
+            
+            triggerConfetti: function() {
+                const colors = ['#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#a78bfa'];
+                const count = 30;
+                
+                for (let i = 0; i < count; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + '%';
+                        confetti.style.top = '-10px';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.animation = `confettiFall ${2 + Math.random() * 2}s linear forwards`;
+                        document.body.appendChild(confetti);
+                        
+                        setTimeout(() => confetti.remove(), 4000);
+                    }, i * 30);
+                }
+            },
+            
+            floatPointsToScore: function(delta) {
+                const points = document.createElement('div');
+                const percentage = Math.round((delta / 10) * 100); // Convert level delta to percentage
+                points.className = 'float-to-score';
+                points.innerText = `+${percentage}%`;
+                
+                // Start from center of screen
+                const startX = window.innerWidth / 2;
+                const startY = window.innerHeight / 2;
+                
+                // End at accuracy display (top right)
+                const accuracyEl = document.getElementById('accuracy-display');
+                const rect = accuracyEl.getBoundingClientRect();
+                const endX = rect.left + rect.width / 2;
+                const endY = rect.top + rect.height / 2;
+                
+                points.style.left = startX + 'px';
+                points.style.top = startY + 'px';
+                document.body.appendChild(points);
+                
+                // Animate to score
+                setTimeout(() => {
+                    points.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    points.style.left = endX + 'px';
+                    points.style.top = endY + 'px';
+                    points.style.opacity = '0';
+                    points.style.transform = 'scale(0.5)';
+                }, 50);
+                
+                setTimeout(() => points.remove(), 900);
+            },
+            
+            playSuccessSound: function() {
+                // Create a simple success sound using Web Audio API
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.value = 800;
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    
+                    oscillator.start(audioContext.currentTime);
+                    oscillator.stop(audioContext.currentTime + 0.3);
+                } catch (e) {
+                    // Silent fail if audio not supported
+                }
             },
 
             // --- BINARY CHOP (CALIBRATION) ---
