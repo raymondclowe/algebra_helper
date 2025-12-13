@@ -18,6 +18,7 @@ window.APP = {
     
     // Calibration State
     cMin: 0, cMax: 10,
+    calibrationHistory: [], // Track all calibration responses: {level, action, timeTaken}
     
     // Audio Context (reusable)
     audioContext: null,
@@ -178,6 +179,13 @@ window.APP = {
     handleCalibration: function(action) {
         const timeTaken = (Date.now() - this.startTime) / 1000;
         
+        // Record this calibration response
+        this.calibrationHistory.push({
+            level: this.level,
+            action: action,
+            timeTaken: timeTaken
+        });
+        
         // Binary Logic
         if (action === 'pass') {
             if(timeTaken > 20) { 
@@ -191,8 +199,8 @@ window.APP = {
             this.cMax = this.level;
         }
 
-        // Check convergence
-        if ((this.cMax - this.cMin) < 1.5) {
+        // Check if we have enough confidence to end calibration
+        if (this.shouldEndCalibration()) {
             // Ready to drill. Start slightly below found level.
             this.level = Math.max(1, this.cMin - 1.0); 
             this.mode = 'drill';
@@ -205,6 +213,72 @@ window.APP = {
             this.level = Math.round(nextVal * 2) / 2; // Step 0.5
         }
         this.nextQuestion();
+    },
+    
+    // Statistical confidence check for calibration completion
+    shouldEndCalibration: function() {
+        const MIN_RESPONSES = 6; // Minimum number of responses before ending
+        const CONVERGENCE_THRESHOLD = 1.5; // Range must be narrow
+        const CONSISTENCY_WINDOW = 4; // Check last N responses for consistency
+        
+        // Must have minimum responses
+        if (this.calibrationHistory.length < MIN_RESPONSES) {
+            return false;
+        }
+        
+        // Range must have converged
+        if ((this.cMax - this.cMin) >= CONVERGENCE_THRESHOLD) {
+            return false;
+        }
+        
+        // Check for consistency in recent responses
+        // Look at last CONSISTENCY_WINDOW responses
+        const recent = this.calibrationHistory.slice(-CONSISTENCY_WINDOW);
+        
+        // Count responses by type
+        let passCount = 0;
+        let failCount = 0;
+        let doubtCount = 0;
+        
+        recent.forEach(r => {
+            if (r.action === 'pass' && r.timeTaken <= 20) passCount++;
+            else if (r.action === 'fail') failCount++;
+            else doubtCount++;
+        });
+        
+        // We need evidence of a consistent level:
+        // - Not all the same response (would indicate no discrimination)
+        // - Should have both "can do" and "can't do" signals
+        // - Or consistent alternating pattern indicating we're at the boundary
+        
+        // If all same response, not confident yet
+        if (passCount === CONSISTENCY_WINDOW || failCount === CONSISTENCY_WINDOW) {
+            return false;
+        }
+        
+        // If too much doubt/uncertainty, not confident yet
+        if (doubtCount > CONSISTENCY_WINDOW / 2) {
+            return false;
+        }
+        
+        // Look for stable boundary: some passes and some fails in recent history
+        // This indicates we've found the level where user transitions from "know" to "don't know"
+        const hasPassSignal = passCount >= 1;
+        const hasFailSignal = (failCount + doubtCount) >= 1;
+        
+        if (hasPassSignal && hasFailSignal) {
+            // Check if the responses are within the converged range
+            // Calculate average level of recent responses
+            const recentLevels = recent.map(r => r.level);
+            const avgLevel = recentLevels.reduce((a, b) => a + b, 0) / recentLevels.length;
+            
+            // If average is within our current range, we're stable
+            if (avgLevel >= this.cMin && avgLevel <= this.cMax) {
+                return true;
+            }
+        }
+        
+        return false;
     },
     
     // --- GAMIFICATION FEATURES ---
