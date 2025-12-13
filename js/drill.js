@@ -38,6 +38,14 @@ window.Learning = {
     },
 
     handleAnswer: function(btn, isCorrect, isDontKnow) {
+        // Only allow answering if not viewing history
+        if (window.APP.isViewingHistory) {
+            return;
+        }
+        
+        // Calculate time spent on this question
+        const timeSpent = Math.floor((Date.now() - window.APP.startTime) / 1000);
+        
         // Disable all
         const allButtons = document.getElementById('mc-options').querySelectorAll('button');
         allButtons.forEach(b => b.disabled=true);
@@ -75,6 +83,9 @@ window.Learning = {
             // Show Next button to allow progression
             document.getElementById('next-btn').classList.remove('invisible');
             
+            // Save to storage (with dontKnow flag)
+            this.saveQuestionToStorage(timeSpent, false, true);
+            
         } else if (isCorrect) {
             btn.className = "p-4 bg-green-600 rounded text-lg border border-green-400 flex items-center justify-center min-h-[60px]";
             window.APP.history.push(1);
@@ -103,6 +114,9 @@ window.Learning = {
             
             // Gamification: Toast, Confetti, Points Animation
             window.Gamification.showCorrectFeedback(delta, isSlow);
+            
+            // Save to storage (correct answer)
+            this.saveQuestionToStorage(timeSpent, true, false);
             
             // Auto-advance after short delay (no Next button needed)
             setTimeout(() => {
@@ -133,12 +147,53 @@ window.Learning = {
             document.getElementById('explanation-text').innerHTML = window.APP.currentQ.explanation;
             MathJax.typesetPromise([box]);
             
+            // Save to storage (wrong answer)
+            this.saveQuestionToStorage(timeSpent, false, false);
+            
             // Show Next button ONLY for wrong answers (correct answers auto-advance)
             document.getElementById('next-btn').classList.remove('invisible');
         }
         
         // Update and Animate Level (applies to both correct and wrong)
         this.applyLevelChange(delta);
+    },
+    
+    saveQuestionToStorage: function(timeSpent, isCorrect, isDontKnow) {
+        // Only save if in drill mode (not calibration)
+        if (window.APP.mode !== 'drill') {
+            return;
+        }
+        
+        // Prepare question data
+        const questionData = {
+            question: window.APP.currentQ.tex,
+            userAnswer: '', // We don't track which button was clicked, just correct/wrong
+            correctAnswer: window.APP.currentQ.displayAnswer,
+            advice: isCorrect ? '' : window.APP.currentQ.explanation,
+            timeSpent: timeSpent,
+            datetime: Date.now(),
+            isCorrect: isCorrect,
+            isDontKnow: isDontKnow
+        };
+        
+        // Save to IndexedDB
+        window.StorageManager.saveQuestion(questionData)
+            .catch(error => console.error('Error saving question:', error));
+        
+        // Update cumulative stats in localStorage
+        const statUpdates = {
+            totalQuestions: 1
+        };
+        
+        if (isCorrect) {
+            statUpdates.correctAnswers = 1;
+        } else if (isDontKnow) {
+            statUpdates.dontKnowAnswers = 1;
+        } else {
+            statUpdates.wrongAnswers = 1;
+        }
+        
+        window.StorageManager.updateStats(statUpdates);
     },
 
     applyLevelChange: function(delta) {

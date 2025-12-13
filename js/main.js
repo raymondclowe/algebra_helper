@@ -1,8 +1,35 @@
 // Main Initialization
-window.APP.init = function() { 
-    if (window.MathJax && window.MathJax.typesetPromise) window.UI.nextQuestion();
-    else setTimeout(() => this.init(), 100);
+window.APP.init = async function() { 
+    if (window.MathJax && window.MathJax.typesetPromise) {
+        // Initialize activity tracker
+        window.ActivityTracker.init();
+        
+        // Initialize storage (IndexedDB)
+        try {
+            await window.StorageManager.init();
+        } catch (error) {
+            console.error('Error initializing storage:', error);
+        }
+        
+        // Initialize stats modal
+        window.StatsModal.init();
+        
+        // Start first question
+        window.UI.nextQuestion();
+    } else {
+        setTimeout(() => this.init(), 100);
+    }
 };
+
+// Periodic save of active time to localStorage
+setInterval(() => {
+    const currentActiveTime = window.ActivityTracker.getActiveTime();
+    const stats = window.StorageManager.getStats();
+    
+    // Update total active time
+    stats.totalActiveTime = currentActiveTime;
+    localStorage.setItem('algebraHelperStats', JSON.stringify(stats));
+}, STATS_SAVE_INTERVAL_MS);
 
 // Backward compatibility: expose methods on APP object
 window.APP.nextQuestion = function() {

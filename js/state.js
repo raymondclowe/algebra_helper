@@ -15,5 +15,10 @@ window.APP = {
     
     // Current question data
     currentQ: null,
-    startTime: null
+    startTime: null,
+    
+    // Question History Navigation
+    isViewingHistory: false,
+    historyIndex: -1, // -1 means viewing current/live question, 0+ means viewing history
+    questionHistory: [] // Cache of questions from IndexedDB for navigation
 };
