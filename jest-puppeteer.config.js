@@ -5,9 +5,9 @@ module.exports = {
     },
     server: {
         // Uses http-server for cross-platform compatibility
-        command: 'npx http-server -p 8000 -s',
+        command: 'npx http-server -p 8000',
         port: 8000,
-        launchTimeout: 10000,
+        launchTimeout: 30000,
         debug: false
     }
 };
