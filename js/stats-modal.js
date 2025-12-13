@@ -198,17 +198,60 @@ window.StatsModal = {
     
     // Clear all data with confirmation
     clearData: function() {
-        if (confirm('Are you sure you want to clear all your stats and history? This cannot be undone.')) {
+        // Create a custom confirmation dialog for better UX
+        const confirmDialog = document.createElement('div');
+        confirmDialog.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
+        confirmDialog.innerHTML = `
+            <div class="bg-gray-800 rounded-xl shadow-2xl border-2 border-red-500 max-w-md w-full p-6">
+                <h3 class="text-xl font-bold text-red-400 mb-4">⚠️ Clear All Data?</h3>
+                <p class="text-gray-300 mb-6">Are you sure you want to clear all your stats and history? This action cannot be undone.</p>
+                <div class="flex gap-3">
+                    <button id="cancel-clear" class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded">
+                        Cancel
+                    </button>
+                    <button id="confirm-clear" class="flex-1 px-4 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded">
+                        Clear Data
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(confirmDialog);
+        
+        // Handle cancel
+        confirmDialog.querySelector('#cancel-clear').onclick = () => {
+            confirmDialog.remove();
+        };
+        
+        // Handle confirm
+        confirmDialog.querySelector('#confirm-clear').onclick = () => {
+            confirmDialog.remove();
+            
             window.StorageManager.clearAllData()
                 .then(() => {
                     window.ActivityTracker.reset();
-                    alert('All data cleared successfully!');
+                    
+                    // Show success message
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                    successMsg.textContent = '✓ All data cleared successfully!';
+                    document.body.appendChild(successMsg);
+                    
+                    setTimeout(() => successMsg.remove(), 3000);
+                    
                     this.loadStats(); // Refresh the display
                 })
                 .catch(error => {
                     console.error('Error clearing data:', error);
-                    alert('Error clearing data. Please try again.');
+                    
+                    // Show error message
+                    const errorMsg = document.createElement('div');
+                    errorMsg.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                    errorMsg.textContent = '✗ Error clearing data. Please try again.';
+                    document.body.appendChild(errorMsg);
+                    
+                    setTimeout(() => errorMsg.remove(), 3000);
                 });
-        }
+        };
     }
 };

@@ -5,6 +5,16 @@ window.StorageManager = {
     DB_VERSION: 1,
     STORE_NAME: 'questions',
     
+    // IndexedDB configuration constants
+    STORE_CONFIG: {
+        keyPath: 'id',
+        autoIncrement: true
+    },
+    INDEXES: {
+        datetime: { name: 'datetime', keyPath: 'datetime', unique: false },
+        isCorrect: { name: 'isCorrect', keyPath: 'isCorrect', unique: false }
+    },
+    
     // Initialize IndexedDB
     init: function() {
         return new Promise((resolve, reject) => {
@@ -25,14 +35,12 @@ window.StorageManager = {
                 
                 // Create object store for questions if it doesn't exist
                 if (!db.objectStoreNames.contains(this.STORE_NAME)) {
-                    const objectStore = db.createObjectStore(this.STORE_NAME, { 
-                        keyPath: 'id', 
-                        autoIncrement: true 
-                    });
+                    const objectStore = db.createObjectStore(this.STORE_NAME, this.STORE_CONFIG);
                     
                     // Create indexes for querying
-                    objectStore.createIndex('datetime', 'datetime', { unique: false });
-                    objectStore.createIndex('isCorrect', 'isCorrect', { unique: false });
+                    Object.values(this.INDEXES).forEach(index => {
+                        objectStore.createIndex(index.name, index.keyPath, { unique: index.unique });
+                    });
                 }
             };
         });

@@ -9,3 +9,6 @@ const SUCCESS_SOUND_MIN_GAIN = 0.01;    // Minimum gain for exponential ramp
 const FLOAT_ANIMATION_DELAY_MS = 50;    // Delay before starting float animation
 const FLOAT_ANIMATION_DURATION_MS = 800; // Duration of float animation
 const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element
+
+// Stats Tracking Constants
+const STATS_SAVE_INTERVAL_MS = 10000;   // How often to save active time to localStorage (10 seconds)

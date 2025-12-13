@@ -118,6 +118,18 @@ window.UI = {
         document.getElementById('calc-indicator').innerHTML = '';
     },
     
+    setNavigationButtonState: function(button, enabled) {
+        if (!button) return;
+        
+        if (enabled) {
+            button.classList.remove('opacity-30', 'cursor-not-allowed');
+            button.classList.add('hover:bg-gray-700', 'cursor-pointer');
+        } else {
+            button.classList.add('opacity-30', 'cursor-not-allowed');
+            button.classList.remove('hover:bg-gray-700', 'cursor-pointer');
+        }
+    },
+    
     updateNavigationButtons: function() {
         const leftBtn = document.getElementById('history-nav-left');
         const rightBtn = document.getElementById('history-nav-right');
@@ -125,22 +137,13 @@ window.UI = {
         if (!leftBtn || !rightBtn) return;
         
         // Left button: go to older questions (only if viewing history and not at end)
-        if (window.APP.isViewingHistory && window.APP.historyIndex < window.APP.questionHistory.length - 1) {
-            leftBtn.classList.remove('opacity-30', 'cursor-not-allowed');
-            leftBtn.classList.add('hover:bg-gray-700', 'cursor-pointer');
-        } else {
-            leftBtn.classList.add('opacity-30', 'cursor-not-allowed');
-            leftBtn.classList.remove('hover:bg-gray-700', 'cursor-pointer');
-        }
+        const canGoLeft = window.APP.isViewingHistory && 
+                         window.APP.historyIndex < window.APP.questionHistory.length - 1;
+        this.setNavigationButtonState(leftBtn, canGoLeft);
         
         // Right button: go to newer questions or back to present
-        if (window.APP.isViewingHistory || window.APP.questionHistory.length > 0) {
-            rightBtn.classList.remove('opacity-30', 'cursor-not-allowed');
-            rightBtn.classList.add('hover:bg-gray-700', 'cursor-pointer');
-        } else {
-            rightBtn.classList.add('opacity-30', 'cursor-not-allowed');
-            rightBtn.classList.remove('hover:bg-gray-700', 'cursor-pointer');
-        }
+        const canGoRight = window.APP.isViewingHistory || window.APP.questionHistory.length > 0;
+        this.setNavigationButtonState(rightBtn, canGoRight);
     },
 
     updateUI: function() {

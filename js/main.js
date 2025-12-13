@@ -29,7 +29,7 @@ setInterval(() => {
     // Update total active time
     stats.totalActiveTime = currentActiveTime;
     localStorage.setItem('algebraHelperStats', JSON.stringify(stats));
-}, 10000); // Save every 10 seconds
+}, STATS_SAVE_INTERVAL_MS);
 
 // Backward compatibility: expose methods on APP object
 window.APP.nextQuestion = function() {
