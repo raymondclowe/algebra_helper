@@ -3,7 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#667eea">
     <meta http-equiv="refresh" content="0; url=algebra-helper.html">
     <title>Algebra Helper - Redirecting...</title>
     <style>
@@ -16,31 +19,43 @@
             margin: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            padding: 1rem;
         }
         .container {
             text-align: center;
+            max-width: 600px;
         }
         h1 {
-            font-size: 2.5rem;
+            font-size: clamp(2rem, 5vw, 2.5rem);
             margin-bottom: 1rem;
         }
         p {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             margin-bottom: 2rem;
         }
         a {
             color: #ffd700;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
-            padding: 10px 20px;
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            padding: 12px 24px;
             border: 2px solid #ffd700;
-            border-radius: 5px;
+            border-radius: 8px;
             transition: all 0.3s ease;
+            display: inline-block;
+            min-height: 44px;
+            line-height: 1.5;
         }
-        a:hover {
+        a:hover, a:active {
             background: #ffd700;
             color: #667eea;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
         }
     </style>
 </head>

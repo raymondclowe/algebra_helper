@@ -3,6 +3,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Math Trainer">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Fast-response math training app for IB students - adaptive learning with real-time feedback">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS Icons -->
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512x512.png">
+    
+    <!-- Standard Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512x512.png">
+    
     <title>IB Math Trainer (Fast Response)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -15,7 +34,7 @@
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex flex-col items-center justify-start p-0 md:p-4 md:justify-center">
 
     <!-- Debug Mode Warning Modal -->
     <div id="debug-warning-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
@@ -177,6 +196,21 @@
     <script src="js/calibration.js"></script>
     <script src="js/gamification.js"></script>
     <script src="js/main.js"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registered:', registration.scope);
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed:', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
                     
