@@ -43,22 +43,55 @@ An intelligent, adaptive math practice tool that helps students master algebra t
 
 ### Educational Philosophy
 
-Algebra Helper is built on research-backed pedagogical principles:
+Algebra Helper is built on research-backed pedagogical principles. For a comprehensive review of the learning science foundation, see [PEDAGOGY.md](PEDAGOGY.md).
 
-#### **Case-Based Learning**
-Students learn by working through specific examples rather than memorizing abstract rules. Each problem type reinforces a particular algebraic technique.
+#### **Worked Examples & Practice (Cognitive Load Theory)**
+Students learn by working through specific examples with immediate practice. Research shows worked examples are effective for novice learners by reducing cognitive load (Sweller & Cooper, 1985), especially when combined with self-explanation prompts (Chi et al., 1989).
 
-#### **Immediate Practice & Feedback**
-The tool provides instant feedback, which research shows is critical for effective learning. Students don't have to wait days for graded homework to see if they understood the concept.
+**Current Implementation:** Multiple-choice practice with explanations on errors. "Why" questions every few problems promote conceptual understanding.
+
+#### **Immediate Feedback**
+The tool provides instant verification and explanations. Research on feedback is nuanced: immediate feedback prevents error consolidation and maintains engagement, but effectiveness depends on feedback quality (Hattie & Timperley, 2007). Elaborative feedback addressing misconceptions is more effective than simple verification.
+
+**Current Implementation:** Immediate right/wrong indication with brief explanatory feedback on errors.
 
 #### **Adaptive Difficulty (Zone of Proximal Development)**
-The app uses a binary search algorithm to find each student's "just right" difficulty level, then provides problems that are challenging but achievable—the sweet spot for learning.
+Based on Vygotsky's theory, learning is optimal when tasks are challenging but achievable. The app uses a binary search algorithm to calibrate initial difficulty, then dynamically adjusts based on performance to keep students in the productive learning zone.
+
+**Current Implementation:** Adaptive difficulty with "I don't know" option to prevent frustration. Future versions will track skills separately and provide scaffolding beyond just difficulty adjustment.
 
 #### **Constructive Feedback**
-Wrong answers come with brief explanations that guide students toward the correct method without simply giving away the answer.
+Effective feedback addresses three questions (Hattie & Timperley, 2007): Where am I going? (goals), How am I doing? (progress), and Where to next? (improvement strategies).
 
-#### **Gamification Elements**
-Progress indicators, level advancement, and streak bonuses provide motivation and create a sense of achievement.
+**Current Implementation:** Brief explanations showing correct method. Enhanced versions will include common misconception addressing and conceptual reasoning.
+
+#### **Motivation & Engagement**
+Progress indicators and level advancement provide clear goals and achievement markers. Research on gamification shows mixed results: it can increase engagement but may undermine intrinsic motivation if overused (Deci & Ryan, 1985; Hanus & Fox, 2015).
+
+**Design Choice:** Balanced approach with mastery-oriented progression and "I don't know" option to reduce performance pressure.
+
+#### **Evidence-Based Practices in Development**
+- **Spaced Repetition:** Revisiting concepts over time improves retention (Cepeda et al., 2006)
+- **Interleaved Practice:** Mixing problem types enhances learning (Rohrer & Taylor, 2007)
+- **Metacognitive Strategies:** Self-monitoring and reflection improve understanding (Schraw & Dennison, 1994)
+
+### Appropriate Use & Limitations
+
+**✅ This Tool is Effective For:**
+- Procedural fluency practice
+- Low-stakes skill reinforcement
+- Formative assessment
+- Homework and independent practice
+- Building confidence through adaptive difficulty
+
+**⚠️ This Tool Does Not Replace:**
+- Teacher explanation and instruction
+- Collaborative problem-solving
+- Deep conceptual exploration
+- Real-world application projects
+- Mathematical reasoning and communication
+
+**📊 Effectiveness:** We are committed to evidence-based practice and continuous improvement. See [PEDAGOGY.md](PEDAGOGY.md) for our validation framework, planned pilot studies, and research methodology.
 
 ### Classroom & Home Usage Ideas
 
@@ -277,6 +310,32 @@ const DEBUG_MODE = false; // Production mode
 - Yellow dashed border around correct answer
 - "✓ DEBUG" badge in top-right corner of correct option
 - Calculator/No-calculator icons for problem requirements
+
+---
+
+## 📚 Research & References
+
+### Key Learning Science Principles
+
+This tool is informed by research in cognitive psychology and mathematics education. For complete references and pedagogical analysis, see [PEDAGOGY.md](PEDAGOGY.md).
+
+**Core References:**
+- **Cognitive Load Theory:** Sweller, J., & Cooper, G. A. (1985). The use of worked examples as a substitute for problem solving in learning algebra. *Cognition and Instruction*, 2(1), 59-89.
+- **Feedback Research:** Hattie, J., & Timperley, H. (2007). The power of feedback. *Review of Educational Research*, 77(1), 81-112.
+- **Self-Explanation:** Chi, M. T., et al. (1989). Self-explanations: How students study and use examples in learning to solve problems. *Cognitive Science*, 13(2), 145-182.
+- **Spaced Practice:** Cepeda, N. J., et al. (2006). Distributed practice in verbal recall tasks. *Psychological Bulletin*, 132(3), 354.
+- **Interleaved Practice:** Rohrer, D., & Taylor, K. (2007). The shuffling of mathematics problems improves learning. *Instructional Science*, 35(6), 481-498.
+- **Motivation:** Deci, E. L., Koestner, R., & Ryan, R. M. (1999). A meta-analytic review of experiments examining the effects of extrinsic rewards on intrinsic motivation. *Psychological Bulletin*, 125(6), 627.
+
+### Validation & Continuous Improvement
+
+We are committed to evidence-based practice:
+- 📊 Pilot studies planned with control groups
+- 📈 Learning analytics to measure effectiveness
+- 🔬 Iterative improvement based on data
+- 🎓 Partnership with education researchers
+
+See [PEDAGOGY.md](PEDAGOGY.md) for our complete validation framework, measurement plans, and ongoing research commitments.
 
 ---
 
