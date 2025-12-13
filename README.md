@@ -2,7 +2,7 @@
 
 🚀 **[Launch the App Now!](https://raymondclowe.github.io/algebra_helper/algebra-helper.html)**
 
-An intelligent, adaptive math practice tool that helps students master algebra through personalized, immediate feedback and dynamic difficulty adjustment.
+An intelligent, adaptive math practice tool that helps students master mathematics from basic arithmetic through calculus, using personalized feedback and dynamic difficulty adjustment.
 
 ---
 
@@ -22,12 +22,19 @@ An intelligent, adaptive math practice tool that helps students master algebra t
 
 - **🔥 Momentum Mode**: Build a streak of correct answers and watch your level accelerate! The more you succeed, the faster you progress.
 
-- **💪 Skill Reinforcement**: Practice makes perfect. Each problem reinforces core algebra concepts:
-  - Level 1-2: Basic equation solving
-  - Level 3-4: Expanding and factorising
-  - Level 5-6: Algebraic manipulation
-  - Level 7-8: Quadratic equations
-  - Level 9-10: Differentiation
+- **💪 Skill Reinforcement**: Practice makes perfect. Each problem reinforces mathematical concepts from basic arithmetic to advanced calculus:
+  - Level 0-1: Basic arithmetic (addition, subtraction, division)
+  - Level 1-2: Squares, cubes, and roots
+  - Level 2-3: Multiplication tables and patterns
+  - Level 3-4: Simple equation solving
+  - Level 4-5: Two-step equations
+  - Level 5-6: Expanding expressions
+  - Level 6-7: Factorising quadratics
+  - Level 7-8: Functions (evaluation, composition, inverse)
+  - Level 8-9: Trigonometry (sin, cos, tan)
+  - Level 9-10: Differentiation and inverse functions
+  - Level 10-11: Probability
+  - Level 11+: Calculus (integration, series)
 
 ### How to Use
 
@@ -227,6 +234,7 @@ To deploy to other static hosting services (Netlify, Vercel, etc.), simply uploa
 
 This is an open-source educational tool. Contributions welcome! Some ideas:
 - Add more problem types (inequalities, simultaneous equations, etc.)
+- Expand existing categories (more trigonometry identities, advanced calculus)
 - Improve distractor generation algorithms
 - Add accessibility features (keyboard navigation, high contrast mode)
 - Internationalization (i18n) support
