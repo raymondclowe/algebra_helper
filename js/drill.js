@@ -13,6 +13,7 @@ window.Drill = {
             const btn = document.createElement('button');
             btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex items-center justify-center min-h-[60px]";
             if (window.DEBUG_MODE && opt.correct) btn.classList.add('debug-correct');
+            btn.dataset.correct = opt.correct; // Store correct flag for later use
             btn.onclick = () => this.handleAnswer(btn, opt.correct);
             btn.innerHTML = `\\( ${opt.val} \\)`;
             container.appendChild(btn);
@@ -22,7 +23,8 @@ window.Drill = {
 
     handleAnswer: function(btn, isCorrect) {
         // Disable all
-        document.getElementById('mc-options').querySelectorAll('button').forEach(b => b.disabled=true);
+        const allButtons = document.getElementById('mc-options').querySelectorAll('button');
+        allButtons.forEach(b => b.disabled=true);
 
         let delta = 0;
 
@@ -54,6 +56,14 @@ window.Drill = {
             
             window.APP.streak = 0; // Reset streak
             
+            // Highlight the correct answer in green
+            allButtons.forEach(b => {
+                // Check if this button is marked as correct
+                if (b.dataset.correct === 'true') {
+                    b.className = "p-4 bg-green-600 rounded text-lg border border-green-400 flex items-center justify-center min-h-[60px]";
+                }
+            });
+            
             // Show Explanation
             const box = document.getElementById('explanation-box');
             box.classList.remove('hidden');
@@ -61,7 +71,7 @@ window.Drill = {
             MathJax.typesetPromise([box]);
             
             // Show Next button ONLY for wrong answers (correct answers auto-advance)
-            document.getElementById('next-btn').classList.remove('hidden');
+            document.getElementById('next-btn').classList.remove('invisible');
         }
         
         // Update and Animate Level (applies to both correct and wrong)
