@@ -69,14 +69,11 @@
             100% { opacity: 0; }
         }
         
-        /* Overlay positioning for explanation box on desktop */
+        /* Controlled height for explanation box on desktop */
         @media (min-width: 768px) {
             .explanation-overlay {
-                position: absolute;
-                bottom: 100%;
-                left: 0;
-                right: 0;
-                margin-bottom: 1rem;
+                max-height: 120px;
+                overflow-y: auto;
             }
         }
     </style>
@@ -157,7 +154,7 @@
         </div>
 
         <!-- MAIN AREA -->
-        <div class="p-8 min-h-[250px] md:min-h-[200px] flex flex-col items-center relative bg-gray-800">
+        <div class="p-8 min-h-[250px] md:min-h-[200px] md:max-h-[300px] flex flex-col items-center relative bg-gray-800 overflow-hidden">
             <div id="calc-indicator" class="absolute top-4 right-4 opacity-50"></div>
 
             <div class="w-full my-6 flex flex-col items-center">
