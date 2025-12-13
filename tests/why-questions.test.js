@@ -95,7 +95,7 @@ describe('Why Question Type Tests', () => {
         expect(questionTypes[7]).toBe('why');
     });
 
-    test('Why questions include "Don\'t know" option in UI', async () => {
+    test('Why questions include "I don\'t know" option in UI', async () => {
         // Skip calibration and go to drill mode
         await page.evaluate(() => {
             APP.mode = 'drill';
@@ -106,12 +106,12 @@ describe('Why Question Type Tests', () => {
         
         await wait(2000); // Wait for rendering
         
-        // Check if "Don't know" option exists
+        // Check if "I don't know" option exists
         const hasDontKnow = await page.evaluate(() => {
             const options = document.querySelectorAll('#mc-options button');
             let foundDontKnow = false;
             options.forEach(btn => {
-                if (btn.innerText.includes("Don't know")) {
+                if (btn.innerText.toLowerCase().includes("don't know")) {
                     foundDontKnow = true;
                 }
             });
@@ -123,12 +123,13 @@ describe('Why Question Type Tests', () => {
 
     test('"Don\'t know" selection shows explanation without penalty', async () => {
         // Skip calibration and go to drill mode with a why question
-        await page.evaluate(() => {
+        const initialLevel = await page.evaluate(() => {
             APP.mode = 'drill';
             APP.level = 5.0;
             APP.history = [];
             Generator.questionCounter = 3; // Next question will be a why question
             UI.nextQuestion();
+            return APP.level;
         });
         
         await wait(2000); // Wait for rendering
@@ -155,14 +156,12 @@ describe('Why Question Type Tests', () => {
         
         expect(explanationVisible).toBe(true);
         
-        // Check that level didn't change (neutral outcome)
-        const levelUnchanged = await page.evaluate(() => {
-            return APP.level === 5.0;
-        });
+        // Check that level was reduced to make future problems easier (adaptive difficulty)
+        const newLevel = await page.evaluate(() => APP.level);
+        expect(newLevel).toBeLessThan(initialLevel);
+        expect(newLevel).toBeCloseTo(initialLevel - 0.3, 1);
         
-        expect(levelUnchanged).toBe(true);
-        
-        // Check that history wasn't affected (neutral for "don't know")
+        // Check that history wasn't affected (no penalty for "don't know")
         const historyLength = await page.evaluate(() => {
             return APP.history.length;
         });

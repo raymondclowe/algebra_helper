@@ -11,10 +11,9 @@ window.Learning = {
             { val: window.APP.currentQ.distractors[2], correct: false }
         ].sort(() => Math.random() - 0.5);
         
-        // Add "Don't know" option for "why" questions
-        if (isWhyQuestion) {
-            opts.push({ val: "Don't know", correct: false, dontKnow: true });
-        }
+        // Add "I don't know" option to ALL questions (feature requirement)
+        // This allows users to skip questions without penalty while still learning
+        opts.push({ val: "I don't know", correct: false, dontKnow: true });
 
         opts.forEach(opt => {
             const btn = document.createElement('button');
@@ -24,9 +23,12 @@ window.Learning = {
             btn.dataset.dontKnow = (opt.dontKnow || false).toString();
             btn.onclick = () => this.handleAnswer(btn, opt.correct, opt.dontKnow);
             
-            // Use plain text for "Don't know", LaTeX for others
+            // Use plain text for "I don't know" with "(no penalty)" indicator, LaTeX for others
             if (opt.dontKnow) {
-                btn.innerHTML = `<span class="italic text-gray-400">${opt.val}</span>`;
+                btn.innerHTML = `<div class="flex flex-col items-center">
+                    <span class="italic text-gray-400">${opt.val}</span>
+                    <span class="text-xs text-gray-500 mt-1">(no penalty)</span>
+                </div>`;
             } else {
                 btn.innerHTML = `\\( ${opt.val} \\)`;
             }
@@ -47,26 +49,30 @@ window.Learning = {
         const isWhyQuestion = window.APP.currentQ.type === 'why';
 
         if (isDontKnow) {
-            // "Don't know" - neutral outcome (no score change)
+            // "I don't know" feature: Allow users to skip without penalty
+            // Requirements:
+            // - No penalty: don't affect streak or history
+            // - Adaptive difficulty: reduce level by 0.3 to make future questions easier
+            // - Show explanation: display correct answer and explanation for learning
             btn.className = "p-4 bg-yellow-600 rounded text-lg border border-yellow-400 flex items-center justify-center min-h-[60px]";
-            delta = 0; // No score change
+            delta = -0.3; // Reduce difficulty to provide easier follow-up questions (adaptive difficulty)
             
-            // Don't affect streak or history for "Don't know"
+            // Don't affect streak or history for "I don't know" - this is the "no penalty" part
             
-            // Show explanation immediately
+            // Show explanation immediately so user can learn
             const box = document.getElementById('explanation-box');
             box.classList.remove('hidden');
             document.getElementById('explanation-text').innerHTML = window.APP.currentQ.explanation;
             MathJax.typesetPromise([box]);
             
-            // Highlight the correct answer in green
+            // Highlight the correct answer in green to show what the answer was
             allButtons.forEach(b => {
                 if (b.dataset.correct === 'true') {
                     b.className = "p-4 bg-green-600 rounded text-lg border border-green-400 flex items-center justify-center min-h-[60px]";
                 }
             });
             
-            // Show Next button
+            // Show Next button to allow progression
             document.getElementById('next-btn').classList.remove('invisible');
             
         } else if (isCorrect) {

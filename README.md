@@ -16,6 +16,8 @@ An intelligent, adaptive math practice tool that helps students master algebra t
 
 - **⚡ Immediate Feedback**: Get instant validation of your answers with clear explanations when you make mistakes. No waiting for teachers to grade your work!
 
+- **🤔 "I Don't Know" Option**: Stuck? No problem! Use the "I don't know" button to skip any question without penalty. You'll see the correct answer and explanation, and the app will automatically make future questions easier to help you learn at your own pace.
+
 - **📈 Progressive Challenge**: As you improve, the difficulty automatically increases. Master easier concepts before moving to harder ones.
 
 - **🔥 Momentum Mode**: Build a streak of correct answers and watch your level accelerate! The more you succeed, the faster you progress.
@@ -33,6 +35,7 @@ An intelligent, adaptive math practice tool that helps students master algebra t
 2. **Learning Phase**: Once calibrated, practice with multiple-choice questions at your level. Answer quickly to maximize your progress!
 3. **Build Momentum**: Get 3 correct answers in a row to activate Turbo Mode 🔥 for faster progression. Hover over Turbo Mode to see how it works!
 4. **Learn from Mistakes**: Read the explanations when you get something wrong to understand the correct approach.
+5. **"I don't know" Option**: Stuck on a problem? Click "I don't know" to see the correct answer and explanation without penalty. The app will automatically adjust to give you easier questions next.
 
 ---
 
