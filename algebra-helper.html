@@ -91,7 +91,7 @@
         </div>
 
         <!-- MAIN AREA -->
-        <div class="p-8 min-h-[200px] md:max-h-[300px] flex flex-col items-center relative bg-gray-800 overflow-hidden">
+        <div class="p-8 min-h-[200px] flex flex-col items-center relative bg-gray-800">
             <div id="calc-indicator" class="absolute top-4 right-4 opacity-50"></div>
 
             <div class="w-full my-6 flex flex-col items-center">
@@ -100,8 +100,11 @@
                     <span class="animate-pulse text-base text-gray-500">Waiting for MathJax...</span>
                 </div>
             </div>
-            
-            <div id="explanation-box" class="hidden w-full mt-6 p-4 bg-gray-900 rounded border-l-4 border-yellow-500 text-left fade-in explanation-overlay">
+        </div>
+
+        <!-- Explanation box with reserved space to prevent UI shift -->
+        <div class="w-full bg-gray-800 px-8" style="min-height: 100px;">
+            <div id="explanation-box" class="hidden w-full p-4 bg-gray-900 rounded border-l-4 border-yellow-500 text-left fade-in explanation-overlay">
                 <p class="text-yellow-500 font-bold text-xs uppercase mb-2">Correction</p>
                 <div id="explanation-text" class="text-gray-300 text-base leading-relaxed"></div>
             </div>
@@ -126,7 +129,10 @@
         <!-- CONTROLS: DRILL -->
         <div id="controls-drill" class="hidden border-t border-gray-700 bg-gray-750 p-6 fade-in">
             <div id="mc-options" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-            <button id="next-btn" onclick="APP.nextQuestion()" class="hidden w-full mt-4 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg">Next Problem →</button>
+            <!-- Reserve space for Next button to prevent UI shift -->
+            <div class="w-full mt-4" style="height: 52px;">
+                <button id="next-btn" onclick="APP.nextQuestion()" class="invisible w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg">Next Problem →</button>
+            </div>
         </div>
     </div>
 

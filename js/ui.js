@@ -3,7 +3,7 @@ window.UI = {
     nextQuestion: function() {
         // UI Reset
         document.getElementById('explanation-box').classList.add('hidden');
-        document.getElementById('next-btn').classList.add('hidden');
+        document.getElementById('next-btn').classList.add('invisible');
         document.getElementById('mc-options').innerHTML = '';
         document.getElementById('delta-display').innerHTML = ''; // clear anim
         
