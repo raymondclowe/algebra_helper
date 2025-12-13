@@ -89,8 +89,8 @@ window.Learning = {
             // --- MOMENTUM LOGIC with Speed Factor ---
             window.APP.streak++;
             
-            if (window.APP.streak >= 3) delta = 0.5 * speedFactor; // Acceleration with speed
-            else delta = 0.2 * speedFactor; // Base movement with speed
+            if (window.APP.streak >= 3) delta = TURBO_LEVEL_DELTA * speedFactor; // Acceleration with speed
+            else delta = BASE_LEVEL_DELTA * speedFactor; // Base movement with speed
             
             // Determine feedback based on speed
             let isSlow = timeTaken > SLOW_ANSWER_THRESHOLD;

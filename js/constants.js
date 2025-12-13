@@ -13,3 +13,7 @@ const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element
 // Response Speed Thresholds (seconds)
 const FAST_ANSWER_THRESHOLD = 5;        // Answers under this are considered "fast"
 const SLOW_ANSWER_THRESHOLD = 10;       // Answers over this are considered "slow"
+
+// Level Adjustment Deltas
+const BASE_LEVEL_DELTA = 0.2;           // Base level increase for correct answer
+const TURBO_LEVEL_DELTA = 0.5;          // Level increase when in turbo mode (3+ streak)
