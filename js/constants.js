@@ -12,3 +12,10 @@ const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element
 
 // Stats Tracking Constants
 const STATS_SAVE_INTERVAL_MS = 10000;   // How often to save active time to localStorage (10 seconds)
+// Response Speed Thresholds (seconds)
+const FAST_ANSWER_THRESHOLD = 5;        // Answers under this are considered "fast"
+const SLOW_ANSWER_THRESHOLD = 10;       // Answers over this are considered "slow"
+
+// Level Adjustment Deltas
+const BASE_LEVEL_DELTA = 0.2;           // Base level increase for correct answer
+const TURBO_LEVEL_DELTA = 0.5;          // Level increase when in turbo mode (3+ streak)

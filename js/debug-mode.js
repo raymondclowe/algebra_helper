@@ -95,8 +95,8 @@ window.DebugCheatCode = {
 
     refreshDebugUI: function() {
         // Refresh current question to show/hide debug markers
-        if (window.APP && window.APP.mode === 'drill') {
-            window.APP.setupDrillUI();
+        if (window.APP && window.APP.mode === 'learning') {
+            window.APP.setupLearningUI();
         }
     },
 

@@ -118,7 +118,7 @@ describe('Improved Calibration Tests', () => {
         
         for (let i = 0; i < responses.length; i++) {
             const mode = await page.evaluate(() => window.APP.mode);
-            if (mode === 'drill') break;
+            if (mode === 'drill' || mode === 'learning') break;
             
             await page.evaluate((action) => {
                 window.APP.handleCalibration(action);
@@ -131,8 +131,8 @@ describe('Improved Calibration Tests', () => {
         const mode = await page.evaluate(() => window.APP.mode);
         const historyLength = await page.evaluate(() => window.APP.calibrationHistory.length);
         
-        // Should have transitioned to drill mode after showing consistent pattern
-        expect(mode).toBe('drill');
+        // Should have transitioned to learning mode (or drill for backward compatibility) after showing consistent pattern
+        expect(mode === 'learning' || mode === 'drill').toBe(true);
         expect(historyLength).toBeGreaterThanOrEqual(6);
     });
 
