@@ -24,11 +24,21 @@ window.UI = {
             ? '<span class="text-2xl">📱</span><div class="text-[8px] text-green-500 font-bold">Calc</div>' 
             : '<span class="text-2xl text-red-500 relative">✏️</span><div class="text-[8px] text-red-500 font-bold">No Calc</div>';
 
-        // Mode View
-        document.getElementById('controls-calibration').classList.toggle('hidden', window.APP.mode === 'drill');
-        document.getElementById('controls-drill').classList.toggle('hidden', window.APP.mode === 'calibration');
+        // Mode View (support both learning and drill for backward compatibility)
+        const isLearningMode = window.APP.mode === 'learning' || window.APP.mode === 'drill';
+        document.getElementById('controls-calibration').classList.toggle('hidden', isLearningMode);
         
-        if (window.APP.mode === 'drill') window.Drill.setupUI();
+        // Try to find learning controls, fallback to drill controls for backward compatibility
+        const learningControls = document.getElementById('controls-learning');
+        const drillControls = document.getElementById('controls-drill');
+        if (learningControls) {
+            learningControls.classList.toggle('hidden', window.APP.mode === 'calibration');
+        }
+        if (drillControls) {
+            drillControls.classList.toggle('hidden', window.APP.mode === 'calibration');
+        }
+        
+        if (isLearningMode) window.Learning.setupUI();
     },
 
     updateUI: function() {
@@ -43,7 +53,7 @@ window.UI = {
             rangeDiv.classList.add('hidden');
         }
         
-        // Show Turbo Fire if streak high
+        // Show Turbo Fire if streak high (tooltip added in HTML)
         const fire = document.getElementById('streak-indicator');
         if (window.APP.streak >= 3) fire.classList.remove('hidden');
         else fire.classList.add('hidden');

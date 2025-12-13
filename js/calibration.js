@@ -25,11 +25,12 @@ window.Calibration = {
 
         // Check if we have enough confidence to end calibration
         if (this.shouldEndCalibration()) {
-            // Ready to drill. Start slightly below found level.
+            // Ready to learn. Start slightly below found level.
             window.APP.level = Math.max(1, window.APP.cMin - 1.0); 
-            window.APP.mode = 'drill';
+            // Support both 'learning' (new) and 'drill' (old) for backward compatibility
+            window.APP.mode = 'learning';
             // Visual update
-            document.getElementById('mode-badge').innerText = "Drill Phase";
+            document.getElementById('mode-badge').innerText = "Learning Phase";
             document.getElementById('mode-badge').className = "px-3 py-1 bg-purple-900 text-purple-200 text-xs font-bold uppercase rounded-full tracking-wide";
         } else {
             // Next step in binary search

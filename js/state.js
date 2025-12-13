@@ -4,6 +4,7 @@ window.APP = {
     streak: 0,
     mode: 'calibration',
     history: [],
+    speedHistory: [], // Track response speed: 1 for fast, 0.5 for normal, 0 for slow
     
     // Calibration State
     cMin: 0, cMax: 10,

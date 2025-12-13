@@ -13,8 +13,13 @@ window.APP.handleCalibration = function(action) {
     window.Calibration.handleCalibration(action);
 };
 
+window.APP.setupLearningUI = function() {
+    window.Learning.setupUI();
+};
+
+// Backward compatibility
 window.APP.setupDrillUI = function() {
-    window.Drill.setupUI();
+    window.Learning.setupUI();
 };
 
 window.APP.shouldEndCalibration = function() {
