@@ -168,7 +168,7 @@ describe('Inverse Quadratic Function Tests', () => {
                 
                 // Verify options are rendered
                 const options = await page.$$('#mc-options button');
-                expect(options.length).toBe(4); // 1 correct + 3 distractors
+                expect(options.length).toBe(5); // 1 correct + 3 distractors + "I don't know"
                 
                 break;
             }
