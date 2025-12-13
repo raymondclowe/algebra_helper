@@ -32,3 +32,14 @@ yarn-error.log*
 *.tmp
 *.temp
 .cache/
+
+# Node modules and dependencies
+node_modules/
+package-lock.json
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Test screenshots
+tests/__screenshots__/
