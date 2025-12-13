@@ -332,6 +332,9 @@
             // Calibration State
             cMin: 0, cMax: 10,
             
+            // Audio Context (reusable)
+            audioContext: null,
+            
             init: function() { 
                 if (window.MathJax && window.MathJax.typesetPromise) this.nextQuestion();
                 else setTimeout(() => this.init(), 100);
@@ -461,11 +464,11 @@
                     document.getElementById('explanation-text').innerHTML = this.currentQ.explanation;
                     MathJax.typesetPromise([box]);
                     
-                    // Show Next button for wrong answers
+                    // Show Next button ONLY for wrong answers (correct answers auto-advance)
                     document.getElementById('next-btn').classList.remove('hidden');
                 }
                 
-                // Update and Animate Level
+                // Update and Animate Level (applies to both correct and wrong)
                 this.applyLevelChange(delta);
             },
 
@@ -517,35 +520,39 @@
             triggerConfetti: function() {
                 const colors = ['#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#a78bfa'];
                 const count = 30;
+                const fragment = document.createDocumentFragment(); // Batch DOM operations
                 
                 for (let i = 0; i < count; i++) {
-                    setTimeout(() => {
-                        const confetti = document.createElement('div');
-                        confetti.className = 'confetti';
-                        confetti.style.left = Math.random() * 100 + '%';
-                        confetti.style.top = '-10px';
-                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                        confetti.style.animation = `confettiFall ${2 + Math.random() * 2}s linear forwards`;
-                        document.body.appendChild(confetti);
-                        
-                        setTimeout(() => confetti.remove(), 4000);
-                    }, i * 30);
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    const duration = 2 + Math.random() * 2;
+                    confetti.style.animation = `confettiFall ${duration}s linear forwards`;
+                    confetti.style.animationDelay = `${i * 30}ms`;
+                    fragment.appendChild(confetti);
+                    
+                    // Clean up after animation completes
+                    setTimeout(() => confetti.remove(), (duration * 1000) + (i * 30));
                 }
+                
+                document.body.appendChild(fragment); // Single DOM append
             },
             
             floatPointsToScore: function(delta) {
                 const points = document.createElement('div');
-                const percentage = Math.round((delta / 10) * 100); // Convert level delta to percentage
+                // Show level delta as points (e.g., +0.2 or +0.5)
                 points.className = 'float-to-score';
-                points.innerText = `+${percentage}%`;
+                points.innerText = `+${delta.toFixed(1)}`;
                 
                 // Start from center of screen
                 const startX = window.innerWidth / 2;
                 const startY = window.innerHeight / 2;
                 
-                // End at accuracy display (top right)
-                const accuracyEl = document.getElementById('accuracy-display');
-                const rect = accuracyEl.getBoundingClientRect();
+                // End at level display (top left)
+                const levelEl = document.getElementById('level-display');
+                const rect = levelEl.getBoundingClientRect();
                 const endX = rect.left + rect.width / 2;
                 const endY = rect.top + rect.height / 2;
                 
@@ -568,21 +575,25 @@
             playSuccessSound: function() {
                 // Create a simple success sound using Web Audio API
                 try {
-                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                    const oscillator = audioContext.createOscillator();
-                    const gainNode = audioContext.createGain();
+                    // Initialize audio context once
+                    if (!this.audioContext) {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    
+                    const oscillator = this.audioContext.createOscillator();
+                    const gainNode = this.audioContext.createGain();
                     
                     oscillator.connect(gainNode);
-                    gainNode.connect(audioContext.destination);
+                    gainNode.connect(this.audioContext.destination);
                     
                     oscillator.frequency.value = 800;
                     oscillator.type = 'sine';
                     
-                    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                    gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
                     
-                    oscillator.start(audioContext.currentTime);
-                    oscillator.stop(audioContext.currentTime + 0.3);
+                    oscillator.start(this.audioContext.currentTime);
+                    oscillator.stop(this.audioContext.currentTime + 0.3);
                 } catch (e) {
                     // Silent fail if audio not supported
                 }
