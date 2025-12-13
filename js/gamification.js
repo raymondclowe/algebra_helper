@@ -23,12 +23,13 @@ window.Gamification = {
         let messages, className;
         
         if (isSlow) {
-            // Motivational messages for slow but correct answers
-            messages = ['Good work, let\'s speed up! ⚡', 'Correct! Try faster next time! 🏃', 'Right answer! Pick up the pace! 🚀', 'Good! Now go faster! ⏱️'];
-            className = 'toast bg-yellow-500 text-white px-8 py-4 rounded-xl shadow-2xl text-xl font-bold';
+            // Encouraging messages for thoughtful answers (removed speed pressure)
+            // Research shows rushing can undermine deep learning (Schraw & Dennison, 1994)
+            messages = ['Well done! 🎯', 'Correct! Great thinking! 💡', 'Right answer! 🌟', 'Good work! ⭐'];
+            className = 'toast bg-green-500 text-white px-8 py-4 rounded-xl shadow-2xl text-xl font-bold';
         } else {
             // Regular success messages
-            messages = ['Correct! 🎉', 'Nice! ✨', 'Perfect! ⭐', 'Great! 🌟', 'Awesome! 🎯'];
+            messages = ['Correct! 🎉', 'Nice! ✨', 'Perfect! ⭐', 'Great! 🌟', 'Awesome! 🎯', 'Excellent! 💫'];
             className = 'toast bg-green-500 text-white px-8 py-4 rounded-xl shadow-2xl text-2xl font-bold';
         }
         

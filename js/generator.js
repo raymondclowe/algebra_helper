@@ -60,10 +60,11 @@ window.Generator = {
     },
     
     getQuestion: function(level) {
-        // Interleave "why" questions every 4th question in learning mode (or drill for backward compatibility)
+        // Interleave "why" questions every 3rd question in learning mode to promote deeper understanding
+        // Research shows elaborative interrogation improves conceptual learning (Pressley et al., 1987)
         if (window.APP.mode === 'learning' || window.APP.mode === 'drill') {
             this.questionCounter++;
-            if (this.questionCounter % 4 === 0) {
+            if (this.questionCounter % 3 === 0) {
                 return this.getWhyQuestion(level);
             }
         }
@@ -77,19 +78,47 @@ window.Generator = {
     },
     lvl1: function() {
         const a=this.rInt(2,9), x=this.rInt(2,9);
-        return { tex: `${a}x = ${a*x}`, instruction: "Solve for x", displayAnswer:`x=${x}`, distractors:[`x=${x+1}`,`x=${a}`,`x=${x-1}`], explanation:`Divide by ${a}`, calc:false };
+        return { 
+            tex: `${a}x = ${a*x}`, 
+            instruction: "Solve for x", 
+            displayAnswer:`x=${x}`, 
+            distractors:[`x=${x+1}`,`x=${a}`,`x=${x-1}`], 
+            explanation:`To isolate x, we need to undo the multiplication by ${a}. We divide both sides by ${a} to keep the equation balanced: ${a}x ÷ ${a} = ${a*x} ÷ ${a}, which gives x = ${x}.`, 
+            calc:false 
+        };
     },
     lvl2: function() {
         const a=this.rInt(2,9), b=this.rInt(2,9), x=this.rInt(2,9); 
-        return { tex: `${a}x + ${b} = ${a*x+b}`, instruction: "Solve for x", displayAnswer:`x=${x}`, distractors:[`x=${x+1}`,`x=${-x}`,`x=${b}`], explanation:`Subtract ${b}, Divide by ${a}`, calc:false };
+        return { 
+            tex: `${a}x + ${b} = ${a*x+b}`, 
+            instruction: "Solve for x", 
+            displayAnswer:`x=${x}`, 
+            distractors:[`x=${x+1}`,`x=${-x}`,`x=${b}`], 
+            explanation:`First, subtract ${b} from both sides to isolate the term with x: ${a}x = ${a*x}. Then divide both sides by ${a} to get x alone: x = ${x}. Remember: we perform inverse operations in reverse order of operations (PEMDAS backwards).`, 
+            calc:false 
+        };
     },
     lvl3: function() {
         const a=this.rInt(2,5), b=this.rInt(2,8);
-        return { tex: `${a}(x + ${b})`, instruction: "Expand", displayAnswer:`${a}x + ${a*b}`, distractors:[`${a}x+${b}`,`x+${a*b}`,`${a}x^2+${b}`], explanation:`Multiply ${a} by each inner term`, calc:false };
+        return { 
+            tex: `${a}(x + ${b})`, 
+            instruction: "Expand", 
+            displayAnswer:`${a}x + ${a*b}`, 
+            distractors:[`${a}x+${b}`,`x+${a*b}`,`${a}x^2+${b}`], 
+            explanation:`Use the distributive property: multiply ${a} by each term inside the parentheses. ${a} × x = ${a}x, and ${a} × ${b} = ${a*b}. This gives ${a}x + ${a*b}. Common mistake: forgetting to multiply ${a} by ${b}.`, 
+            calc:false 
+        };
     },
     lvl4: function() {
         const a=this.rInt(1,5), b=this.rInt(2,6);
-        return { tex: `x^2 + ${a+b}x + ${a*b}`, instruction: "Factorise", displayAnswer:`(x+${a})(x+${b})`, distractors:[`(x+${a+b})(x+${a*b})`, `x(x+${a+b})`, `(x-${a})(x-${b})`], explanation:`Find factors of ${a*b} adding to ${a+b}`, calc:false };
+        return { 
+            tex: `x^2 + ${a+b}x + ${a*b}`, 
+            instruction: "Factorise", 
+            displayAnswer:`(x+${a})(x+${b})`, 
+            distractors:[`(x+${a+b})(x+${a*b})`, `x(x+${a+b})`, `(x-${a})(x-${b})`], 
+            explanation:`We need two numbers that multiply to ${a*b} (the constant term) and add to ${a+b} (the coefficient of x). These numbers are ${a} and ${b} because ${a} × ${b} = ${a*b} and ${a} + ${b} = ${a+b}. So the answer is (x+${a})(x+${b}). Check by expanding: you should get back to the original expression.`, 
+            calc:false 
+        };
     },
     lvl5: function() {
         // Randomly choose between differentiation and inverse function questions
@@ -98,7 +127,14 @@ window.Generator = {
         if (questionType === 1) {
             // Original differentiation question
             const a=this.rInt(2,5), n=this.rInt(2,4);
-            return { tex: `f(x) = ${a}x^{${n}}`, instruction: "Find f'(x)", displayAnswer:`${a*n}x^{${n-1}}`, distractors:[`${a*n}x^{${n}}`,`${a}x^{${n-1}}`,`${n}x^{${a}}`], explanation:`Power rule: $nx^{n-1}$`, calc:false };
+            return { 
+                tex: `f(x) = ${a}x^{${n}}`, 
+                instruction: "Find f'(x)", 
+                displayAnswer:`${a*n}x^{${n-1}}`, 
+                distractors:[`${a*n}x^{${n}}`,`${a}x^{${n-1}}`,`${n}x^{${a}}`], 
+                explanation:`Use the power rule for differentiation: multiply the coefficient by the exponent, then reduce the exponent by 1. So ${a}x^${n} becomes ${a} × ${n} × x^${n-1} = ${a*n}x^${n-1}. The derivative tells us the rate of change of the function.`, 
+                calc:false 
+            };
         } else {
             // Inverse function question for quadratic functions
             return this.getInverseQuadraticQuestion();
@@ -152,7 +188,7 @@ window.Generator = {
             instruction: "Find f^{-1}(x) for x ≥ 0",
             displayAnswer: correctAnswer,
             distractors: wrongAnswers,
-            explanation: `To find the inverse: $y = ${a}x^2$, swap variables: $x = ${a}y^2$, solve for $y$: $y^2 = \\frac{x}{${a}}$, so $y = \\sqrt{\\frac{x}{${a}}}$ (for $x \\geq 0$)`,
+            explanation: `To find the inverse function, we swap x and y, then solve for y. Start with y = ${a}x^2, swap to get x = ${a}y^2, then divide both sides by ${a} to get y^2 = x/${a}. Finally, take the square root of both sides: y = √(x/${a}). We take the positive root because x ≥ 0. The inverse "undoes" what the original function does.`,
             calc: false
         };
     },
