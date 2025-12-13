@@ -2,6 +2,39 @@
 window.Generator = {
     rInt: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
     questionCounter: 0, // Track questions to interleave "why" questions
+    
+    // Helper function to safely evaluate mathematical expressions and check equivalence
+    // Returns true if two expressions are algebraically equivalent (within tolerance)
+    evaluateExpression: function(expr, x) {
+        try {
+            // Replace common math notation with JavaScript equivalents
+            let jsExpr = expr
+                .replace(/\^/g, '**')  // x^2 -> x**2
+                .replace(/√/g, 'Math.sqrt')  // √ -> Math.sqrt
+                .replace(/\\sqrt\{([^}]+)\}/g, 'Math.sqrt($1)')  // LaTeX sqrt
+                .replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')  // LaTeX dfrac
+                .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')  // LaTeX frac
+                .replace(/\*\*\(1\/2\)/g, '**0.5')  // (1/2) power to 0.5
+                .replace(/x/g, `(${x})`);  // Replace x with the test value
+            
+            // Evaluate safely (only arithmetic operations allowed)
+            return Function('"use strict"; return (' + jsExpr + ')')();
+        } catch (e) {
+            return NaN;
+        }
+    },
+    
+    areEquivalent: function(expr1, expr2, testValues = [1, 2, 4, 9, 16]) {
+        // Test if two expressions are equivalent by evaluating at multiple points
+        for (let x of testValues) {
+            const val1 = this.evaluateExpression(expr1, x);
+            const val2 = this.evaluateExpression(expr2, x);
+            if (isNaN(val1) || isNaN(val2)) return false;
+            if (Math.abs(val1 - val2) > 0.0001) return false;
+        }
+        return true;
+    },
+    
     getQuestion: function(level) {
         // Interleave "why" questions every 4th question in drill mode
         if (window.APP.mode === 'drill') {
@@ -35,8 +68,69 @@ window.Generator = {
         return { tex: `x^2 + ${a+b}x + ${a*b}`, instruction: "Factorise", displayAnswer:`(x+${a})(x+${b})`, distractors:[`(x+${a+b})(x+${a*b})`, `x(x+${a+b})`, `(x-${a})(x-${b})`], explanation:`Find factors of ${a*b} adding to ${a+b}`, calc:false };
     },
     lvl5: function() {
-        const a=this.rInt(2,5), n=this.rInt(2,4);
-        return { tex: `f(x) = ${a}x^{${n}}`, instruction: "Find f'(x)", displayAnswer:`${a*n}x^{${n-1}}`, distractors:[`${a*n}x^{${n}}`,`${a}x^{${n-1}}`,`${n}x^{${a}}`], explanation:`Power rule: $nx^{n-1}$`, calc:false };
+        // Randomly choose between differentiation and inverse function questions
+        const questionType = this.rInt(1, 2);
+        
+        if (questionType === 1) {
+            // Original differentiation question
+            const a=this.rInt(2,5), n=this.rInt(2,4);
+            return { tex: `f(x) = ${a}x^{${n}}`, instruction: "Find f'(x)", displayAnswer:`${a*n}x^{${n-1}}`, distractors:[`${a*n}x^{${n}}`,`${a}x^{${n-1}}`,`${n}x^{${a}}`], explanation:`Power rule: $nx^{n-1}$`, calc:false };
+        } else {
+            // Inverse function question for quadratic functions
+            return this.getInverseQuadraticQuestion();
+        }
+    },
+    
+    // Generate inverse function questions for quadratic functions
+    getInverseQuadraticQuestion: function() {
+        const a = this.rInt(2, 9); // Coefficient for x^2
+        
+        // Multiple correct LaTeX presentations of the inverse
+        const correctFormats = [
+            `y = \\sqrt{\\dfrac{x}{${a}}}`,
+            `y = \\left(\\dfrac{x}{${a}}\\right)^{1/2}`,
+            `y = \\dfrac{\\sqrt{x}}{\\sqrt{${a}}}`,
+            `y = \\dfrac{1}{\\sqrt{${a}}}\\sqrt{x}`
+        ];
+        
+        // Randomly pick one correct format
+        const correctAnswer = correctFormats[this.rInt(0, correctFormats.length - 1)];
+        
+        // Generate incorrect distractors that are truly wrong
+        const distractors = [
+            `y = \\sqrt{${a}x}`,  // Wrong: multiplied instead of divided
+            `y = \\dfrac{x}{${a}}`,  // Wrong: forgot square root
+            `y = \\sqrt{x - ${a}}`,  // Wrong: subtraction instead of division
+            `y = ${a}\\sqrt{x}`,  // Wrong: coefficient outside and multiplied
+            `y = \\left(\\dfrac{${a}}{x}\\right)^{1/2}`,  // Wrong: inverted fraction
+            `y = \\dfrac{x^2}{${a}}`  // Wrong: squared instead of square root
+        ];
+        
+        // Shuffle and pick 3 unique wrong answers that aren't equivalent to the correct answer
+        const wrongAnswers = [];
+        const shuffledDistractors = distractors.sort(() => Math.random() - 0.5);
+        
+        for (let distractor of shuffledDistractors) {
+            if (wrongAnswers.length >= 3) break;
+            // Verify this distractor is not equivalent to the correct answer
+            if (!this.areEquivalent(correctAnswer, distractor)) {
+                wrongAnswers.push(distractor);
+            }
+        }
+        
+        // Ensure we have exactly 3 distractors (fallback if equivalence check filtered too many)
+        while (wrongAnswers.length < 3) {
+            wrongAnswers.push(`y = \\sqrt{${this.rInt(1, 20)}x}`);
+        }
+        
+        return {
+            tex: `f(x) = ${a}x^2`,
+            instruction: "Find f^{-1}(x) for x ≥ 0",
+            displayAnswer: correctAnswer,
+            distractors: wrongAnswers,
+            explanation: `To find the inverse: $y = ${a}x^2$, swap variables: $x = ${a}y^2$, solve for $y$: $y^2 = \\frac{x}{${a}}$, so $y = \\sqrt{\\frac{x}{${a}}}$ (for $x \\geq 0$)`,
+            calc: false
+        };
     },
     
     // "Why" question generator - asks students to explain reasoning
