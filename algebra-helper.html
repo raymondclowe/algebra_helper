@@ -197,12 +197,16 @@
         let DEBUG_MODE = false;
         
         // Gamification Constants
-        const AUTO_ADVANCE_DELAY_MS = 1500;  // Time before auto-advancing after correct answer
-        const CONFETTI_COUNT = 30;            // Number of confetti particles
-        const CONFETTI_DELAY_STEP_MS = 30;    // Delay between each confetti spawn
-        const SUCCESS_SOUND_FREQUENCY = 800;  // Hz for success beep
-        const SUCCESS_SOUND_VOLUME = 0.3;     // Volume (0-1)
-        const SUCCESS_SOUND_DURATION = 0.3;   // Seconds
+        const AUTO_ADVANCE_DELAY_MS = 1500;     // Time before auto-advancing after correct answer
+        const CONFETTI_COUNT = 30;              // Number of confetti particles
+        const CONFETTI_DELAY_STEP_MS = 30;      // Delay between each confetti spawn
+        const SUCCESS_SOUND_FREQUENCY = 800;    // Hz for success beep
+        const SUCCESS_SOUND_VOLUME = 0.3;       // Volume (0-1)
+        const SUCCESS_SOUND_DURATION = 0.3;     // Seconds
+        const SUCCESS_SOUND_MIN_GAIN = 0.01;    // Minimum gain for exponential ramp
+        const FLOAT_ANIMATION_DELAY_MS = 50;    // Delay before starting float animation
+        const FLOAT_ANIMATION_DURATION_MS = 800; // Duration of float animation
+        const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element
 
         // Debug Mode Cheat Code Handler
         const DebugCheatCode = {
@@ -528,6 +532,7 @@
             triggerConfetti: function() {
                 const colors = ['#fbbf24', '#34d399', '#60a5fa', '#f472b6', '#a78bfa'];
                 const fragment = document.createDocumentFragment(); // Batch DOM operations
+                const confettiElements = [];
                 
                 for (let i = 0; i < CONFETTI_COUNT; i++) {
                     const confetti = document.createElement('div');
@@ -536,15 +541,20 @@
                     confetti.style.top = '-10px';
                     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     const duration = 2 + Math.random() * 2;
+                    const delay = i * CONFETTI_DELAY_STEP_MS;
                     confetti.style.animation = `confettiFall ${duration}s linear forwards`;
-                    confetti.style.animationDelay = `${i * CONFETTI_DELAY_STEP_MS}ms`;
+                    confetti.style.animationDelay = `${delay}ms`;
                     fragment.appendChild(confetti);
-                    
-                    // Clean up after animation completes
-                    setTimeout(() => confetti.remove(), (duration * 1000) + (i * CONFETTI_DELAY_STEP_MS));
+                    confettiElements.push({ element: confetti, cleanupTime: (duration * 1000) + delay });
                 }
                 
                 document.body.appendChild(fragment); // Single DOM append
+                
+                // Batch cleanup - find max cleanup time and use single timer
+                const maxCleanupTime = Math.max(...confettiElements.map(c => c.cleanupTime));
+                setTimeout(() => {
+                    confettiElements.forEach(c => c.element.remove());
+                }, maxCleanupTime);
             },
             
             floatPointsToScore: function(delta) {
@@ -569,14 +579,14 @@
                 
                 // Animate to score
                 setTimeout(() => {
-                    points.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    points.style.transition = `all ${FLOAT_ANIMATION_DURATION_MS}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
                     points.style.left = endX + 'px';
                     points.style.top = endY + 'px';
                     points.style.opacity = '0';
                     points.style.transform = 'scale(0.5)';
-                }, 50);
+                }, FLOAT_ANIMATION_DELAY_MS);
                 
-                setTimeout(() => points.remove(), 900);
+                setTimeout(() => points.remove(), FLOAT_CLEANUP_DELAY_MS);
             },
             
             playSuccessSound: function() {
@@ -597,7 +607,7 @@
                     oscillator.type = 'sine';
                     
                     gainNode.gain.setValueAtTime(SUCCESS_SOUND_VOLUME, this.audioContext.currentTime);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + SUCCESS_SOUND_DURATION);
+                    gainNode.gain.exponentialRampToValueAtTime(SUCCESS_SOUND_MIN_GAIN, this.audioContext.currentTime + SUCCESS_SOUND_DURATION);
                     
                     oscillator.start(this.audioContext.currentTime);
                     oscillator.stop(this.audioContext.currentTime + SUCCESS_SOUND_DURATION);
