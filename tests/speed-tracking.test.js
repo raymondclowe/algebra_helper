@@ -87,8 +87,8 @@ describe('Speed Tracking Tests', () => {
             window.APP.speedHistory = [];
             window.APP.streak = 0;
             window.UI.nextQuestion();
-            // Set start time AFTER nextQuestion to simulate 12 second delay
-            window.APP.startTime = Date.now() - 12000;
+            // Set start time AFTER nextQuestion to simulate 25 second delay (above new 20s threshold)
+            window.APP.startTime = Date.now() - 25000;
         });
 
         await page.waitForSelector('#mc-options button');
@@ -106,18 +106,18 @@ describe('Speed Tracking Tests', () => {
         const levelAfter = await page.evaluate(() => window.APP.level);
         const levelIncrease = levelAfter - levelBefore;
 
-        // Slow answer should get 0.2 * 0.5 = 0.1 delta (reduced movement)
+        // Slow answer (>20s) should get 0.2 * 0.5 = 0.1 delta (reduced movement)
         expect(levelIncrease).toBeCloseTo(0.1, 1);
     });
 
-    test('Slow correct answer shows motivational feedback', async () => {
+    test('Slow correct answer shows encouraging feedback', async () => {
         // Setup
         await page.evaluate(() => {
             window.APP.mode = 'learning';
             window.APP.level = 5.0;
             window.UI.nextQuestion();
-            // Set start time AFTER nextQuestion to simulate 12 second response
-            window.APP.startTime = Date.now() - 12000;
+            // Set start time AFTER nextQuestion to simulate 25 second response (above 20s threshold)
+            window.APP.startTime = Date.now() - 25000;
         });
 
         await page.waitForSelector('#mc-options button');
@@ -131,18 +131,18 @@ describe('Speed Tracking Tests', () => {
         // Wait for toast to appear
         await wait(500);
 
-        // Check that a toast with yellow background (motivational) appears
-        const hasMotivationalToast = await page.evaluate(() => {
+        // Check that a toast with green background appears (now encouraging, not yellow)
+        const hasEncouragingToast = await page.evaluate(() => {
             const toasts = document.querySelectorAll('.toast');
             for (let toast of toasts) {
-                if (toast.className.includes('bg-yellow-500')) {
+                if (toast.className.includes('bg-green-500')) {
                     return true;
                 }
             }
             return false;
         });
 
-        expect(hasMotivationalToast).toBe(true);
+        expect(hasEncouragingToast).toBe(true);
     });
 
     test('Fast answer with streak triggers turbo mode bonus', async () => {
@@ -154,7 +154,7 @@ describe('Speed Tracking Tests', () => {
             window.APP.speedHistory = [];
             window.APP.streak = 2;
             window.UI.nextQuestion();
-            // Set start time AFTER nextQuestion to simulate 3 second response
+            // Set start time AFTER nextQuestion to simulate 3 second response (fast)
             window.APP.startTime = Date.now() - 3000;
         });
 
@@ -174,9 +174,9 @@ describe('Speed Tracking Tests', () => {
         const levelIncrease = levelAfter - levelBefore;
         const streak = await page.evaluate(() => window.APP.streak);
 
-        // Should have streak of 3 and get turbo bonus (0.5)
+        // Should have streak of 3 and get turbo bonus (0.4 * 1.0 = 0.4 for fast answer)
         expect(streak).toBe(3);
-        expect(levelIncrease).toBeCloseTo(0.5, 1);
+        expect(levelIncrease).toBeCloseTo(0.4, 1);
     });
 
     test('Speed history tracks multiple responses', async () => {
@@ -188,7 +188,7 @@ describe('Speed Tracking Tests', () => {
             window.APP.speedHistory = [];
             window.APP.streak = 0;
             window.UI.nextQuestion();
-            window.APP.startTime = Date.now() - 3000; // 3 seconds (fast)
+            window.APP.startTime = Date.now() - 3000; // 3 seconds (fast, < 8s)
         });
 
         await page.waitForSelector('#mc-options button');
@@ -200,7 +200,7 @@ describe('Speed Tracking Tests', () => {
 
         // Test normal answer (nextQuestion is called by auto-advance)
         await page.evaluate(() => {
-            window.APP.startTime = Date.now() - 7000; // 7 seconds (normal)
+            window.APP.startTime = Date.now() - 12000; // 12 seconds (normal, 8-20s)
         });
 
         await page.waitForSelector('#mc-options button');
@@ -212,7 +212,7 @@ describe('Speed Tracking Tests', () => {
 
         // Test slow answer (nextQuestion is called by auto-advance)
         await page.evaluate(() => {
-            window.APP.startTime = Date.now() - 12000; // 12 seconds (slow)
+            window.APP.startTime = Date.now() - 25000; // 25 seconds (slow, > 20s)
         });
 
         await page.waitForSelector('#mc-options button');
@@ -227,7 +227,7 @@ describe('Speed Tracking Tests', () => {
         // Should have 3 entries
         expect(speedHistory.length).toBe(3);
         
-        // First should be 1 (fast), second 0.5 (normal), third 0 (slow)
+        // First should be 1 (fast < 8s), second 0.5 (normal 8-20s), third 0 (slow > 20s)
         expect(speedHistory[0]).toBe(1);
         expect(speedHistory[1]).toBe(0.5);
         expect(speedHistory[2]).toBe(0);

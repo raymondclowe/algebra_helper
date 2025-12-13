@@ -80,19 +80,20 @@ describe('Why Question Type Tests', () => {
         const questionTypes = await page.evaluate(() => {
             const types = [];
             // Generate several questions to see if why questions appear
-            for (let i = 0; i < 8; i++) {
+            for (let i = 0; i < 9; i++) {
                 const q = Generator.getQuestion(5);
                 types.push(q.type || 'standard');
             }
             return types;
         });
         
-        // Check that at least one why question appears (should be every 4th)
+        // Check that at least one why question appears (should be every 3rd)
         expect(questionTypes).toContain('why');
         
-        // Check the pattern - should be every 4th question
-        expect(questionTypes[3]).toBe('why');
-        expect(questionTypes[7]).toBe('why');
+        // Check the pattern - should be every 3rd question
+        expect(questionTypes[2]).toBe('why');
+        expect(questionTypes[5]).toBe('why');
+        expect(questionTypes[8]).toBe('why');
     });
 
     test('Why questions include "I don\'t know" option in UI', async () => {
