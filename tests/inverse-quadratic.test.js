@@ -121,8 +121,8 @@ describe('Inverse Quadratic Function Tests', () => {
             let foundInverse = false;
             
             // Generate many level 5 questions to find an inverse one
-            // Note: Level 10 maps to lvl5() based on the band calculation in getQuestion()
-            // (band = Math.round(10) = 10, which is > 8, so returns lvl5())
+            // Level 10 maps to lvl5() because Math.round(10) = 10, 
+            // and levels > 8 use lvl5() in the getQuestion() function
             for (let i = 0; i < 50; i++) {
                 const q = gen.getQuestion(10);
                 if (q.instruction && q.instruction.includes('f^{-1}')) {

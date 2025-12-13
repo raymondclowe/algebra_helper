@@ -6,6 +6,7 @@ window.Generator = {
     // Constants for expression evaluation
     EQUIVALENCE_TOLERANCE: 0.0001,
     EQUIVALENCE_TEST_VALUES: [1, 2, 4, 9, 16],
+    FALLBACK_DISTRACTOR_MAX_COEFFICIENT: 20, // Max coefficient for fallback distractors
     
     // Fisher-Yates shuffle algorithm for proper randomization
     shuffleArray: function(array) {
@@ -143,7 +144,7 @@ window.Generator = {
         
         // Ensure we have exactly 3 distractors (fallback if equivalence check filtered too many)
         while (wrongAnswers.length < 3) {
-            wrongAnswers.push(`y = \\sqrt{${this.rInt(1, 20)}x}`);
+            wrongAnswers.push(`y = \\sqrt{${this.rInt(1, this.FALLBACK_DISTRACTOR_MAX_COEFFICIENT)}x}`);
         }
         
         return {
