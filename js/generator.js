@@ -58,7 +58,7 @@ window.Generator = {
                 distractors: [
                     `To make the equation simpler`,
                     `To get rid of the equals sign`,
-                    `Because division is the opposite of subtraction`
+                    `Because division is the opposite of addition`
                 ],
                 explanation: `We divide both sides by ${a} to isolate x. This cancels the coefficient ${a} on the left side, leaving just x.`,
                 calc: false
@@ -160,7 +160,8 @@ window.Generator = {
         
         // Return a random "why" question from the appropriate level
         if (whyQuestions.length > 0) {
-            return whyQuestions[this.rInt(0, whyQuestions.length - 1)];
+            const randomIndex = Math.floor(Math.random() * whyQuestions.length);
+            return whyQuestions[randomIndex];
         }
         
         // Fallback to a basic why question if none match

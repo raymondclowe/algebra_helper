@@ -26,7 +26,11 @@ describe('Why Question Type Tests', () => {
         });
         
         // Wait for MathJax and app to initialize
-        await wait(2000);
+        await page.waitForFunction(() => {
+            return typeof window.MathJax !== 'undefined' && 
+                   typeof window.APP !== 'undefined' &&
+                   window.APP.currentQ !== null;
+        }, { timeout: 5000 });
     });
 
     afterEach(async () => {
@@ -132,11 +136,13 @@ describe('Why Question Type Tests', () => {
         // Click "Don't know" button
         await page.evaluate(() => {
             const options = document.querySelectorAll('#mc-options button');
-            options.forEach(btn => {
+            for (let i = 0; i < options.length; i++) {
+                const btn = options[i];
                 if (btn.dataset.dontKnow === 'true') {
                     btn.click();
+                    break;
                 }
-            });
+            }
         });
         
         await wait(500);
@@ -180,11 +186,13 @@ describe('Why Question Type Tests', () => {
         // Click the correct answer
         await page.evaluate(() => {
             const options = document.querySelectorAll('#mc-options button');
-            options.forEach(btn => {
+            for (let i = 0; i < options.length; i++) {
+                const btn = options[i];
                 if (btn.dataset.correct === 'true') {
                     btn.click();
+                    break;
                 }
-            });
+            }
         });
         
         await wait(500);
@@ -210,12 +218,13 @@ describe('Why Question Type Tests', () => {
         // Click a wrong answer (not "Don't know" and not correct)
         await page.evaluate(() => {
             const options = document.querySelectorAll('#mc-options button');
-            options.forEach(btn => {
+            for (let i = 0; i < options.length; i++) {
+                const btn = options[i];
                 if (btn.dataset.correct === 'false' && btn.dataset.dontKnow === 'false') {
                     btn.click();
-                    return;
+                    break;
                 }
-            });
+            }
         });
         
         await wait(500);
