@@ -1,6 +1,12 @@
 // UI Management Functions
 window.UI = {
     nextQuestion: function() {
+        // If viewing history, return to present
+        if (window.APP.isViewingHistory) {
+            window.APP.isViewingHistory = false;
+            window.APP.historyIndex = -1;
+        }
+        
         // UI Reset
         document.getElementById('explanation-box').classList.add('hidden');
         document.getElementById('next-btn').classList.add('invisible');
@@ -8,6 +14,7 @@ window.UI = {
         document.getElementById('delta-display').innerHTML = ''; // clear anim
         
         this.updateUI();
+        this.updateNavigationButtons();
 
         // Generate Question
         window.APP.currentQ = window.Generator.getQuestion(window.APP.level);
@@ -29,6 +36,111 @@ window.UI = {
         document.getElementById('controls-drill').classList.toggle('hidden', window.APP.mode === 'calibration');
         
         if (window.APP.mode === 'drill') window.Drill.setupUI();
+    },
+    
+    navigateHistory: async function(direction) {
+        try {
+            // Load question history if not already loaded
+            if (window.APP.questionHistory.length === 0) {
+                window.APP.questionHistory = await window.StorageManager.getAllQuestions();
+            }
+            
+            if (window.APP.questionHistory.length === 0) {
+                return; // No history to navigate
+            }
+            
+            // Calculate new index
+            let newIndex = window.APP.historyIndex + direction;
+            
+            // If going forward from history and reaching end, return to present
+            if (newIndex < 0) {
+                this.nextQuestion(); // Return to present
+                return;
+            }
+            
+            // Don't go beyond history
+            if (newIndex >= window.APP.questionHistory.length) {
+                return;
+            }
+            
+            // Update index and flag
+            window.APP.historyIndex = newIndex;
+            window.APP.isViewingHistory = true;
+            
+            // Load and display the historical question
+            const historyQuestion = window.APP.questionHistory[newIndex];
+            this.displayHistoricalQuestion(historyQuestion);
+            
+        } catch (error) {
+            console.error('Error navigating history:', error);
+        }
+    },
+    
+    displayHistoricalQuestion: function(historyQuestion) {
+        // Clear current UI
+        document.getElementById('mc-options').innerHTML = '';
+        document.getElementById('delta-display').innerHTML = '';
+        document.getElementById('next-btn').classList.add('invisible');
+        
+        // Show history indicator
+        document.getElementById('instruction-text').innerText = `📜 VIEWING HISTORY (${window.APP.historyIndex + 1}/${window.APP.questionHistory.length})`;
+        
+        // Display question
+        const qDiv = document.getElementById('question-math');
+        qDiv.innerHTML = `\\[ ${historyQuestion.question} \\]`;
+        MathJax.typesetPromise([qDiv]);
+        
+        // Show result indicator
+        const resultClass = historyQuestion.isCorrect ? 'text-green-400' : 'text-red-400';
+        const resultText = historyQuestion.isCorrect ? '✓ CORRECT' : '✗ WRONG';
+        const resultHTML = `<div class="${resultClass} font-bold text-xl mb-4">${resultText}</div>`;
+        
+        // Display answer and advice
+        const explanationBox = document.getElementById('explanation-box');
+        const explanationText = document.getElementById('explanation-text');
+        
+        let content = resultHTML;
+        content += `<div class="mb-2"><strong>Correct Answer:</strong> \\(${historyQuestion.correctAnswer}\\)</div>`;
+        content += `<div class="mb-2"><strong>Time Spent:</strong> ${historyQuestion.timeSpent}s</div>`;
+        
+        if (!historyQuestion.isCorrect && historyQuestion.advice) {
+            content += `<div class="mt-3"><strong>Explanation:</strong><br>${historyQuestion.advice}</div>`;
+        }
+        
+        explanationText.innerHTML = content;
+        explanationBox.classList.remove('hidden');
+        MathJax.typesetPromise([explanationText]);
+        
+        // Update navigation buttons
+        this.updateNavigationButtons();
+        
+        // Hide calc indicator when viewing history
+        document.getElementById('calc-indicator').innerHTML = '';
+    },
+    
+    updateNavigationButtons: function() {
+        const leftBtn = document.getElementById('history-nav-left');
+        const rightBtn = document.getElementById('history-nav-right');
+        
+        if (!leftBtn || !rightBtn) return;
+        
+        // Left button: go to older questions (only if viewing history and not at end)
+        if (window.APP.isViewingHistory && window.APP.historyIndex < window.APP.questionHistory.length - 1) {
+            leftBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+            leftBtn.classList.add('hover:bg-gray-700', 'cursor-pointer');
+        } else {
+            leftBtn.classList.add('opacity-30', 'cursor-not-allowed');
+            leftBtn.classList.remove('hover:bg-gray-700', 'cursor-pointer');
+        }
+        
+        // Right button: go to newer questions or back to present
+        if (window.APP.isViewingHistory || window.APP.questionHistory.length > 0) {
+            rightBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+            rightBtn.classList.add('hover:bg-gray-700', 'cursor-pointer');
+        } else {
+            rightBtn.classList.add('opacity-30', 'cursor-not-allowed');
+            rightBtn.classList.remove('hover:bg-gray-700', 'cursor-pointer');
+        }
     },
 
     updateUI: function() {
