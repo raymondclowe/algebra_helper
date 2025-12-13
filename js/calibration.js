@@ -27,6 +27,7 @@ window.Calibration = {
         if (this.shouldEndCalibration()) {
             // Ready to learn. Start slightly below found level.
             window.APP.level = Math.max(1, window.APP.cMin - 1.0); 
+            // Support both 'learning' (new) and 'drill' (old) for backward compatibility
             window.APP.mode = 'learning';
             // Visual update
             document.getElementById('mode-badge').innerText = "Learning Phase";

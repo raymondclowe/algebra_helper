@@ -24,11 +24,21 @@ window.UI = {
             ? '<span class="text-2xl">📱</span><div class="text-[8px] text-green-500 font-bold">Calc</div>' 
             : '<span class="text-2xl text-red-500 relative">✏️</span><div class="text-[8px] text-red-500 font-bold">No Calc</div>';
 
-        // Mode View
-        document.getElementById('controls-calibration').classList.toggle('hidden', window.APP.mode === 'learning');
-        document.getElementById('controls-learning').classList.toggle('hidden', window.APP.mode === 'calibration');
+        // Mode View (support both learning and drill for backward compatibility)
+        const isLearningMode = window.APP.mode === 'learning' || window.APP.mode === 'drill';
+        document.getElementById('controls-calibration').classList.toggle('hidden', isLearningMode);
         
-        if (window.APP.mode === 'learning') window.Learning.setupUI();
+        // Try to find learning controls, fallback to drill controls for backward compatibility
+        const learningControls = document.getElementById('controls-learning');
+        const drillControls = document.getElementById('controls-drill');
+        if (learningControls) {
+            learningControls.classList.toggle('hidden', window.APP.mode === 'calibration');
+        }
+        if (drillControls) {
+            drillControls.classList.toggle('hidden', window.APP.mode === 'calibration');
+        }
+        
+        if (isLearningMode) window.Learning.setupUI();
     },
 
     updateUI: function() {
