@@ -1,7 +1,16 @@
 // --- GENERATOR ---
 window.Generator = {
     rInt: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
+    questionCounter: 0, // Track questions to interleave "why" questions
     getQuestion: function(level) {
+        // Interleave "why" questions every 4th question in drill mode
+        if (window.APP.mode === 'drill') {
+            this.questionCounter++;
+            if (this.questionCounter % 4 === 0) {
+                return this.getWhyQuestion(level);
+            }
+        }
+        
         const band = Math.round(level);
         if (band <= 2) return this.lvl1();
         if (band <= 4) return this.lvl2();
@@ -28,5 +37,146 @@ window.Generator = {
     lvl5: function() {
         const a=this.rInt(2,5), n=this.rInt(2,4);
         return { tex: `f(x) = ${a}x^{${n}}`, instruction: "Find f'(x)", displayAnswer:`${a*n}x^{${n-1}}`, distractors:[`${a*n}x^{${n}}`,`${a}x^{${n-1}}`,`${n}x^{${a}}`], explanation:`Power rule: $nx^{n-1}$`, calc:false };
+    },
+    
+    // "Why" question generator - asks students to explain reasoning
+    getWhyQuestion: function(level) {
+        const band = Math.round(level);
+        
+        // Define "why" questions for each difficulty band
+        const whyQuestions = [];
+        
+        // Level 1-2: Basic equation solving
+        if (band <= 2) {
+            const a = this.rInt(2,9), x = this.rInt(2,9);
+            const result = a * x;
+            whyQuestions.push({
+                type: 'why',
+                tex: `${a}x = ${result} \\\\[0.5em] \\text{Step: } x = \\frac{${result}}{${a}} = ${x}`,
+                instruction: "Why do we divide both sides by " + a + "?",
+                displayAnswer: `To isolate x by canceling out the coefficient`,
+                distractors: [
+                    `To make the equation simpler`,
+                    `To get rid of the equals sign`,
+                    `Because division is the opposite of addition`
+                ],
+                explanation: `We divide both sides by ${a} to isolate x. This cancels the coefficient ${a} on the left side, leaving just x.`,
+                calc: false
+            });
+        }
+        
+        // Level 3-4: Expanding and factorising
+        if (band <= 4 && band > 2) {
+            const a = this.rInt(2,5), b = this.rInt(2,8);
+            const whyType = this.rInt(1,2);
+            
+            if (whyType === 1) {
+                // Expanding
+                whyQuestions.push({
+                    type: 'why',
+                    tex: `${a}(x + ${b}) \\\\[0.5em] \\text{Step: } ${a}x + ${a*b}`,
+                    instruction: "Why do we multiply both terms inside the brackets?",
+                    displayAnswer: `Because we have to distribute the outer term to each inner term`,
+                    distractors: [
+                        `To make the expression longer`,
+                        `Because we can't have brackets in the final answer`,
+                        `To combine like terms`
+                    ],
+                    explanation: `The distributive property requires us to multiply ${a} by each term inside the brackets: ${a} × x and ${a} × ${b}.`,
+                    calc: false
+                });
+            } else {
+                // Factorising - why we need to find factors
+                const factorA = this.rInt(1,5), factorB = this.rInt(2,6);
+                whyQuestions.push({
+                    type: 'why',
+                    tex: `x^2 + ${factorA+factorB}x + ${factorA*factorB} \\\\[0.5em] \\text{Step: } (x+${factorA})(x+${factorB})`,
+                    instruction: "Why do we need factors that multiply to " + (factorA*factorB) + " and add to " + (factorA+factorB) + "?",
+                    displayAnswer: `Because when we expand brackets, we use FOIL which creates these relationships`,
+                    distractors: [
+                        `Because that's just the rule for factorising`,
+                        `To make the numbers smaller`,
+                        `Because we need to cancel out terms`
+                    ],
+                    explanation: `When expanding (x+${factorA})(x+${factorB}), the middle term comes from ${factorA}+${factorB} and the constant from ${factorA}×${factorB}. Factorising reverses this.`,
+                    calc: false
+                });
+            }
+        }
+        
+        // Level 5-6: Algebraic manipulation
+        if (band <= 6 && band > 4) {
+            const a = this.rInt(2,5), b = this.rInt(2,8);
+            whyQuestions.push({
+                type: 'why',
+                tex: `${a}x + ${b} = ${a*3+b} \\\\[0.5em] \\text{Step 1: } ${a}x = ${a*3}`,
+                instruction: "Why do we subtract " + b + " from both sides first?",
+                displayAnswer: `To isolate the term with x before dealing with the coefficient`,
+                distractors: [
+                    `Because subtraction is easier than division`,
+                    `To make both sides equal`,
+                    `Because we always do subtraction first`
+                ],
+                explanation: `We subtract ${b} from both sides to isolate the term with x (${a}x). This follows the order: deal with constants first, then coefficients.`,
+                calc: false
+            });
+        }
+        
+        // Level 7-8: Quadratics and more complex algebra
+        if (band <= 8 && band > 6) {
+            const a = this.rInt(2,4);
+            whyQuestions.push({
+                type: 'why',
+                tex: `x^2 = ${a*a} \\\\[0.5em] \\text{Step: } x = \\pm ${a}`,
+                instruction: "Why do we need both positive and negative solutions?",
+                displayAnswer: `Because both positive and negative numbers give the same result when squared`,
+                distractors: [
+                    `To have two answers for a quadratic`,
+                    `Because square roots are always positive and negative`,
+                    `To make the equation balanced`
+                ],
+                explanation: `Since (${a})² = ${a*a} and (-${a})² = ${a*a}, both values are valid solutions. Squaring eliminates the sign.`,
+                calc: false
+            });
+        }
+        
+        // Level 9-10: Differentiation
+        if (band > 8) {
+            const a = this.rInt(2,5), n = this.rInt(2,4);
+            whyQuestions.push({
+                type: 'why',
+                tex: `f(x) = ${a}x^{${n}} \\\\[0.5em] \\text{Step: } f'(x) = ${a*n}x^{${n-1}}`,
+                instruction: "Why do we multiply by the power and reduce the power by 1?",
+                displayAnswer: `This is the power rule: bring down the exponent and reduce it by 1`,
+                distractors: [
+                    `To make the derivative smaller`,
+                    `Because that's how we reverse integration`,
+                    `To find the slope at a specific point`
+                ],
+                explanation: `The power rule for differentiation states: d/dx[x^n] = nx^(n-1). We bring the exponent ${n} down as a coefficient and reduce the power by 1.`,
+                calc: false
+            });
+        }
+        
+        // Return a random "why" question from the appropriate level
+        if (whyQuestions.length > 0) {
+            const randomIndex = Math.floor(Math.random() * whyQuestions.length);
+            return whyQuestions[randomIndex];
+        }
+        
+        // Fallback to a basic why question if none match
+        return {
+            type: 'why',
+            tex: `2x = 6 \\\\[0.5em] \\text{Step: } x = 3`,
+            instruction: "Why do we divide both sides by 2?",
+            displayAnswer: `To isolate x by canceling out the coefficient`,
+            distractors: [
+                `To make the equation simpler`,
+                `To get rid of the equals sign`,
+                `Because division is the opposite of addition`
+            ],
+            explanation: `We divide both sides by 2 to isolate x. This cancels the coefficient 2 on the left side, leaving just x.`,
+            calc: false
+        };
     }
 };

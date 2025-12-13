@@ -2,33 +2,71 @@
 window.Drill = {
     setupUI: function() {
         const container = document.getElementById('mc-options');
+        const isWhyQuestion = window.APP.currentQ.type === 'why';
+        
         let opts = [
             { val: window.APP.currentQ.displayAnswer, correct: true },
             { val: window.APP.currentQ.distractors[0], correct: false },
             { val: window.APP.currentQ.distractors[1], correct: false },
             { val: window.APP.currentQ.distractors[2], correct: false }
         ].sort(() => Math.random() - 0.5);
+        
+        // Add "Don't know" option for "why" questions
+        if (isWhyQuestion) {
+            opts.push({ val: "Don't know", correct: false, dontKnow: true });
+        }
 
         opts.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex items-center justify-center min-h-[60px]";
             if (window.DEBUG_MODE && opt.correct) btn.classList.add('debug-correct');
-            btn.dataset.correct = opt.correct.toString(); // Store correct flag as string for later use
-            btn.onclick = () => this.handleAnswer(btn, opt.correct);
-            btn.innerHTML = `\\( ${opt.val} \\)`;
+            btn.dataset.correct = opt.correct.toString();
+            btn.dataset.dontKnow = (opt.dontKnow || false).toString();
+            btn.onclick = () => this.handleAnswer(btn, opt.correct, opt.dontKnow);
+            
+            // Use plain text for "Don't know", LaTeX for others
+            if (opt.dontKnow) {
+                btn.innerHTML = `<span class="italic text-gray-400">${opt.val}</span>`;
+            } else {
+                btn.innerHTML = `\\( ${opt.val} \\)`;
+            }
             container.appendChild(btn);
         });
         MathJax.typesetPromise([container]);
     },
 
-    handleAnswer: function(btn, isCorrect) {
+    handleAnswer: function(btn, isCorrect, isDontKnow) {
         // Disable all
         const allButtons = document.getElementById('mc-options').querySelectorAll('button');
         allButtons.forEach(b => b.disabled=true);
 
         let delta = 0;
+        const isWhyQuestion = window.APP.currentQ.type === 'why';
 
-        if (isCorrect) {
+        if (isDontKnow) {
+            // "Don't know" - neutral outcome (no score change)
+            btn.className = "p-4 bg-yellow-600 rounded text-lg border border-yellow-400 flex items-center justify-center min-h-[60px]";
+            delta = 0; // No score change
+            
+            // Don't affect streak or history for "Don't know"
+            
+            // Show explanation immediately
+            const box = document.getElementById('explanation-box');
+            box.classList.remove('hidden');
+            document.getElementById('explanation-text').innerHTML = window.APP.currentQ.explanation;
+            MathJax.typesetPromise([box]);
+            
+            // Highlight the correct answer in green
+            allButtons.forEach(b => {
+                if (b.dataset.correct === 'true') {
+                    b.className = "p-4 bg-green-600 rounded text-lg border border-green-400 flex items-center justify-center min-h-[60px]";
+                }
+            });
+            
+            // Show Next button
+            document.getElementById('next-btn').classList.remove('invisible');
+            
+        } else if (isCorrect) {
             btn.className = "p-4 bg-green-600 rounded text-lg border border-green-400 flex items-center justify-center min-h-[60px]";
             window.APP.history.push(1);
             
