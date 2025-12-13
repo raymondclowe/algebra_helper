@@ -30,8 +30,8 @@ An intelligent, adaptive math practice tool that helps students master algebra t
 ### How to Use
 
 1. **Calibration Phase**: The app will show you problems and ask if they're too hard, just right, or too easy. Answer honestly! The app needs at least 6 responses with a clear pattern to accurately find your level.
-2. **Drill Phase**: Once calibrated, practice with multiple-choice questions at your level.
-3. **Build Momentum**: Get 3 correct answers in a row to activate Turbo Mode 🔥 for faster progression.
+2. **Learning Phase**: Once calibrated, practice with multiple-choice questions at your level. Answer quickly to maximize your progress!
+3. **Build Momentum**: Get 3 correct answers in a row to activate Turbo Mode 🔥 for faster progression. Hover over Turbo Mode to see how it works!
 4. **Learn from Mistakes**: Read the explanations when you get something wrong to understand the correct approach.
 
 ---
@@ -139,8 +139,9 @@ nextLevel = (minLevel + maxLevel) / 2;
 APP {
     level: 5.0,           // Current difficulty (1-10)
     streak: 0,            // Consecutive correct answers
-    mode: 'calibration',  // 'calibration' or 'drill'
+    mode: 'calibration',  // 'calibration' or 'learning'
     history: [],          // Binary success/fail for last 5
+    speedHistory: [],     // Response speed: 1 for fast, 0.5 for normal, 0 for slow
 }
 
 Generator {

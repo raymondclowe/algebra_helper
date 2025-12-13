@@ -60,8 +60,8 @@ window.Generator = {
     },
     
     getQuestion: function(level) {
-        // Interleave "why" questions every 4th question in drill mode
-        if (window.APP.mode === 'drill') {
+        // Interleave "why" questions every 4th question in learning mode
+        if (window.APP.mode === 'learning') {
             this.questionCounter++;
             if (this.questionCounter % 4 === 0) {
                 return this.getWhyQuestion(level);

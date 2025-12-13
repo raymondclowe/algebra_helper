@@ -25,10 +25,10 @@ window.UI = {
             : '<span class="text-2xl text-red-500 relative">✏️</span><div class="text-[8px] text-red-500 font-bold">No Calc</div>';
 
         // Mode View
-        document.getElementById('controls-calibration').classList.toggle('hidden', window.APP.mode === 'drill');
-        document.getElementById('controls-drill').classList.toggle('hidden', window.APP.mode === 'calibration');
+        document.getElementById('controls-calibration').classList.toggle('hidden', window.APP.mode === 'learning');
+        document.getElementById('controls-learning').classList.toggle('hidden', window.APP.mode === 'calibration');
         
-        if (window.APP.mode === 'drill') window.Drill.setupUI();
+        if (window.APP.mode === 'learning') window.Learning.setupUI();
     },
 
     updateUI: function() {
@@ -43,7 +43,7 @@ window.UI = {
             rangeDiv.classList.add('hidden');
         }
         
-        // Show Turbo Fire if streak high
+        // Show Turbo Fire if streak high (tooltip added in HTML)
         const fire = document.getElementById('streak-indicator');
         if (window.APP.streak >= 3) fire.classList.remove('hidden');
         else fire.classList.add('hidden');

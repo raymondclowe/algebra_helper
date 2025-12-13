@@ -1,5 +1,5 @@
-// Drill Mode Logic
-window.Drill = {
+// Learning Mode Logic
+window.Learning = {
     setupUI: function() {
         const container = document.getElementById('mc-options');
         const isWhyQuestion = window.APP.currentQ.type === 'why';
@@ -40,6 +40,9 @@ window.Drill = {
         const allButtons = document.getElementById('mc-options').querySelectorAll('button');
         allButtons.forEach(b => b.disabled=true);
 
+        // Calculate response time
+        const timeTaken = (Date.now() - window.APP.startTime) / 1000;
+
         let delta = 0;
         const isWhyQuestion = window.APP.currentQ.type === 'why';
 
@@ -70,14 +73,30 @@ window.Drill = {
             btn.className = "p-4 bg-green-600 rounded text-lg border border-green-400 flex items-center justify-center min-h-[60px]";
             window.APP.history.push(1);
             
-            // --- THE FIX: MOMENTUM LOGIC ---
+            // Track response speed
+            let speedFactor = 1; // Default: normal speed
+            if (timeTaken < FAST_ANSWER_THRESHOLD) {
+                speedFactor = 1; // Fast answer
+                window.APP.speedHistory.push(1);
+            } else if (timeTaken > SLOW_ANSWER_THRESHOLD) {
+                speedFactor = 0.5; // Slow answer - reduced level gain
+                window.APP.speedHistory.push(0);
+            } else {
+                speedFactor = 0.75; // Normal speed
+                window.APP.speedHistory.push(0.5);
+            }
+            
+            // --- MOMENTUM LOGIC with Speed Factor ---
             window.APP.streak++;
             
-            if (window.APP.streak >= 3) delta = 0.5; // Acceleration
-            else delta = 0.2; // Base movement
+            if (window.APP.streak >= 3) delta = 0.5 * speedFactor; // Acceleration with speed
+            else delta = 0.2 * speedFactor; // Base movement with speed
+            
+            // Determine feedback based on speed
+            let isSlow = timeTaken > SLOW_ANSWER_THRESHOLD;
             
             // Gamification: Toast, Confetti, Points Animation
-            window.Gamification.showCorrectFeedback(delta);
+            window.Gamification.showCorrectFeedback(delta, isSlow);
             
             // Auto-advance after short delay (no Next button needed)
             setTimeout(() => {
@@ -131,3 +150,6 @@ window.Drill = {
         document.getElementById('level-display').innerText = window.APP.level.toFixed(1);
     }
 };
+
+// Backward compatibility: Drill is now Learning
+window.Drill = window.Learning;

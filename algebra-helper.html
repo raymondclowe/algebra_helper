@@ -79,8 +79,11 @@
                     Window: 0.0 - 10.0
                 </div>
                 <!-- Streak Fire -->
-                <div id="streak-indicator" class="hidden text-orange-500 font-bold text-xs mt-1">
+                <div id="streak-indicator" class="hidden text-orange-500 font-bold text-xs mt-1 relative group cursor-help" title="Get 3 correct answers in a row for faster progression!">
                     🔥🔥 TURBO MODE
+                    <span class="invisible group-hover:visible absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap z-50 border border-gray-600 shadow-xl">
+                        Get 3 correct in a row for faster progression!
+                    </span>
                 </div>
             </div>
 
@@ -126,8 +129,8 @@
             </button>
         </div>
 
-        <!-- CONTROLS: DRILL -->
-        <div id="controls-drill" class="hidden border-t border-gray-700 bg-gray-750 p-6 fade-in">
+        <!-- CONTROLS: LEARNING -->
+        <div id="controls-learning" class="hidden border-t border-gray-700 bg-gray-750 p-6 fade-in">
             <div id="mc-options" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
             <!-- Reserve space for Next button to prevent UI shift -->
             <div class="w-full mt-4" style="height: 52px;">

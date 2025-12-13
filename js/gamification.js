@@ -1,25 +1,40 @@
 // Gamification Features
 window.Gamification = {
-    showCorrectFeedback: function(delta) {
+    showCorrectFeedback: function(delta, isSlow) {
         // 1. Show Toast
-        this.showToast();
+        this.showToast(isSlow);
         
-        // 2. Trigger Confetti
-        this.triggerConfetti();
+        // 2. Trigger Confetti (skip for slow answers)
+        if (!isSlow) {
+            this.triggerConfetti();
+        }
         
         // 3. Float Points to Score
         this.floatPointsToScore(delta);
         
-        // 4. Play Success Sound (optional)
-        this.playSuccessSound();
+        // 4. Play Success Sound (optional, skip for slow answers)
+        if (!isSlow) {
+            this.playSuccessSound();
+        }
     },
     
-    showToast: function() {
+    showToast: function(isSlow) {
         const toast = document.createElement('div');
-        const messages = ['Correct! 🎉', 'Nice! ✨', 'Perfect! ⭐', 'Great! 🌟', 'Awesome! 🎯'];
+        let messages, className;
+        
+        if (isSlow) {
+            // Motivational messages for slow but correct answers
+            messages = ['Good work, let\'s speed up! ⚡', 'Correct! Try faster next time! 🏃', 'Right answer! Pick up the pace! 🚀', 'Good! Now go faster! ⏱️'];
+            className = 'toast bg-yellow-500 text-white px-8 py-4 rounded-xl shadow-2xl text-xl font-bold';
+        } else {
+            // Regular success messages
+            messages = ['Correct! 🎉', 'Nice! ✨', 'Perfect! ⭐', 'Great! 🌟', 'Awesome! 🎯'];
+            className = 'toast bg-green-500 text-white px-8 py-4 rounded-xl shadow-2xl text-2xl font-bold';
+        }
+        
         const randomMsg = messages[Math.floor(Math.random() * messages.length)];
         
-        toast.className = 'toast bg-green-500 text-white px-8 py-4 rounded-xl shadow-2xl text-2xl font-bold';
+        toast.className = className;
         toast.innerText = randomMsg;
         document.body.appendChild(toast);
         
