@@ -13,7 +13,7 @@ window.Drill = {
             const btn = document.createElement('button');
             btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex items-center justify-center min-h-[60px]";
             if (window.DEBUG_MODE && opt.correct) btn.classList.add('debug-correct');
-            btn.dataset.correct = opt.correct; // Store correct flag for later use
+            btn.dataset.correct = opt.correct.toString(); // Store correct flag as string for later use
             btn.onclick = () => this.handleAnswer(btn, opt.correct);
             btn.innerHTML = `\\( ${opt.val} \\)`;
             container.appendChild(btn);
