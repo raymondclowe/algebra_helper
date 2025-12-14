@@ -123,19 +123,32 @@ window.Generator = {
     // Get a question for a specific level (extracted from getQuestion for reuse)
     getQuestionForLevel: function(level) {
         const band = Math.round(level);
-        // Expanded level system with more granular difficulty
+        // Expanded level system with more granular difficulty - IB Math HL AA curriculum
         if (band <= 1) return this.getBasicArithmetic();      // Level 0-1: Basic arithmetic
         if (band <= 2) return this.getSquaresAndRoots();       // Level 1-2: Squares, cubes, roots
         if (band <= 3) return this.getMultiplicationTables();  // Level 2-3: Multiplication tables
-        if (band <= 4) return this.lvl1();                     // Level 3-4: Simple equations
-        if (band <= 5) return this.lvl2();                     // Level 4-5: Two-step equations
-        if (band <= 6) return this.lvl3();                     // Level 5-6: Expanding
-        if (band <= 7) return this.lvl4();                     // Level 6-7: Factorising
-        if (band <= 8) return this.getFunctionProblems();      // Level 7-8: Basic functions
-        if (band <= 9) return this.getTrigonometry();          // Level 8-9: Trigonometry
-        if (band <= 10) return this.lvl5();                    // Level 9-10: Differentiation/Inverse
-        if (band <= 11) return this.getProbability();          // Level 10-11: Probability
-        return this.getCalculus();                             // Level 11+: Calculus
+        if (band <= 4) return this.getFractions();             // Level 3-4: Fractions
+        if (band <= 5) return this.getDecimalsPercentages();   // Level 4-5: Decimals & percentages
+        if (band <= 6) return this.lvl1();                     // Level 5-6: Simple equations
+        if (band <= 7) return this.lvl2();                     // Level 6-7: Two-step equations
+        if (band <= 8) return this.getInequalities();          // Level 7-8: Inequalities
+        if (band <= 9) return this.lvl3();                     // Level 8-9: Expanding
+        if (band <= 10) return this.lvl4();                    // Level 9-10: Factorising quadratics
+        if (band <= 11) return this.getQuadratics();           // Level 10-11: Quadratics (solving, completing square)
+        if (band <= 12) return this.getPolynomials();          // Level 11-12: Polynomials
+        if (band <= 13) return this.getExponentialsLogs();     // Level 12-13: Exponentials & logarithms
+        if (band <= 14) return this.getSequencesSeries();      // Level 13-14: Sequences & series
+        if (band <= 15) return this.getFunctionProblems();     // Level 14-15: Functions
+        if (band <= 16) return this.getTrigonometry();         // Level 15-16: Trigonometry
+        if (band <= 17) return this.getAdvancedTrig();         // Level 16-17: Advanced trigonometry
+        if (band <= 18) return this.getVectors();              // Level 17-18: Vectors
+        if (band <= 19) return this.getComplexNumbers();       // Level 18-19: Complex numbers
+        if (band <= 20) return this.lvl5();                    // Level 19-20: Basic differentiation
+        if (band <= 21) return this.getAdvancedCalculus();     // Level 20-21: Advanced calculus
+        if (band <= 22) return this.getStatistics();           // Level 21-22: Statistics
+        if (band <= 23) return this.getProbability();          // Level 22-23: Probability
+        if (band <= 24) return this.getAdvancedProbability();  // Level 23-24: Advanced probability
+        return this.getCalculus();                             // Level 24+: Integration & series
     },
     lvl1: function() {
         const a=this.rInt(2,9), x=this.rInt(2,9);
@@ -702,6 +715,939 @@ window.Generator = {
         }
     },
     
+    // ========== IB MATH HL AA EXPANDED TOPICS ==========
+    
+    // Fractions (Level 3-4)
+    getFractions: function() {
+        const questionType = this.rInt(1, 5);
+        
+        if (questionType === 1) {
+            // Adding fractions with same denominator
+            const den = this.rInt(2, 12);
+            const num1 = this.rInt(1, den - 1);
+            const num2 = this.rInt(1, den - num1);
+            const sum = num1 + num2;
+            // Simplify if possible
+            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+            const divisor = gcd(sum, den);
+            const simplifiedNum = sum / divisor;
+            const simplifiedDen = den / divisor;
+            
+            return {
+                tex: `\\frac{${num1}}{${den}} + \\frac{${num2}}{${den}}`,
+                instruction: "Simplify the result",
+                displayAnswer: simplifiedDen === 1 ? `${simplifiedNum}` : `\\frac{${simplifiedNum}}{${simplifiedDen}}`,
+                distractors: [
+                    `\\frac{${sum}}{${den}}`,
+                    `\\frac{${num1 + num2}}{${den * 2}}`,
+                    `\\frac{${simplifiedNum + 1}}{${simplifiedDen}}`
+                ],
+                explanation: `Add the numerators: ${num1} + ${num2} = ${sum}. Keep the denominator: ${den}. Then simplify ${sum}/${den} = ${simplifiedNum}/${simplifiedDen}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Multiplying fractions
+            const num1 = this.rInt(2, 8);
+            const den1 = this.rInt(2, 9);
+            const num2 = this.rInt(2, 8);
+            const den2 = this.rInt(2, 9);
+            const resultNum = num1 * num2;
+            const resultDen = den1 * den2;
+            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+            const divisor = gcd(resultNum, resultDen);
+            const simplifiedNum = resultNum / divisor;
+            const simplifiedDen = resultDen / divisor;
+            
+            return {
+                tex: `\\frac{${num1}}{${den1}} \\times \\frac{${num2}}{${den2}}`,
+                instruction: "Multiply and simplify",
+                displayAnswer: `\\frac{${simplifiedNum}}{${simplifiedDen}}`,
+                distractors: [
+                    `\\frac{${resultNum}}{${resultDen}}`,
+                    `\\frac{${num1 * num2}}{${den1 + den2}}`,
+                    `\\frac{${num1 + num2}}{${den1 * den2}}`
+                ],
+                explanation: `Multiply numerators: ${num1} × ${num2} = ${resultNum}. Multiply denominators: ${den1} × ${den2} = ${resultDen}. Simplify: ${simplifiedNum}/${simplifiedDen}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Dividing fractions
+            const num1 = this.rInt(2, 6);
+            const den1 = this.rInt(2, 7);
+            const num2 = this.rInt(2, 6);
+            const den2 = this.rInt(2, 7);
+            const resultNum = num1 * den2;
+            const resultDen = den1 * num2;
+            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+            const divisor = gcd(resultNum, resultDen);
+            const simplifiedNum = resultNum / divisor;
+            const simplifiedDen = resultDen / divisor;
+            
+            return {
+                tex: `\\frac{${num1}}{${den1}} \\div \\frac{${num2}}{${den2}}`,
+                instruction: "Divide and simplify",
+                displayAnswer: `\\frac{${simplifiedNum}}{${simplifiedDen}}`,
+                distractors: [
+                    `\\frac{${num1 * num2}}{${den1 * den2}}`,
+                    `\\frac{${resultNum}}{${resultDen}}`,
+                    `\\frac{${num1}}{${den1 * num2}}`
+                ],
+                explanation: `Dividing by a fraction means multiplying by its reciprocal: (${num1}/${den1}) × (${den2}/${num2}) = ${resultNum}/${resultDen} = ${simplifiedNum}/${simplifiedDen}.`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // Adding fractions with different denominators
+            const den1 = this.rInt(2, 6);
+            const den2 = this.rInt(3, 7);
+            if (den1 === den2) return this.getFractions(); // Retry if same
+            const num1 = this.rInt(1, den1);
+            const num2 = this.rInt(1, den2);
+            const lcm = (den1 * den2) / ((a, b) => b === 0 ? a : ((a, b) => b === 0 ? a : arguments.callee(b, a % b))(a, b))(den1, den2);
+            const newNum1 = num1 * (lcm / den1);
+            const newNum2 = num2 * (lcm / den2);
+            const sum = newNum1 + newNum2;
+            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+            const divisor = gcd(sum, lcm);
+            const simplifiedNum = sum / divisor;
+            const simplifiedDen = lcm / divisor;
+            
+            return {
+                tex: `\\frac{${num1}}{${den1}} + \\frac{${num2}}{${den2}}`,
+                instruction: "Find common denominator and add",
+                displayAnswer: `\\frac{${simplifiedNum}}{${simplifiedDen}}`,
+                distractors: [
+                    `\\frac{${num1 + num2}}{${den1 + den2}}`,
+                    `\\frac{${sum}}{${lcm}}`,
+                    `\\frac{${newNum1}}{${lcm}}`
+                ],
+                explanation: `Find LCD = ${lcm}. Convert: ${num1}/${den1} = ${newNum1}/${lcm} and ${num2}/${den2} = ${newNum2}/${lcm}. Add: ${newNum1 + newNum2}/${lcm} = ${simplifiedNum}/${simplifiedDen}.`,
+                calc: false
+            };
+        } else {
+            // Simplifying fractions
+            const factor = this.rInt(2, 6);
+            const num = this.rInt(2, 8) * factor;
+            const den = this.rInt(3, 9) * factor;
+            const simplifiedNum = num / factor;
+            const simplifiedDen = den / factor;
+            
+            return {
+                tex: `\\frac{${num}}{${den}}`,
+                instruction: "Simplify to lowest terms",
+                displayAnswer: `\\frac{${simplifiedNum}}{${simplifiedDen}}`,
+                distractors: [
+                    `\\frac{${num}}{${den}}`,
+                    `\\frac{${simplifiedNum + 1}}{${simplifiedDen}}`,
+                    `\\frac{${num / 2}}{${den / 2}}`
+                ],
+                explanation: `Both ${num} and ${den} are divisible by ${factor}. Divide both by ${factor}: ${num}÷${factor} = ${simplifiedNum} and ${den}÷${factor} = ${simplifiedDen}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Decimals and Percentages (Level 4-5)
+    getDecimalsPercentages: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Converting fraction to decimal
+            const conversions = [
+                { frac: '\\frac{1}{2}', dec: '0.5' },
+                { frac: '\\frac{1}{4}', dec: '0.25' },
+                { frac: '\\frac{3}{4}', dec: '0.75' },
+                { frac: '\\frac{1}{5}', dec: '0.2' },
+                { frac: '\\frac{2}{5}', dec: '0.4' },
+                { frac: '\\frac{1}{10}', dec: '0.1' }
+            ];
+            const conv = conversions[this.rInt(0, conversions.length - 1)];
+            
+            return {
+                tex: `${conv.frac}`,
+                instruction: "Convert to decimal",
+                displayAnswer: `${conv.dec}`,
+                distractors: [`${parseFloat(conv.dec) + 0.1}`, `${parseFloat(conv.dec) * 2}`, `${1 - parseFloat(conv.dec)}`],
+                explanation: `Divide the numerator by the denominator to get ${conv.dec}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Converting decimal to percentage
+            const decimal = this.rInt(1, 9) / 10;
+            const percentage = decimal * 100;
+            
+            return {
+                tex: `${decimal}`,
+                instruction: "Convert to percentage",
+                displayAnswer: `${percentage}\\%`,
+                distractors: [`${decimal}\\%`, `${percentage / 10}\\%`, `${percentage * 10}\\%`],
+                explanation: `Multiply by 100: ${decimal} × 100 = ${percentage}%.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Finding percentage of a number
+            const percent = [10, 20, 25, 50, 75][this.rInt(0, 4)];
+            const number = this.rInt(20, 100);
+            const result = (percent / 100) * number;
+            
+            return {
+                tex: `${percent}\\% \\text{ of } ${number}`,
+                instruction: "Calculate",
+                displayAnswer: `${result}`,
+                distractors: [`${result + 10}`, `${result - 5}`, `${number - result}`],
+                explanation: `${percent}% of ${number} = (${percent}/100) × ${number} = ${result}.`,
+                calc: false
+            };
+        } else {
+            // Ordering decimals
+            const decimals = [
+                this.rInt(1, 9) / 10,
+                this.rInt(10, 99) / 100,
+                this.rInt(1, 9) / 100
+            ].sort((a, b) => a - b);
+            
+            return {
+                tex: `\\text{Which is smallest: } ${decimals[2]}, ${decimals[0]}, ${decimals[1]}?`,
+                instruction: "Choose the smallest decimal",
+                displayAnswer: `${decimals[0]}`,
+                distractors: [`${decimals[1]}`, `${decimals[2]}`, `\\text{all equal}`],
+                explanation: `Compare place values: ${decimals[0]} < ${decimals[1]} < ${decimals[2]}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Inequalities (Level 7-8)
+    getInequalities: function() {
+        const questionType = this.rInt(1, 3);
+        
+        if (questionType === 1) {
+            // Simple inequality: ax < b
+            const a = this.rInt(2, 9);
+            const b = this.rInt(10, 50);
+            const x = Math.floor(b / a);
+            
+            return {
+                tex: `${a}x < ${b}`,
+                instruction: "Solve for x",
+                displayAnswer: `x < ${x}`,
+                distractors: [`x > ${x}`, `x = ${x}`, `x \\leq ${x}`],
+                explanation: `Divide both sides by ${a}: x < ${b}/${a} = ${x}. The inequality sign stays the same when dividing by a positive number.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Inequality with negative coefficient: -ax > b
+            const a = this.rInt(2, 6);
+            const b = this.rInt(-20, -5);
+            const x = Math.ceil(b / (-a));
+            
+            return {
+                tex: `-${a}x > ${b}`,
+                instruction: "Solve for x",
+                displayAnswer: `x < ${x}`,
+                distractors: [`x > ${x}`, `x = ${x}`, `x < ${-x}`],
+                explanation: `Divide both sides by -${a}: x < ${b}/(-${a}) = ${x}. IMPORTANT: Flip the inequality sign when dividing by a negative number.`,
+                calc: false
+            };
+        } else {
+            // Two-step inequality: ax + b < c
+            const a = this.rInt(2, 8);
+            const b = this.rInt(1, 10);
+            const c = this.rInt(b + 10, 50);
+            const x = Math.floor((c - b) / a);
+            
+            return {
+                tex: `${a}x + ${b} < ${c}`,
+                instruction: "Solve for x",
+                displayAnswer: `x < ${x}`,
+                distractors: [`x > ${x}`, `x < ${x + 1}`, `x \\leq ${x}`],
+                explanation: `Subtract ${b}: ${a}x < ${c - b}. Divide by ${a}: x < ${x}. Solve inequalities like equations, but remember to flip the sign when multiplying/dividing by negatives.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Quadratics - Completing the Square & Solving (Level 10-11)
+    getQuadratics: function() {
+        const questionType = this.rInt(1, 3);
+        
+        if (questionType === 1) {
+            // Solving using quadratic formula (simple cases)
+            const p = this.rInt(2, 5);
+            const q = this.rInt(1, 4);
+            // (x - p)(x - q) = 0 expands to x² - (p+q)x + pq = 0
+            const b = -(p + q);
+            const c = p * q;
+            
+            return {
+                tex: `x^2 ${b >= 0 ? '+' : ''}${b}x + ${c} = 0`,
+                instruction: "Solve for x (give smaller solution)",
+                displayAnswer: `x = ${Math.min(p, q)}`,
+                distractors: [`x = ${Math.max(p, q)}`, `x = ${-p}`, `x = ${p + q}`],
+                explanation: `This factors as (x - ${p})(x - ${q}) = 0. Solutions are x = ${p} and x = ${q}. The smaller solution is ${Math.min(p, q)}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Completing the square: x² + 2bx
+            const b = this.rInt(2, 8);
+            const square = b * b;
+            
+            return {
+                tex: `x^2 + ${2 * b}x + \\underline{\\quad}`,
+                instruction: "What value completes the perfect square?",
+                displayAnswer: `${square}`,
+                distractors: [`${b}`, `${2 * b}`, `${square / 2}`],
+                explanation: `To complete the square for x² + ${2 * b}x, take half the coefficient of x: (${2 * b})/2 = ${b}, then square it: ${b}² = ${square}. This gives (x + ${b})².`,
+                calc: false
+            };
+        } else {
+            // Discriminant and nature of roots
+            const discriminants = [
+                { b: 4, c: 4, disc: 0, nature: 'one repeated root' },
+                { b: 5, c: 6, disc: 1, nature: 'two distinct real roots' },
+                { b: 2, c: 5, disc: -16, nature: 'no real roots' }
+            ];
+            const q = discriminants[this.rInt(0, discriminants.length - 1)];
+            const disc = q.b * q.b - 4 * q.c;
+            
+            return {
+                tex: `x^2 + ${q.b}x + ${q.c} = 0`,
+                instruction: "What is the discriminant b² - 4ac?",
+                displayAnswer: `${disc}`,
+                distractors: [`${q.b * q.b}`, `${4 * q.c}`, `${q.b - 4 * q.c}`],
+                explanation: `Discriminant = b² - 4ac = ${q.b}² - 4(1)(${q.c}) = ${q.b * q.b} - ${4 * q.c} = ${disc}. This means ${q.nature}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Polynomials (Level 11-12)
+    getPolynomials: function() {
+        const questionType = this.rInt(1, 3);
+        
+        if (questionType === 1) {
+            // Polynomial addition
+            const a1 = this.rInt(2, 5);
+            const b1 = this.rInt(1, 8);
+            const a2 = this.rInt(1, 4);
+            const b2 = this.rInt(1, 7);
+            const sumA = a1 + a2;
+            const sumB = b1 + b2;
+            
+            return {
+                tex: `(${a1}x + ${b1}) + (${a2}x + ${b2})`,
+                instruction: "Simplify",
+                displayAnswer: `${sumA}x + ${sumB}`,
+                distractors: [`${a1}x + ${sumB}`, `${sumA}x + ${b1}`, `${a1 * a2}x + ${b1 * b2}`],
+                explanation: `Combine like terms: (${a1} + ${a2})x + (${b1} + ${b2}) = ${sumA}x + ${sumB}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Factor theorem: if (x - a) is a factor, then f(a) = 0
+            const a = this.rInt(1, 5);
+            const b = this.rInt(1, 6);
+            const c = -a * b; // Make (x - a) a factor
+            
+            return {
+                tex: `f(x) = x^2 + ${b - a}x + ${c}`,
+                instruction: `\\text{Is } (x - ${a}) \\text{ a factor?}`,
+                displayAnswer: `\\text{Yes}`,
+                distractors: [`\\text{No}`, `\\text{Only if x > 0}`, `\\text{Cannot determine}`],
+                explanation: `By factor theorem, if (x - ${a}) is a factor, then f(${a}) = 0. Check: f(${a}) = ${a}² + ${b - a}(${a}) + ${c} = ${a * a} + ${a * (b - a)} + ${c} = 0. Yes, it's a factor.`,
+                calc: false
+            };
+        } else {
+            // Remainder theorem
+            const a = this.rInt(1, 4);
+            const b = this.rInt(2, 8);
+            const c = this.rInt(1, 10);
+            const remainder = a * a + b * a + c;
+            
+            return {
+                tex: `f(x) = x^2 + ${b}x + ${c}`,
+                instruction: `\\text{Find remainder when divided by } (x - ${a})`,
+                displayAnswer: `${remainder}`,
+                distractors: [`${remainder - a}`, `${c}`, `0`],
+                explanation: `By remainder theorem, the remainder when f(x) is divided by (x - ${a}) is f(${a}) = ${a}² + ${b}(${a}) + ${c} = ${remainder}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Exponentials and Logarithms (Level 12-13)
+    getExponentialsLogs: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Basic exponential: 2^x = 8
+            const bases = [2, 3, 5];
+            const base = bases[this.rInt(0, bases.length - 1)];
+            const exp = this.rInt(2, 4);
+            const result = Math.pow(base, exp);
+            
+            return {
+                tex: `${base}^x = ${result}`,
+                instruction: "Solve for x",
+                displayAnswer: `x = ${exp}`,
+                distractors: [`x = ${exp + 1}`, `x = ${result / base}`, `x = ${Math.log(result)}`],
+                explanation: `${base}^${exp} = ${result}, so x = ${exp}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Basic logarithm: log₂(8) = ?
+            const base = [2, 10][this.rInt(0, 1)];
+            const exp = this.rInt(2, 3);
+            const arg = Math.pow(base, exp);
+            const logNotation = base === 10 ? '\\log' : `\\log_{${base}}`;
+            
+            return {
+                tex: `${logNotation}(${arg})`,
+                instruction: "Evaluate",
+                displayAnswer: `${exp}`,
+                distractors: [`${exp + 1}`, `${arg / base}`, `${arg}`],
+                explanation: `${logNotation}(${arg}) = ${exp} because ${base}^${exp} = ${arg}. Logarithm asks: "what power gives us ${arg}?"`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Log laws: log(a) + log(b) = log(ab)
+            const a = [2, 4, 5, 8][this.rInt(0, 3)];
+            const b = [2, 3, 5][this.rInt(0, 2)];
+            const product = a * b;
+            
+            return {
+                tex: `\\log(${a}) + \\log(${b})`,
+                instruction: "Simplify using log laws",
+                displayAnswer: `\\log(${product})`,
+                distractors: [`\\log(${a + b})`, `${Math.log10(a) + Math.log10(b)}`, `\\log(${a}) \\times \\log(${b})`],
+                explanation: `Using the product rule: log(a) + log(b) = log(ab). So log(${a}) + log(${b}) = log(${product}).`,
+                calc: false
+            };
+        } else {
+            // Exponential equation: e^x = e^3
+            const exp = this.rInt(2, 6);
+            
+            return {
+                tex: `e^x = e^{${exp}}`,
+                instruction: "Solve for x",
+                displayAnswer: `x = ${exp}`,
+                distractors: [`x = e^{${exp}}`, `x = ${exp}e`, `x = \\ln(${exp})`],
+                explanation: `If e^x = e^${exp}, then x = ${exp}. Equal bases mean equal exponents.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Sequences and Series (Level 13-14)
+    getSequencesSeries: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Arithmetic sequence: nth term
+            const a = this.rInt(3, 10);
+            const d = this.rInt(2, 7);
+            const n = this.rInt(5, 10);
+            const term = a + (n - 1) * d;
+            
+            return {
+                tex: `\\text{Arithmetic sequence: } a_1 = ${a}, d = ${d}`,
+                instruction: `\\text{Find } a_{${n}}`,
+                displayAnswer: `${term}`,
+                distractors: [`${a + n * d}`, `${term - d}`, `${a * n}`],
+                explanation: `Formula: a_n = a_1 + (n-1)d = ${a} + (${n}-1)(${d}) = ${a} + ${(n - 1) * d} = ${term}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Geometric sequence: nth term
+            const a = this.rInt(2, 5);
+            const r = this.rInt(2, 3);
+            const n = this.rInt(3, 5);
+            const term = a * Math.pow(r, n - 1);
+            
+            return {
+                tex: `\\text{Geometric sequence: } a_1 = ${a}, r = ${r}`,
+                instruction: `\\text{Find } a_{${n}}`,
+                displayAnswer: `${term}`,
+                distractors: [`${a * r * n}`, `${term / r}`, `${a + Math.pow(r, n)}`],
+                explanation: `Formula: a_n = a_1 × r^(n-1) = ${a} × ${r}^${n - 1} = ${a} × ${Math.pow(r, n - 1)} = ${term}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Sum of arithmetic series
+            const a = this.rInt(1, 5);
+            const d = this.rInt(1, 4);
+            const n = this.rInt(5, 10);
+            const l = a + (n - 1) * d;
+            const sum = (n * (a + l)) / 2;
+            
+            return {
+                tex: `\\text{Sum of arithmetic series: } a_1 = ${a}, d = ${d}, n = ${n}`,
+                instruction: "Find the sum S_n",
+                displayAnswer: `${sum}`,
+                distractors: [`${n * a}`, `${sum + n}`, `${a + l}`],
+                explanation: `S_n = n(a_1 + a_n)/2. First find a_${n} = ${a} + ${(n - 1) * d} = ${l}. Then S_${n} = ${n}(${a} + ${l})/2 = ${sum}.`,
+                calc: false
+            };
+        } else {
+            // Sigma notation
+            const n = this.rInt(3, 6);
+            const sum = (n * (n + 1)) / 2;
+            
+            return {
+                tex: `\\sum_{k=1}^{${n}} k`,
+                instruction: "Evaluate the sum",
+                displayAnswer: `${sum}`,
+                distractors: [`${n * n}`, `${n + 1}`, `${sum + n}`],
+                explanation: `Sum of first ${n} natural numbers: 1 + 2 + ... + ${n} = n(n+1)/2 = ${n}(${n + 1})/2 = ${sum}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Advanced Trigonometry (Level 16-17)
+    getAdvancedTrig: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Trig identity: sin²θ + cos²θ = 1
+            return {
+                tex: `\\sin^2\\theta + \\cos^2\\theta`,
+                instruction: "Simplify using trig identity",
+                displayAnswer: `1`,
+                distractors: [`\\sin\\theta`, `\\cos\\theta`, `2`],
+                explanation: `Fundamental identity: sin²θ + cos²θ = 1 for all θ. This is derived from the Pythagorean theorem on the unit circle.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Double angle formula: sin(2θ)
+            return {
+                tex: `\\sin(2\\theta)`,
+                instruction: "Express in terms of sinθ and cosθ",
+                displayAnswer: `2\\sin\\theta\\cos\\theta`,
+                distractors: [`\\sin^2\\theta`, `2\\sin\\theta`, `\\sin\\theta + \\cos\\theta`],
+                explanation: `Double angle formula: sin(2θ) = 2sinθcosθ. This comes from the sum formula sin(A+B).`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Convert degrees to radians
+            const degrees = [30, 45, 60, 90, 180][this.rInt(0, 4)];
+            const radians = {
+                30: '\\frac{\\pi}{6}',
+                45: '\\frac{\\pi}{4}',
+                60: '\\frac{\\pi}{3}',
+                90: '\\frac{\\pi}{2}',
+                180: '\\pi'
+            };
+            
+            return {
+                tex: `${degrees}°`,
+                instruction: "Convert to radians",
+                displayAnswer: `${radians[degrees]}`,
+                distractors: [`${degrees}\\pi`, `\\frac{${degrees}}{180}`, `\\frac{\\pi}{${degrees}}`],
+                explanation: `To convert degrees to radians: multiply by π/180. ${degrees}° × (π/180°) = ${radians[degrees]}.`,
+                calc: false
+            };
+        } else {
+            // Solving trig equation: sin(x) = 0.5 for 0 ≤ x < 360°
+            return {
+                tex: `\\sin(x) = 0.5, \\quad 0° \\leq x < 360°`,
+                instruction: "Find the smallest solution",
+                displayAnswer: `30°`,
+                distractors: [`45°`, `60°`, `90°`],
+                explanation: `sin(30°) = 1/2 = 0.5. The solutions in [0°, 360°) are 30° and 150° (supplementary angles). The smallest is 30°.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Vectors (Level 17-18)
+    getVectors: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Vector addition
+            const a1 = this.rInt(1, 6);
+            const a2 = this.rInt(1, 6);
+            const b1 = this.rInt(1, 5);
+            const b2 = this.rInt(1, 5);
+            const sum1 = a1 + b1;
+            const sum2 = a2 + b2;
+            
+            return {
+                tex: `\\begin{pmatrix} ${a1} \\\\ ${a2} \\end{pmatrix} + \\begin{pmatrix} ${b1} \\\\ ${b2} \\end{pmatrix}`,
+                instruction: "Add the vectors",
+                displayAnswer: `\\begin{pmatrix} ${sum1} \\\\ ${sum2} \\end{pmatrix}`,
+                distractors: [
+                    `\\begin{pmatrix} ${a1 * b1} \\\\ ${a2 * b2} \\end{pmatrix}`,
+                    `\\begin{pmatrix} ${sum1} \\\\ ${a2} \\end{pmatrix}`,
+                    `\\begin{pmatrix} ${a1} \\\\ ${sum2} \\end{pmatrix}`
+                ],
+                explanation: `Add corresponding components: (${a1} + ${b1}, ${a2} + ${b2}) = (${sum1}, ${sum2}).`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Scalar multiplication
+            const k = this.rInt(2, 5);
+            const v1 = this.rInt(1, 6);
+            const v2 = this.rInt(1, 6);
+            const result1 = k * v1;
+            const result2 = k * v2;
+            
+            return {
+                tex: `${k} \\begin{pmatrix} ${v1} \\\\ ${v2} \\end{pmatrix}`,
+                instruction: "Multiply vector by scalar",
+                displayAnswer: `\\begin{pmatrix} ${result1} \\\\ ${result2} \\end{pmatrix}`,
+                distractors: [
+                    `\\begin{pmatrix} ${v1 + k} \\\\ ${v2 + k} \\end{pmatrix}`,
+                    `\\begin{pmatrix} ${result1} \\\\ ${v2} \\end{pmatrix}`,
+                    `\\begin{pmatrix} ${k} \\\\ ${k} \\end{pmatrix}`
+                ],
+                explanation: `Multiply each component by ${k}: (${k}×${v1}, ${k}×${v2}) = (${result1}, ${result2}).`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Magnitude of vector
+            const v1 = this.rInt(3, 5);
+            const v2 = this.rInt(3, 5);
+            const magSquared = v1 * v1 + v2 * v2;
+            const mag = Math.sqrt(magSquared);
+            const isExact = mag === Math.floor(mag);
+            
+            return {
+                tex: `\\left|\\begin{pmatrix} ${v1} \\\\ ${v2} \\end{pmatrix}\\right|`,
+                instruction: "Find the magnitude",
+                displayAnswer: isExact ? `${mag}` : `\\sqrt{${magSquared}}`,
+                distractors: [
+                    `${v1 + v2}`,
+                    `${Math.max(v1, v2)}`,
+                    `\\sqrt{${v1 * v2}}`
+                ],
+                explanation: `Magnitude = √(${v1}² + ${v2}²) = √(${v1 * v1} + ${v2 * v2}) = √${magSquared}${isExact ? ' = ' + mag : ''}.`,
+                calc: false
+            };
+        } else {
+            // Dot product
+            const a1 = this.rInt(1, 5);
+            const a2 = this.rInt(1, 5);
+            const b1 = this.rInt(1, 5);
+            const b2 = this.rInt(1, 5);
+            const dot = a1 * b1 + a2 * b2;
+            
+            return {
+                tex: `\\begin{pmatrix} ${a1} \\\\ ${a2} \\end{pmatrix} \\cdot \\begin{pmatrix} ${b1} \\\\ ${b2} \\end{pmatrix}`,
+                instruction: "Calculate the dot product",
+                displayAnswer: `${dot}`,
+                distractors: [
+                    `${a1 + b1}`,
+                    `${a1 * b1}`,
+                    `${dot + a2}`
+                ],
+                explanation: `Dot product = (${a1})(${b1}) + (${a2})(${b2}) = ${a1 * b1} + ${a2 * b2} = ${dot}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Complex Numbers (Level 18-19)
+    getComplexNumbers: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Adding complex numbers
+            const a1 = this.rInt(1, 8);
+            const b1 = this.rInt(1, 8);
+            const a2 = this.rInt(1, 8);
+            const b2 = this.rInt(1, 8);
+            const sumReal = a1 + a2;
+            const sumImag = b1 + b2;
+            
+            return {
+                tex: `(${a1} + ${b1}i) + (${a2} + ${b2}i)`,
+                instruction: "Add the complex numbers",
+                displayAnswer: `${sumReal} + ${sumImag}i`,
+                distractors: [
+                    `${a1 + a2}i`,
+                    `${sumReal} + ${b1}i`,
+                    `${a1} + ${sumImag}i`
+                ],
+                explanation: `Add real parts and imaginary parts separately: (${a1} + ${a2}) + (${b1} + ${b2})i = ${sumReal} + ${sumImag}i.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Multiplying complex numbers (simple)
+            const a = this.rInt(2, 5);
+            const b = this.rInt(2, 5);
+            // (a + bi)(a - bi) = a² + b² (conjugates)
+            const result = a * a + b * b;
+            
+            return {
+                tex: `(${a} + ${b}i)(${a} - ${b}i)`,
+                instruction: "Multiply (use i² = -1)",
+                displayAnswer: `${result}`,
+                distractors: [
+                    `${a * a} - ${b * b}`,
+                    `${a * a}i`,
+                    `${2 * a * b}i`
+                ],
+                explanation: `Using (a+bi)(a-bi) = a² - (bi)² = a² - b²i² = a² - b²(-1) = a² + b². So ${a}² + ${b}² = ${result}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Modulus of complex number
+            const a = this.rInt(3, 5);
+            const b = this.rInt(3, 5);
+            const modSquared = a * a + b * b;
+            const mod = Math.sqrt(modSquared);
+            const isExact = mod === Math.floor(mod);
+            
+            return {
+                tex: `|${a} + ${b}i|`,
+                instruction: "Find the modulus",
+                displayAnswer: isExact ? `${mod}` : `\\sqrt{${modSquared}}`,
+                distractors: [
+                    `${a + b}`,
+                    `${Math.max(a, b)}`,
+                    `${a * b}`
+                ],
+                explanation: `Modulus = √(a² + b²) = √(${a}² + ${b}²) = √${modSquared}${isExact ? ' = ' + mod : ''}.`,
+                calc: false
+            };
+        } else {
+            // Powers of i
+            const powers = [
+                { exp: 2, result: '-1' },
+                { exp: 3, result: '-i' },
+                { exp: 4, result: '1' }
+            ];
+            const p = powers[this.rInt(0, powers.length - 1)];
+            
+            return {
+                tex: `i^{${p.exp}}`,
+                instruction: "Simplify",
+                displayAnswer: `${p.result}`,
+                distractors: [`i`, `${p.exp}i`, `${p.exp}`],
+                explanation: `i¹ = i, i² = -1, i³ = -i, i⁴ = 1, and the pattern repeats. So i^${p.exp} = ${p.result}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Advanced Calculus (Level 20-21)
+    getAdvancedCalculus: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Chain rule: d/dx[f(g(x))]
+            const a = this.rInt(2, 5);
+            const b = this.rInt(1, 6);
+            const n = this.rInt(2, 4);
+            
+            return {
+                tex: `f(x) = (${a}x + ${b})^${n}`,
+                instruction: "Find f'(x) using chain rule",
+                displayAnswer: `${n * a}(${a}x + ${b})^{${n - 1}}`,
+                distractors: [
+                    `${n}(${a}x + ${b})^{${n - 1}}`,
+                    `${a}(${a}x + ${b})^{${n - 1}}`,
+                    `${n * a}x^{${n - 1}}`
+                ],
+                explanation: `Chain rule: d/dx[(ax+b)^n] = n(ax+b)^(n-1) × a. So derivative = ${n}(${a}x + ${b})^${n - 1} × ${a} = ${n * a}(${a}x + ${b})^${n - 1}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Product rule: d/dx[f(x)g(x)]
+            const a = this.rInt(2, 5);
+            const b = this.rInt(1, 4);
+            
+            return {
+                tex: `f(x) = x \\cdot ${a}x^${b}`,
+                instruction: "Find f'(x) using product rule",
+                displayAnswer: `${(b + 1) * a}x^{${b}}`,
+                distractors: [
+                    `${a * b}x^{${b - 1}}`,
+                    `${a}x^{${b}}`,
+                    `${a}x^{${b + 1}}`
+                ],
+                explanation: `Product rule: (uv)' = u'v + uv'. Here u = x, v = ${a}x^${b}. So (x)(${a * b}x^${b - 1}) + (1)(${a}x^${b}) = ${(b + 1) * a}x^${b}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Quotient rule hint or second derivative
+            const a = this.rInt(2, 5);
+            const n = this.rInt(2, 4);
+            const firstDeriv = a * n;
+            const secondDeriv = a * n * (n - 1);
+            
+            return {
+                tex: `f(x) = ${a}x^${n}`,
+                instruction: "Find the second derivative f''(x)",
+                displayAnswer: `${secondDeriv}x^{${n - 2}}`,
+                distractors: [
+                    `${firstDeriv}x^{${n - 1}}`,
+                    `${a * n * n}x^{${n - 2}}`,
+                    `${secondDeriv}x^{${n - 1}}`
+                ],
+                explanation: `First derivative: f'(x) = ${firstDeriv}x^${n - 1}. Second derivative: f''(x) = ${firstDeriv}(${n - 1})x^${n - 2} = ${secondDeriv}x^${n - 2}.`,
+                calc: false
+            };
+        } else {
+            // Critical points: f'(x) = 0
+            const a = this.rInt(1, 3);
+            const root = this.rInt(2, 5);
+            const b = -2 * a * root;
+            
+            return {
+                tex: `f'(x) = ${a}x ${b >= 0 ? '+' : ''}${b} = 0`,
+                instruction: "Find critical point (where f'(x) = 0)",
+                displayAnswer: `x = ${root}`,
+                distractors: [
+                    `x = ${-root}`,
+                    `x = ${b / a}`,
+                    `x = 0`
+                ],
+                explanation: `Set derivative to zero: ${a}x + ${b} = 0. Solve: ${a}x = ${-b}, so x = ${root}. This is a critical point (potential max/min).`,
+                calc: false
+            };
+        }
+    },
+    
+    // Statistics (Level 21-22)
+    getStatistics: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Mean
+            const data = [this.rInt(10, 20), this.rInt(15, 25), this.rInt(20, 30), this.rInt(10, 25)];
+            const sum = data.reduce((a, b) => a + b, 0);
+            const mean = sum / data.length;
+            
+            return {
+                tex: `\\text{Data: } ${data.join(', ')}`,
+                instruction: "Find the mean",
+                displayAnswer: `${mean}`,
+                distractors: [
+                    `${Math.max(...data)}`,
+                    `${data[Math.floor(data.length / 2)]}`,
+                    `${mean + 1}`
+                ],
+                explanation: `Mean = sum/count = (${data.join(' + ')})/${data.length} = ${sum}/${data.length} = ${mean}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Median
+            const data = [12, 15, 18, 20, 25].sort((a, b) => a - b);
+            const median = data[Math.floor(data.length / 2)];
+            
+            return {
+                tex: `\\text{Data: } ${data.join(', ')}`,
+                instruction: "Find the median",
+                displayAnswer: `${median}`,
+                distractors: [
+                    `${data[0]}`,
+                    `${data[data.length - 1]}`,
+                    `${(data[0] + data[data.length - 1]) / 2}`
+                ],
+                explanation: `Median is the middle value in sorted data. Since we have ${data.length} values, the median is the ${Math.floor(data.length / 2) + 1}th value: ${median}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Mode
+            const mode = this.rInt(15, 25);
+            const data = [mode, this.rInt(10, 14), mode, this.rInt(26, 30), mode];
+            
+            return {
+                tex: `\\text{Data: } ${data.join(', ')}`,
+                instruction: "Find the mode",
+                displayAnswer: `${mode}`,
+                distractors: [
+                    `${data[1]}`,
+                    `${data[3]}`,
+                    `\\text{no mode}`
+                ],
+                explanation: `Mode is the most frequent value. ${mode} appears ${data.filter(x => x === mode).length} times, more than any other value.`,
+                calc: false
+            };
+        } else {
+            // Range
+            const min = this.rInt(10, 20);
+            const max = this.rInt(40, 60);
+            const data = [min, this.rInt(min + 5, max - 5), max];
+            const range = max - min;
+            
+            return {
+                tex: `\\text{Data: } ${data.join(', ')}`,
+                instruction: "Find the range",
+                displayAnswer: `${range}`,
+                distractors: [
+                    `${max}`,
+                    `${min}`,
+                    `${(max + min) / 2}`
+                ],
+                explanation: `Range = maximum - minimum = ${max} - ${min} = ${range}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Advanced Probability (Level 23-24)
+    getAdvancedProbability: function() {
+        const questionType = this.rInt(1, 3);
+        
+        if (questionType === 1) {
+            // Conditional probability
+            const total = 100;
+            const eventA = this.rInt(40, 60);
+            const both = this.rInt(15, Math.min(30, eventA));
+            
+            return {
+                tex: `P(A) = ${eventA / total}, P(A \\cap B) = ${both / total}`,
+                instruction: "Find P(B|A) = P(A∩B)/P(A)",
+                displayAnswer: `${(both / eventA).toFixed(2)}`,
+                distractors: [
+                    `${(both / total).toFixed(2)}`,
+                    `${(eventA / total).toFixed(2)}`,
+                    `${((eventA - both) / total).toFixed(2)}`
+                ],
+                explanation: `Conditional probability: P(B|A) = P(A∩B)/P(A) = ${both / total}/${eventA / total} = ${both}/${eventA} ≈ ${(both / eventA).toFixed(2)}.`,
+                calc: true
+            };
+        } else if (questionType === 2) {
+            // Independent events: P(A and B) = P(A) × P(B)
+            const pA = [0.3, 0.4, 0.5, 0.6][this.rInt(0, 3)];
+            const pB = [0.2, 0.3, 0.5][this.rInt(0, 2)];
+            const pBoth = pA * pB;
+            
+            return {
+                tex: `\\text{If A and B are independent: } P(A) = ${pA}, P(B) = ${pB}`,
+                instruction: "Find P(A and B)",
+                displayAnswer: `${pBoth}`,
+                distractors: [
+                    `${pA + pB}`,
+                    `${pA}`,
+                    `${pB}`
+                ],
+                explanation: `For independent events: P(A and B) = P(A) × P(B) = ${pA} × ${pB} = ${pBoth}.`,
+                calc: false
+            };
+        } else {
+            // Expected value
+            const outcomes = [1, 2, 3, 4, 5, 6];
+            const probs = [1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6];
+            const ev = outcomes.reduce((sum, val, i) => sum + val * probs[i], 0);
+            
+            return {
+                tex: `\\text{Fair die: outcomes 1-6, each with P = 1/6}`,
+                instruction: "Find expected value E(X)",
+                displayAnswer: `${ev.toFixed(1)}`,
+                distractors: [
+                    `${3}`,
+                    `${4}`,
+                    `${6}`
+                ],
+                explanation: `E(X) = Σ(x × P(x)) = 1(1/6) + 2(1/6) + ... + 6(1/6) = (1+2+3+4+5+6)/6 = 21/6 = ${ev.toFixed(1)}.`,
+                calc: false
+            };
+        }
+    },
+    
     // "Why" question generator - asks students to explain reasoning
     getWhyQuestion: function(level) {
         const band = Math.round(level);
@@ -933,22 +1879,103 @@ window.Generator = {
             });
         }
         
-        // Level 11+: Calculus
-        if (band > 10) {
-            const n = this.rInt(2, 4);
-            whyQuestions.push({
-                type: 'why',
-                tex: `\\int x^${n} \\, dx = \\frac{x^{${n + 1}}}{${n + 1}} + C`,
-                instruction: "Why do we add a constant C when integrating?",
-                displayAnswer: `Because the derivative of a constant is zero, so any constant could have been there`,
-                distractors: [
-                    `To make the answer look complete`,
-                    `Because integration always adds 1`,
-                    `To balance the equation`
-                ],
-                explanation: `When we differentiate, constants disappear (d/dx[C] = 0). So when we integrate, we must account for any constant that was lost. We write "+ C" to represent this unknown constant.`,
-                calc: false
-            });
+        // Level 11+: Advanced topics
+        if (band > 10 && band <= 15) {
+            const topics = [
+                {
+                    type: 'why',
+                    tex: `\\log(ab) = \\log(a) + \\log(b)`,
+                    instruction: "Why does this logarithm property work?",
+                    displayAnswer: `Because logarithms convert multiplication into addition`,
+                    distractors: [
+                        `Because logs always add together`,
+                        `To make calculations easier`,
+                        `Because a and b are multiplied`
+                    ],
+                    explanation: `This is the product rule for logarithms. It works because if log(a) = x and log(b) = y, then a = 10^x and b = 10^y, so ab = 10^x × 10^y = 10^(x+y), meaning log(ab) = x + y = log(a) + log(b).`,
+                    calc: false
+                },
+                {
+                    type: 'why',
+                    tex: `\\text{Arithmetic series: } S_n = \\frac{n(a_1 + a_n)}{2}`,
+                    instruction: "Why do we use (first + last) / 2?",
+                    displayAnswer: `Because the average of all terms equals the average of first and last`,
+                    distractors: [
+                        `To make the formula symmetric`,
+                        `Because that's how series always work`,
+                        `To simplify the calculation`
+                    ],
+                    explanation: `In an arithmetic sequence, pairs of terms equidistant from the ends sum to the same value (a₁ + aₙ). The sum is n times this average value divided by 2.`,
+                    calc: false
+                }
+            ];
+            whyQuestions.push(topics[this.rInt(0, topics.length - 1)]);
+        }
+        
+        // Level 15+: Trigonometry and Vectors
+        if (band > 15 && band <= 19) {
+            const topics = [
+                {
+                    type: 'why',
+                    tex: `\\sin^2\\theta + \\cos^2\\theta = 1`,
+                    instruction: "Why is this identity always true?",
+                    displayAnswer: `Because it comes from the Pythagorean theorem on the unit circle`,
+                    distractors: [
+                        `Because sine and cosine are inverse functions`,
+                        `Because angles are measured in radians`,
+                        `Because trigonometric functions are periodic`
+                    ],
+                    explanation: `On the unit circle, the point (cos θ, sin θ) is at distance 1 from the origin. By Pythagorean theorem: (cos θ)² + (sin θ)² = 1².`,
+                    calc: false
+                },
+                {
+                    type: 'why',
+                    tex: `\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta`,
+                    instruction: "What does the dot product measure?",
+                    displayAnswer: `The product of magnitudes times the cosine of the angle between vectors`,
+                    distractors: [
+                        `The sum of vector components`,
+                        `The area between two vectors`,
+                        `The perpendicular distance`
+                    ],
+                    explanation: `The dot product measures how much two vectors point in the same direction. When θ = 0° (same direction), cos θ = 1 and we get maximum value. When θ = 90° (perpendicular), cos θ = 0.`,
+                    calc: false
+                }
+            ];
+            whyQuestions.push(topics[this.rInt(0, topics.length - 1)]);
+        }
+        
+        // Level 19+: Calculus and Statistics
+        if (band > 19) {
+            const topics = [
+                {
+                    type: 'why',
+                    tex: `\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)`,
+                    instruction: "Why do we multiply by g'(x) in the chain rule?",
+                    displayAnswer: `Because we need to account for how fast the inner function is changing`,
+                    distractors: [
+                        `To make the derivative correct`,
+                        `Because that's the product rule`,
+                        `To simplify the calculation`
+                    ],
+                    explanation: `The chain rule accounts for nested rates of change. If y changes with u, and u changes with x, then dy/dx = (dy/du) × (du/dx). We multiply the outer derivative by the inner derivative.`,
+                    calc: false
+                },
+                {
+                    type: 'why',
+                    tex: `\\int x^${this.rInt(2, 4)} \\, dx = \\frac{x^{${this.rInt(2, 4) + 1}}}{${this.rInt(2, 4) + 1}} + C`,
+                    instruction: "Why do we add a constant C when integrating?",
+                    displayAnswer: `Because the derivative of a constant is zero, so any constant could have been there`,
+                    distractors: [
+                        `To make the answer look complete`,
+                        `Because integration always adds 1`,
+                        `To balance the equation`
+                    ],
+                    explanation: `When we differentiate, constants disappear (d/dx[C] = 0). So when we integrate, we must account for any constant that was lost. We write "+ C" to represent this unknown constant.`,
+                    calc: false
+                }
+            ];
+            whyQuestions.push(topics[this.rInt(0, topics.length - 1)]);
         }
         
         // Return a random "why" question from the appropriate level
