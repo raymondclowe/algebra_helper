@@ -8,6 +8,18 @@ window.Generator = {
     EQUIVALENCE_TEST_VALUES: [1, 2, 4, 9, 16],
     FALLBACK_DISTRACTOR_MAX_COEFFICIENT: 20, // Max coefficient for fallback distractors
     
+    // Helper function to convert function notation to unicode mathematical italic characters
+    // U+1D453 = 𝑓 (Mathematical Italic Small F)
+    // U+1D454 = 𝑔 (Mathematical Italic Small G)
+    toUnicodeFunction: function(str) {
+        return str
+            .replace(/\bf\(/g, '𝑓(')  // f( -> 𝑓(
+            .replace(/\bf\^/g, '𝑓^')  // f^ -> 𝑓^ (for inverse notation)
+            .replace(/\bf'/g, "𝑓'")  // f' -> 𝑓' (for derivative notation)
+            .replace(/\bg\(/g, '𝑔(')  // g( -> 𝑔(
+            .replace(/\bg'/g, "𝑔'"); // g' -> 𝑔' (for derivative notation)
+    },
+    
     // Math helper functions for fractions
     gcd: (a, b) => b === 0 ? a : window.Generator.gcd(b, a % b),
     lcm: (a, b) => (a * b) / window.Generator.gcd(a, b),
@@ -206,11 +218,11 @@ window.Generator = {
             // Original differentiation question
             const a=this.rInt(2,5), n=this.rInt(2,4);
             return { 
-                tex: `f(x) = ${a}x^{${n}}`, 
-                instruction: "Find f'(x)", 
+                tex: this.toUnicodeFunction(`f(x) = ${a}x^{${n}}`), 
+                instruction: this.toUnicodeFunction("Find f'(x)"), 
                 displayAnswer:`${a*n}x^{${n-1}}`, 
                 distractors:[`${a*n}x^{${n}}`,`${a}x^{${n-1}}`,`${n}x^{${a}}`], 
-                explanation:`Use the power rule for differentiation: multiply the coefficient by the exponent, then reduce the exponent by 1. So ${a}x^${n} becomes ${a} × ${n} × x^${n-1} = ${a*n}x^${n-1}. The derivative tells us the rate of change of the function.`, 
+                explanation: this.toUnicodeFunction(`Use the power rule for differentiation: multiply the coefficient by the exponent, then reduce the exponent by 1. So ${a}x^${n} becomes ${a} × ${n} × x^${n-1} = ${a*n}x^${n-1}. The derivative tells us the rate of change of the function.`), 
                 calc:false 
             };
         } else {
@@ -262,11 +274,11 @@ window.Generator = {
         }
         
         return {
-            tex: `f(x) = ${a}x^2`,
-            instruction: "Find f^{-1}(x) for x ≥ 0",
+            tex: this.toUnicodeFunction(`f(x) = ${a}x^2`),
+            instruction: this.toUnicodeFunction("Find f^{-1}(x) for x ≥ 0"),
             displayAnswer: correctAnswer,
             distractors: wrongAnswers,
-            explanation: `To find the inverse function, we swap x and y, then solve for y. Start with y = ${a}x^2, swap to get x = ${a}y^2, then divide both sides by ${a} to get y^2 = x/${a}. Finally, take the square root of both sides: y = √(x/${a}). We take the positive root because x ≥ 0. The inverse "undoes" what the original function does.`,
+            explanation: this.toUnicodeFunction(`To find the inverse function, we swap x and y, then solve for y. Start with y = ${a}x^2, swap to get x = ${a}y^2, then divide both sides by ${a} to get y^2 = x/${a}. Finally, take the square root of both sides: y = √(x/${a}). We take the positive root because x ≥ 0. The inverse "undoes" what the original function does.`),
             calc: false
         };
     },
@@ -497,11 +509,11 @@ window.Generator = {
             const x = this.rInt(1, 8);
             const answer = a * x + b;
             return {
-                tex: `f(x) = ${a}x + ${b}, \\quad f(${x}) = ?`,
+                tex: this.toUnicodeFunction(`f(x) = ${a}x + ${b}, \\quad f(${x}) = ?`),
                 instruction: "Evaluate the function",
                 displayAnswer: `${answer}`,
                 distractors: [`${a * x}`, `${answer + a}`, `${answer - b}`],
-                explanation: `Substitute x = ${x} into the function: f(${x}) = ${a}(${x}) + ${b} = ${a * x} + ${b} = ${answer}.`,
+                explanation: this.toUnicodeFunction(`Substitute x = ${x} into the function: f(${x}) = ${a}(${x}) + ${b} = ${a * x} + ${b} = ${answer}.`),
                 calc: false
             };
         } else if (questionType === 2) {
@@ -510,11 +522,11 @@ window.Generator = {
             const gResult = x + 3;
             const fResult = 2 * gResult;
             return {
-                tex: `f(x) = 2x, \\quad g(x) = x + 3, \\quad f(g(${x})) = ?`,
+                tex: this.toUnicodeFunction(`f(x) = 2x, \\quad g(x) = x + 3, \\quad f(g(${x})) = ?`),
                 instruction: "Evaluate the composite function",
                 displayAnswer: `${fResult}`,
                 distractors: [`${fResult + 2}`, `${gResult}`, `${x * 2 + 3}`],
-                explanation: `First find g(${x}) = ${x} + 3 = ${gResult}. Then find f(${gResult}) = 2(${gResult}) = ${fResult}. Work from the inside out.`,
+                explanation: this.toUnicodeFunction(`First find g(${x}) = ${x} + 3 = ${gResult}. Then find f(${gResult}) = 2(${gResult}) = ${fResult}. Work from the inside out.`),
                 calc: false
             };
         } else {
@@ -529,7 +541,7 @@ window.Generator = {
                 const xInt = this.rInt(3, 8);
                 const resultInt = m * xInt - c;
                 return {
-                    tex: `f(x) = ${m}x - ${c}, \\quad f(a) = ${resultInt}, \\quad a = ?`,
+                    tex: this.toUnicodeFunction(`f(x) = ${m}x - ${c}, \\quad f(a) = ${resultInt}, \\quad a = ?`),
                     instruction: "Find the input value",
                     displayAnswer: `${xInt}`,
                     distractors: [`${xInt + 1}`, `${xInt - 1}`, `${resultInt}`],
@@ -538,7 +550,7 @@ window.Generator = {
                 };
             }
             return {
-                tex: `f(x) = ${m}x - ${c}, \\quad f(a) = ${result}, \\quad a = ?`,
+                tex: this.toUnicodeFunction(`f(x) = ${m}x - ${c}, \\quad f(a) = ${result}, \\quad a = ?`),
                 instruction: "Find the input value",
                 displayAnswer: `${x}`,
                 distractors: [`${x + 1}`, `${x - 1}`, `${result}`],
@@ -1055,11 +1067,11 @@ window.Generator = {
             const c = -a * b; // Make (x - a) a factor
             
             return {
-                tex: `f(x) = x^2 + ${b - a}x + ${c}`,
+                tex: this.toUnicodeFunction(`f(x) = x^2 + ${b - a}x + ${c}`),
                 instruction: `\\text{Is } (x - ${a}) \\text{ a factor?}`,
                 displayAnswer: `\\text{Yes}`,
                 distractors: [`\\text{No}`, `\\text{Only if x > 0}`, `\\text{Cannot determine}`],
-                explanation: `By factor theorem, if (x - ${a}) is a factor, then f(${a}) = 0. Check: f(${a}) = ${a}² + ${b - a}(${a}) + ${c} = ${a * a} + ${a * (b - a)} + ${c} = 0. Yes, it's a factor.`,
+                explanation: this.toUnicodeFunction(`By factor theorem, if (x - ${a}) is a factor, then f(${a}) = 0. Check: f(${a}) = ${a}² + ${b - a}(${a}) + ${c} = ${a * a} + ${a * (b - a)} + ${c} = 0. Yes, it's a factor.`),
                 calc: false
             };
         } else {
@@ -1070,11 +1082,11 @@ window.Generator = {
             const remainder = a * a + b * a + c;
             
             return {
-                tex: `f(x) = x^2 + ${b}x + ${c}`,
+                tex: this.toUnicodeFunction(`f(x) = x^2 + ${b}x + ${c}`),
                 instruction: `\\text{Find remainder when divided by } (x - ${a})`,
                 displayAnswer: `${remainder}`,
                 distractors: [`${remainder - a}`, `${c}`, `0`],
-                explanation: `By remainder theorem, the remainder when f(x) is divided by (x - ${a}) is f(${a}) = ${a}² + ${b}(${a}) + ${c} = ${remainder}.`,
+                explanation: this.toUnicodeFunction(`By remainder theorem, the remainder when f(x) is divided by (x - ${a}) is f(${a}) = ${a}² + ${b}(${a}) + ${c} = ${remainder}.`),
                 calc: false
             };
         }
@@ -1448,8 +1460,8 @@ window.Generator = {
             const n = this.rInt(2, 4);
             
             return {
-                tex: `f(x) = (${a}x + ${b})^${n}`,
-                instruction: "Find f'(x) using chain rule",
+                tex: this.toUnicodeFunction(`f(x) = (${a}x + ${b})^${n}`),
+                instruction: this.toUnicodeFunction("Find f'(x) using chain rule"),
                 displayAnswer: `${n * a}(${a}x + ${b})^{${n - 1}}`,
                 distractors: [
                     `${n}(${a}x + ${b})^{${n - 1}}`,
@@ -1465,15 +1477,15 @@ window.Generator = {
             const b = this.rInt(1, 4);
             
             return {
-                tex: `f(x) = x \\cdot ${a}x^${b}`,
-                instruction: "Find f'(x) using product rule",
+                tex: this.toUnicodeFunction(`f(x) = x \\cdot ${a}x^${b}`),
+                instruction: this.toUnicodeFunction("Find f'(x) using product rule"),
                 displayAnswer: `${(b + 1) * a}x^{${b}}`,
                 distractors: [
                     `${a * b}x^{${b - 1}}`,
                     `${a}x^{${b}}`,
                     `${a}x^{${b + 1}}`
                 ],
-                explanation: `Product rule: (uv)' = u'v + uv'. Here u = x, v = ${a}x^${b}. So (x)(${a * b}x^${b - 1}) + (1)(${a}x^${b}) = ${(b + 1) * a}x^${b}.`,
+                explanation: this.toUnicodeFunction(`Product rule: (uv)' = u'v + uv'. Here u = x, v = ${a}x^${b}. So (x)(${a * b}x^${b - 1}) + (1)(${a}x^${b}) = ${(b + 1) * a}x^${b}.`),
                 calc: false
             };
         } else if (questionType === 3) {
@@ -1484,15 +1496,15 @@ window.Generator = {
             const secondDeriv = a * n * (n - 1);
             
             return {
-                tex: `f(x) = ${a}x^${n}`,
-                instruction: "Find the second derivative f''(x)",
+                tex: this.toUnicodeFunction(`f(x) = ${a}x^${n}`),
+                instruction: this.toUnicodeFunction("Find the second derivative f''(x)"),
                 displayAnswer: `${secondDeriv}x^{${n - 2}}`,
                 distractors: [
                     `${firstDeriv}x^{${n - 1}}`,
                     `${a * n * n}x^{${n - 2}}`,
                     `${secondDeriv}x^{${n - 1}}`
                 ],
-                explanation: `First derivative: f'(x) = ${firstDeriv}x^${n - 1}. Second derivative: f''(x) = ${firstDeriv}(${n - 1})x^${n - 2} = ${secondDeriv}x^${n - 2}.`,
+                explanation: this.toUnicodeFunction(`First derivative: f'(x) = ${firstDeriv}x^${n - 1}. Second derivative: f''(x) = ${firstDeriv}(${n - 1})x^${n - 2} = ${secondDeriv}x^${n - 2}.`),
                 calc: false
             };
         } else {
@@ -1502,8 +1514,8 @@ window.Generator = {
             const b = -2 * a * root;
             
             return {
-                tex: `f'(x) = ${a}x ${b >= 0 ? '+' : ''}${b} = 0`,
-                instruction: "Find critical point (where f'(x) = 0)",
+                tex: this.toUnicodeFunction(`f'(x) = ${a}x ${b >= 0 ? '+' : ''}${b} = 0`),
+                instruction: this.toUnicodeFunction("Find critical point (where f'(x) = 0)"),
                 displayAnswer: `x = ${root}`,
                 distractors: [
                     `x = ${-root}`,
@@ -1822,15 +1834,15 @@ window.Generator = {
                 const result = a * x;
                 whyQuestions.push({
                     type: 'why',
-                    tex: `f(x) = ${a}x, \\quad f(${x}) = ${result}`,
-                    instruction: "What does f(" + x + ") mean?",
+                    tex: this.toUnicodeFunction(`f(x) = ${a}x, \\quad f(${x}) = ${result}`),
+                    instruction: this.toUnicodeFunction("What does f(" + x + ") mean?"),
                     displayAnswer: `Substitute ${x} for x in the function definition`,
                     distractors: [
                         `Multiply f by ${x}`,
                         `Add ${x} to the function`,
                         `Divide f by ${x}`
                     ],
-                    explanation: `f(${x}) means substitute x = ${x} into the function: f(${x}) = ${a}(${x}) = ${result}.`,
+                    explanation: this.toUnicodeFunction(`f(${x}) means substitute x = ${x} into the function: f(${x}) = ${a}(${x}) = ${result}.`),
                     calc: false
                 });
             } else {
@@ -1856,7 +1868,7 @@ window.Generator = {
             const a = this.rInt(2,5), n = this.rInt(2,4);
             whyQuestions.push({
                 type: 'why',
-                tex: `f(x) = ${a}x^{${n}} \\\\[0.5em] \\text{Step: } f'(x) = ${a*n}x^{${n-1}}`,
+                tex: this.toUnicodeFunction(`f(x) = ${a}x^{${n}} \\\\[0.5em] \\text{Step: } f'(x) = ${a*n}x^{${n-1}}`),
                 instruction: "Why do we multiply by the power and reduce the power by 1?",
                 displayAnswer: `This is the power rule: bring down the exponent and reduce it by 1`,
                 distractors: [
@@ -1957,15 +1969,15 @@ window.Generator = {
             const topics = [
                 {
                     type: 'why',
-                    tex: `\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)`,
-                    instruction: "Why do we multiply by g'(x) in the chain rule?",
+                    tex: this.toUnicodeFunction(`\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)`),
+                    instruction: this.toUnicodeFunction("Why do we multiply by g'(x) in the chain rule?"),
                     displayAnswer: `Because we need to account for how fast the inner function is changing`,
                     distractors: [
                         `To make the derivative correct`,
                         `Because that's the product rule`,
                         `To simplify the calculation`
                     ],
-                    explanation: `The chain rule accounts for nested rates of change. If y changes with u, and u changes with x, then dy/dx = (dy/du) × (du/dx). We multiply the outer derivative by the inner derivative.`,
+                    explanation: this.toUnicodeFunction(`The chain rule accounts for nested rates of change. If y changes with u, and u changes with x, then dy/dx = (dy/du) × (du/dx). We multiply the outer derivative by the inner derivative.`),
                     calc: false
                 },
                 {
