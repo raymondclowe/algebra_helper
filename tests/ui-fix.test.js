@@ -57,7 +57,7 @@ describe('UI Fix Tests - No Screen Shift and Correct Answer Highlight', () => {
         expect(isInvisible).toBe(true);
     });
 
-    test('Next button becomes visible after wrong answer without causing layout shift', async () => {
+    test('Explanation modal appears after wrong answer without causing layout shift', async () => {
         // Get the initial position of elements
         const initialPositions = await page.evaluate(() => {
             const mcOptions = document.getElementById('mc-options');
@@ -82,12 +82,12 @@ describe('UI Fix Tests - No Screen Shift and Correct Answer Highlight', () => {
 
         await wait(500);
 
-        // Check that Next button is now visible
-        const isVisible = await page.evaluate(() => {
-            const btn = document.getElementById('next-btn');
-            return !btn.classList.contains('invisible');
+        // Check that explanation modal is now visible
+        const modalVisible = await page.evaluate(() => {
+            const modal = document.getElementById('explanation-modal');
+            return !modal.classList.contains('hidden');
         });
-        expect(isVisible).toBe(true);
+        expect(modalVisible).toBe(true);
 
         // Verify the mc-options position hasn't changed significantly
         const finalPositions = await page.evaluate(() => {
@@ -134,7 +134,7 @@ describe('UI Fix Tests - No Screen Shift and Correct Answer Highlight', () => {
         expect(correctButtonIsGreen).toBe(true);
     });
 
-    test('Explanation box is shown after wrong answer', async () => {
+    test('Explanation modal is shown after wrong answer', async () => {
         // Click a wrong answer (using dataset.correct to find wrong answer)
         await page.evaluate(() => {
             const buttons = document.getElementById('mc-options').querySelectorAll('button');
@@ -148,16 +148,16 @@ describe('UI Fix Tests - No Screen Shift and Correct Answer Highlight', () => {
 
         await wait(500);
 
-        // Check that explanation box is visible
+        // Check that explanation modal is visible
         const explanationVisible = await page.evaluate(() => {
-            const box = document.getElementById('explanation-box');
-            return !box.classList.contains('hidden');
+            const modal = document.getElementById('explanation-modal');
+            return !modal.classList.contains('hidden');
         });
 
         expect(explanationVisible).toBe(true);
 
         // Check that explanation text exists
-        const explanationText = await page.$eval('#explanation-text', el => el.textContent);
+        const explanationText = await page.$eval('#explanation-modal-text', el => el.textContent);
         expect(explanationText.length).toBeGreaterThan(0);
     });
 

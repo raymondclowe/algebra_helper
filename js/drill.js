@@ -72,12 +72,6 @@ window.Learning = {
             
             // Don't affect streak or history for "I don't know" - this is the "no penalty" part
             
-            // Show explanation immediately so user can learn
-            const box = document.getElementById('explanation-box');
-            box.classList.remove('hidden');
-            document.getElementById('explanation-text').innerHTML = window.APP.currentQ.explanation;
-            MathJax.typesetPromise([box]);
-            
             // Highlight the correct answer in green to show what the answer was
             allButtons.forEach(b => {
                 if (b.dataset.correct === 'true') {
@@ -85,8 +79,8 @@ window.Learning = {
                 }
             });
             
-            // Show Next button to allow progression
-            document.getElementById('next-btn').classList.remove('invisible');
+            // Show explanation in modal (no retry option for "I don't know")
+            window.ExplanationModal.show(window.APP.currentQ.explanation, false);
             
             // Save to storage (with dontKnow flag)
             this.saveQuestionToStorage(timeSpent, false, true);
@@ -164,17 +158,11 @@ window.Learning = {
                 }
             });
             
-            // Show Explanation
-            const box = document.getElementById('explanation-box');
-            box.classList.remove('hidden');
-            document.getElementById('explanation-text').innerHTML = window.APP.currentQ.explanation;
-            MathJax.typesetPromise([box]);
+            // Show explanation in modal with retry option
+            window.ExplanationModal.show(window.APP.currentQ.explanation, true);
             
             // Save to storage (wrong answer)
             this.saveQuestionToStorage(timeSpent, false, false);
-            
-            // Show Next button ONLY for wrong answers (correct answers auto-advance)
-            document.getElementById('next-btn').classList.remove('invisible');
         }
         
         // Update and Animate Level (applies to both correct and wrong)
