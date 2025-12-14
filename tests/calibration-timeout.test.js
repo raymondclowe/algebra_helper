@@ -57,7 +57,7 @@ describe('Calibration Timeout Tests', () => {
         expect(hasAnimationClass).toBe(true);
     });
 
-    test('Timeout automatically records "don\'t know" after 5 seconds', async () => {
+    test("Timeout automatically records 'don't know' after 5 seconds", async () => {
         // Record the initial history length
         const initialHistoryLength = await page.evaluate(() => window.APP.calibrationHistory.length);
         
