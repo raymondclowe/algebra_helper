@@ -369,3 +369,22 @@ body {
 #mc-options button .MathJax * {
     font-style: normal !important;
 }
+
+/* Timeout Bar Animation */
+#timeout-bar {
+    height: 100%;
+    transform-origin: top;
+}
+
+@keyframes shrinkBar {
+    from {
+        transform: scaleY(1);
+    }
+    to {
+        transform: scaleY(0);
+    }
+}
+
+.timeout-bar-shrinking {
+    animation: shrinkBar 5s linear forwards;
+}
