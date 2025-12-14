@@ -69,8 +69,8 @@ describe('Inverse Quadratic Function Tests', () => {
         });
 
         expect(question).toBeDefined();
-        expect(question.tex).toMatch(/f\(x\) = \d+x\^2/);
-        expect(question.instruction).toContain('f^{-1}(x)');
+        expect(question.tex).toMatch(/𝑓\(x\) = \d+x\^2/);
+        expect(question.instruction).toContain('𝑓^{-1}(x)');
         expect(question.displayAnswer).toBeDefined();
         expect(question.displayAnswer).toMatch(/y = /);
         expect(Array.isArray(question.distractors)).toBe(true);
@@ -124,7 +124,7 @@ describe('Inverse Quadratic Function Tests', () => {
             // Level 20 maps to lvl5() which includes inverse quadratic questions
             for (let i = 0; i < 50; i++) {
                 const q = gen.getQuestion(20);
-                if (q.instruction && q.instruction.includes('f^{-1}')) {
+                if (q.instruction && q.instruction.includes('𝑓^{-1}')) {
                     foundInverse = true;
                     break;
                 }
@@ -158,7 +158,7 @@ describe('Inverse Quadratic Function Tests', () => {
             await wait(500);
 
             const instruction = await page.$eval('#instruction-text', el => el.textContent);
-            if (instruction.includes('f^{-1}') || instruction.includes('inverse')) {
+            if (instruction.includes('𝑓^{-1}') || instruction.includes('inverse')) {
                 foundInverse = true;
                 
                 // Verify the question is displayed

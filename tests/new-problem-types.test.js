@@ -116,8 +116,8 @@ describe('New Problem Types Tests', () => {
         expect(question.hasAnswer).toBe(true);
         expect(question.hasDistractors).toBe(true);
         expect(question.hasExplanation).toBe(true);
-        // Check that it contains function notation
-        expect(question.tex).toMatch(/f\(/);
+        // Check that it contains function notation (unicode 𝑓)
+        expect(question.tex).toMatch(/𝑓\(/);
     });
 
     test('Trigonometry problems are generated at level 8-9', async () => {
