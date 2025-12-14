@@ -1,6 +1,55 @@
 // Calibration Logic
 window.Calibration = {
+    timeoutId: null,
+    timeoutDuration: 5000, // 5 seconds in milliseconds
+    
+    startTimeout: function() {
+        // Clear any existing timeout
+        this.clearTimeout();
+        
+        // Show and start the timeout bar animation
+        const barContainer = document.getElementById('timeout-bar-container');
+        const bar = document.getElementById('timeout-bar');
+        
+        if (barContainer && bar) {
+            barContainer.classList.remove('hidden');
+            bar.classList.remove('timeout-bar-shrinking');
+            // Force reflow to restart animation
+            void bar.offsetWidth;
+            bar.classList.add('timeout-bar-shrinking');
+        }
+        
+        // Set timeout to auto-submit as "don't know"
+        this.timeoutId = setTimeout(() => {
+            this.handleTimeout();
+        }, this.timeoutDuration);
+    },
+    
+    clearTimeout: function() {
+        if (this.timeoutId) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
+        
+        // Hide the timeout bar
+        const barContainer = document.getElementById('timeout-bar-container');
+        const bar = document.getElementById('timeout-bar');
+        
+        if (barContainer && bar) {
+            barContainer.classList.add('hidden');
+            bar.classList.remove('timeout-bar-shrinking');
+        }
+    },
+    
+    handleTimeout: function() {
+        // Auto-submit as "don't know" (fail)
+        this.handleCalibration('fail');
+    },
+    
     handleCalibration: function(action) {
+        // Clear timeout when user responds
+        this.clearTimeout();
+        
         const timeTaken = (Date.now() - window.APP.startTime) / 1000;
         
         // Record this calibration response

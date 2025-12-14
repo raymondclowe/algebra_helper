@@ -152,7 +152,11 @@
         </div>
 
         <!-- CONTROLS: CALIBRATION -->
-        <div id="controls-calibration" class="grid grid-cols-3 divide-x divide-gray-700 border-t border-gray-700 bg-gray-750 h-24">
+        <div id="controls-calibration" class="grid grid-cols-3 divide-x divide-gray-700 border-t border-gray-700 bg-gray-750 h-24 relative">
+            <!-- Timeout Bar Container -->
+            <div id="timeout-bar-container" class="absolute left-0 top-0 bottom-0 w-2 bg-gray-700 overflow-hidden hidden">
+                <div id="timeout-bar" class="w-full bg-gradient-to-b from-green-500 via-yellow-500 to-red-500 transition-all"></div>
+            </div>
             <button onclick="APP.handleCalibration('fail')" class="hover:bg-red-900/30 text-gray-400 hover:text-red-300 font-bold flex flex-col items-center justify-center">
                 <span>Don't Know</span>
                 <span class="text-[10px] font-normal opacity-50 mt-1">Too Hard</span>

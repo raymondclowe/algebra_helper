@@ -45,6 +45,11 @@ window.UI = {
             drillControls.classList.toggle('hidden', window.APP.mode === 'calibration');
         }
         
+        // Start timeout for calibration mode
+        if (window.APP.mode === 'calibration') {
+            window.Calibration.startTimeout();
+        }
+        
         if (isLearningMode) window.Learning.setupUI();
     },
     
