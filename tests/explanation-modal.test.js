@@ -323,8 +323,9 @@ describe('Explanation Modal Tests', () => {
         // Check that modal content is scrollable
         const isScrollable = await page.evaluate(() => {
             const modal = document.getElementById('explanation-modal');
-            const content = modal.querySelector('.max-h-\\[90vh\\]');
-            return content && content.classList.contains('overflow-y-auto');
+            // Find the modal content div by its structure (second child div)
+            const modalContent = modal.querySelector('.bg-gray-800.rounded-xl');
+            return modalContent && modalContent.classList.contains('overflow-y-auto');
         });
 
         expect(isScrollable).toBe(true);

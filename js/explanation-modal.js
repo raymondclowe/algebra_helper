@@ -78,17 +78,15 @@ window.ExplanationModal = {
     
     // Reset UI state after closing modal
     resetUIState: function() {
+        // Define default button class
+        const DEFAULT_BUTTON_CLASS = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex items-center justify-center min-h-[60px]";
+        
         // Re-enable all answer buttons
         const allButtons = document.getElementById('mc-options').querySelectorAll('button');
         allButtons.forEach(btn => {
             btn.disabled = false;
             // Reset to default styling
-            const isDontKnow = btn.dataset.dontKnow === 'true';
-            if (isDontKnow) {
-                btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex items-center justify-center min-h-[60px]";
-            } else {
-                btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex items-center justify-center min-h-[60px]";
-            }
+            btn.className = DEFAULT_BUTTON_CLASS;
         });
         
         // Hide the old inline explanation box (for backward compatibility)
