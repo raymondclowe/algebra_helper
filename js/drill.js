@@ -17,7 +17,7 @@ window.Learning = {
 
         opts.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex items-center justify-center min-h-[60px]";
+            btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex flex-wrap items-center justify-center min-h-[60px]";
             if (window.DEBUG_MODE && opt.correct) btn.classList.add('debug-correct');
             btn.dataset.correct = opt.correct.toString();
             btn.dataset.dontKnow = (opt.dontKnow || false).toString();
