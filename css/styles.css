@@ -388,3 +388,71 @@ body {
 .timeout-bar-shrinking {
     animation: shrinkBar 5s linear forwards;
 }
+
+/* MathJax Word Wrapping and Line Breaking Support */
+/* Enable word wrapping and line breaking for MathJax content */
+#question-math mjx-container,
+#mc-options mjx-container {
+    display: inline-block !important;
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+}
+
+/* Allow MathJax content to wrap on mobile */
+#question-math mjx-container[display="true"] {
+    display: block !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    max-width: 100% !important;
+}
+
+/* Ensure MathJax math elements can break */
+#question-math mjx-math,
+#mc-options mjx-math {
+    display: inline-block !important;
+    max-width: 100% !important;
+}
+
+/* Support for line breaks in display mode */
+#question-math {
+    overflow-wrap: break-word;
+    white-space: normal !important;
+}
+
+/* Make answer buttons wrap text properly */
+#mc-options button {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    text-align: center !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem !important;
+}
+
+/* Ensure wrapped content in buttons is properly spaced */
+#mc-options button mjx-container {
+    margin: 0.25rem !important;
+}
+
+/* Mobile-specific MathJax improvements */
+@media (max-width: 768px) {
+    /* Reduce MathJax font size on mobile for better wrapping */
+    #question-math mjx-container {
+        font-size: 0.9em !important;
+    }
+    
+    #mc-options mjx-container {
+        font-size: 0.85em !important;
+    }
+    
+    /* Add spacing between wrapped lines */
+    #question-math mjx-math {
+        line-height: 1.5 !important;
+    }
+    
+    #mc-options button mjx-math {
+        line-height: 1.4 !important;
+    }
+}

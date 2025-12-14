@@ -28,7 +28,34 @@
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
       svg: {fontCache: 'global'},
-      startup: { typeset: false }
+      startup: { typeset: false },
+      options: {
+        enableMenu: false
+      },
+      chtml: {
+        matchFontHeight: false,
+        displayAlign: 'center',
+        displayIndent: '0',
+        scale: 0.95
+      },
+      'HTML-CSS': {
+        linebreaks: {
+          automatic: true,
+          width: '90% container'
+        }
+      },
+      CommonHTML: {
+        linebreaks: {
+          automatic: true,
+          width: '90% container'
+        }
+      },
+      SVG: {
+        linebreaks: {
+          automatic: true,
+          width: '90% container'
+        }
+      }
     };
     </script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
