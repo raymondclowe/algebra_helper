@@ -8,6 +8,10 @@ window.Generator = {
     EQUIVALENCE_TEST_VALUES: [1, 2, 4, 9, 16],
     FALLBACK_DISTRACTOR_MAX_COEFFICIENT: 20, // Max coefficient for fallback distractors
     
+    // Math helper functions for fractions
+    gcd: (a, b) => b === 0 ? a : window.Generator.gcd(b, a % b),
+    lcm: (a, b) => (a * b) / window.Generator.gcd(a, b),
+    
     // Fisher-Yates shuffle algorithm for proper randomization
     shuffleArray: function(array) {
         const arr = [...array]; // Create a copy to avoid mutation
@@ -719,11 +723,6 @@ window.Generator = {
     
     // Fractions (Level 3-4)
     getFractions: function() {
-        // Helper function for GCD
-        const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
-        // Helper function for LCM
-        const lcm = (a, b) => (a * b) / gcd(a, b);
-        
         const questionType = this.rInt(1, 5);
         
         if (questionType === 1) {
@@ -732,7 +731,7 @@ window.Generator = {
             const num1 = this.rInt(1, den - 1);
             const num2 = this.rInt(1, den - num1);
             const sum = num1 + num2;
-            const divisor = gcd(sum, den);
+            const divisor = this.gcd(sum, den);
             const simplifiedNum = sum / divisor;
             const simplifiedDen = den / divisor;
             
@@ -756,7 +755,7 @@ window.Generator = {
             const den2 = this.rInt(2, 9);
             const resultNum = num1 * num2;
             const resultDen = den1 * den2;
-            const divisor = gcd(resultNum, resultDen);
+            const divisor = this.gcd(resultNum, resultDen);
             const simplifiedNum = resultNum / divisor;
             const simplifiedDen = resultDen / divisor;
             
@@ -780,7 +779,7 @@ window.Generator = {
             const den2 = this.rInt(2, 7);
             const resultNum = num1 * den2;
             const resultDen = den1 * num2;
-            const divisor = gcd(resultNum, resultDen);
+            const divisor = this.gcd(resultNum, resultDen);
             const simplifiedNum = resultNum / divisor;
             const simplifiedDen = resultDen / divisor;
             
@@ -798,16 +797,24 @@ window.Generator = {
             };
         } else if (questionType === 4) {
             // Adding fractions with different denominators
-            const den1 = this.rInt(2, 6);
-            const den2 = this.rInt(3, 7);
-            if (den1 === den2) return this.getFractions(); // Retry if same
+            let den1 = this.rInt(2, 6);
+            let den2 = this.rInt(3, 7);
+            let attempts = 0;
+            // Ensure different denominators with max 10 retries
+            while (den1 === den2 && attempts < 10) {
+                den2 = this.rInt(3, 7);
+                attempts++;
+            }
+            // If still same after retries, force different values
+            if (den1 === den2) den2 = den1 + 1;
+            
             const num1 = this.rInt(1, den1);
             const num2 = this.rInt(1, den2);
-            const commonDen = lcm(den1, den2);
+            const commonDen = this.lcm(den1, den2);
             const newNum1 = num1 * (commonDen / den1);
             const newNum2 = num2 * (commonDen / den2);
             const sum = newNum1 + newNum2;
-            const divisor = gcd(sum, commonDen);
+            const divisor = this.gcd(sum, commonDen);
             const simplifiedNum = sum / divisor;
             const simplifiedDen = commonDen / divisor;
             
@@ -1963,7 +1970,10 @@ window.Generator = {
                 },
                 {
                     type: 'why',
-                    tex: `\\int x^${this.rInt(2, 4)} \\, dx = \\frac{x^{${this.rInt(2, 4) + 1}}}{${this.rInt(2, 4) + 1}} + C`,
+                    tex: (() => {
+                        const n = this.rInt(2, 4);
+                        return `\\int x^${n} \\, dx = \\frac{x^{${n + 1}}}{${n + 1}} + C`;
+                    })(),
                     instruction: "Why do we add a constant C when integrating?",
                     displayAnswer: `Because the derivative of a constant is zero, so any constant could have been there`,
                     distractors: [
