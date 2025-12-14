@@ -7,7 +7,7 @@ window.APP = {
     speedHistory: [], // Track response speed: 1 for fast, 0.5 for normal, 0 for slow
     
     // Calibration State
-    cMin: 0, cMax: 10,
+    cMin: 0, cMax: MAX_LEVEL,
     calibrationHistory: [], // Track all calibration responses: {level, action, timeTaken}
     
     // Audio Context (reusable)

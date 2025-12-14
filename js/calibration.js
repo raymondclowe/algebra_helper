@@ -75,7 +75,15 @@ window.Calibration = {
         // Check if we have enough confidence to end calibration
         if (this.shouldEndCalibration()) {
             // Ready to learn. Start slightly below found level.
-            window.APP.level = Math.max(1, window.APP.cMin - 1.0); 
+            // Special case: if cMax <= 1, start at level 1 (user doesn't know anything)
+            // Special case: if cMin >= MAX_LEVEL, start at MAX_LEVEL (user knows everything)
+            if (window.APP.cMax <= MIN_LEVEL) {
+                window.APP.level = MIN_LEVEL;
+            } else if (window.APP.cMin >= MAX_LEVEL) {
+                window.APP.level = MAX_LEVEL;
+            } else {
+                window.APP.level = Math.max(MIN_LEVEL, window.APP.cMin - 1.0);
+            }
             // Support both 'learning' (new) and 'drill' (old) for backward compatibility
             window.APP.mode = 'learning';
             // Visual update
@@ -94,6 +102,18 @@ window.Calibration = {
         const MIN_RESPONSES = 6; // Minimum number of responses before ending
         const CONVERGENCE_THRESHOLD = 1.5; // Range must be narrow
         const CONSISTENCY_WINDOW = 4; // Check last N responses for consistency
+        
+        // Early termination: If both cMin and cMax indicate level 1 or below
+        // This handles the case where user doesn't know anything
+        if (window.APP.cMax <= MIN_LEVEL && window.APP.calibrationHistory.length >= MIN_RESPONSES) {
+            return true;
+        }
+        
+        // Early termination: If both cMin and cMax indicate maximum level or above
+        // This handles the case where user knows everything
+        if (window.APP.cMin >= MAX_LEVEL && window.APP.calibrationHistory.length >= MIN_RESPONSES) {
+            return true;
+        }
         
         // Must have minimum responses
         if (window.APP.calibrationHistory.length < MIN_RESPONSES) {
