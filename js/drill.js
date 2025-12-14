@@ -55,6 +55,11 @@ window.Learning = {
 
         let delta = 0;
         const isWhyQuestion = window.APP.currentQ.type === 'why';
+        
+        // Spaced repetition: Check if this question was from a lower level
+        const questionLevel = window.APP.currentQ.questionLevel || window.APP.level;
+        const levelDifference = window.APP.level - questionLevel;
+        const isSpacedRepetition = levelDifference > 0.5; // Question is from a lower level
 
         if (isDontKnow) {
             // "I don't know" feature: Allow users to skip without penalty
@@ -109,6 +114,15 @@ window.Learning = {
             if (window.APP.streak >= 3) delta = TURBO_LEVEL_DELTA * speedFactor; // Acceleration with speed
             else delta = BASE_LEVEL_DELTA * speedFactor; // Base movement with speed
             
+            // SPACED REPETITION BONUS: Correct answers on review questions boost level more
+            // Consistent correct answers on lower-level material accelerates progression
+            if (isSpacedRepetition) {
+                // Bonus multiplier based on how much lower the question was
+                // Ranges from 1.2x (1 level down) to 1.5x (3+ levels down)
+                const bonusMultiplier = 1.2 + Math.min(levelDifference * 0.1, 0.3);
+                delta *= bonusMultiplier;
+            }
+            
             // Determine feedback based on speed
             let isSlow = timeTaken > SLOW_ANSWER_THRESHOLD;
             
@@ -130,6 +144,15 @@ window.Learning = {
             // Frustration Breaker
             if (window.APP.streak <= 0) delta = -0.8; // Second wrong answer drops hard
             else delta = -0.3; // First wrong answer drops distinct amount
+            
+            // SPACED REPETITION PENALTY: Incorrect answers on much easier questions drop level more
+            // If student fails a question that's significantly below their level, penalize proportionally
+            if (isSpacedRepetition && levelDifference >= 2) {
+                // Additional penalty based on level gap
+                // Failing a question 2 levels down adds -0.3, 3 levels adds -0.4, etc.
+                const penaltyMultiplier = 1 + (levelDifference * 0.2);
+                delta *= penaltyMultiplier;
+            }
             
             window.APP.streak = 0; // Reset streak
             

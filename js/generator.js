@@ -59,16 +59,69 @@ window.Generator = {
         return true;
     },
     
+    // Spaced repetition: Select question level with logarithmic fall-off
+    // Returns the level to use for the next question (may be lower than current level)
+    selectQuestionLevel: function(currentLevel) {
+        // Only apply spaced repetition in learning/drill mode
+        if (window.APP.mode !== 'learning' && window.APP.mode !== 'drill') {
+            return currentLevel;
+        }
+        
+        // Don't apply spaced repetition if at level 1 or below (no lower levels to review)
+        if (currentLevel <= 1) {
+            return currentLevel;
+        }
+        
+        const rand = Math.random() * 100; // 0-100
+        
+        // Logarithmic distribution for spaced repetition:
+        // ~10% from previous level (level - 1)
+        // ~5% from 2 levels down (level - 2)
+        // ~2% from 3 levels down (level - 3)
+        // ~1% from 4+ levels down (level - 4 or more)
+        // ~82% at current level
+        
+        if (rand < 1) {
+            // 1%: 4+ levels down
+            const levelDrop = Math.min(4 + Math.floor(Math.random() * 2), currentLevel - 1);
+            return Math.max(1, currentLevel - levelDrop);
+        } else if (rand < 3) {
+            // 2%: 3 levels down
+            return Math.max(1, currentLevel - 3);
+        } else if (rand < 8) {
+            // 5%: 2 levels down
+            return Math.max(1, currentLevel - 2);
+        } else if (rand < 18) {
+            // 10%: 1 level down
+            return Math.max(1, currentLevel - 1);
+        } else {
+            // 82%: current level
+            return currentLevel;
+        }
+    },
+    
     getQuestion: function(level) {
+        // Apply spaced repetition to determine actual question level
+        const questionLevel = this.selectQuestionLevel(level);
+        
         // Interleave "why" questions every 3rd question in learning mode to promote deeper understanding
         // Research shows elaborative interrogation improves conceptual learning (Pressley et al., 1987)
         if (window.APP.mode === 'learning' || window.APP.mode === 'drill') {
             this.questionCounter++;
             if (this.questionCounter % 3 === 0) {
-                return this.getWhyQuestion(level);
+                const question = this.getWhyQuestion(questionLevel);
+                question.questionLevel = questionLevel; // Track the level this question came from
+                return question;
             }
         }
         
+        const question = this.getQuestionForLevel(questionLevel);
+        question.questionLevel = questionLevel; // Track the level this question came from
+        return question;
+    },
+    
+    // Get a question for a specific level (extracted from getQuestion for reuse)
+    getQuestionForLevel: function(level) {
         const band = Math.round(level);
         // Expanded level system with more granular difficulty
         if (band <= 1) return this.getBasicArithmetic();      // Level 0-1: Basic arithmetic
