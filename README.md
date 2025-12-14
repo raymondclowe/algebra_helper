@@ -22,19 +22,32 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 - **🔥 Momentum Mode**: Build a streak of correct answers and watch your level accelerate! The more you succeed, the faster you progress.
 
-- **💪 Skill Reinforcement**: Practice makes perfect. Each problem reinforces mathematical concepts from basic arithmetic to advanced calculus:
-  - Level 0-1: Basic arithmetic (addition, subtraction, division)
-  - Level 1-2: Squares, cubes, and roots
-  - Level 2-3: Multiplication tables and patterns
-  - Level 3-4: Simple equation solving
-  - Level 4-5: Two-step equations
-  - Level 5-6: Expanding expressions
-  - Level 6-7: Factorising quadratics
-  - Level 7-8: Functions (evaluation, composition, inverse)
-  - Level 8-9: Trigonometry (sin, cos, tan)
-  - Level 9-10: Differentiation and inverse functions
-  - Level 10-11: Probability
-  - Level 11+: Calculus (integration, series)
+- **💪 Comprehensive IB Math HL AA Coverage**: Practice makes perfect. The app covers all topics from basic arithmetic through advanced IB Math HL Analysis & Approaches:
+  - **Level 0-1**: Basic arithmetic (addition, subtraction, division, reverse formats)
+  - **Level 1-2**: Squares, cubes, and roots (forward and reverse)
+  - **Level 2-3**: Multiplication tables, powers of 10, division
+  - **Level 3-4**: Fractions (addition, subtraction, multiplication, division, simplification)
+  - **Level 4-5**: Decimals & percentages (conversion, ordering, operations)
+  - **Level 5-6**: Simple linear equations (one variable)
+  - **Level 6-7**: Two-step equations
+  - **Level 7-8**: Inequalities (solving, sign rules)
+  - **Level 8-9**: Expanding expressions (distributive property)
+  - **Level 9-10**: Factorising quadratics
+  - **Level 10-11**: Quadratics (solving, completing the square, discriminant)
+  - **Level 11-12**: Polynomials (operations, factor theorem, remainder theorem)
+  - **Level 12-13**: Exponentials & logarithms (properties, equations, log laws)
+  - **Level 13-14**: Sequences & series (arithmetic, geometric, sigma notation)
+  - **Level 14-15**: Functions (evaluation, composition, inverse)
+  - **Level 15-16**: Trigonometry (standard angles, exact values)
+  - **Level 16-17**: Advanced trigonometry (identities, radians, double angle formulas)
+  - **Level 17-18**: Vectors (2D operations, magnitude, dot product)
+  - **Level 18-19**: Complex numbers (operations, modulus, powers of i)
+  - **Level 19-20**: Basic differentiation (power rule, inverse functions)
+  - **Level 20-21**: Advanced calculus (chain rule, product rule, critical points)
+  - **Level 21-22**: Statistics (mean, median, mode, range)
+  - **Level 22-23**: Probability (simple, complementary, combinations)
+  - **Level 23-24**: Advanced probability (conditional, independence, expected value)
+  - **Level 24+**: Integration & series (power rule, geometric series)
 
 ### How to Use
 
