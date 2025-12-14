@@ -396,7 +396,6 @@ body {
     display: inline-block !important;
     max-width: 100% !important;
     overflow-wrap: break-word !important;
-    word-wrap: break-word !important;
     word-break: break-word !important;
 }
 
@@ -418,14 +417,12 @@ body {
 /* Support for line breaks in display mode */
 #question-math {
     overflow-wrap: break-word;
-    word-wrap: break-word;
     white-space: normal !important;
 }
 
 /* Make answer buttons wrap text properly */
 #mc-options button {
     white-space: normal !important;
-    word-wrap: break-word !important;
     overflow-wrap: break-word !important;
     text-align: center !important;
     display: flex !important;
