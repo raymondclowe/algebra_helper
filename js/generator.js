@@ -719,6 +719,11 @@ window.Generator = {
     
     // Fractions (Level 3-4)
     getFractions: function() {
+        // Helper function for GCD
+        const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
+        // Helper function for LCM
+        const lcm = (a, b) => (a * b) / gcd(a, b);
+        
         const questionType = this.rInt(1, 5);
         
         if (questionType === 1) {
@@ -727,8 +732,6 @@ window.Generator = {
             const num1 = this.rInt(1, den - 1);
             const num2 = this.rInt(1, den - num1);
             const sum = num1 + num2;
-            // Simplify if possible
-            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
             const divisor = gcd(sum, den);
             const simplifiedNum = sum / divisor;
             const simplifiedDen = den / divisor;
@@ -753,7 +756,6 @@ window.Generator = {
             const den2 = this.rInt(2, 9);
             const resultNum = num1 * num2;
             const resultDen = den1 * den2;
-            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
             const divisor = gcd(resultNum, resultDen);
             const simplifiedNum = resultNum / divisor;
             const simplifiedDen = resultDen / divisor;
@@ -778,7 +780,6 @@ window.Generator = {
             const den2 = this.rInt(2, 7);
             const resultNum = num1 * den2;
             const resultDen = den1 * num2;
-            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
             const divisor = gcd(resultNum, resultDen);
             const simplifiedNum = resultNum / divisor;
             const simplifiedDen = resultDen / divisor;
@@ -802,14 +803,13 @@ window.Generator = {
             if (den1 === den2) return this.getFractions(); // Retry if same
             const num1 = this.rInt(1, den1);
             const num2 = this.rInt(1, den2);
-            const lcm = (den1 * den2) / ((a, b) => b === 0 ? a : ((a, b) => b === 0 ? a : arguments.callee(b, a % b))(a, b))(den1, den2);
-            const newNum1 = num1 * (lcm / den1);
-            const newNum2 = num2 * (lcm / den2);
+            const commonDen = lcm(den1, den2);
+            const newNum1 = num1 * (commonDen / den1);
+            const newNum2 = num2 * (commonDen / den2);
             const sum = newNum1 + newNum2;
-            const gcd = (a, b) => b === 0 ? a : gcd(b, a % b);
-            const divisor = gcd(sum, lcm);
+            const divisor = gcd(sum, commonDen);
             const simplifiedNum = sum / divisor;
-            const simplifiedDen = lcm / divisor;
+            const simplifiedDen = commonDen / divisor;
             
             return {
                 tex: `\\frac{${num1}}{${den1}} + \\frac{${num2}}{${den2}}`,
@@ -817,10 +817,10 @@ window.Generator = {
                 displayAnswer: `\\frac{${simplifiedNum}}{${simplifiedDen}}`,
                 distractors: [
                     `\\frac{${num1 + num2}}{${den1 + den2}}`,
-                    `\\frac{${sum}}{${lcm}}`,
-                    `\\frac{${newNum1}}{${lcm}}`
+                    `\\frac{${sum}}{${commonDen}}`,
+                    `\\frac{${newNum1}}{${commonDen}}`
                 ],
-                explanation: `Find LCD = ${lcm}. Convert: ${num1}/${den1} = ${newNum1}/${lcm} and ${num2}/${den2} = ${newNum2}/${lcm}. Add: ${newNum1 + newNum2}/${lcm} = ${simplifiedNum}/${simplifiedDen}.`,
+                explanation: `Find LCD = ${commonDen}. Convert: ${num1}/${den1} = ${newNum1}/${commonDen} and ${num2}/${den2} = ${newNum2}/${commonDen}. Add: ${newNum1 + newNum2}/${commonDen} = ${simplifiedNum}/${simplifiedDen}.`,
                 calc: false
             };
         } else {
