@@ -70,11 +70,19 @@ window.Generator = {
         }
         
         const band = Math.round(level);
-        if (band <= 2) return this.lvl1();
-        if (band <= 4) return this.lvl2();
-        if (band <= 6) return this.lvl3();
-        if (band <= 8) return this.lvl4();
-        return this.lvl5();
+        // Expanded level system with more granular difficulty
+        if (band <= 1) return this.getBasicArithmetic();      // Level 0-1: Basic arithmetic
+        if (band <= 2) return this.getSquaresAndRoots();       // Level 1-2: Squares, cubes, roots
+        if (band <= 3) return this.getMultiplicationTables();  // Level 2-3: Multiplication tables
+        if (band <= 4) return this.lvl1();                     // Level 3-4: Simple equations
+        if (band <= 5) return this.lvl2();                     // Level 4-5: Two-step equations
+        if (band <= 6) return this.lvl3();                     // Level 5-6: Expanding
+        if (band <= 7) return this.lvl4();                     // Level 6-7: Factorising
+        if (band <= 8) return this.getFunctionProblems();      // Level 7-8: Basic functions
+        if (band <= 9) return this.getTrigonometry();          // Level 8-9: Trigonometry
+        if (band <= 10) return this.lvl5();                    // Level 9-10: Differentiation/Inverse
+        if (band <= 11) return this.getProbability();          // Level 10-11: Probability
+        return this.getCalculus();                             // Level 11+: Calculus
     },
     lvl1: function() {
         const a=this.rInt(2,9), x=this.rInt(2,9);
@@ -193,6 +201,454 @@ window.Generator = {
         };
     },
     
+    // ========== NEW PROBLEM TYPES ==========
+    
+    // Basic Arithmetic (Level 0-1): Addition and Subtraction
+    getBasicArithmetic: function() {
+        const questionType = this.rInt(1, 4);
+        
+        if (questionType === 1) {
+            // Simple addition
+            const a = this.rInt(1, 20);
+            const b = this.rInt(1, 20);
+            const answer = a + b;
+            return {
+                tex: `${a} + ${b}`,
+                instruction: "Calculate",
+                displayAnswer: `${answer}`,
+                distractors: [`${answer + 1}`, `${answer - 1}`, `${a - b}`],
+                explanation: `Adding ${a} and ${b} gives ${answer}. You can verify by counting up from ${a} by ${b} steps.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Simple subtraction
+            const a = this.rInt(11, 30);
+            const b = this.rInt(1, a - 1);
+            const answer = a - b;
+            return {
+                tex: `${a} - ${b}`,
+                instruction: "Calculate",
+                displayAnswer: `${answer}`,
+                distractors: [`${answer + 1}`, `${answer - 1}`, `${a + b}`],
+                explanation: `Subtracting ${b} from ${a} gives ${answer}. You can verify by adding: ${answer} + ${b} = ${a}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Reverse addition: "? + b = c"
+            const b = this.rInt(1, 15);
+            const c = this.rInt(b + 1, 30);
+            const answer = c - b;
+            return {
+                tex: `? + ${b} = ${c}`,
+                instruction: "Find the missing number",
+                displayAnswer: `${answer}`,
+                distractors: [`${answer + 1}`, `${c}`, `${b}`],
+                explanation: `To find the missing number, subtract ${b} from ${c}: ${c} - ${b} = ${answer}. Check: ${answer} + ${b} = ${c} ✓`,
+                calc: false
+            };
+        } else {
+            // Simple division as reverse multiplication
+            const a = this.rInt(2, 9);
+            const x = this.rInt(2, 9);
+            const product = a * x;
+            return {
+                tex: `${product} \\div ${a}`,
+                instruction: "Calculate",
+                displayAnswer: `${x}`,
+                distractors: [`${x + 1}`, `${x - 1}`, `${a}`],
+                explanation: `${product} divided by ${a} equals ${x} because ${a} × ${x} = ${product}. Division is the inverse of multiplication.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Squares, Cubes, and Roots (Level 1-2)
+    getSquaresAndRoots: function() {
+        const questionType = this.rInt(1, 6);
+        
+        if (questionType === 1) {
+            // Forward: "What is the square of n?"
+            const n = this.rInt(2, 12);
+            const answer = n * n;
+            return {
+                tex: `\\text{What is } ${n}^2?`,
+                instruction: "Calculate the square",
+                displayAnswer: `${answer}`,
+                distractors: [`${n * 2}`, `${answer + n}`, `${answer - n}`],
+                explanation: `${n}^2 = ${n} × ${n} = ${answer}. Squaring means multiplying a number by itself.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Reverse: "n² = answer, find n"
+            const n = this.rInt(2, 12);
+            const square = n * n;
+            return {
+                tex: `${square} \\text{ is the square of what number?}`,
+                instruction: "Find the number",
+                displayAnswer: `${n}`,
+                distractors: [`${n + 1}`, `${n - 1}`, `${square / 2}`],
+                explanation: `Since ${n} × ${n} = ${square}, the answer is ${n}. This is finding the square root: √${square} = ${n}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Forward: "What is the cube of n?"
+            const n = this.rInt(2, 6);
+            const answer = n * n * n;
+            return {
+                tex: `\\text{What is } ${n}^3?`,
+                instruction: "Calculate the cube",
+                displayAnswer: `${answer}`,
+                distractors: [`${n * 3}`, `${n * n}`, `${answer + n}`],
+                explanation: `${n}^3 = ${n} × ${n} × ${n} = ${answer}. Cubing means multiplying a number by itself three times.`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // Reverse: "n³ = answer, find n"
+            const n = this.rInt(2, 6);
+            const cube = n * n * n;
+            return {
+                tex: `${cube} \\text{ is the cube of what number?}`,
+                instruction: "Find the number",
+                displayAnswer: `${n}`,
+                distractors: [`${n + 1}`, `${n - 1}`, `${cube / 3}`],
+                explanation: `Since ${n} × ${n} × ${n} = ${cube}, the answer is ${n}. This is finding the cube root: ∛${cube} = ${n}.`,
+                calc: false
+            };
+        } else if (questionType === 5) {
+            // Square root
+            const n = this.rInt(2, 12);
+            const square = n * n;
+            return {
+                tex: `\\sqrt{${square}}`,
+                instruction: "Calculate",
+                displayAnswer: `${n}`,
+                distractors: [`${n + 1}`, `${n - 1}`, `${square / 2}`],
+                explanation: `The square root of ${square} is ${n} because ${n} × ${n} = ${square}.`,
+                calc: false
+            };
+        } else {
+            // Power notation with small exponents
+            const base = this.rInt(2, 8);
+            const exp = this.rInt(2, 4);
+            const answer = Math.pow(base, exp);
+            // Build the multiplication chain properly
+            const multChain = Array(exp).fill(base).join(' × ');
+            return {
+                tex: `${base}^${exp}`,
+                instruction: "Calculate",
+                displayAnswer: `${answer}`,
+                distractors: [`${base * exp}`, `${answer + base}`, `${answer - base}`],
+                explanation: `${base}^${exp} means multiply ${base} by itself ${exp} times: ${multChain} = ${answer}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Multiplication Tables (Level 2-3)
+    getMultiplicationTables: function() {
+        const questionType = this.rInt(1, 5);
+        
+        if (questionType === 1) {
+            // Standard multiplication (easier numbers)
+            const a = this.rInt(2, 10);
+            const b = this.rInt(2, 10);
+            const answer = a * b;
+            return {
+                tex: `${a} \\times ${b}`,
+                instruction: "Calculate",
+                displayAnswer: `${answer}`,
+                distractors: [`${answer + a}`, `${answer - b}`, `${a + b}`],
+                explanation: `${a} × ${b} = ${answer}. You can think of this as ${a} groups of ${b}, or ${b} groups of ${a}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Harder multiplication (larger numbers)
+            const a = this.rInt(11, 15);
+            const b = this.rInt(6, 12);
+            const answer = a * b;
+            return {
+                tex: `${a} \\times ${b}`,
+                instruction: "Calculate",
+                displayAnswer: `${answer}`,
+                distractors: [`${answer + 10}`, `${answer - 10}`, `${a + b}`],
+                explanation: `${a} × ${b} = ${answer}. Break it down: (10 × ${b}) + (${a - 10} × ${b}) = ${10 * b} + ${(a - 10) * b} = ${answer}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Reverse: "a × ? = product"
+            const a = this.rInt(3, 9);
+            const b = this.rInt(3, 9);
+            const product = a * b;
+            return {
+                tex: `${a} \\times ? = ${product}`,
+                instruction: "Find the missing number",
+                displayAnswer: `${b}`,
+                distractors: [`${b + 1}`, `${b - 1}`, `${a}`],
+                explanation: `To find the missing number, divide ${product} by ${a}: ${product} ÷ ${a} = ${b}. Check: ${a} × ${b} = ${product} ✓`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // Powers of 10 (easier)
+            const n = this.rInt(1, 99);
+            const multiplier = [10, 100, 1000][this.rInt(0, 2)];
+            const answer = n * multiplier;
+            return {
+                tex: `${n} \\times ${multiplier}`,
+                instruction: "Calculate",
+                displayAnswer: `${answer}`,
+                distractors: [`${answer + multiplier}`, `${n + multiplier}`, `${answer / 10}`],
+                explanation: `Multiplying by ${multiplier} is like adding ${Math.log10(multiplier)} zeros: ${n} × ${multiplier} = ${answer}.`,
+                calc: false
+            };
+        } else {
+            // Division (as inverse of multiplication)
+            const b = this.rInt(3, 12);
+            const a = this.rInt(2, 12);
+            const dividend = a * b;
+            return {
+                tex: `${dividend} \\div ${a}`,
+                instruction: "Calculate",
+                displayAnswer: `${b}`,
+                distractors: [`${b + 1}`, `${b - 1}`, `${a}`],
+                explanation: `${dividend} ÷ ${a} = ${b} because ${a} × ${b} = ${dividend}. Division undoes multiplication.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Basic Functions (Level 7-8)
+    getFunctionProblems: function() {
+        const questionType = this.rInt(1, 3);
+        
+        if (questionType === 1) {
+            // Function evaluation: f(x) = ax + b, find f(n)
+            const a = this.rInt(2, 8);
+            const b = this.rInt(1, 10);
+            const x = this.rInt(1, 8);
+            const answer = a * x + b;
+            return {
+                tex: `f(x) = ${a}x + ${b}, \\quad f(${x}) = ?`,
+                instruction: "Evaluate the function",
+                displayAnswer: `${answer}`,
+                distractors: [`${a * x}`, `${answer + a}`, `${answer - b}`],
+                explanation: `Substitute x = ${x} into the function: f(${x}) = ${a}(${x}) + ${b} = ${a * x} + ${b} = ${answer}.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Composite function: f(x) = 2x, g(x) = x + 3, find f(g(2))
+            const x = this.rInt(1, 5);
+            const gResult = x + 3;
+            const fResult = 2 * gResult;
+            return {
+                tex: `f(x) = 2x, \\quad g(x) = x + 3, \\quad f(g(${x})) = ?`,
+                instruction: "Evaluate the composite function",
+                displayAnswer: `${fResult}`,
+                distractors: [`${fResult + 2}`, `${gResult}`, `${x * 2 + 3}`],
+                explanation: `First find g(${x}) = ${x} + 3 = ${gResult}. Then find f(${gResult}) = 2(${gResult}) = ${fResult}. Work from the inside out.`,
+                calc: false
+            };
+        } else {
+            // Inverse: if f(x) = 3x - 2 and f(a) = 10, find a
+            const m = this.rInt(2, 5);
+            const c = this.rInt(1, 8);
+            const result = this.rInt(10, 30);
+            const x = (result + c) / m;
+            // Ensure integer result
+            if (x !== Math.floor(x)) {
+                // Recalculate with values that work
+                const xInt = this.rInt(3, 8);
+                const resultInt = m * xInt - c;
+                return {
+                    tex: `f(x) = ${m}x - ${c}, \\quad f(a) = ${resultInt}, \\quad a = ?`,
+                    instruction: "Find the input value",
+                    displayAnswer: `${xInt}`,
+                    distractors: [`${xInt + 1}`, `${xInt - 1}`, `${resultInt}`],
+                    explanation: `We have ${m}a - ${c} = ${resultInt}. Add ${c}: ${m}a = ${resultInt + c}. Divide by ${m}: a = ${xInt}.`,
+                    calc: false
+                };
+            }
+            return {
+                tex: `f(x) = ${m}x - ${c}, \\quad f(a) = ${result}, \\quad a = ?`,
+                instruction: "Find the input value",
+                displayAnswer: `${x}`,
+                distractors: [`${x + 1}`, `${x - 1}`, `${result}`],
+                explanation: `We have ${m}a - ${c} = ${result}. Add ${c}: ${m}a = ${result + c}. Divide by ${m}: a = ${x}.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Trigonometry (Level 8-9)
+    getTrigonometry: function() {
+        const questionType = this.rInt(1, 3);
+        
+        // Common angles in degrees and their trig values
+        const angles = [
+            { deg: 0, sin: 0, cos: 1, tan: 0 },
+            { deg: 30, sin: '\\frac{1}{2}', cos: '\\frac{\\sqrt{3}}{2}', tan: '\\frac{1}{\\sqrt{3}}', sinVal: 0.5, cosVal: 0.866, tanVal: 0.577 },
+            { deg: 45, sin: '\\frac{1}{\\sqrt{2}}', cos: '\\frac{1}{\\sqrt{2}}', tan: 1, sinVal: 0.707, cosVal: 0.707, tanVal: 1 },
+            { deg: 60, sin: '\\frac{\\sqrt{3}}{2}', cos: '\\frac{1}{2}', tan: '\\sqrt{3}', sinVal: 0.866, cosVal: 0.5, tanVal: 1.732 },
+            { deg: 90, sin: 1, cos: 0, tan: '\\text{undefined}', sinVal: 1, cosVal: 0, tanVal: Infinity }
+        ];
+        
+        const angle = angles[this.rInt(0, 3)]; // Exclude 90 for most cases
+        
+        if (questionType === 1) {
+            // Find sin of angle
+            return {
+                tex: `\\sin(${angle.deg}°)`,
+                instruction: "Calculate (use exact values)",
+                displayAnswer: `${angle.sin}`,
+                distractors: [`${angle.cos}`, `${angle.tan}`, `${angle.deg / 90}`],
+                explanation: `sin(${angle.deg}°) = ${angle.sin}. This is one of the standard angles you should memorize.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Find cos of angle
+            return {
+                tex: `\\cos(${angle.deg}°)`,
+                instruction: "Calculate (use exact values)",
+                displayAnswer: `${angle.cos}`,
+                distractors: [`${angle.sin}`, `${angle.tan}`, `${1 - (angle.sinVal || angle.sin)}`],
+                explanation: `cos(${angle.deg}°) = ${angle.cos}. Remember: cos(θ) is the x-coordinate on the unit circle.`,
+                calc: false
+            };
+        } else {
+            // Find tan of angle (avoid 90°)
+            const validAngles = angles.filter(a => a.deg !== 90);
+            const tanAngle = validAngles[this.rInt(0, validAngles.length - 1)];
+            return {
+                tex: `\\tan(${tanAngle.deg}°)`,
+                instruction: "Calculate (use exact values)",
+                displayAnswer: `${tanAngle.tan}`,
+                distractors: [`${tanAngle.sin}`, `${tanAngle.cos}`, `${tanAngle.deg / 45}`],
+                explanation: `tan(${tanAngle.deg}°) = ${tanAngle.tan}. Remember: tan(θ) = sin(θ)/cos(θ).`,
+                calc: false
+            };
+        }
+    },
+    
+    // Probability (Level 10-11)
+    getProbability: function() {
+        const questionType = this.rInt(1, 3);
+        
+        if (questionType === 1) {
+            // Simple probability: choosing from a bag
+            const total = this.rInt(8, 15);
+            const favorable = this.rInt(2, total - 2);
+            return {
+                tex: `\\text{Bag has ${total} balls, ${favorable} are red. P(red) = ?}`,
+                instruction: "Find the probability",
+                displayAnswer: `\\frac{${favorable}}{${total}}`,
+                distractors: [
+                    `\\frac{${total - favorable}}{${total}}`,
+                    `\\frac{${favorable}}{${total - favorable}}`,
+                    `\\frac{${total}}{${favorable}}`
+                ],
+                explanation: `Probability = (favorable outcomes)/(total outcomes) = ${favorable}/${total}. This can be simplified if needed.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Choosing multiple items
+            const total = this.rInt(6, 10);
+            const choose = this.rInt(2, 3);
+            const black = this.rInt(1, 3);
+            
+            return {
+                tex: `\\text{Choosing ${choose} balls from ${total}, where ${black} is black}`,
+                instruction: "This is a probability setup question",
+                displayAnswer: `\\text{Use combinations: } C(${total}, ${choose})`,
+                distractors: [
+                    `${total - choose}`,
+                    `${total} \\times ${choose}`,
+                    `\\frac{${total}}{${choose}}`
+                ],
+                explanation: `The total number of ways to choose ${choose} balls from ${total} is C(${total},${choose}) = ${total}!/((${total - choose})!×${choose}!). This is a combination problem.`,
+                calc: true
+            };
+        } else {
+            // Complementary probability
+            const total = this.rInt(10, 20);
+            const favorable = this.rInt(3, 7);
+            const complement = total - favorable;
+            return {
+                tex: `\\text{If P(success) = } \\frac{${favorable}}{${total}}\\text{, what is P(failure)?}`,
+                instruction: "Find the complementary probability",
+                displayAnswer: `\\frac{${complement}}{${total}}`,
+                distractors: [
+                    `\\frac{${favorable}}{${total}}`,
+                    `\\frac{${total}}{${complement}}`,
+                    `1 - \\frac{${complement}}{${total}}`
+                ],
+                explanation: `P(failure) = 1 - P(success) = 1 - ${favorable}/${total} = ${complement}/${total}. The probabilities of all outcomes sum to 1.`,
+                calc: false
+            };
+        }
+    },
+    
+    // Calculus (Level 11+)
+    getCalculus: function() {
+        const questionType = this.rInt(1, 3);
+        
+        if (questionType === 1) {
+            // Basic integration: ∫x^n dx
+            const n = this.rInt(2, 5);
+            const newExp = n + 1;
+            return {
+                tex: `\\int x^${n} \\, dx`,
+                instruction: "Integrate",
+                displayAnswer: `\\frac{x^{${newExp}}}{${newExp}} + C`,
+                distractors: [
+                    `\\frac{x^{${n}}}{${n}} + C`,
+                    `${n}x^{${n - 1}} + C`,
+                    `x^{${newExp}} + C`
+                ],
+                explanation: `Using the power rule for integration: ∫x^n dx = x^(n+1)/(n+1) + C. So ∫x^${n} dx = x^${newExp}/${newExp} + C. Don't forget the constant of integration!`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Integration with coefficient: ∫ax^n dx
+            const a = this.rInt(2, 8);
+            const n = this.rInt(2, 4);
+            const newExp = n + 1;
+            return {
+                tex: `\\int ${a}x^${n} \\, dx`,
+                instruction: "Integrate",
+                displayAnswer: `\\frac{${a}x^{${newExp}}}{${newExp}} + C`,
+                distractors: [
+                    `${a}x^{${newExp}} + C`,
+                    `\\frac{x^{${newExp}}}{${newExp}} + C`,
+                    `${a * n}x^{${n - 1}} + C`
+                ],
+                explanation: `Integrate using the power rule, keeping the coefficient: ∫${a}x^${n} dx = ${a} × x^${newExp}/${newExp} + C = ${a}x^${newExp}/${newExp} + C.`,
+                calc: false
+            };
+        } else {
+            // Simple infinite series: sum of geometric series
+            // Define series ratios with their corresponding values and display formats
+            const seriesOptions = [
+                { r: 0.5, display: '0.5', answer: 2, answerDisplay: '2' },
+                { r: 0.25, display: '0.25', answer: 4, answerDisplay: '4' },
+                { r: 0.1, display: '0.1', answer: 1.111, answerDisplay: '1.11' }
+            ];
+            
+            const series = seriesOptions[this.rInt(0, seriesOptions.length - 1)];
+            
+            return {
+                tex: `\\sum_{n=0}^{\\infty} (${series.display})^n`,
+                instruction: "Find the sum (if |r| < 1)",
+                displayAnswer: `${series.answerDisplay}`,
+                distractors: [
+                    `\\text{diverges}`,
+                    `${series.display}`,
+                    `\\infty`
+                ],
+                explanation: `This is a geometric series with first term a=1 and ratio r=${series.display}. Since |r| < 1, it converges to S = a/(1-r) = 1/(1-${series.display}) = ${series.answerDisplay}.`,
+                calc: false
+            };
+        }
+    },
+    
     // "Why" question generator - asks students to explain reasoning
     getWhyQuestion: function(level) {
         const band = Math.round(level);
@@ -200,8 +656,65 @@ window.Generator = {
         // Define "why" questions for each difficulty band
         const whyQuestions = [];
         
-        // Level 1-2: Basic equation solving
-        if (band <= 2) {
+        // Level 0-1: Basic arithmetic
+        if (band <= 1) {
+            const a = this.rInt(5, 15), b = this.rInt(3, 10);
+            const sum = a + b;
+            whyQuestions.push({
+                type: 'why',
+                tex: `${a} + ${b} = ${sum}`,
+                instruction: "What does addition represent?",
+                displayAnswer: `Combining two quantities to find the total`,
+                distractors: [
+                    `Taking away one number from another`,
+                    `Repeated multiplication`,
+                    `Splitting into equal groups`
+                ],
+                explanation: `Addition combines ${a} and ${b} to give us the total: ${sum}. It's like putting two groups together.`,
+                calc: false
+            });
+        }
+        
+        // Level 1-2: Squares and roots
+        if (band <= 2 && band > 0) {
+            const n = this.rInt(3, 9);
+            const square = n * n;
+            whyQuestions.push({
+                type: 'why',
+                tex: `\\sqrt{${square}} = ${n}`,
+                instruction: "Why is the square root of " + square + " equal to " + n + "?",
+                displayAnswer: `Because ${n} × ${n} = ${square}`,
+                distractors: [
+                    `Because ${square} ÷ 2 = ${square / 2}`,
+                    `Because we reverse the addition`,
+                    `Because ${n} + ${n} = ${n * 2}`
+                ],
+                explanation: `The square root undoes squaring. Since ${n}² = ${square}, we have √${square} = ${n}.`,
+                calc: false
+            });
+        }
+        
+        // Level 2-3: Multiplication
+        if (band <= 3 && band > 1) {
+            const a = this.rInt(3, 8), b = this.rInt(3, 8);
+            const product = a * b;
+            whyQuestions.push({
+                type: 'why',
+                tex: `${a} \\times ${b} = ${product}`,
+                instruction: "What does multiplication represent?",
+                displayAnswer: `Adding ${a} to itself ${b} times (or ${b} to itself ${a} times)`,
+                distractors: [
+                    `Combining two numbers`,
+                    `Taking ${a} away from ${b}`,
+                    `Dividing ${a} by ${b}`
+                ],
+                explanation: `${a} × ${b} means ${a} groups of ${b}, or ${b} groups of ${a}, which equals ${product}.`,
+                calc: false
+            });
+        }
+        
+        // Level 3-4: Basic equation solving
+        if (band <= 4 && band > 2) {
             const a = this.rInt(2,9), x = this.rInt(2,9);
             const result = a * x;
             whyQuestions.push({
@@ -219,8 +732,8 @@ window.Generator = {
             });
         }
         
-        // Level 3-4: Expanding and factorising
-        if (band <= 4 && band > 2) {
+        // Level 4-5: Two-step equations (was Level 3-4)
+        if (band <= 5 && band > 3) {
             const a = this.rInt(2,5), b = this.rInt(2,8);
             const whyType = this.rInt(1,2);
             
@@ -258,7 +771,7 @@ window.Generator = {
             }
         }
         
-        // Level 5-6: Algebraic manipulation
+        // Level 5-6: Expanding (was Level 5-6)
         if (band <= 6 && band > 4) {
             const a = this.rInt(2,5), b = this.rInt(2,8);
             whyQuestions.push({
@@ -276,8 +789,8 @@ window.Generator = {
             });
         }
         
-        // Level 7-8: Quadratics and more complex algebra
-        if (band <= 8 && band > 6) {
+        // Level 6-7: Factorising (was Level 7-8)
+        if (band <= 7 && band > 5) {
             const a = this.rInt(2,4);
             whyQuestions.push({
                 type: 'why',
@@ -294,8 +807,46 @@ window.Generator = {
             });
         }
         
+        // Level 8-9: Functions and trigonometry
+        if (band <= 9 && band > 7) {
+            const whyType = this.rInt(1, 2);
+            if (whyType === 1) {
+                // Functions
+                const a = this.rInt(2, 5), x = this.rInt(2, 5);
+                const result = a * x;
+                whyQuestions.push({
+                    type: 'why',
+                    tex: `f(x) = ${a}x, \\quad f(${x}) = ${result}`,
+                    instruction: "What does f(" + x + ") mean?",
+                    displayAnswer: `Substitute ${x} for x in the function definition`,
+                    distractors: [
+                        `Multiply f by ${x}`,
+                        `Add ${x} to the function`,
+                        `Divide f by ${x}`
+                    ],
+                    explanation: `f(${x}) means substitute x = ${x} into the function: f(${x}) = ${a}(${x}) = ${result}.`,
+                    calc: false
+                });
+            } else {
+                // Trigonometry
+                whyQuestions.push({
+                    type: 'why',
+                    tex: `\\sin(30°) = \\frac{1}{2}`,
+                    instruction: "Why should we memorize standard angle values?",
+                    displayAnswer: `They appear frequently and help solve problems quickly`,
+                    distractors: [
+                        `Because calculators don't have these values`,
+                        `To make tests harder`,
+                        `Because they're the only correct answers`
+                    ],
+                    explanation: `Standard angles (0°, 30°, 45°, 60°, 90°) appear often in math and physics. Knowing them saves time and helps recognize patterns.`,
+                    calc: false
+                });
+            }
+        }
+        
         // Level 9-10: Differentiation
-        if (band > 8) {
+        if (band <= 10 && band > 8) {
             const a = this.rInt(2,5), n = this.rInt(2,4);
             whyQuestions.push({
                 type: 'why',
@@ -308,6 +859,41 @@ window.Generator = {
                     `To find the slope at a specific point`
                 ],
                 explanation: `The power rule for differentiation states: d/dx[x^n] = nx^(n-1). We bring the exponent ${n} down as a coefficient and reduce the power by 1.`,
+                calc: false
+            });
+        }
+        
+        // Level 10-11: Probability
+        if (band <= 11 && band > 9) {
+            whyQuestions.push({
+                type: 'why',
+                tex: `P(A) + P(\\text{not } A) = 1`,
+                instruction: "Why do complementary probabilities sum to 1?",
+                displayAnswer: `Because one of the outcomes must happen (certainty)`,
+                distractors: [
+                    `Because probabilities are always positive`,
+                    `To keep the math simple`,
+                    `Because we're adding two fractions`
+                ],
+                explanation: `The event either happens or it doesn't. These are the only possibilities, so their probabilities sum to 1 (certainty).`,
+                calc: false
+            });
+        }
+        
+        // Level 11+: Calculus
+        if (band > 10) {
+            const n = this.rInt(2, 4);
+            whyQuestions.push({
+                type: 'why',
+                tex: `\\int x^${n} \\, dx = \\frac{x^{${n + 1}}}{${n + 1}} + C`,
+                instruction: "Why do we add a constant C when integrating?",
+                displayAnswer: `Because the derivative of a constant is zero, so any constant could have been there`,
+                distractors: [
+                    `To make the answer look complete`,
+                    `Because integration always adds 1`,
+                    `To balance the equation`
+                ],
+                explanation: `When we differentiate, constants disappear (d/dx[C] = 0). So when we integrate, we must account for any constant that was lost. We write "+ C" to represent this unknown constant.`,
                 calc: false
             });
         }
