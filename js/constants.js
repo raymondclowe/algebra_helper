@@ -22,3 +22,7 @@ const SLOW_ANSWER_THRESHOLD = 20;       // Answers over this are considered "slo
 // Level Adjustment Deltas
 const BASE_LEVEL_DELTA = 0.2;           // Base level increase for correct answer
 const TURBO_LEVEL_DELTA = 0.4;          // Level increase when in turbo mode (reduced from 0.5 to reduce speed pressure)
+
+// Calibration Constants
+const MAX_LEVEL = 24;                    // Maximum supported level in the app
+const MIN_LEVEL = 1;                     // Minimum level in the app

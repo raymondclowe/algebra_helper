@@ -76,13 +76,13 @@ window.Calibration = {
         if (this.shouldEndCalibration()) {
             // Ready to learn. Start slightly below found level.
             // Special case: if cMax <= 1, start at level 1 (user doesn't know anything)
-            // Special case: if cMin >= 24, start at level 24 (user knows everything)
-            if (window.APP.cMax <= 1) {
-                window.APP.level = 1;
-            } else if (window.APP.cMin >= 24) {
-                window.APP.level = 24;
+            // Special case: if cMin >= MAX_LEVEL, start at MAX_LEVEL (user knows everything)
+            if (window.APP.cMax <= MIN_LEVEL) {
+                window.APP.level = MIN_LEVEL;
+            } else if (window.APP.cMin >= MAX_LEVEL) {
+                window.APP.level = MAX_LEVEL;
             } else {
-                window.APP.level = Math.max(1, window.APP.cMin - 1.0);
+                window.APP.level = Math.max(MIN_LEVEL, window.APP.cMin - 1.0);
             }
             // Support both 'learning' (new) and 'drill' (old) for backward compatibility
             window.APP.mode = 'learning';
@@ -102,8 +102,6 @@ window.Calibration = {
         const MIN_RESPONSES = 6; // Minimum number of responses before ending
         const CONVERGENCE_THRESHOLD = 1.5; // Range must be narrow
         const CONSISTENCY_WINDOW = 4; // Check last N responses for consistency
-        const MAX_LEVEL = 24; // Maximum supported level
-        const MIN_LEVEL = 1; // Minimum level
         
         // Early termination: If both cMin and cMax indicate level 1 or below
         // This handles the case where user doesn't know anything
