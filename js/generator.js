@@ -13,11 +13,11 @@ window.Generator = {
     // U+1D454 = 𝑔 (Mathematical Italic Small G)
     toUnicodeFunction: function(str) {
         return str
-            .replace(/\bf\(/g, '𝑓(')  // f( -> 𝑓(
-            .replace(/\bf\^/g, '𝑓^')  // f^ -> 𝑓^ (for inverse notation)
-            .replace(/\bf'/g, "𝑓'")  // f' -> 𝑓' (for derivative notation)
-            .replace(/\bg\(/g, '𝑔(')  // g( -> 𝑔(
-            .replace(/\bg'/g, "𝑔'"); // g' -> 𝑔' (for derivative notation)
+            .replace(/f\(/g, '𝑓(')  // f( -> 𝑓(
+            .replace(/f\^/g, '𝑓^')  // f^ -> 𝑓^ (for inverse notation)
+            .replace(/f'/g, "𝑓'")  // f' -> 𝑓' (for derivative notation)
+            .replace(/g\(/g, '𝑔(')  // g( -> 𝑔(
+            .replace(/g'/g, "𝑔'"); // g' -> 𝑔' (for derivative notation)
     },
     
     // Math helper functions for fractions
