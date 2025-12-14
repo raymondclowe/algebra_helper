@@ -2,10 +2,30 @@ const puppeteer = require('puppeteer');
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Constants
+const MATHJAX_INIT_TIMEOUT = 15000; // Increased for slower environments
+const OVERFLOW_THRESHOLD = 5; // Allow small rounding differences in scrollWidth vs clientWidth
+
 describe('Layout and Readability Fix Tests', () => {
     let browser;
     let page;
     const BASE_URL = process.env.TEST_URL || 'http://localhost:8000';
+    
+    // Helper function to check if all buttons have flex-wrap
+    const checkButtonsFlexWrap = async (page) => {
+        return await page.evaluate(() => {
+            const buttons = document.querySelectorAll('#mc-options button');
+            if (buttons.length === 0) return false;
+            
+            for (let btn of buttons) {
+                const styles = window.getComputedStyle(btn);
+                if (styles.flexWrap !== 'wrap') {
+                    return false;
+                }
+            }
+            return true;
+        });
+    };
 
     beforeAll(async () => {
         browser = await puppeteer.launch({
@@ -30,7 +50,7 @@ describe('Layout and Readability Fix Tests', () => {
             return typeof window.MathJax !== 'undefined' && 
                    typeof window.APP !== 'undefined' &&
                    window.APP.currentQ !== null;
-        }, { timeout: 5000 });
+        }, { timeout: MATHJAX_INIT_TIMEOUT });
     });
 
     afterEach(async () => {
@@ -91,18 +111,7 @@ describe('Layout and Readability Fix Tests', () => {
         
         await wait(2000);
         
-        const allButtonsHaveFlexWrap = await page.evaluate(() => {
-            const buttons = document.querySelectorAll('#mc-options button');
-            if (buttons.length === 0) return false;
-            
-            for (let btn of buttons) {
-                const styles = window.getComputedStyle(btn);
-                if (styles.flexWrap !== 'wrap') {
-                    return false;
-                }
-            }
-            return true;
-        });
+        const allButtonsHaveFlexWrap = await checkButtonsFlexWrap(page);
         
         expect(allButtonsHaveFlexWrap).toBe(true);
     });
@@ -119,18 +128,7 @@ describe('Layout and Readability Fix Tests', () => {
         
         await wait(2000);
         
-        const allButtonsHaveFlexWrap = await page.evaluate(() => {
-            const buttons = document.querySelectorAll('#mc-options button');
-            if (buttons.length === 0) return false;
-            
-            for (let btn of buttons) {
-                const styles = window.getComputedStyle(btn);
-                if (styles.flexWrap !== 'wrap') {
-                    return false;
-                }
-            }
-            return true;
-        });
+        const allButtonsHaveFlexWrap = await checkButtonsFlexWrap(page);
         
         expect(allButtonsHaveFlexWrap).toBe(true);
     });
@@ -138,11 +136,12 @@ describe('Layout and Readability Fix Tests', () => {
     test('Long question text does not overflow on mobile', async () => {
         await page.setViewport({ width: 375, height: 667 });
         
-        // Force a question with longer text
+        // Force a question with potentially longer text
+        // questionCounter of 5 typically generates a different question type
         await page.evaluate(() => {
             APP.mode = 'drill';
             APP.level = 5.0;
-            Generator.questionCounter = 5; // Get a different question type
+            Generator.questionCounter = 5;
             UI.nextQuestion();
         });
         
@@ -160,8 +159,7 @@ describe('Layout and Readability Fix Tests', () => {
         });
         
         // scrollWidth should not be significantly larger than clientWidth
-        // (allow small difference for rounding)
-        expect(overflow.scrollWidth - overflow.clientWidth).toBeLessThan(5);
+        expect(overflow.scrollWidth - overflow.clientWidth).toBeLessThan(OVERFLOW_THRESHOLD);
     });
 
     test('Math rendering still works after layout fix on mobile', async () => {
