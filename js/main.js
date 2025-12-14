@@ -14,6 +14,9 @@ window.APP.init = async function() {
         // Initialize stats modal
         window.StatsModal.init();
         
+        // Initialize explanation modal
+        window.ExplanationModal.init();
+        
         // Start first question
         window.UI.nextQuestion();
     } else {

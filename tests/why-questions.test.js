@@ -149,10 +149,10 @@ describe('Why Question Type Tests', () => {
         
         await wait(500);
         
-        // Check that explanation is shown
+        // Check that explanation modal is shown
         const explanationVisible = await page.evaluate(() => {
-            const explanationBox = document.getElementById('explanation-box');
-            return !explanationBox.classList.contains('hidden');
+            const modal = document.getElementById('explanation-modal');
+            return !modal.classList.contains('hidden');
         });
         
         expect(explanationVisible).toBe(true);
