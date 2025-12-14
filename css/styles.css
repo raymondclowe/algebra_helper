@@ -338,15 +338,7 @@ body {
 /* This ensures answer buttons display in normal upright text, not italic serif */
 /* The unicode 𝑓 character itself is already italic, so we keep normal Roman font for everything else */
 
-#mc-options button mjx-container {
-    font-style: normal !important;
-}
-
 #mc-options button mjx-container * {
-    font-style: normal !important;
-}
-
-#mc-options button mjx-math {
     font-style: normal !important;
 }
 
@@ -371,10 +363,6 @@ body {
 
 /* Override any inline styles MathJax might apply */
 #mc-options button mjx-c {
-    font-style: normal !important;
-}
-
-#mc-options button .MathJax {
     font-style: normal !important;
 }
 
