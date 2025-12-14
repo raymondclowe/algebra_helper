@@ -120,11 +120,10 @@ describe('Inverse Quadratic Function Tests', () => {
             const gen = window.Generator;
             let foundInverse = false;
             
-            // Generate many level 5 questions to find an inverse one
-            // Level 10 maps to lvl5() because Math.round(10) = 10, 
-            // and levels > 8 use lvl5() in the getQuestion() function
+            // Generate many level 20 questions to find an inverse one
+            // Level 20 maps to lvl5() which includes inverse quadratic questions
             for (let i = 0; i < 50; i++) {
-                const q = gen.getQuestion(10);
+                const q = gen.getQuestion(20);
                 if (q.instruction && q.instruction.includes('f^{-1}')) {
                     foundInverse = true;
                     break;
@@ -138,10 +137,10 @@ describe('Inverse Quadratic Function Tests', () => {
     });
 
     test('Inverse quadratic question renders in UI correctly', async () => {
-        // Switch to drill mode and set to level 10
+        // Switch to drill mode and set to level 20
         await page.evaluate(() => {
             window.APP.mode = 'drill';
-            window.APP.level = 10;
+            window.APP.level = 20;
         });
 
         // Wait for MathJax

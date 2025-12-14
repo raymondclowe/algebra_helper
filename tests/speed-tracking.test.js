@@ -55,6 +55,10 @@ describe('Speed Tracking Tests', () => {
             window.APP.speedHistory = [];
             window.APP.streak = 0;
             window.UI.nextQuestion();
+            // Ensure question level matches current level to avoid spaced repetition bonus
+            if (window.APP.currentQ) {
+                window.APP.currentQ.questionLevel = window.APP.level;
+            }
             // Set start time AFTER nextQuestion to simulate 3 second response
             window.APP.startTime = Date.now() - 3000;
         });
