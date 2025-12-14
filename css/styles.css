@@ -333,3 +333,51 @@ body {
         padding: 1rem !important;
     }
 }
+
+/* Override MathJax italic font in answer buttons - use upright Roman font */
+/* This ensures answer buttons display in normal upright text, not italic serif */
+/* The unicode 𝑓 character itself is already italic, so we keep normal Roman font for everything else */
+
+#mc-options button mjx-container {
+    font-style: normal !important;
+}
+
+#mc-options button mjx-container * {
+    font-style: normal !important;
+}
+
+#mc-options button mjx-math {
+    font-style: normal !important;
+}
+
+#mc-options button mjx-math * {
+    font-style: normal !important;
+}
+
+/* Force upright font for MathJax variables (mi = math identifier) */
+#mc-options button mjx-mi {
+    font-style: normal !important;
+    -webkit-text-stroke: 0 !important;
+}
+
+/* Target MathJax italic class specifically */
+#mc-options button .mjx-i {
+    font-style: normal !important;
+}
+
+#mc-options button mjx-container mjx-mi[class*="mjx-i"] {
+    font-style: normal !important;
+}
+
+/* Override any inline styles MathJax might apply */
+#mc-options button mjx-c {
+    font-style: normal !important;
+}
+
+#mc-options button .MathJax {
+    font-style: normal !important;
+}
+
+#mc-options button .MathJax * {
+    font-style: normal !important;
+}
