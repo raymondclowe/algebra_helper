@@ -32,7 +32,7 @@ window.Learning = {
             } else {
                 // Smart rendering: Use plain text with unicode for simple text answers,
                 // LaTeX only for mathematical expressions
-                const needsLatex = /[\^_{}\\]|frac|sqrt|cdot|times|pm|leq|geq/.test(opt.val);
+                const needsLatex = /[\^_{}\\]|frac|sqrt|cdot|times|pm|leq|geq|sum|int|lim|log|sin|cos|tan|alpha|beta|gamma|delta|theta|pi/.test(opt.val);
                 
                 if (needsLatex) {
                     // Render as LaTeX math for complex expressions
