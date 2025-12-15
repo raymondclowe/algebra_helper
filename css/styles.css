@@ -338,6 +338,16 @@ body {
 /* This ensures answer buttons display in normal upright text, not italic serif */
 /* The unicode 𝑓 character itself is already italic, so we keep normal Roman font for everything else */
 
+/* Fix for clickability: Make MathJax elements non-interactive so clicks pass through to button */
+#mc-options button mjx-container,
+#mc-options button mjx-container * {
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+}
+
 #mc-options button mjx-container * {
     font-style: normal !important;
 }
