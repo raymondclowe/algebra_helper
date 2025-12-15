@@ -210,7 +210,28 @@ window.UI = {
     },
 
     updateUI: function() {
-        document.getElementById('level-display').innerText = window.APP.level.toFixed(1);
+        // Use display mode system if available, otherwise fallback to original behavior
+        if (window.DisplayModes) {
+            const accuracy = window.APP.history.length > 0
+                ? window.APP.history.slice(-5).reduce((a,b)=>a+b,0) / Math.min(5, window.APP.history.length)
+                : null;
+            window.DisplayModes.updateHeaderDisplay(window.APP.level, accuracy, window.APP.history);
+        } else {
+            // Fallback: original display logic
+            document.getElementById('level-display').innerText = window.APP.level.toFixed(1);
+            
+            const accEl = document.getElementById('accuracy-display');
+            if (window.APP.history.length > 0) {
+                const subset = window.APP.history.slice(-5);
+                const avg = Math.round((subset.reduce((a,b)=>a+b,0)/subset.length)*100);
+                accEl.innerText = avg + "%";
+                accEl.className = avg >= 80 ? "text-xl font-bold text-green-400" 
+                                : avg < 50 ? "text-xl font-bold text-red-400" 
+                                : "text-xl font-bold text-yellow-400";
+            } else {
+                accEl.innerText = "--%";
+            }
+        }
         
         // Calibration Window Display
         const rangeDiv = document.getElementById('search-range');
@@ -225,19 +246,5 @@ window.UI = {
         const fire = document.getElementById('streak-indicator');
         if (window.APP.streak >= 3) fire.classList.remove('hidden');
         else fire.classList.add('hidden');
-
-        // Accuracy (Last 5 only for speed)
-        const accEl = document.getElementById('accuracy-display');
-        if (window.APP.history.length > 0) {
-            // Only take last 5
-            const subset = window.APP.history.slice(-5);
-            const avg = Math.round((subset.reduce((a,b)=>a+b,0)/subset.length)*100);
-            accEl.innerText = avg + "%";
-            accEl.className = avg >= 80 ? "text-xl font-bold text-green-400" 
-                            : avg < 50 ? "text-xl font-bold text-red-400" 
-                            : "text-xl font-bold text-yellow-400";
-        } else {
-            accEl.innerText = "--%";
-        }
     }
 };

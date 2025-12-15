@@ -26,3 +26,16 @@ const TURBO_LEVEL_DELTA = 0.4;          // Level increase when in turbo mode (re
 // Calibration Constants
 const MAX_LEVEL = 24;                    // Maximum supported level in the app
 const MIN_LEVEL = 1;                     // Minimum level in the app
+
+// Display Mode Configuration
+// Controls how progress metrics are shown to students
+// Based on educational research showing mastery-oriented displays promote learning goals
+// over performance goals and reduce anxiety (Dweck, 1986; Ames, 1992)
+const DISPLAY_MODES = {
+    MASTERY: 'mastery',    // Default: Show skill area and encouraging messages (recommended for students)
+    GROWTH: 'growth',      // Show level bands and trends without exact numbers
+    FULL: 'full'          // Show all metrics with educational context (for teachers/advanced users)
+};
+
+// Default display mode - can be changed in settings or based on user role
+const DEFAULT_DISPLAY_MODE = DISPLAY_MODES.MASTERY;
