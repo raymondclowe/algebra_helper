@@ -30,7 +30,21 @@ window.Learning = {
                     <span class="text-xs text-gray-500 mt-1">(no penalty)</span>
                 </div>`;
             } else {
-                btn.innerHTML = `\\( ${opt.val} \\)`;
+                // Smart rendering: Use plain text with unicode for simple text answers,
+                // LaTeX only for mathematical expressions
+                const needsLatex = /[\^_{}\\]|frac|sqrt|cdot|times|pm|leq|geq/.test(opt.val);
+                
+                if (needsLatex) {
+                    // Render as LaTeX math for complex expressions
+                    btn.innerHTML = `\\( ${opt.val} \\)`;
+                } else {
+                    // Render as plain text with proper spacing and non-italic font
+                    // Replace unicode math symbols if present
+                    const textContent = opt.val
+                        .replace(/𝑓/g, '<span style="font-style: italic;">f</span>')
+                        .replace(/𝑔/g, '<span style="font-style: italic;">g</span>');
+                    btn.innerHTML = `<span style="font-style: normal; word-spacing: 0.15em;">${textContent}</span>`;
+                }
             }
             container.appendChild(btn);
         });

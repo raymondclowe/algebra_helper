@@ -424,16 +424,28 @@ body {
 #mc-options button {
     white-space: normal !important;
     overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
     text-align: center !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     padding: 1rem !important;
+    min-height: 60px !important;
+    height: auto !important;
+    line-height: 1.5 !important;
 }
 
 /* Ensure wrapped content in buttons is properly spaced */
 #mc-options button mjx-container {
     margin: 0.25rem !important;
+    display: inline-block !important;
+    max-width: 100% !important;
+}
+
+/* Add word spacing for plain text in buttons to make it readable */
+#mc-options button mjx-container mjx-math {
+    word-spacing: 0.2em !important;
+    letter-spacing: 0.02em !important;
 }
 
 /* Mobile-specific MathJax improvements */
@@ -455,4 +467,36 @@ body {
     #mc-options button mjx-math {
         line-height: 1.4 !important;
     }
+    
+    /* Reduce question area vertical padding on mobile */
+    #question-math {
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
+    }
+}
+
+/* Improve spacing between multiple display math blocks in questions */
+#question-math mjx-container[display="true"] + mjx-container[display="true"] {
+    margin-top: 0.75em !important;
+}
+
+/* Add proper line spacing for multi-line questions */
+#question-math {
+    line-height: 1.6 !important;
+}
+
+/* Reduce vertical margin in question container to compensate for taller buttons */
+.p-8.min-h-\[200px\] {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+/* Scale down button text for very long answers */
+#mc-options button mjx-container {
+    font-size: 0.95em !important;
+}
+
+/* For very long button text, scale down more */
+#mc-options button:has(mjx-container mjx-math[style*="width"]) mjx-container {
+    font-size: 0.85em !important;
 }
