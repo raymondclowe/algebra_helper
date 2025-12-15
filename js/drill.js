@@ -17,7 +17,7 @@ window.Learning = {
 
         opts.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex flex-wrap items-center justify-center min-h-[60px]";
+            btn.className = "p-2 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex flex-wrap items-center justify-center min-h-[60px]";
             if (window.DEBUG_MODE && opt.correct) btn.classList.add('debug-correct');
             btn.dataset.correct = opt.correct.toString();
             btn.dataset.dontKnow = (opt.dontKnow || false).toString();
@@ -67,7 +67,7 @@ window.Learning = {
             // - No penalty: don't affect streak or history
             // - Adaptive difficulty: reduce level by 0.3 to make future questions easier
             // - Show explanation: display correct answer and explanation for learning
-            btn.className = "p-4 bg-yellow-600 rounded text-lg border border-yellow-400 flex items-center justify-center min-h-[60px]";
+            btn.className = "p-2 bg-yellow-600 rounded text-lg border border-yellow-400 flex flex-wrap items-center justify-center min-h-[60px]";
             delta = -0.3; // Reduce difficulty to provide easier follow-up questions (adaptive difficulty)
             
             // Don't affect streak or history for "I don't know" - this is the "no penalty" part
@@ -86,7 +86,7 @@ window.Learning = {
             this.saveQuestionToStorage(timeSpent, false, true);
             
         } else if (isCorrect) {
-            btn.className = "p-4 bg-green-600 rounded text-lg border border-green-400 flex items-center justify-center min-h-[60px]";
+            btn.className = "p-2 bg-green-600 rounded text-lg border border-green-400 flex flex-wrap items-center justify-center min-h-[60px]";
             window.APP.history.push(1);
             
             // Track response speed
@@ -132,7 +132,7 @@ window.Learning = {
             }, AUTO_ADVANCE_DELAY_MS);
 
         } else {
-            btn.className = "p-4 bg-red-600 rounded text-lg border border-red-400 flex items-center justify-center min-h-[60px]";
+            btn.className = "p-2 bg-red-600 rounded text-lg border border-red-400 flex flex-wrap items-center justify-center min-h-[60px]";
             window.APP.history.push(0);
             
             // Frustration Breaker
@@ -154,7 +154,7 @@ window.Learning = {
             allButtons.forEach(b => {
                 // Check if this button is marked as correct
                 if (b.dataset.correct === 'true') {
-                    b.className = "p-4 bg-green-600 rounded text-lg border border-green-400 flex items-center justify-center min-h-[60px]";
+                    b.className = "p-2 bg-green-600 rounded text-lg border border-green-400 flex flex-wrap items-center justify-center min-h-[60px]";
                 }
             });
             
