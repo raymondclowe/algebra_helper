@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MathJax Button Click Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1f2937;
+            color: #f3f4f6;
+        }
+        
+        h1 {
+            color: #60a5fa;
+            text-align: center;
+        }
+        
+        .demo-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #374151;
+            border-radius: 12px;
+        }
+        
+        h2 {
+            color: #fbbf24;
+            margin-bottom: 20px;
+        }
+        
+        .button-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 20px;
+            background: #4b5563;
+            border: 2px solid #6b7280;
+            border-radius: 8px;
+            color: #f3f4f6;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 60px;
+        }
+        
+        button:hover {
+            background: #6b7280;
+        }
+        
+        button.clicked {
+            background: #10b981;
+            border-color: #34d399;
+        }
+        
+        /* BEFORE FIX - MathJax elements can be selected and intercept clicks */
+        .before button .math-content {
+            user-select: text;
+            pointer-events: auto;
+        }
+        
+        /* AFTER FIX - MathJax elements don't intercept clicks */
+        .after button .math-content {
+            pointer-events: none !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+        }
+        
+        .math-content {
+            font-size: 24px;
+            font-style: italic;
+            display: inline-block;
+        }
+        
+        .info {
+            background: #1e3a8a;
+            padding: 15px;
+            border-left: 4px solid #3b82f6;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .success {
+            background: #065f46;
+            padding: 15px;
+            border-left: 4px solid #10b981;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .status {
+            margin-top: 10px;
+            padding: 10px;
+            background: #1f2937;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 MathJax Button Click Fix Demonstration</h1>
+    
+    <div class="demo-section before">
+        <h2>❌ Before Fix: Buttons Not Fully Clickable</h2>
+        <div class="info">
+            <strong>Problem:</strong> Try clicking directly on the math formula. The text gets selected instead of triggering the button.
+        </div>
+        <div class="button-container">
+            <button id="before1" onclick="handleClick('before1', 'before-status')">
+                <span class="math-content">f(x) = x² + 2x + 1</span>
+            </button>
+            <button id="before2" onclick="handleClick('before2', 'before-status')">
+                <span class="math-content">g(x) = sin(x) + cos(x)</span>
+            </button>
+            <button id="before3" onclick="handleClick('before3', 'before-status')">
+                <span class="math-content">h(x) = √(x² + y²)</span>
+            </button>
+        </div>
+        <div id="before-status" class="status">Try clicking on the math formulas above</div>
+    </div>
+    
+    <div class="demo-section after">
+        <h2>✅ After Fix: Buttons Fully Clickable</h2>
+        <div class="success">
+            <strong>Solution:</strong> Click anywhere on the button, including directly on the math formula. The entire button area is now clickable!
+        </div>
+        <div class="button-container">
+            <button id="after1" onclick="handleClick('after1', 'after-status')">
+                <span class="math-content">f(x) = x² + 2x + 1</span>
+            </button>
+            <button id="after2" onclick="handleClick('after2', 'after-status')">
+                <span class="math-content">g(x) = sin(x) + cos(x)</span>
+            </button>
+            <button id="after3" onclick="handleClick('after3', 'after-status')">
+                <span class="math-content">h(x) = √(x² + y²)</span>
+            </button>
+        </div>
+        <div id="after-status" class="status">Try clicking on the math formulas above</div>
+    </div>
+    
+    <div class="demo-section">
+        <h2>🎯 Technical Solution</h2>
+        <div class="info">
+            <p><strong>CSS Rules Applied:</strong></p>
+            <pre style="background: #1f2937; padding: 15px; border-radius: 4px; overflow-x: auto;">
+#mc-options button mjx-container,
+#mc-options button mjx-container * {
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+}</pre>
+            <p style="margin-top: 10px;">This prevents MathJax elements from intercepting clicks and being selected, allowing the button's onclick handler to work properly.</p>
+        </div>
+    </div>
+    
+    <script>
+        function handleClick(buttonId, statusId) {
+            const button = document.getElementById(buttonId);
+            const status = document.getElementById(statusId);
+            
+            button.classList.add('clicked');
+            status.textContent = '✅ Button "' + buttonId + '" was successfully clicked!';
+            status.style.color = '#10b981';
+            
+            setTimeout(() => {
+                button.classList.remove('clicked');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
