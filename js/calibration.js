@@ -1,7 +1,7 @@
 // Calibration Logic
 window.Calibration = {
     timeoutId: null,
-    timeoutDuration: 5000, // 5 seconds in milliseconds
+    timeoutDuration: 10000, // 10 seconds in milliseconds
     
     startTimeout: function() {
         // Clear any existing timeout
