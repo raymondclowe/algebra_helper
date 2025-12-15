@@ -1,5 +1,7 @@
 // UI Management Functions
 window.UI = {
+    _updatingButtons: false, // Flag to prevent concurrent button updates
+    
     nextQuestion: function() {
         // If viewing history, return to present
         if (window.APP.isViewingHistory) {
@@ -176,27 +178,35 @@ window.UI = {
         
         if (!leftBtn || !rightBtn) return;
         
-        // If cache is empty and not viewing history, check if there are questions in IndexedDB
-        let hasHistory = window.APP.questionHistory.length > 0;
-        if (!hasHistory && !window.APP.isViewingHistory) {
-            try {
-                const count = await window.StorageManager.getQuestionCount();
-                hasHistory = count > 0;
-            } catch (error) {
-                console.error('Error checking question count:', error);
+        // Prevent concurrent updates
+        if (this._updatingButtons) return;
+        this._updatingButtons = true;
+        
+        try {
+            // If cache is empty and not viewing history, check if there are questions in IndexedDB
+            let hasHistory = window.APP.questionHistory.length > 0;
+            if (!hasHistory && !window.APP.isViewingHistory) {
+                try {
+                    const count = await window.StorageManager.getQuestionCount();
+                    hasHistory = count > 0;
+                } catch (error) {
+                    console.error('Error checking question count:', error);
+                }
             }
+            
+            // Left button (←): Go back to older questions
+            // Enable when: NOT viewing history but have history, OR viewing history and not at the oldest
+            const canGoLeft = (!window.APP.isViewingHistory && hasHistory) ||
+                             (window.APP.isViewingHistory && window.APP.historyIndex < window.APP.questionHistory.length - 1);
+            this.setNavigationButtonState(leftBtn, canGoLeft);
+            
+            // Right button (→): Go forward to newer questions or return to present
+            // Enable when: viewing history (can always go forward/present from history)
+            const canGoRight = window.APP.isViewingHistory;
+            this.setNavigationButtonState(rightBtn, canGoRight);
+        } finally {
+            this._updatingButtons = false;
         }
-        
-        // Left button (←): Go back to older questions
-        // Enable when: NOT viewing history but have history, OR viewing history and not at the oldest
-        const canGoLeft = (!window.APP.isViewingHistory && hasHistory) ||
-                         (window.APP.isViewingHistory && window.APP.historyIndex < window.APP.questionHistory.length - 1);
-        this.setNavigationButtonState(leftBtn, canGoLeft);
-        
-        // Right button (→): Go forward to newer questions or return to present
-        // Enable when: viewing history (can always go forward/present from history)
-        const canGoRight = window.APP.isViewingHistory;
-        this.setNavigationButtonState(rightBtn, canGoRight);
     },
 
     updateUI: function() {
