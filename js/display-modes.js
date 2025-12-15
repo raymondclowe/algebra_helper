@@ -130,9 +130,17 @@ window.DisplayModes = {
         const mode = this.currentMode;
         
         const levelDisplay = document.getElementById('level-display');
-        const levelLabel = levelDisplay.parentElement.previousElementSibling;
+        const levelContainer = levelDisplay ? levelDisplay.closest('.flex.flex-col') : null;
+        const levelLabel = levelContainer ? levelContainer.querySelector('span.text-gray-400') : null;
+        
         const accuracyDisplay = document.getElementById('accuracy-display');
-        const accuracyLabel = accuracyDisplay.parentElement.previousElementSibling;
+        const accuracyContainer = accuracyDisplay ? accuracyDisplay.closest('.flex.flex-col') : null;
+        const accuracyLabel = accuracyContainer ? accuracyContainer.querySelector('span.text-gray-400') : null;
+        
+        if (!levelDisplay || !accuracyDisplay) {
+            console.warn('Display elements not found');
+            return;
+        }
         
         if (mode === DISPLAY_MODES.MASTERY) {
             // Mastery Mode: Show skill area and encouraging message
