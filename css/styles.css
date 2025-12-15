@@ -346,6 +346,10 @@ body {
     -webkit-user-select: none !important;
     -moz-user-select: none !important;
     -ms-user-select: none !important;
+}
+
+/* Font style for MathJax elements in answer buttons */
+#mc-options button mjx-container * {
     font-style: normal !important;
 }
 

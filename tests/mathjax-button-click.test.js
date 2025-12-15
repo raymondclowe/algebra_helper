@@ -81,9 +81,13 @@ describe('MathJax Button Click Tests - Answer buttons should be fully clickable'
             }
             
             // Check that all MathJax containers have user-select: none
+            // Use getPropertyValue for more robust vendor prefix checking
             for (let container of mjxContainers) {
                 const style = window.getComputedStyle(container);
-                const userSelect = style.userSelect || style.webkitUserSelect || style.mozUserSelect || style.msUserSelect;
+                const userSelect = style.getPropertyValue('user-select') || 
+                                   style.getPropertyValue('-webkit-user-select') || 
+                                   style.getPropertyValue('-moz-user-select') || 
+                                   style.getPropertyValue('-ms-user-select');
                 if (userSelect !== 'none') {
                     return false;
                 }
