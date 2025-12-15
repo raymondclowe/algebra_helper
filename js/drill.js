@@ -234,7 +234,7 @@ window.Learning = {
 
     applyLevelChange: function(delta) {
         // 1. Update data
-        window.APP.level = Math.max(1, Math.min(10, window.APP.level + delta));
+        window.APP.level = Math.max(MIN_LEVEL, Math.min(MAX_LEVEL, window.APP.level + delta));
         
         // 2. Animate visually
         const deltaEl = document.getElementById('delta-display');
