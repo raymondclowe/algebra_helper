@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaTeX Rendering Test</title>
+    <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: {fontCache: 'global'},
+      startup: { typeset: false },
+      options: {
+        enableMenu: false
+      },
+      chtml: {
+        matchFontHeight: false,
+        displayAlign: 'center',
+        displayIndent: '0',
+        scale: 0.95
+      }
+    };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        body {
+            background: #1f2937;
+            color: white;
+            font-family: sans-serif;
+            padding: 2rem;
+        }
+        .test-section {
+            background: #374151;
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        .test-section h2 {
+            color: #60a5fa;
+            margin-bottom: 1rem;
+        }
+        #question-math {
+            font-size: 2rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        #mc-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        button {
+            padding: 1rem;
+            background: #4b5563;
+            color: white;
+            border: 1px solid #6b7280;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>LaTeX Rendering Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Multi-line Question with Step</h2>
+        <div id="question-math"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Answer Buttons</h2>
+        <div id="mc-options"></div>
+    </div>
+
+    <script>
+        // Wait for MathJax to load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                // Test 1: Multi-line question
+                const qDiv = document.getElementById('question-math');
+                const tex = 'f(x) = 5x^{2} \\\\[0.5em] \\text{Step: } f\'(x) = 10x^{1}';
+                
+                if (tex.includes('\\\\[') && tex.includes('\\text{Step:')) {
+                    const lines = tex.split(/\\\\\[\d*\.?\d*em\]/);
+                    const displayBlocks = lines.map(line => `\\[ ${line.trim()} \\]`).join('\n');
+                    qDiv.innerHTML = displayBlocks;
+                } else {
+                    qDiv.innerHTML = `\\[ ${tex} \\]`;
+                }
+                
+                MathJax.typesetPromise([qDiv]);
+                
+                // Test 2: Answer buttons
+                const container = document.getElementById('mc-options');
+                const answers = [
+                    'This is the power rule: bring down the exponent and reduce it by 1',
+                    'To make the derivative smaller',
+                    'Because that\'s how we reverse integration',
+                    '2x^{3} + 5x'
+                ];
+                
+                answers.forEach(ans => {
+                    const btn = document.createElement('button');
+                    btn.className = "p-4 bg-gray-700 hover:bg-gray-600 rounded text-lg border border-gray-600 transition flex flex-wrap items-center justify-center min-h-[60px]";
+                    
+                    const needsLatex = /[\^_{}\\]|frac|sqrt|cdot|times|pm|leq|geq/.test(ans);
+                    
+                    if (needsLatex) {
+                        btn.innerHTML = `\\( ${ans} \\)`;
+                    } else {
+                        const textContent = ans
+                            .replace(/𝑓/g, '<span style="font-style: italic;">f</span>')
+                            .replace(/𝑔/g, '<span style="font-style: italic;">g</span>');
+                        btn.innerHTML = `<span style="font-style: normal; word-spacing: 0.15em;">${textContent}</span>`;
+                    }
+                    
+                    container.appendChild(btn);
+                });
+                
+                MathJax.typesetPromise([container]);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

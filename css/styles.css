@@ -483,6 +483,14 @@ body {
 /* Add proper line spacing for multi-line questions */
 #question-math {
     line-height: 1.6 !important;
+    /* Change from flex to block when containing multiple display blocks */
+    display: block !important;
+}
+
+/* Ensure each MathJax display container is on its own line */
+#question-math mjx-container[display="true"] {
+    display: block !important;
+    margin: 0.5em auto !important;
 }
 
 /* Reduce vertical margin in question container to compensate for taller buttons */
