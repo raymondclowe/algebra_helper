@@ -184,8 +184,9 @@ window.Learning = {
     },
     
     saveQuestionToStorage: function(timeSpent, isCorrect, isDontKnow) {
-        // Only save if in drill mode (not calibration)
-        if (window.APP.mode !== 'drill') {
+        // Only save if in learning/drill mode (not calibration)
+        // Support both 'learning' (new) and 'drill' (old) for backward compatibility
+        if (window.APP.mode !== 'drill' && window.APP.mode !== 'learning') {
             return;
         }
         
@@ -203,6 +204,12 @@ window.Learning = {
         
         // Save to IndexedDB
         window.StorageManager.saveQuestion(questionData)
+            .then(() => {
+                // Clear history cache so it will be reloaded with new question
+                window.APP.questionHistory = [];
+                // Update navigation buttons to enable left button now that we have history
+                window.UI.updateNavigationButtons();
+            })
             .catch(error => console.error('Error saving question:', error));
         
         // Update cumulative stats in localStorage
