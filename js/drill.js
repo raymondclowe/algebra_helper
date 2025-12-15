@@ -204,11 +204,15 @@ window.Learning = {
         
         // Save to IndexedDB
         window.StorageManager.saveQuestion(questionData)
-            .then(() => {
+            .then(async () => {
                 // Clear history cache so it will be reloaded with new question
                 window.APP.questionHistory = [];
                 // Update navigation buttons to enable left button now that we have history
-                window.UI.updateNavigationButtons();
+                try {
+                    await window.UI.updateNavigationButtons();
+                } catch (error) {
+                    console.error('Error updating navigation buttons:', error);
+                }
             })
             .catch(error => console.error('Error saving question:', error));
         
