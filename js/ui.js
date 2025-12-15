@@ -74,6 +74,8 @@ window.UI = {
             // Load question history if not already loaded
             if (window.APP.questionHistory.length === 0) {
                 window.APP.questionHistory = await window.StorageManager.getAllQuestions();
+                // Reverse to get newest first
+                window.APP.questionHistory.reverse();
             }
             
             if (window.APP.questionHistory.length === 0) {
@@ -81,15 +83,22 @@ window.UI = {
             }
             
             // Calculate new index
-            let newIndex = window.APP.historyIndex + direction;
+            // When not viewing history (historyIndex = -1), going back (direction = 1) should show newest (index 0)
+            let newIndex;
+            if (window.APP.historyIndex === -1 && direction === 1) {
+                // Starting to view history, show newest question
+                newIndex = 0;
+            } else {
+                newIndex = window.APP.historyIndex + direction;
+            }
             
-            // If going forward from history and reaching end, return to present
+            // If going forward past newest, return to present
             if (newIndex < 0) {
                 this.nextQuestion(); // Return to present
                 return;
             }
             
-            // Don't go beyond history
+            // Don't go beyond oldest question in history
             if (newIndex >= window.APP.questionHistory.length) {
                 return;
             }
@@ -167,13 +176,15 @@ window.UI = {
         
         if (!leftBtn || !rightBtn) return;
         
-        // Left button: go to older questions (only if viewing history and not at end)
-        const canGoLeft = window.APP.isViewingHistory && 
-                         window.APP.historyIndex < window.APP.questionHistory.length - 1;
+        // Left button (←): Go back to older questions
+        // Enable when: NOT viewing history but have history, OR viewing history and not at the oldest
+        const canGoLeft = (!window.APP.isViewingHistory && window.APP.questionHistory.length > 0) ||
+                         (window.APP.isViewingHistory && window.APP.historyIndex < window.APP.questionHistory.length - 1);
         this.setNavigationButtonState(leftBtn, canGoLeft);
         
-        // Right button: go to newer questions or back to present
-        const canGoRight = window.APP.isViewingHistory || window.APP.questionHistory.length > 0;
+        // Right button (→): Go forward to newer questions or return to present
+        // Enable when: viewing history (can always go forward/present from history)
+        const canGoRight = window.APP.isViewingHistory;
         this.setNavigationButtonState(rightBtn, canGoRight);
     },
 
