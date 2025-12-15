@@ -23,7 +23,23 @@ window.UI = {
         // Render
         document.getElementById('instruction-text').innerText = window.APP.currentQ.instruction;
         const qDiv = document.getElementById('question-math');
-        qDiv.innerHTML = `\\[ ${window.APP.currentQ.tex} \\]`;
+        
+        // Process LaTeX to improve line breaks and spacing
+        // Replace \\[...em] line breaks with proper display breaks
+        // Split on line breaks to create separate display math blocks
+        let processedTex = window.APP.currentQ.tex;
+        
+        // Check if the question has the "Step:" pattern with line breaks
+        if (processedTex.includes('\\\\[') && processedTex.includes('\\text{Step:')) {
+            // Split into lines and render each as a separate display block
+            const lines = processedTex.split(/\\\[\d*\.?\d*em\]/);
+            const displayBlocks = lines.map(line => `\\[ ${line.trim()} \\]`).join('\n');
+            qDiv.innerHTML = displayBlocks;
+        } else {
+            // Standard rendering for single-line questions
+            qDiv.innerHTML = `\\[ ${processedTex} \\]`;
+        }
+        
         MathJax.typesetPromise([qDiv]);
 
         // Icon

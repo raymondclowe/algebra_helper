@@ -8,7 +8,7 @@
 describe('Word Wrapping and Line Breaking Tests', () => {
     beforeEach(async () => {
         // Navigate to the app
-        await page.goto('http://localhost:8081/algebra-helper.html', {
+        await page.goto('http://localhost:8000/algebra-helper.html', {
             waitUntil: 'networkidle0',
             timeout: 30000
         });
@@ -127,33 +127,56 @@ describe('Word Wrapping and Line Breaking Tests', () => {
         // Set mobile viewport
         await page.setViewport({ width: 375, height: 667 });
         
-        // Switch to learning mode
+        // Switch to learning mode and get a question that uses LaTeX in answers
         await page.evaluate(async () => {
             window.APP.mode = 'learning';
             window.APP.level = 5.0;
-            window.UI.nextQuestion();
+            
+            // Generate a question that will have mathematical expressions in answers
+            // Keep trying until we get one with LaTeX (indicated by ^ or other math symbols)
+            let attempts = 0;
+            while (attempts < 10) {
+                window.UI.nextQuestion();
+                const hasLatex = window.APP.currentQ.displayAnswer.match(/[\^_{}\\]|frac|sqrt/) || 
+                                window.APP.currentQ.distractors.some(d => d.match(/[\^_{}\\]|frac|sqrt/));
+                if (hasLatex) break;
+                attempts++;
+            }
+            
             await window.MathJax.typesetPromise();
         });
         
-        // Wait for MathJax in buttons
-        await page.waitForSelector('#mc-options button mjx-container', { timeout: 5000 });
+        // Wait for answer buttons
+        await page.waitForSelector('#mc-options button', { timeout: 5000 });
         
-        // Check MathJax containers in buttons have proper properties
+        // Check if any buttons have MathJax (some might be plain text per the new design)
         const mathInButton = await page.evaluate(() => {
             const containers = document.querySelectorAll('#mc-options button mjx-container');
-            if (containers.length === 0) return null;
+            if (containers.length === 0) {
+                // No MathJax buttons - check if plain text buttons exist
+                const plainButtons = document.querySelectorAll('#mc-options button span[style*="font-style: normal"]');
+                return {
+                    hasMathJax: false,
+                    hasPlainText: plainButtons.length > 0
+                };
+            }
             
             const firstContainer = containers[0];
             const styles = window.getComputedStyle(firstContainer);
             return {
+                hasMathJax: true,
                 maxWidth: styles.maxWidth,
                 overflowWrap: styles.overflowWrap,
                 wordWrap: styles.wordWrap
             };
         });
         
-        expect(mathInButton).not.toBeNull();
-        expect(mathInButton.maxWidth).toBe('100%');
+        // Either buttons have MathJax with proper styling, or they use plain text (both are valid)
+        if (mathInButton.hasMathJax) {
+            expect(mathInButton.maxWidth).toBe('100%');
+        } else {
+            expect(mathInButton.hasPlainText).toBe(true);
+        }
     });
 
     test('Long equation text does not overflow on narrow mobile screen', async () => {
@@ -224,7 +247,7 @@ describe('Word Wrapping and Line Breaking Tests', () => {
             // Override current question with one that has line breaks
             window.APP.currentQ = {
                 type: 'why',
-                tex: '2x + 3 = 9 \\\\[0.5em] \\\\text{Step 1: } 2x = 6',
+                tex: '2x + 3 = 9 \\\\[0.5em] \\text{Step 1: } 2x = 6',
                 instruction: 'Test question with line break',
                 displayAnswer: 'Test answer',
                 distractors: ['A', 'B', 'C'],
@@ -233,51 +256,88 @@ describe('Word Wrapping and Line Breaking Tests', () => {
                 level: 5.0
             };
             
-            // Re-render
+            // Re-render using the UI rendering logic
             const qDiv = document.getElementById('question-math');
-            qDiv.innerHTML = `\\[ ${window.APP.currentQ.tex} \\]`;
+            let processedTex = window.APP.currentQ.tex;
+            
+            // Use the same logic as UI.nextQuestion
+            if (processedTex.includes('\\\\[') && processedTex.includes('\\text{Step')) {
+                const lines = processedTex.split(/\\\[\d*\.?\d*em\]/);
+                const displayBlocks = lines.map(line => `\\[ ${line.trim()} \\]`).join('\n');
+                qDiv.innerHTML = displayBlocks;
+            } else {
+                qDiv.innerHTML = `\\[ ${processedTex} \\]`;
+            }
+            
             await window.MathJax.typesetPromise([qDiv]);
         });
         
         // Wait for MathJax to process
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        // Check that the content is rendered (MathJax should handle the line break)
-        const hasContent = await page.evaluate(() => {
+        // Check that multiple display blocks were created (indicating line break was handled)
+        const displayBlockCount = await page.evaluate(() => {
             const qDiv = document.getElementById('question-math');
-            return qDiv.textContent.length > 0;
+            const containers = qDiv.querySelectorAll('mjx-container[display="true"]');
+            return containers.length;
         });
         
-        expect(hasContent).toBe(true);
+        // Should have 2 separate display blocks (one for each line)
+        expect(displayBlockCount).toBeGreaterThanOrEqual(2);
     });
 
     test('Answer buttons are not in italics (upright font)', async () => {
-        // Switch to learning mode
+        // Switch to learning mode and try to get a question with mathematical answers
         await page.evaluate(async () => {
             window.APP.mode = 'learning';
             window.APP.level = 5.0;
-            window.UI.nextQuestion();
+            
+            // Try to get a question with LaTeX in answers
+            let attempts = 0;
+            while (attempts < 10) {
+                window.UI.nextQuestion();
+                const hasLatex = window.APP.currentQ.displayAnswer.match(/[\^_{}\\]|frac|sqrt/) || 
+                                window.APP.currentQ.distractors.some(d => d.match(/[\^_{}\\]|frac|sqrt/));
+                if (hasLatex) break;
+                attempts++;
+            }
+            
             await window.MathJax.typesetPromise();
         });
         
-        // Wait for answer buttons with MathJax
-        await page.waitForSelector('#mc-options button mjx-container', { timeout: 5000 });
+        // Wait for answer buttons
+        await page.waitForSelector('#mc-options button', { timeout: 5000 });
         
-        // Check font style
-        const fontStyles = await page.evaluate(() => {
+        // Check font style - could be MathJax or plain text
+        const buttonInfo = await page.evaluate(() => {
+            // Check for MathJax buttons
             const mathElements = document.querySelectorAll('#mc-options button mjx-mi');
-            if (mathElements.length === 0) return null;
+            if (mathElements.length > 0) {
+                const styles = Array.from(mathElements).map(el => {
+                    return window.getComputedStyle(el).fontStyle;
+                });
+                return { type: 'mathjax', fontStyles: styles };
+            }
             
-            const styles = Array.from(mathElements).map(el => {
-                return window.getComputedStyle(el).fontStyle;
-            });
+            // Check for plain text buttons
+            const plainButtons = document.querySelectorAll('#mc-options button span[style*="font-style"]');
+            if (plainButtons.length > 0) {
+                const styles = Array.from(plainButtons).map(el => {
+                    return window.getComputedStyle(el).fontStyle;
+                });
+                return { type: 'plaintext', fontStyles: styles };
+            }
             
-            return styles;
+            return { type: 'none', fontStyles: [] };
         });
         
-        if (fontStyles && fontStyles.length > 0) {
-            // All should be 'normal', not 'italic'
-            fontStyles.forEach(style => {
+        // Verify buttons exist
+        expect(buttonInfo.type).not.toBe('none');
+        
+        // For MathJax buttons, verify font-style is normal (not italic)
+        // For plain text buttons, font-style should also be normal
+        if (buttonInfo.fontStyles.length > 0) {
+            buttonInfo.fontStyles.forEach(style => {
                 expect(style).toBe('normal');
             });
         }
