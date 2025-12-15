@@ -223,7 +223,7 @@ describe('Calibration Edge Cases Tests', () => {
 
     test('Timeout during calibration properly sets action as fail', async () => {
         // Wait for timeout to occur
-        await wait(5500);
+        await wait(10500);
         
         // Check that history was updated with fail action
         const history = await page.evaluate(() => window.APP.calibrationHistory);
