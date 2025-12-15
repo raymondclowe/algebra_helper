@@ -32,7 +32,7 @@ window.UI = {
         // Check if the question has the "Step:" pattern with line breaks
         if (processedTex.includes('\\\\[') && processedTex.includes('\\text{Step:')) {
             // Split into lines and render each as a separate display block
-            const lines = processedTex.split(/\\\\\[\d*\.?\d*em\\]/);
+            const lines = processedTex.split(/\\\[\d*\.?\d*em\]/);
             const displayBlocks = lines.map(line => `\\[ ${line.trim()} \\]`).join('\n');
             qDiv.innerHTML = displayBlocks;
         } else {
