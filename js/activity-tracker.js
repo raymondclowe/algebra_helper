@@ -5,11 +5,14 @@ window.ActivityTracker = {
     isActive: true,
     isPaused: false,
     lastPauseTime: null,
+    lastDailySaveTime: null,
+    dailySaveInterval: null,
     
     // Initialize tracking with all major JS APIs
     init: function() {
         this.startTime = Date.now();
         this.isActive = true;
+        this.lastDailySaveTime = Date.now();
         
         // Page Visibility API - detects when tab is focused
         document.addEventListener('visibilitychange', () => {
@@ -26,6 +29,9 @@ window.ActivityTracker = {
         
         // User interaction tracking (helps determine if user is active)
         this.setupInteractionTracking();
+        
+        // Save daily stats every minute
+        this.dailySaveInterval = setInterval(() => this.saveDailyTime(), 60000);
     },
     
     setupInteractionTracking: function() {
@@ -93,5 +99,22 @@ window.ActivityTracker = {
         } else {
             return `${secs}s`;
         }
+    },
+    
+    // Save time to daily stats
+    saveDailyTime: function() {
+        if (!this.lastDailySaveTime || !window.StorageManager) {
+            return;
+        }
+        
+        const now = Date.now();
+        const elapsedSeconds = Math.floor((now - this.lastDailySaveTime) / 1000);
+        
+        if (elapsedSeconds > 0 && !this.isPaused) {
+            const minutesToAdd = elapsedSeconds / 60;
+            window.StorageManager.updateDailyStats(minutesToAdd);
+        }
+        
+        this.lastDailySaveTime = now;
     }
 };

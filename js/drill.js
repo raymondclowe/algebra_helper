@@ -199,7 +199,9 @@ window.Learning = {
             timeSpent: timeSpent,
             datetime: Date.now(),
             isCorrect: isCorrect,
-            isDontKnow: isDontKnow
+            isDontKnow: isDontKnow,
+            topic: window.APP.currentQ.topic || 'Unknown', // Add topic tracking
+            level: window.APP.currentQ.questionLevel || window.APP.level // Add level tracking
         };
         
         // Save to IndexedDB

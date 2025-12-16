@@ -127,12 +127,14 @@ window.Generator = {
             if (this.questionCounter % 3 === 0) {
                 const question = this.getWhyQuestion(questionLevel);
                 question.questionLevel = questionLevel; // Track the level this question came from
+                question.topic = window.TopicDefinitions.getTopicForLevel(questionLevel); // Add topic
                 return question;
             }
         }
         
         const question = this.getQuestionForLevel(questionLevel);
         question.questionLevel = questionLevel; // Track the level this question came from
+        question.topic = window.TopicDefinitions.getTopicForLevel(questionLevel); // Add topic
         return question;
     },
     
