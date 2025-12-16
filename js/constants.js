@@ -12,6 +12,7 @@ const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element
 
 // Stats Tracking Constants
 const STATS_SAVE_INTERVAL_MS = 10000;   // How often to save active time to localStorage (10 seconds)
+const DAILY_SAVE_INTERVAL_MS = 60000;   // How often to save daily time tracking (60 seconds)
 
 // Response Speed Thresholds (seconds)
 // Note: Thresholds adjusted to reduce speed pressure and encourage thoughtful problem-solving

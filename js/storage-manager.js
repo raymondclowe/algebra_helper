@@ -248,14 +248,7 @@ window.StorageManager = {
             // Keep only last 5 questions for each topic and calculate average
             Object.keys(topicStats).forEach(topic => {
                 topicStats[topic].recentQuestions = topicStats[topic].recentQuestions.slice(-5);
-                
-                // Calculate average score (excluding "I don't know" answers)
-                const answeredCount = topicStats[topic].correct + topicStats[topic].incorrect;
-                if (answeredCount > 0) {
-                    topicStats[topic].averageScore = Math.round((topicStats[topic].correct / answeredCount) * 100);
-                } else {
-                    topicStats[topic].averageScore = 0;
-                }
+                topicStats[topic].averageScore = this.calculateAverageScore(topicStats[topic]);
             });
             
             return topicStats;
@@ -263,6 +256,15 @@ window.StorageManager = {
             console.error('Error getting topic stats:', error);
             return {};
         }
+    },
+    
+    // Helper function to calculate average score for a topic
+    calculateAverageScore: function(topicData) {
+        const answeredCount = topicData.correct + topicData.incorrect;
+        if (answeredCount > 0) {
+            return Math.round((topicData.correct / answeredCount) * 100);
+        }
+        return 0;
     },
     
     // Get daily stats (time spent today)

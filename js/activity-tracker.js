@@ -31,7 +31,7 @@ window.ActivityTracker = {
         this.setupInteractionTracking();
         
         // Save daily stats every minute
-        this.dailySaveInterval = setInterval(() => this.saveDailyTime(), 60000);
+        this.dailySaveInterval = setInterval(() => this.saveDailyTime(), DAILY_SAVE_INTERVAL_MS);
     },
     
     setupInteractionTracking: function() {
@@ -116,5 +116,13 @@ window.ActivityTracker = {
         }
         
         this.lastDailySaveTime = now;
+    },
+    
+    // Cleanup method to clear interval and prevent memory leaks
+    cleanup: function() {
+        if (this.dailySaveInterval) {
+            clearInterval(this.dailySaveInterval);
+            this.dailySaveInterval = null;
+        }
     }
 };

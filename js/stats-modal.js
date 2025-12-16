@@ -2,6 +2,9 @@
 window.StatsModal = {
     isOpen: false,
     
+    // Configuration constants
+    MINIMUM_DISPLAY_SCORE_THRESHOLD: 50, // Only show topics with >50% score
+    
     // Create and inject modal HTML into the page
     init: function() {
         // Create modal HTML with new educational design
@@ -98,10 +101,10 @@ window.StatsModal = {
     displayTopicProgress: async function(topicStats) {
         const topicProgressDiv = document.getElementById('topic-progress');
         
-        // Filter topics: only show those with >50% score and meaningful engagement
+        // Filter topics: only show those with good score and meaningful engagement
         const filteredTopics = Object.entries(topicStats).filter(([topic, stats]) => {
             const hasEngagement = stats.total > 0;
-            const hasGoodScore = stats.averageScore >= 50;
+            const hasGoodScore = stats.averageScore >= this.MINIMUM_DISPLAY_SCORE_THRESHOLD;
             return hasEngagement && hasGoodScore;
         });
         
