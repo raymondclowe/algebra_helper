@@ -4,7 +4,23 @@
 # Requires: GitHub CLI (gh) to be installed and authenticated
 # Usage: ./update-issues.sh
 
+set -e  # Exit on error
+
 REPO="raymondclowe/algebra_helper"
+
+# Check if gh is installed
+if ! command -v gh &> /dev/null; then
+    echo "Error: GitHub CLI (gh) is not installed."
+    echo "Please install it from: https://cli.github.com/"
+    exit 1
+fi
+
+# Check if authenticated
+if ! gh auth status &> /dev/null; then
+    echo "Error: Not authenticated with GitHub CLI."
+    echo "Please run: gh auth login"
+    exit 1
+fi
 
 echo "Updating GitHub issues with cleaned-up content..."
 
@@ -174,3 +190,4 @@ echo "Updated issue #78"
 echo ""
 echo "All issues have been updated successfully!"
 echo "Please review the issues on GitHub to confirm the changes."
+echo "Visit: https://github.com/$REPO/issues"

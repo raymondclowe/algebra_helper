@@ -1,6 +1,6 @@
 # GitHub Issues Cleanup
 
-This directory contains files for cleaning up issues #78-87 that were created via voice typing and contain formatting, grammar, and spelling errors.
+This repository contains files for cleaning up issues #78-87 that were created via voice typing and contain formatting, grammar, and spelling errors.
 
 ## Files
 
