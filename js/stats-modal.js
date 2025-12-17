@@ -44,13 +44,23 @@ window.StatsModal = {
                     </div>
                     
                     <!-- Footer -->
-                    <div class="bg-gray-750 p-4 border-t border-gray-700 flex justify-between items-center">
-                        <button onclick="StatsModal.clearData()" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-sm font-bold rounded">
-                            Clear All Data
-                        </button>
-                        <button onclick="StatsModal.hide()" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white font-bold rounded">
-                            Close
-                        </button>
+                    <div class="bg-gray-750 p-4 border-t border-gray-700 flex justify-between items-center flex-wrap gap-2">
+                        <div class="flex gap-2">
+                            <button onclick="StatsModal.exportData()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded">
+                                📥 Export Data
+                            </button>
+                            <button onclick="StatsModal.importData()" class="px-4 py-2 bg-green-600 hover:bg-green-500 text-white text-sm font-bold rounded">
+                                📤 Import Data
+                            </button>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="StatsModal.clearData()" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white text-sm font-bold rounded">
+                                Clear All Data
+                            </button>
+                            <button onclick="StatsModal.hide()" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white font-bold rounded">
+                                Close
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -253,5 +263,79 @@ window.StatsModal = {
                     setTimeout(() => errorMsg.remove(), 3000);
                 });
         };
+    },
+    
+    // Export data to JSON file
+    exportData: async function() {
+        try {
+            const result = await window.StorageManager.exportData();
+            
+            if (result.success) {
+                // Show success message
+                const successMsg = document.createElement('div');
+                successMsg.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                successMsg.textContent = `✓ Exported ${result.recordCount} questions to ${result.filename}`;
+                document.body.appendChild(successMsg);
+                
+                setTimeout(() => successMsg.remove(), 4000);
+            } else {
+                throw new Error(result.error || 'Export failed');
+            }
+        } catch (error) {
+            console.error('Error exporting data:', error);
+            
+            // Show error message
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            errorMsg.textContent = '✗ Error exporting data: ' + error.message;
+            document.body.appendChild(errorMsg);
+            
+            setTimeout(() => errorMsg.remove(), 4000);
+        }
+    },
+    
+    // Import data from JSON file
+    importData: function() {
+        // Create file input
+        const fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'application/json,.json';
+        
+        fileInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            try {
+                const text = await file.text();
+                const result = await window.StorageManager.importData(text);
+                
+                if (result.success) {
+                    // Show success message
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                    successMsg.textContent = `✓ Imported ${result.recordCount} questions successfully!`;
+                    document.body.appendChild(successMsg);
+                    
+                    setTimeout(() => successMsg.remove(), 4000);
+                    
+                    // Reload stats
+                    this.loadStats();
+                } else {
+                    throw new Error(result.error || 'Import failed');
+                }
+            } catch (error) {
+                console.error('Error importing data:', error);
+                
+                // Show error message
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                errorMsg.textContent = '✗ Error importing data: ' + error.message;
+                document.body.appendChild(errorMsg);
+                
+                setTimeout(() => errorMsg.remove(), 4000);
+            }
+        };
+        
+        fileInput.click();
     }
 };
