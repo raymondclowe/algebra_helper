@@ -5,6 +5,11 @@ window.StorageManager = {
     DB_VERSION: 2, // Upgraded to support enhanced question tracking
     STORE_NAME: 'questions',
     
+    // Session export filtering constants
+    MIN_SESSION_DURATION_MINUTES: 2,
+    MIN_CORRECT_RATE: 0.5, // 50%
+    SESSION_GAP_MS: 30 * 60 * 1000, // 30 minutes in milliseconds
+    
     // IndexedDB configuration constants
     STORE_CONFIG: {
         keyPath: 'id',
@@ -531,13 +536,11 @@ window.StorageManager = {
             questions: [questions[0]]
         };
         
-        const SESSION_GAP_MS = 30 * 60 * 1000; // 30 minutes in milliseconds
-        
         for (let i = 1; i < questions.length; i++) {
             const q = questions[i];
             const timeSinceLastQuestion = q.datetime - currentSession.endTime;
             
-            if (timeSinceLastQuestion > SESSION_GAP_MS) {
+            if (timeSinceLastQuestion > this.SESSION_GAP_MS) {
                 // Start new session
                 sessions.push(currentSession);
                 currentSession = {
@@ -567,17 +570,23 @@ window.StorageManager = {
             // Group into sessions
             const sessions = this.groupIntoSessions(questions);
             
-            // Filter sessions: >2 minutes duration and >50% correct rate
+            // Filter sessions using configured thresholds
             const filteredSessions = sessions.filter(session => {
                 const durationMin = (session.endTime - session.startTime) / 1000 / 60;
                 const stats = this.calculateSessionStats(session.questions);
                 
-                // Session must be >2 minutes AND >50% correct
-                return durationMin > 2 && stats.correctRate > 0.5;
+                // Session must meet both duration and accuracy thresholds
+                return durationMin > this.MIN_SESSION_DURATION_MINUTES && 
+                       stats.correctRate > this.MIN_CORRECT_RATE;
             });
             
             if (filteredSessions.length === 0) {
-                return { success: false, error: 'No sessions meet the criteria (>2 minutes and >50% correct)' };
+                const minMinutes = this.MIN_SESSION_DURATION_MINUTES;
+                const minPercent = Math.round(this.MIN_CORRECT_RATE * 100);
+                return { 
+                    success: false, 
+                    error: `No sessions meet the criteria (>${minMinutes} minutes and >${minPercent}% correct)` 
+                };
             }
             
             // Build CSV content

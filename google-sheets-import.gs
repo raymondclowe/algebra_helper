@@ -66,12 +66,17 @@ function importCSVSessions() {
       return;
     }
     
+    // Define expected CSV structure
+    var CSV_HEADERS = ['Date', 'Student Name', 'Duration (min)', 'Questions Total', 'Questions Correct', 'Score %', 'Topics Practiced'];
+    var NUM_CSV_COLUMNS = CSV_HEADERS.length;
+    var TEACHER_COLUMNS = ['Teacher Comments', 'Reviewed'];
+    var TOTAL_COLUMNS = NUM_CSV_COLUMNS + TEACHER_COLUMNS.length;
+    
     // Validate header row
-    var expectedHeaders = ['Date', 'Student Name', 'Duration (min)', 'Questions Total', 'Questions Correct', 'Score %', 'Topics Practiced'];
     var headers = rows[0];
     
     // Check if headers match (allowing for variations)
-    var validHeader = expectedHeaders.every(function(header, index) {
+    var validHeader = CSV_HEADERS.every(function(header, index) {
       return headers[index] && headers[index].trim() === header;
     });
     
@@ -89,17 +94,7 @@ function importCSVSessions() {
       sheet = ss.insertSheet(sheetName);
       
       // Add headers with additional columns for teacher use
-      var enhancedHeaders = [
-        'Date',
-        'Student Name',
-        'Duration (min)',
-        'Questions Total',
-        'Questions Correct',
-        'Score %',
-        'Topics Practiced',
-        'Teacher Comments',
-        'Reviewed'
-      ];
+      var enhancedHeaders = CSV_HEADERS.concat(TEACHER_COLUMNS);
       
       sheet.getRange(1, 1, 1, enhancedHeaders.length).setValues([enhancedHeaders]);
       formatHeaderRow(sheet, enhancedHeaders.length);
@@ -120,16 +115,16 @@ function importCSVSessions() {
     // Add data to sheet (with empty columns for teacher use)
     dataRows.forEach(function(row, index) {
       // Extend row with empty teacher columns
-      var enhancedRow = row.slice(0, 7).concat(['', '']); // Add Teacher Comments and Reviewed columns
+      var enhancedRow = row.slice(0, NUM_CSV_COLUMNS).concat(['', '']); // Add Teacher Comments and Reviewed columns
       sheet.getRange(startRow + index, 1, 1, enhancedRow.length).setValues([enhancedRow]);
     });
     
     // Format the data range
-    var dataRange = sheet.getRange(2, 1, sheet.getLastRow() - 1, 9);
+    var dataRange = sheet.getRange(2, 1, sheet.getLastRow() - 1, TOTAL_COLUMNS);
     dataRange.applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY);
     
     // Auto-resize columns
-    for (var i = 1; i <= 9; i++) {
+    for (var i = 1; i <= TOTAL_COLUMNS; i++) {
       sheet.autoResizeColumn(i);
     }
     
