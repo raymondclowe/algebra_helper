@@ -280,15 +280,21 @@ body {
 @media (max-width: 360px) {
     #question-math {
         font-size: 1.5rem !important;
+        min-height: 3rem !important;
     }
     
     #controls-calibration button {
         font-size: 0.875rem;
+        min-height: 56px !important;
     }
     
     #level-display,
     #accuracy-display {
         font-size: 1.5rem !important;
+    }
+    
+    .p-8.min-h-\[200px\] {
+        min-height: 100px !important;
     }
 }
 
@@ -306,15 +312,64 @@ body {
     #app {
         display: flex;
         flex-direction: column;
+        height: auto !important;
+        min-height: 100vh;
+        max-height: 100vh;
+        overflow-y: auto;
     }
     
     .p-8 {
-        padding: 1.5rem !important;
+        padding: 1rem !important;
     }
     
     /* Reduce vertical padding where possible */
     #controls-learning {
+        padding: 0.75rem !important;
+    }
+    
+    /* Reduce question area min-height on mobile portrait */
+    #question-math {
+        min-height: 4rem !important;
+        padding: 0.75rem !important;
+    }
+    
+    /* Reduce instruction text margin */
+    #instruction-text {
+        margin-bottom: 0.75rem !important;
+    }
+    
+    /* Reduce explanation box reserved space on mobile */
+    .explanation-wrapper {
+        min-height: 60px !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    
+    /* Make calibration buttons more compact on mobile portrait */
+    #controls-calibration button {
+        min-height: 64px !important;
+        padding: 8px 12px !important;
+    }
+    
+    #controls-calibration button span:first-child {
+        font-size: 1rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    
+    #controls-calibration button span:last-child {
+        font-size: 0.625rem !important;
+    }
+    
+    /* Reduce main area padding */
+    .p-8.min-h-\[200px\] {
         padding: 1rem !important;
+        min-height: 120px !important;
+    }
+    
+    /* Reduce MC button padding for better fit */
+    #mc-options button {
+        padding: 0.75rem !important;
+        min-height: 56px !important;
     }
 }
 
