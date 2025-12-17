@@ -74,10 +74,10 @@ window.UI = {
     navigateHistory: async function(direction) {
         try {
             // Guard clause: Prevent navigation when button should be disabled
-            // Right button (direction = -1): Only allow when viewing history
-            // Left button (direction = 1): Allow when not viewing history with history available, or in history not at oldest
+            // Direction -1 (right button → forward to newer/present): Only allow when viewing history
+            // Direction 1 (left button ← back to older): Allow when not viewing history with history available, or in history not at oldest
             if (direction === -1 && !window.APP.isViewingHistory) {
-                // Trying to go forward/next when not viewing history - button should be disabled
+                // Trying to go forward/next when already at present - button should be disabled
                 return;
             }
             
