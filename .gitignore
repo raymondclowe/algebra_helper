@@ -42,3 +42,11 @@ coverage/
 
 # Test screenshots
 tests/__screenshots__/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
