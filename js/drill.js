@@ -159,6 +159,9 @@ window.Learning = {
             // Track specific error patterns for Fixing Habits questions
             this.trackErrorPattern(window.APP.currentQ);
             
+            // Check if we should show a break splash screen
+            this.checkForBreakTime();
+            
             // Frustration Breaker
             if (window.APP.streak <= 0) delta = -0.8; // Second wrong answer drops hard
             else delta = -0.3; // First wrong answer drops distinct amount
@@ -182,7 +185,7 @@ window.Learning = {
                 }
             });
             
-            // Show explanation in modal with retry option
+            // Show explanation in modal with retry option - use positive framing
             window.ExplanationModal.show(window.APP.currentQ.explanation, true);
             
             // Save to storage (wrong answer)
@@ -291,6 +294,83 @@ window.Learning = {
         }
         
         window.StorageManager.updateStats(statUpdates);
+    },
+
+    // Check if user needs a break based on session patterns
+    checkForBreakTime: function() {
+        // Only check in learning/drill mode
+        if (window.APP.mode !== 'learning' && window.APP.mode !== 'drill') {
+            return;
+        }
+        
+        // Check recent performance in history
+        const recentHistory = window.APP.history.slice(-15); // Last 15 questions
+        if (recentHistory.length < 10) {
+            return; // Not enough data
+        }
+        
+        const recentCorrect = recentHistory.reduce((sum, val) => sum + val, 0);
+        const recentScore = (recentCorrect / recentHistory.length) * 100;
+        
+        // Get active time
+        const activeTimeSeconds = window.ActivityTracker ? window.ActivityTracker.getActiveTime() : 0;
+        const activeTimeMinutes = activeTimeSeconds / 60;
+        
+        // Check for rapid "don't know" or wrong answers (potential random clicking)
+        const lastFiveHistory = window.APP.history.slice(-5);
+        const lastFiveCorrect = lastFiveHistory.reduce((sum, val) => sum + val, 0);
+        
+        // Trigger break splash if:
+        // 1. Long session (>25 min) AND score dropping below 40%
+        // 2. OR rapid failures in last 5 (less than 1 correct)
+        const needsBreak = (activeTimeMinutes > 25 && recentScore < 40) || 
+                          (lastFiveHistory.length >= 5 && lastFiveCorrect <= 1);
+        
+        if (needsBreak) {
+            // Don't show more than once per 15 minutes
+            const lastBreakTime = window.APP.lastBreakSplashTime || 0;
+            const timeSinceLastBreak = Date.now() - lastBreakTime;
+            
+            if (timeSinceLastBreak > 15 * 60 * 1000) { // 15 minutes
+                this.showBreakSplash();
+                window.APP.lastBreakSplashTime = Date.now();
+            }
+        }
+    },
+    
+    // Show encouraging break splash screen
+    showBreakSplash: function() {
+        const messages = [
+            { emoji: "🌟", text: "Great work today!", subtext: "It's time to take a rest! Go touch grass!" },
+            { emoji: "💪", text: "You've earned a break!", subtext: "Your brain needs time to process what you've learned!" },
+            { emoji: "🎯", text: "Excellent effort today!", subtext: "Taking breaks helps you learn better!" },
+            { emoji: "🌱", text: "Well done!", subtext: "Rest is an important part of learning!" },
+            { emoji: "⭐", text: "You worked hard!", subtext: "Time to recharge and come back stronger!" },
+            { emoji: "🧠", text: "Great persistence!", subtext: "Your brain will thank you for a break!" }
+        ];
+        
+        const message = messages[Math.floor(Math.random() * messages.length)];
+        
+        const splashHTML = `
+            <div id="break-splash" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[60] animate-fade-in">
+                <div class="bg-gradient-to-br from-purple-900 to-blue-900 rounded-2xl shadow-2xl border-4 border-yellow-400 max-w-2xl w-full p-12 text-center transform animate-scale-in">
+                    <div class="text-8xl mb-6">${message.emoji}</div>
+                    <h2 class="text-5xl font-bold text-yellow-300 mb-4">${message.text}</h2>
+                    <p class="text-2xl text-gray-200 mb-8">${message.subtext}</p>
+                    <button onclick="this.closest('#break-splash').remove()" class="px-8 py-4 bg-green-600 hover:bg-green-500 text-white text-xl font-bold rounded-xl shadow-lg transition-all hover:scale-105">
+                        Got it! 👍
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        document.body.insertAdjacentHTML('beforeend', splashHTML);
+        
+        // Auto-dismiss after 10 seconds if user doesn't click
+        setTimeout(() => {
+            const splash = document.getElementById('break-splash');
+            if (splash) splash.remove();
+        }, 10000);
     },
 
     applyLevelChange: function(delta) {
