@@ -493,14 +493,13 @@ body {
     word-wrap: break-word !important;
     text-align: center !important;
     display: flex !important;
+    flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 1rem !important;
+    padding: 0.5rem !important;
     min-height: 60px !important;
     height: auto !important;
-    line-height: 1.5 !important;
-    padding: 0.5rem !important; /* Reduced from 1rem to allow more room for text */
-    line-height: 1.3 !important; /* Better line spacing for wrapped text */
+    line-height: 1.3 !important;
 }
 
 /* Ensure wrapped content in buttons is properly spaced */
