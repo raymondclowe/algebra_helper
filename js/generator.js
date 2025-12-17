@@ -47,9 +47,38 @@ window.Generator = {
             }
         }
         
+        // Joke answers as fallback when it's impractical to generate distinct answers
+        const jokeAnswers = [
+            "42 (the ultimate answer)",
+            "blue",
+            "∞ (infinity)",
+            "🤔",
+            "i (imaginary unit)",
+            "undefined",
+            "NaN (Not a Number)",
+            "π (exactly)",
+            "e (Euler's number)",
+            "∅ (empty set)"
+        ];
+        
         // If we filtered out duplicates, generate alternatives
-        while (uniqueDistractors.length < 3) {
-            const alternative = generateAlternative ? generateAlternative() : `${this.rInt(1, 100)}`;
+        let jokeIndex = 0;
+        let attempts = 0;
+        const maxAttempts = 100; // Prevent infinite loops
+        
+        while (uniqueDistractors.length < 3 && attempts < maxAttempts) {
+            attempts++;
+            let alternative;
+            
+            // First try the provided generator
+            if (generateAlternative && attempts < 50) {
+                alternative = generateAlternative();
+            } else {
+                // Fall back to joke answers when generator fails or isn't provided
+                alternative = jokeAnswers[jokeIndex % jokeAnswers.length];
+                jokeIndex++;
+            }
+            
             if (!seen.has(alternative)) {
                 uniqueDistractors.push(alternative);
                 seen.add(alternative);
@@ -1072,12 +1101,19 @@ window.Generator = {
                 { frac: '\\frac{1}{10}', dec: '0.1' }
             ];
             const conv = conversions[this.rInt(0, conversions.length - 1)];
+            const correctAnswer = `${conv.dec}`;
+            const candidateDistractors = [`${parseFloat(conv.dec) + 0.1}`, `${parseFloat(conv.dec) * 2}`, `${1 - parseFloat(conv.dec)}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${(this.rInt(1, 20) / 10).toFixed(1)}`
+            );
             
             return {
                 tex: `${conv.frac}`,
                 instruction: "Convert to decimal",
-                displayAnswer: `${conv.dec}`,
-                distractors: [`${parseFloat(conv.dec) + 0.1}`, `${parseFloat(conv.dec) * 2}`, `${1 - parseFloat(conv.dec)}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Divide the numerator by the denominator to get ${conv.dec}.`,
                 calc: false
             };
@@ -1085,12 +1121,19 @@ window.Generator = {
             // Converting decimal to percentage
             const decimal = this.rInt(1, 9) / 10;
             const percentage = decimal * 100;
+            const correctAnswer = `${percentage}\\%`;
+            const candidateDistractors = [`${decimal}\\%`, `${percentage / 10}\\%`, `${percentage * 10}\\%`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 100)}\\%`
+            );
             
             return {
                 tex: `${decimal}`,
                 instruction: "Convert to percentage",
-                displayAnswer: `${percentage}\\%`,
-                distractors: [`${decimal}\\%`, `${percentage / 10}\\%`, `${percentage * 10}\\%`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Multiply by 100: ${decimal} × 100 = ${percentage}%.`,
                 calc: false
             };
@@ -1099,12 +1142,19 @@ window.Generator = {
             const percent = [10, 20, 25, 50, 75][this.rInt(0, 4)];
             const number = this.rInt(20, 100);
             const result = (percent / 100) * number;
+            const correctAnswer = `${result}`;
+            const candidateDistractors = [`${result + 10}`, `${result - 5}`, `${number - result}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 100)}`
+            );
             
             return {
                 tex: `${percent}\\% \\text{ of } ${number}`,
                 instruction: "Calculate",
-                displayAnswer: `${result}`,
-                distractors: [`${result + 10}`, `${result - 5}`, `${number - result}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `${percent}% of ${number} = (${percent}/100) × ${number} = ${result}.`,
                 calc: false
             };
@@ -1115,12 +1165,19 @@ window.Generator = {
                 this.rInt(10, 99) / 100,
                 this.rInt(1, 9) / 100
             ].sort((a, b) => a - b);
+            const correctAnswer = `${decimals[0]}`;
+            const candidateDistractors = [`${decimals[1]}`, `${decimals[2]}`, `\\text{all equal}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${(this.rInt(1, 99) / 100).toFixed(2)}`
+            );
             
             return {
                 tex: `\\text{Which is smallest: } ${decimals[2]}, ${decimals[0]}, ${decimals[1]}?`,
                 instruction: "Choose the smallest decimal",
-                displayAnswer: `${decimals[0]}`,
-                distractors: [`${decimals[1]}`, `${decimals[2]}`, `\\text{all equal}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Compare place values: ${decimals[0]} < ${decimals[1]} < ${decimals[2]}.`,
                 calc: false
             };
