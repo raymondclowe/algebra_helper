@@ -207,4 +207,60 @@ describe('Stats Tracking Tests', () => {
         });
         expect(stateHasHistoryFields).toBe(true);
     });
+
+    test('Topic definitions module is loaded', async () => {
+        const hasTopicDefinitions = await page.evaluate(() => {
+            return typeof TopicDefinitions !== 'undefined';
+        });
+        expect(hasTopicDefinitions).toBe(true);
+    });
+
+    test('Topics are assigned to questions', async () => {
+        const hasTopic = await page.evaluate(() => {
+            window.APP.mode = 'drill';
+            window.APP.level = 5.0;
+            const question = Generator.getQuestion(5.0);
+            return question.topic && question.topic.length > 0;
+        });
+        expect(hasTopic).toBe(true);
+    });
+
+    test('Storage manager can calculate topic stats', async () => {
+        const hasTopicStatsMethod = await page.evaluate(() => {
+            return typeof StorageManager.getTopicStats === 'function';
+        });
+        expect(hasTopicStatsMethod).toBe(true);
+    });
+
+    test('Daily stats tracking is available', async () => {
+        const hasDailyStats = await page.evaluate(() => {
+            return typeof StorageManager.getDailyStats === 'function' &&
+                   typeof StorageManager.updateDailyStats === 'function';
+        });
+        expect(hasDailyStats).toBe(true);
+    });
+
+    test('Stats modal shows time spent today', async () => {
+        await page.evaluate(() => StatsModal.init());
+        await page.evaluate(() => StatsModal.show());
+        await wait(1000);
+        
+        const hasTimeDisplay = await page.evaluate(() => {
+            const timeElement = document.getElementById('stat-today-minutes');
+            return timeElement && timeElement.textContent.includes('min');
+        });
+        expect(hasTimeDisplay).toBe(true);
+    });
+
+    test('Stats modal shows topic progress section', async () => {
+        await page.evaluate(() => StatsModal.init());
+        await page.evaluate(() => StatsModal.show());
+        await wait(1000);
+        
+        const hasTopicProgress = await page.evaluate(() => {
+            const topicElement = document.getElementById('topic-progress');
+            return topicElement !== null;
+        });
+        expect(hasTopicProgress).toBe(true);
+    });
 });

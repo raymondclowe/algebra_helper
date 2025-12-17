@@ -198,6 +198,7 @@ window.StorageManager = {
             
             request.onsuccess = () => {
                 localStorage.removeItem('algebraHelperStats');
+                localStorage.removeItem('algebraHelperDailyStats'); // Clear daily stats too
                 resolve();
             };
             
@@ -205,5 +206,99 @@ window.StorageManager = {
                 reject(request.error);
             };
         });
+    },
+    
+    // Get statistics by topic
+    getTopicStats: async function() {
+        try {
+            const questions = await this.getAllQuestions();
+            const topicStats = {};
+            
+            questions.forEach(q => {
+                const topic = q.topic || 'Unknown';
+                
+                if (!topicStats[topic]) {
+                    topicStats[topic] = {
+                        total: 0,
+                        correct: 0,
+                        incorrect: 0,
+                        dontKnow: 0,
+                        recentQuestions: []
+                    };
+                }
+                
+                topicStats[topic].total++;
+                if (q.isDontKnow) {
+                    topicStats[topic].dontKnow++;
+                } else if (q.isCorrect) {
+                    topicStats[topic].correct++;
+                } else {
+                    topicStats[topic].incorrect++;
+                }
+                
+                // Keep last 5 questions for each topic
+                topicStats[topic].recentQuestions.push({
+                    question: q.question,
+                    isCorrect: q.isCorrect,
+                    datetime: q.datetime,
+                    isDontKnow: q.isDontKnow
+                });
+            });
+            
+            // Keep only last 5 questions for each topic and calculate average
+            Object.keys(topicStats).forEach(topic => {
+                topicStats[topic].recentQuestions = topicStats[topic].recentQuestions.slice(-5);
+                topicStats[topic].averageScore = this.calculateAverageScore(topicStats[topic]);
+            });
+            
+            return topicStats;
+        } catch (error) {
+            console.error('Error getting topic stats:', error);
+            return {};
+        }
+    },
+    
+    // Helper function to calculate average score for a topic
+    calculateAverageScore: function(topicData) {
+        const answeredCount = topicData.correct + topicData.incorrect;
+        if (answeredCount > 0) {
+            return Math.round((topicData.correct / answeredCount) * 100);
+        }
+        return 0;
+    },
+    
+    // Get daily stats (time spent today)
+    getDailyStats: function() {
+        const dailyStatsJSON = localStorage.getItem('algebraHelperDailyStats');
+        const today = new Date().toDateString();
+        
+        if (dailyStatsJSON) {
+            try {
+                const dailyStats = JSON.parse(dailyStatsJSON);
+                // Reset if it's a new day
+                if (dailyStats.date !== today) {
+                    return { date: today, minutesSpent: 0 };
+                }
+                return dailyStats;
+            } catch (e) {
+                console.error('Error parsing daily stats:', e);
+                return { date: today, minutesSpent: 0 };
+            }
+        }
+        return { date: today, minutesSpent: 0 };
+    },
+    
+    // Update daily stats
+    updateDailyStats: function(minutesToAdd) {
+        const dailyStats = this.getDailyStats();
+        dailyStats.minutesSpent += minutesToAdd;
+        
+        try {
+            localStorage.setItem('algebraHelperDailyStats', JSON.stringify(dailyStats));
+        } catch (e) {
+            console.error('Error saving daily stats:', e);
+        }
+        
+        return dailyStats;
     }
 };
