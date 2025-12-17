@@ -14,6 +14,9 @@ window.Learning = {
         // Add "I don't know" option to ALL questions (feature requirement)
         // This allows users to skip questions without penalty while still learning
         opts.push({ val: "I don't know", correct: false, dontKnow: true });
+        
+        // Store all answer options in currentQ for later tracking
+        window.APP.currentQ.allAnswers = opts.map(opt => opt.val);
 
         opts.forEach(opt => {
             const btn = document.createElement('button');
@@ -21,7 +24,8 @@ window.Learning = {
             if (window.DEBUG_MODE && opt.correct) btn.classList.add('debug-correct');
             btn.dataset.correct = opt.correct.toString();
             btn.dataset.dontKnow = (opt.dontKnow || false).toString();
-            btn.onclick = () => this.handleAnswer(btn, opt.correct, opt.dontKnow);
+            btn.dataset.answer = opt.val; // Store the answer value for tracking
+            btn.onclick = () => this.handleAnswer(btn, opt.correct, opt.dontKnow, opt.val);
             
             // Use plain text for "I don't know" with "(no penalty)" indicator, LaTeX for others
             if (opt.dontKnow) {
@@ -51,11 +55,14 @@ window.Learning = {
         MathJax.typesetPromise([container]);
     },
 
-    handleAnswer: function(btn, isCorrect, isDontKnow) {
+    handleAnswer: function(btn, isCorrect, isDontKnow, chosenAnswer) {
         // Only allow answering if not viewing history
         if (window.APP.isViewingHistory) {
             return;
         }
+        
+        // Store the chosen answer for tracking
+        window.APP.currentQ.chosenAnswer = chosenAnswer;
         
         // Calculate time spent on this question
         const timeSpent = Math.floor((Date.now() - window.APP.startTime) / 1000);
@@ -190,19 +197,25 @@ window.Learning = {
             return;
         }
         
-        // Prepare question data
+        // Prepare question data with all required fields
         const questionData = {
             question: window.APP.currentQ.tex,
-            userAnswer: '', // We don't track which button was clicked, just correct/wrong
+            allAnswers: window.APP.currentQ.allAnswers || [window.APP.currentQ.displayAnswer], // All answer options
+            chosenAnswer: window.APP.currentQ.chosenAnswer || '', // User's chosen answer
             correctAnswer: window.APP.currentQ.displayAnswer,
+            userAnswer: window.APP.currentQ.chosenAnswer || '', // Deprecated field, kept for compatibility
             advice: isCorrect ? '' : window.APP.currentQ.explanation,
             timeSpent: timeSpent,
             datetime: Date.now(),
             isCorrect: isCorrect,
             isDontKnow: isDontKnow,
-            topic: window.APP.currentQ.topic || 'Unknown', // Add topic tracking
-            level: window.APP.currentQ.questionLevel || window.APP.level // Add level tracking
+            topic: window.APP.currentQ.topic || 'Unknown',
+            level: window.APP.currentQ.questionLevel || window.APP.level,
+            hintsUsed: 0 // For future feature
         };
+        
+        // Generate unique hash for this event
+        questionData.eventHash = window.StorageManager.generateEventHash(questionData);
         
         // Save to IndexedDB
         window.StorageManager.saveQuestion(questionData)
