@@ -26,8 +26,8 @@ window.Gamification = {
         if (isSlow) {
             // Encouraging messages for thoughtful answers (removed speed pressure)
             // Research shows rushing can undermine deep learning (Schraw & Dennison, 1994)
-            // Occasionally include student name for personalization (about 40% of the time)
-            const shouldUseName = name && Math.random() < 0.4;
+            // Occasionally include student name for personalization
+            const shouldUseName = name && Math.random() < PERSONALIZATION_PROBABILITY_SLOW;
             if (shouldUseName) {
                 messages = [
                     `Well done, ${name}! 🎯`, 
@@ -41,8 +41,8 @@ window.Gamification = {
             className = 'toast bg-green-500 text-white px-8 py-4 rounded-xl shadow-2xl text-xl font-bold';
         } else {
             // Regular success messages
-            // Occasionally include student name for personalization (about 30% of the time for fast answers)
-            const shouldUseName = name && Math.random() < 0.3;
+            // Occasionally include student name for personalization
+            const shouldUseName = name && Math.random() < PERSONALIZATION_PROBABILITY_FAST;
             if (shouldUseName) {
                 messages = [
                     `Correct, ${name}! 🎉`, 

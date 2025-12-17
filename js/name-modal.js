@@ -19,7 +19,7 @@ window.NameModal = {
         modal.classList.remove('hidden');
         
         // Focus the input field
-        setTimeout(() => input.focus(), 100);
+        setTimeout(() => input.focus(), INPUT_FOCUS_DELAY_MS);
     },
     
     close: function() {
