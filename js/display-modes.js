@@ -146,29 +146,34 @@ window.DisplayModes = {
             // Mastery Mode: Show skill area and encouraging message
             if (levelLabel) levelLabel.textContent = 'Working On';
             levelDisplay.textContent = this.getSkillDescription(level);
-            levelDisplay.className = 'text-sm font-bold text-blue-400 transition-all duration-300';
+            // Use smaller text on mobile to prevent overflow
+            levelDisplay.className = 'text-xs md:text-sm font-bold text-blue-400 transition-all duration-300';
             
             if (accuracyLabel) accuracyLabel.textContent = 'Progress';
             const message = this.getEncouragingMessage(accuracy);
             accuracyDisplay.textContent = message;
-            accuracyDisplay.className = 'text-sm font-bold text-green-400';
+            // Use smaller text on mobile to prevent overflow
+            accuracyDisplay.className = 'text-xs md:text-sm font-bold text-green-400';
             
         } else if (mode === DISPLAY_MODES.GROWTH) {
             // Growth Mode: Show level band and trend
             if (levelLabel) levelLabel.textContent = 'Level Range';
             levelDisplay.textContent = this.getLevelBand(level);
-            levelDisplay.className = 'text-xl font-bold text-yellow-400 transition-all duration-300';
+            // Smaller font on mobile to prevent overflow
+            levelDisplay.className = 'text-sm md:text-xl font-bold text-yellow-400 transition-all duration-300';
             
             if (accuracyLabel) accuracyLabel.textContent = 'Trend';
             const trend = this.getTrendIndicator(history);
             accuracyDisplay.innerHTML = `<span class="${trend.color}">${trend.symbol} ${trend.text}</span>`;
-            accuracyDisplay.className = `text-sm font-bold ${trend.color}`;
+            // Use smaller text on mobile to prevent overflow
+            accuracyDisplay.className = `text-xs md:text-sm font-bold ${trend.color}`;
             
         } else {
             // Full Mode: Show exact level and accuracy with educational context
             if (levelLabel) levelLabel.textContent = 'Level';
             levelDisplay.textContent = level.toFixed(1);
-            levelDisplay.className = 'text-xl font-bold text-yellow-400 transition-all duration-300';
+            // Smaller font on mobile to prevent overflow
+            levelDisplay.className = 'text-sm md:text-xl font-bold text-yellow-400 transition-all duration-300';
             
             if (accuracyLabel) accuracyLabel.textContent = 'Last 5 Avg';
             if (history && history.length > 0) {
@@ -176,12 +181,13 @@ window.DisplayModes = {
                 const avg = Math.round((subset.reduce((a,b)=>a+b,0)/subset.length)*100);
                 accuracyDisplay.textContent = avg + "%";
                 // Use encouraging colors: all progress is good when appropriately challenged
+                // Smaller font on mobile to prevent overflow
                 accuracyDisplay.className = avg >= 70 
-                    ? "text-xl font-bold text-green-400" 
-                    : "text-xl font-bold text-blue-400";
+                    ? "text-sm md:text-xl font-bold text-green-400" 
+                    : "text-sm md:text-xl font-bold text-blue-400";
             } else {
                 accuracyDisplay.textContent = "--%";
-                accuracyDisplay.className = "text-xl font-bold text-gray-500";
+                accuracyDisplay.className = "text-sm md:text-xl font-bold text-gray-500";
             }
         }
     },
