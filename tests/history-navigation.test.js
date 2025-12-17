@@ -172,4 +172,34 @@ describe('History Navigation Tests', () => {
         const instructionText = await page.$eval('#instruction-text', el => el.textContent);
         expect(instructionText).toContain('VIEWING HISTORY');
     });
+
+    test('Right button does not create new question when on current unanswered question', async () => {
+        // Setup: get to learning mode
+        for (let i = 0; i < 10; i++) {
+            await page.evaluate(() => {
+                window.APP.handleCalibration('pass');
+            });
+            await wait(200);
+        }
+        
+        await wait(500);
+        
+        // Capture current question
+        const currentQuestion = await page.$eval('#question-math', el => el.textContent);
+        const isViewingHistoryBefore = await page.evaluate(() => window.APP.isViewingHistory);
+        
+        // Verify we're on current question (not viewing history)
+        expect(isViewingHistoryBefore).toBe(false);
+        
+        // Click the right button (which should be disabled and do nothing)
+        await page.click('#history-nav-right');
+        await wait(500);
+        
+        // Verify question hasn't changed (no new question was generated)
+        const questionAfterClick = await page.$eval('#question-math', el => el.textContent);
+        const isViewingHistoryAfter = await page.evaluate(() => window.APP.isViewingHistory);
+        
+        expect(questionAfterClick).toBe(currentQuestion);
+        expect(isViewingHistoryAfter).toBe(false);
+    });
 });
