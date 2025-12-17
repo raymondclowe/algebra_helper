@@ -50,3 +50,9 @@ const FIXING_HABITS_MIN_ERRORS = 2;      // Minimum error count before triggerin
 
 // Break Splash Screen Constants
 const BREAK_SPLASH_COOLDOWN_MS = 15 * 60 * 1000; // 15 minutes - minimum time between break splash screens
+const BREAK_SESSION_MIN_MINUTES = 25;      // Minimum session length (minutes) before checking for break
+const BREAK_SCORE_THRESHOLD = 40;          // Score percentage below which break is suggested
+const BREAK_CHECK_RECENT_QUESTIONS = 15;   // Number of recent questions to check for performance trend
+const BREAK_CHECK_MIN_QUESTIONS = 10;      // Minimum questions needed before checking break conditions
+const BREAK_CHECK_RAPID_WINDOW = 5;        // Window of questions to check for rapid failures
+const BREAK_RAPID_CORRECT_THRESHOLD = 1;   // Maximum correct answers in rapid window before suggesting break

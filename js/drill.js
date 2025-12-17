@@ -305,8 +305,8 @@ window.Learning = {
         }
         
         // Check recent performance in history
-        const recentHistory = window.APP.history.slice(-15); // Last 15 questions
-        if (recentHistory.length < 10) {
+        const recentHistory = window.APP.history.slice(-BREAK_CHECK_RECENT_QUESTIONS);
+        if (recentHistory.length < BREAK_CHECK_MIN_QUESTIONS) {
             return; // Not enough data
         }
         
@@ -318,14 +318,14 @@ window.Learning = {
         const activeTimeMinutes = activeTimeSeconds / 60;
         
         // Check for rapid "don't know" or wrong answers (potential random clicking)
-        const lastFiveHistory = window.APP.history.slice(-5);
+        const lastFiveHistory = window.APP.history.slice(-BREAK_CHECK_RAPID_WINDOW);
         const lastFiveCorrect = lastFiveHistory.reduce((sum, val) => sum + val, 0);
         
         // Trigger break splash if:
-        // 1. Long session (>25 min) AND score dropping below 40%
-        // 2. OR rapid failures in last 5 (less than 1 correct)
-        const needsBreak = (activeTimeMinutes > 25 && recentScore < 40) || 
-                          (lastFiveHistory.length >= 5 && lastFiveCorrect <= 1);
+        // 1. Long session (>BREAK_SESSION_MIN_MINUTES) AND score dropping below BREAK_SCORE_THRESHOLD
+        // 2. OR rapid failures in last BREAK_CHECK_RAPID_WINDOW (≤BREAK_RAPID_CORRECT_THRESHOLD correct)
+        const needsBreak = (activeTimeMinutes > BREAK_SESSION_MIN_MINUTES && recentScore < BREAK_SCORE_THRESHOLD) || 
+                          (lastFiveHistory.length >= BREAK_CHECK_RAPID_WINDOW && lastFiveCorrect <= BREAK_RAPID_CORRECT_THRESHOLD);
         
         if (needsBreak) {
             // Don't show more than once per cooldown period
