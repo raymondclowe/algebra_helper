@@ -478,6 +478,45 @@ window.StorageManager = {
         }
     },
     
+    // Helper function to escape CSV field values
+    escapeCSVField: function(value) {
+        // Convert to string and escape quotes by doubling them
+        const stringValue = String(value);
+        if (stringValue.includes('"') || stringValue.includes(',') || stringValue.includes('\n')) {
+            return `"${stringValue.replace(/"/g, '""')}"`;
+        }
+        return stringValue;
+    },
+    
+    // Helper function to calculate session statistics
+    calculateSessionStats: function(questions) {
+        let correctCount = 0;
+        let answeredCount = 0;
+        const topicCounts = {};
+        
+        questions.forEach(q => {
+            if (!q.isDontKnow) {
+                answeredCount++;
+                if (q.isCorrect) correctCount++;
+            }
+            
+            // Track topics
+            const topic = q.topic || 'Unknown';
+            topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+        });
+        
+        const scorePercent = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+        const correctRate = answeredCount > 0 ? correctCount / answeredCount : 0;
+        
+        return {
+            correctCount,
+            answeredCount,
+            topicCounts,
+            scorePercent,
+            correctRate
+        };
+    },
+    
     // Group questions into sessions (30 min gap threshold)
     groupIntoSessions: function(questions) {
         if (questions.length === 0) return [];
@@ -531,22 +570,10 @@ window.StorageManager = {
             // Filter sessions: >2 minutes duration and >50% correct rate
             const filteredSessions = sessions.filter(session => {
                 const durationMin = (session.endTime - session.startTime) / 1000 / 60;
-                
-                // Count correct/total answers (excluding "I don't know")
-                let correctCount = 0;
-                let answeredCount = 0;
-                
-                session.questions.forEach(q => {
-                    if (!q.isDontKnow) {
-                        answeredCount++;
-                        if (q.isCorrect) correctCount++;
-                    }
-                });
-                
-                const correctRate = answeredCount > 0 ? correctCount / answeredCount : 0;
+                const stats = this.calculateSessionStats(session.questions);
                 
                 // Session must be >2 minutes AND >50% correct
-                return durationMin > 2 && correctRate > 0.5;
+                return durationMin > 2 && stats.correctRate > 0.5;
             });
             
             if (filteredSessions.length === 0) {
@@ -572,38 +599,23 @@ window.StorageManager = {
                 const date = new Date(session.startTime).toLocaleDateString();
                 const durationMin = Math.round((session.endTime - session.startTime) / 1000 / 60);
                 
-                // Count statistics
-                let correctCount = 0;
-                let answeredCount = 0;
-                const topicCounts = {};
-                
-                session.questions.forEach(q => {
-                    if (!q.isDontKnow) {
-                        answeredCount++;
-                        if (q.isCorrect) correctCount++;
-                    }
-                    
-                    // Track topics
-                    const topic = q.topic || 'Unknown';
-                    topicCounts[topic] = (topicCounts[topic] || 0) + 1;
-                });
-                
-                const scorePercent = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+                // Calculate statistics using helper
+                const stats = this.calculateSessionStats(session.questions);
                 
                 // Build topics string
-                const topicsStr = Object.entries(topicCounts)
+                const topicsStr = Object.entries(stats.topicCounts)
                     .map(([topic, count]) => `${topic}(${count})`)
                     .join('; ');
                 
-                // CSV row - escape fields that might contain commas
+                // CSV row - properly escape fields
                 csvRows.push([
                     date,
-                    `"${studentName}"`,
+                    this.escapeCSVField(studentName),
                     durationMin,
-                    answeredCount,
-                    correctCount,
-                    scorePercent,
-                    `"${topicsStr}"`
+                    stats.answeredCount,
+                    stats.correctCount,
+                    stats.scorePercent,
+                    this.escapeCSVField(topicsStr)
                 ].join(','));
             });
             

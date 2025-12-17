@@ -157,9 +157,17 @@ function parseCSV(csvText) {
     
     for (var i = 0; i < line.length; i++) {
       var char = line[i];
+      var nextChar = i + 1 < line.length ? line[i + 1] : '';
       
       if (char === '"') {
-        inQuotes = !inQuotes;
+        if (inQuotes && nextChar === '"') {
+          // Escaped quote (two consecutive quotes)
+          field += '"';
+          i++; // Skip the next quote
+        } else {
+          // Toggle quote state
+          inQuotes = !inQuotes;
+        }
       } else if (char === ',' && !inQuotes) {
         row.push(field.trim());
         field = '';
