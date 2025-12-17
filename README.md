@@ -59,6 +59,48 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 ---
 
+## 👨‍🏫 For Teachers
+
+### Google Sheets Integration (No Authentication Required!)
+
+Track your students' practice sessions in Google Sheets **without complex API setup or Google Cloud authentication**. Students export their practice data as CSV files, which you can easily import into Google Sheets.
+
+#### Key Features
+- ✅ **No Google API Keys or OAuth** - Simple CSV export/import workflow
+- ✅ **Privacy-Friendly** - Students control when and what they share
+- ✅ **Pre-Filtered Data** - Only meaningful sessions (>2 min, >50% correct) exported
+- ✅ **Easy Setup** - Manual CSV import or optional one-time Apps Script installation
+
+#### Quick Start
+
+**For Students:**
+1. Complete practice sessions (>2 minutes with good accuracy)
+2. Click Stats (📈) → "📊 Export for Teacher" button
+3. Share the downloaded CSV file with teacher
+
+**For Teachers:**
+1. Receive student's CSV file
+2. Open Google Sheets
+3. File → Import → Upload CSV
+4. Choose "Append to current sheet"
+
+**Advanced:** Install the provided Google Apps Script (one-time setup) for a custom import menu with additional features.
+
+#### Exported Data Includes
+- Date of practice session
+- Student name
+- Duration and question counts
+- Score percentage
+- Topics practiced with breakdown
+
+#### Documentation
+- 📖 **[GOOGLE_SHEETS_INTEGRATION.md](GOOGLE_SHEETS_INTEGRATION.md)** - Complete integration guide
+- 📚 **[TEACHER_GUIDE.md](TEACHER_GUIDE.md)** - Comprehensive teacher instructions
+- 📝 **[google-sheets-import.gs](google-sheets-import.gs)** - Apps Script code (optional)
+- 📊 **[sample-export.csv](sample-export.csv)** - Example export file
+
+---
+
 ## 📖 Educational Philosophy
 
 Algebra Helper is built on research-backed pedagogical principles designed for student self-help. For a comprehensive review of the learning science foundation, see [PEDAGOGY.md](PEDAGOGY.md).
