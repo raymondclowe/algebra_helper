@@ -245,7 +245,7 @@ window.PaperHomeworkModal = {
         this.close();
         // Open stats modal with paper homework tab
         if (window.StatsModal) {
-            window.StatsModal.open('paperHomework');
+            window.StatsModal.show('paperHomework');
         }
     }
 };
