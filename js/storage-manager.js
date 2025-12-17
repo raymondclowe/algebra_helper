@@ -476,5 +476,165 @@ window.StorageManager = {
             console.error('Error importing data:', error);
             return { success: false, error: error.message };
         }
+    },
+    
+    // Group questions into sessions (30 min gap threshold)
+    groupIntoSessions: function(questions) {
+        if (questions.length === 0) return [];
+        
+        // Sort questions by datetime
+        questions.sort((a, b) => a.datetime - b.datetime);
+        
+        const sessions = [];
+        let currentSession = {
+            startTime: questions[0].datetime,
+            endTime: questions[0].datetime,
+            questions: [questions[0]]
+        };
+        
+        const SESSION_GAP_MS = 30 * 60 * 1000; // 30 minutes in milliseconds
+        
+        for (let i = 1; i < questions.length; i++) {
+            const q = questions[i];
+            const timeSinceLastQuestion = q.datetime - currentSession.endTime;
+            
+            if (timeSinceLastQuestion > SESSION_GAP_MS) {
+                // Start new session
+                sessions.push(currentSession);
+                currentSession = {
+                    startTime: q.datetime,
+                    endTime: q.datetime,
+                    questions: [q]
+                };
+            } else {
+                // Add to current session
+                currentSession.questions.push(q);
+                currentSession.endTime = q.datetime;
+            }
+        }
+        
+        // Add last session
+        sessions.push(currentSession);
+        
+        return sessions;
+    },
+    
+    // Export sessions to CSV format for Google Sheets
+    exportSessionsCSV: async function() {
+        try {
+            const questions = await this.getAllQuestions();
+            const studentName = this.getStudentName() || 'Anonymous';
+            
+            // Group into sessions
+            const sessions = this.groupIntoSessions(questions);
+            
+            // Filter sessions: >2 minutes duration and >50% correct rate
+            const filteredSessions = sessions.filter(session => {
+                const durationMin = (session.endTime - session.startTime) / 1000 / 60;
+                
+                // Count correct/total answers (excluding "I don't know")
+                let correctCount = 0;
+                let answeredCount = 0;
+                
+                session.questions.forEach(q => {
+                    if (!q.isDontKnow) {
+                        answeredCount++;
+                        if (q.isCorrect) correctCount++;
+                    }
+                });
+                
+                const correctRate = answeredCount > 0 ? correctCount / answeredCount : 0;
+                
+                // Session must be >2 minutes AND >50% correct
+                return durationMin > 2 && correctRate > 0.5;
+            });
+            
+            if (filteredSessions.length === 0) {
+                return { success: false, error: 'No sessions meet the criteria (>2 minutes and >50% correct)' };
+            }
+            
+            // Build CSV content
+            const csvRows = [];
+            
+            // Header row
+            csvRows.push([
+                'Date',
+                'Student Name',
+                'Duration (min)',
+                'Questions Total',
+                'Questions Correct',
+                'Score %',
+                'Topics Practiced'
+            ].join(','));
+            
+            // Data rows
+            filteredSessions.forEach(session => {
+                const date = new Date(session.startTime).toLocaleDateString();
+                const durationMin = Math.round((session.endTime - session.startTime) / 1000 / 60);
+                
+                // Count statistics
+                let correctCount = 0;
+                let answeredCount = 0;
+                const topicCounts = {};
+                
+                session.questions.forEach(q => {
+                    if (!q.isDontKnow) {
+                        answeredCount++;
+                        if (q.isCorrect) correctCount++;
+                    }
+                    
+                    // Track topics
+                    const topic = q.topic || 'Unknown';
+                    topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+                });
+                
+                const scorePercent = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+                
+                // Build topics string
+                const topicsStr = Object.entries(topicCounts)
+                    .map(([topic, count]) => `${topic}(${count})`)
+                    .join('; ');
+                
+                // CSV row - escape fields that might contain commas
+                csvRows.push([
+                    date,
+                    `"${studentName}"`,
+                    durationMin,
+                    answeredCount,
+                    correctCount,
+                    scorePercent,
+                    `"${topicsStr}"`
+                ].join(','));
+            });
+            
+            const csvContent = csvRows.join('\n');
+            
+            // Create downloadable CSV file
+            const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            
+            // Create filename with timestamp
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            const filename = `algebra-helper-sessions-${timestamp}.csv`;
+            
+            // Trigger download
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            return { 
+                success: true, 
+                filename: filename, 
+                sessionCount: filteredSessions.length,
+                totalSessions: sessions.length
+            };
+        } catch (error) {
+            console.error('Error exporting CSV:', error);
+            return { success: false, error: error.message };
+        }
     }
 };

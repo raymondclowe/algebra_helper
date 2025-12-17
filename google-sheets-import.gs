@@ -1,7 +1,7 @@
 /**
  * Google Sheets AppScript for Algebra Helper Data Import and Analysis
  * 
- * This script imports exported JSON data from Algebra Helper and creates
+ * This script imports exported data from Algebra Helper and creates
  * a session-based summary for tracking student progress.
  * 
  * HOW TO USE:
@@ -11,11 +11,19 @@
  * 4. Save and close
  * 5. Refresh your Google Sheet - you'll see a new "Algebra Helper" menu
  * 6. Use "Algebra Helper > Import Data" to import your JSON file
+ *    OR use "Import CSV Sessions" to import pre-filtered CSV exports
  * 
- * The script will:
- * - Parse your exported JSON data
- * - Group questions into sessions (max 30min gap between questions)
- * - Create a summary sheet with columns:
+ * The script supports two import methods:
+ * 
+ * METHOD 1: Import CSV Sessions (Recommended for Teachers)
+ * - Import the CSV file exported from the "Export for Teacher" button
+ * - CSV is pre-filtered to include only meaningful sessions (>2min, >50% correct)
+ * - Direct import without additional processing needed
+ * 
+ * METHOD 2: Import JSON Data (Full Import)
+ * - Import the complete JSON export with all question data
+ * - Groups questions into sessions (max 30min gap between questions)
+ * - Creates a summary sheet with columns:
  *   Date, Topic, What was done, How long did it take (min), Correct Questions, 
  *   Total Questions, If not right, Checked by AI (link) (optional), 
  *   Checked by human (mandatory), Percentage correct, Notes
@@ -25,12 +33,158 @@
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('Algebra Helper')
-      .addItem('Import Data', 'importAlgebraHelperData')
+      .addItem('Import CSV Sessions', 'importCSVSessions')
+      .addItem('Import JSON Data', 'importAlgebraHelperData')
+      .addSeparator()
       .addItem('Clear Summary Sheet', 'clearSummarySheet')
       .addToUi();
 }
 
-// Main import function
+// Import CSV sessions directly (pre-filtered data)
+function importCSVSessions() {
+  var ui = SpreadsheetApp.getUi();
+  
+  // Prompt user to paste CSV data
+  var response = ui.prompt(
+    'Import CSV Sessions',
+    'Please paste the contents of your exported CSV file (including header row):',
+    ui.ButtonSet.OK_CANCEL
+  );
+  
+  if (response.getSelectedButton() != ui.Button.OK) {
+    return;
+  }
+  
+  try {
+    var csvText = response.getResponseText();
+    
+    // Parse CSV
+    var rows = parseCSV(csvText);
+    
+    if (rows.length < 2) {
+      ui.alert('Error', 'CSV file appears to be empty or invalid.', ui.ButtonSet.OK);
+      return;
+    }
+    
+    // Validate header row
+    var expectedHeaders = ['Date', 'Student Name', 'Duration (min)', 'Questions Total', 'Questions Correct', 'Score %', 'Topics Practiced'];
+    var headers = rows[0];
+    
+    // Check if headers match (allowing for variations)
+    var validHeader = expectedHeaders.every(function(header, index) {
+      return headers[index] && headers[index].trim() === header;
+    });
+    
+    if (!validHeader) {
+      ui.alert('Error', 'CSV header row does not match expected format. Please ensure you exported from the "Export for Teacher" button.', ui.ButtonSet.OK);
+      return;
+    }
+    
+    // Get or create summary sheet
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheetName = 'Algebra Helper Sessions';
+    var sheet = ss.getSheetByName(sheetName);
+    
+    if (!sheet) {
+      sheet = ss.insertSheet(sheetName);
+      
+      // Add headers with additional columns for teacher use
+      var enhancedHeaders = [
+        'Date',
+        'Student Name',
+        'Duration (min)',
+        'Questions Total',
+        'Questions Correct',
+        'Score %',
+        'Topics Practiced',
+        'Teacher Comments',
+        'Reviewed'
+      ];
+      
+      sheet.getRange(1, 1, 1, enhancedHeaders.length).setValues([enhancedHeaders]);
+      formatHeaderRow(sheet, enhancedHeaders.length);
+    }
+    
+    // Find the next empty row
+    var lastRow = sheet.getLastRow();
+    var startRow = lastRow + 1;
+    
+    // Import data rows (skip header)
+    var dataRows = rows.slice(1);
+    
+    if (dataRows.length === 0) {
+      ui.alert('Info', 'No data rows found in CSV.', ui.ButtonSet.OK);
+      return;
+    }
+    
+    // Add data to sheet (with empty columns for teacher use)
+    dataRows.forEach(function(row, index) {
+      // Extend row with empty teacher columns
+      var enhancedRow = row.slice(0, 7).concat(['', '']); // Add Teacher Comments and Reviewed columns
+      sheet.getRange(startRow + index, 1, 1, enhancedRow.length).setValues([enhancedRow]);
+    });
+    
+    // Format the data range
+    var dataRange = sheet.getRange(2, 1, sheet.getLastRow() - 1, 9);
+    dataRange.applyRowBanding(SpreadsheetApp.BandingTheme.LIGHT_GREY);
+    
+    // Auto-resize columns
+    for (var i = 1; i <= 9; i++) {
+      sheet.autoResizeColumn(i);
+    }
+    
+    // Activate the sheet
+    ss.setActiveSheet(sheet);
+    
+    ui.alert('Success', 'Imported ' + dataRows.length + ' session(s) successfully!', ui.ButtonSet.OK);
+    
+  } catch (e) {
+    ui.alert('Error', 'Failed to import CSV: ' + e.message, ui.ButtonSet.OK);
+  }
+}
+
+// Parse CSV text into array of arrays
+function parseCSV(csvText) {
+  var rows = [];
+  var lines = csvText.split('\n');
+  
+  lines.forEach(function(line) {
+    if (line.trim() === '') return; // Skip empty lines
+    
+    var row = [];
+    var inQuotes = false;
+    var field = '';
+    
+    for (var i = 0; i < line.length; i++) {
+      var char = line[i];
+      
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        row.push(field.trim());
+        field = '';
+      } else {
+        field += char;
+      }
+    }
+    
+    // Add last field
+    row.push(field.trim());
+    rows.push(row);
+  });
+  
+  return rows;
+}
+
+// Format header row
+function formatHeaderRow(sheet, columnCount) {
+  var headerRange = sheet.getRange(1, 1, 1, columnCount);
+  headerRange.setFontWeight('bold');
+  headerRange.setBackground('#4285f4');
+  headerRange.setFontColor('#ffffff');
+}
+
+// Main JSON import function
 function importAlgebraHelperData() {
   var ui = SpreadsheetApp.getUi();
   
