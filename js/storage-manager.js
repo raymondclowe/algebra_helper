@@ -2,8 +2,9 @@
 window.StorageManager = {
     db: null,
     DB_NAME: 'AlgebraHelperDB',
-    DB_VERSION: 2, // Upgraded to support enhanced question tracking
+    DB_VERSION: 3, // Upgraded to support paper homework tracking
     STORE_NAME: 'questions',
+    PAPER_HOMEWORK_STORE: 'paperHomework',
     
     // IndexedDB configuration constants
     STORE_CONFIG: {
@@ -56,6 +57,20 @@ window.StorageManager = {
                         // Migrate existing records to add missing fields
                         this.migrateExistingData(objectStore);
                     }
+                }
+                
+                // Create paper homework store if upgrading to version 3 or if new installation
+                if (!db.objectStoreNames.contains(this.PAPER_HOMEWORK_STORE)) {
+                    const paperHomeworkStore = db.createObjectStore(this.PAPER_HOMEWORK_STORE, {
+                        keyPath: 'id',
+                        autoIncrement: true
+                    });
+                    
+                    // Create indexes for paper homework queries
+                    paperHomeworkStore.createIndex('datetime', 'datetime', { unique: false });
+                    paperHomeworkStore.createIndex('topic', 'topic', { unique: false });
+                    paperHomeworkStore.createIndex('isCorrect', 'isCorrect', { unique: false });
+                    paperHomeworkStore.createIndex('errorType', 'errorType', { unique: false });
                 }
             };
         });
@@ -476,5 +491,167 @@ window.StorageManager = {
             console.error('Error importing data:', error);
             return { success: false, error: error.message };
         }
+    },
+    
+    // ============================================
+    // Paper Homework Management
+    // ============================================
+    
+    // Save a paper homework entry
+    savePaperHomework: function(homeworkData) {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                reject(new Error('Database not initialized'));
+                return;
+            }
+            
+            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readwrite');
+            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
+            
+            // Add timestamp if not present
+            if (!homeworkData.datetime) {
+                homeworkData.datetime = Date.now();
+            }
+            
+            const request = objectStore.add(homeworkData);
+            
+            request.onsuccess = () => {
+                resolve(request.result);
+            };
+            
+            request.onerror = () => {
+                reject(request.error);
+            };
+        });
+    },
+    
+    // Get all paper homework entries
+    getAllPaperHomework: function() {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                reject(new Error('Database not initialized'));
+                return;
+            }
+            
+            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readonly');
+            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
+            const request = objectStore.getAll();
+            
+            request.onsuccess = () => {
+                resolve(request.result);
+            };
+            
+            request.onerror = () => {
+                reject(request.error);
+            };
+        });
+    },
+    
+    // Get paper homework entries by topic
+    getPaperHomeworkByTopic: function(topic) {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                reject(new Error('Database not initialized'));
+                return;
+            }
+            
+            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readonly');
+            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
+            const index = objectStore.index('topic');
+            const request = index.getAll(topic);
+            
+            request.onsuccess = () => {
+                resolve(request.result);
+            };
+            
+            request.onerror = () => {
+                reject(request.error);
+            };
+        });
+    },
+    
+    // Get paper homework entries by error type
+    getPaperHomeworkByErrorType: function(errorType) {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                reject(new Error('Database not initialized'));
+                return;
+            }
+            
+            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readonly');
+            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
+            const index = objectStore.index('errorType');
+            const request = index.getAll(errorType);
+            
+            request.onsuccess = () => {
+                resolve(request.result);
+            };
+            
+            request.onerror = () => {
+                reject(request.error);
+            };
+        });
+    },
+    
+    // Update a paper homework entry
+    updatePaperHomework: function(id, updates) {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                reject(new Error('Database not initialized'));
+                return;
+            }
+            
+            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readwrite');
+            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
+            
+            const getRequest = objectStore.get(id);
+            
+            getRequest.onsuccess = () => {
+                const data = getRequest.result;
+                if (!data) {
+                    reject(new Error('Paper homework entry not found'));
+                    return;
+                }
+                
+                // Merge updates
+                Object.assign(data, updates);
+                
+                const updateRequest = objectStore.put(data);
+                
+                updateRequest.onsuccess = () => {
+                    resolve(updateRequest.result);
+                };
+                
+                updateRequest.onerror = () => {
+                    reject(updateRequest.error);
+                };
+            };
+            
+            getRequest.onerror = () => {
+                reject(getRequest.error);
+            };
+        });
+    },
+    
+    // Delete a paper homework entry
+    deletePaperHomework: function(id) {
+        return new Promise((resolve, reject) => {
+            if (!this.db) {
+                reject(new Error('Database not initialized'));
+                return;
+            }
+            
+            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readwrite');
+            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
+            const request = objectStore.delete(id);
+            
+            request.onsuccess = () => {
+                resolve();
+            };
+            
+            request.onerror = () => {
+                reject(request.error);
+            };
+        });
     }
 };

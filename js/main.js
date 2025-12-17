@@ -20,6 +20,11 @@ window.APP.init = async function() {
         // Initialize explanation modal
         window.ExplanationModal.init();
         
+        // Initialize paper homework modal
+        if (window.PaperHomeworkModal) {
+            window.PaperHomeworkModal.init();
+        }
+        
         // Start first question
         window.UI.nextQuestion();
         
