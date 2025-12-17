@@ -168,6 +168,8 @@ body {
 }
 
 /* Mobile Optimizations */
+/* Note: 1920px breakpoint targets mobile, tablet, and standard desktop screens
+   Only ultra-wide monitors (>1920px) get desktop-specific styling */
 /* Increase touch target sizes for mobile (minimum 44x44px recommended) */
 @media (max-width: 1920px) {
     /* Make buttons larger and more touch-friendly */
@@ -177,10 +179,44 @@ body {
         font-size: 16px;
     }
     
-    /* Increase header text for readability */
+    /* Reduce header padding on mobile for better space usage */
+    .bg-gray-750.p-4 {
+        padding: 0.75rem !important; /* 12px instead of 16px */
+    }
+    
+    /* Reduce header text for better fit on mobile - was too large at 1.75rem */
     #level-display,
     #accuracy-display {
-        font-size: 1.75rem !important;
+        font-size: 0.875rem !important; /* 14px - much more appropriate for mobile */
+        line-height: 1.2 !important;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    /* Reduce header label font size for proportion */
+    .text-gray-400.text-\[10px\] {
+        font-size: 0.625rem !important; /* 10px */
+    }
+    
+    /* Reduce mode badge and indicator sizes */
+    #mode-badge {
+        font-size: 0.625rem !important; /* 10px instead of 12px */
+        padding: 0.25rem 0.5rem !important;
+    }
+    
+    #search-range {
+        font-size: 0.5rem !important; /* 8px */
+    }
+    
+    #streak-indicator {
+        font-size: 0.625rem !important; /* 10px */
+    }
+    
+    /* Ensure header columns don't overflow */
+    .bg-gray-750 .flex.flex-col {
+        min-width: 0; /* Allow flex items to shrink below content size */
     }
     
     /* Optimize question display for mobile */
@@ -288,9 +324,21 @@ body {
         min-height: 56px !important;
     }
     
+    /* Further reduce header text on very small phones */
     #level-display,
     #accuracy-display {
-        font-size: 1.5rem !important;
+        font-size: 0.75rem !important; /* 12px */
+    }
+    
+    /* Reduce header padding even more */
+    .bg-gray-750.p-4 {
+        padding: 0.5rem !important; /* 8px */
+    }
+    
+    /* Reduce mode badge further */
+    #mode-badge {
+        font-size: 0.5rem !important; /* 8px */
+        padding: 0.125rem 0.375rem !important;
     }
     
     .question-area {
@@ -376,17 +424,18 @@ body {
     
     /* Make calibration buttons more compact on mobile portrait */
     #controls-calibration button {
-        min-height: 64px !important;
-        padding: 8px 12px !important;
+        min-height: 56px !important;
+        max-height: 64px !important;
+        padding: 6px 10px !important;
     }
     
     #controls-calibration button span:first-child {
-        font-size: 1rem !important;
-        margin-bottom: 0.25rem !important;
+        font-size: 0.9rem !important;
+        margin-bottom: 0.2rem !important;
     }
     
     #controls-calibration button span:last-child {
-        font-size: 0.625rem !important;
+        font-size: 0.5rem !important;
     }
     
     /* Reduce main area padding */
@@ -494,13 +543,15 @@ body {
     word-break: break-word !important;
 }
 
-/* Allow MathJax content to wrap on mobile */
+/*
+Removed, not necessary in MathJax 4
+/ * Allow MathJax content to wrap on mobile * /
 #question-math mjx-container[display="true"] {
     display: block !important;
     overflow-x: auto !important;
     overflow-y: visible !important;
     max-width: 100% !important;
-}
+} */
 
 /* Ensure MathJax math elements can break */
 #question-math mjx-math,
