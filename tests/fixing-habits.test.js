@@ -150,10 +150,11 @@ describe('Fixing Habits Feature Tests', () => {
         
         // Simulate wrong answer by calling trackErrorPattern
         await page.evaluate(() => {
-            // Create a mock question with square root pattern
+            // Create a mock question with square root pattern that matches the improved tracking logic
             const mockQuestion = {
                 tex: 'x^2 = 16',
                 displayAnswer: 'x = 4', // Missing ±
+                instruction: 'Solve for x', // Needed for the improved tracking
                 type: 'regular'
             };
             window.Learning.trackErrorPattern(mockQuestion);

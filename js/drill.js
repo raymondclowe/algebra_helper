@@ -197,23 +197,32 @@ window.Learning = {
     // Track error patterns to trigger Fixing Habits questions
     trackErrorPattern: function(question) {
         // Only track errors on regular questions (not fixing-habits questions themselves)
-        if (question.type === 'fixing-habits') {
+        if (question.type === 'fixing-habits' || question.type === 'why') {
             return;
         }
         
-        // Check for square root sign errors
-        // Detect when solving equations like x² = a
-        if (question.tex && question.tex.includes('x^2 =') && 
-            question.displayAnswer && !question.displayAnswer.includes('\\pm')) {
-            // This might indicate a question where ± should be used
-            // Track potential missed ± sign
+        // Check for square root sign errors - only for quadratic solving questions
+        // Be conservative: only track when the question is explicitly about solving x² = constant
+        if (question.instruction && 
+            (question.instruction.toLowerCase().includes('solve') || 
+             question.instruction.toLowerCase().includes('find x')) &&
+            question.tex && 
+            question.tex.match(/x\^2\s*=\s*\d+/) && 
+            question.displayAnswer && 
+            question.displayAnswer.includes('x =') &&
+            !question.displayAnswer.includes('\\pm')) {
+            // This is a quadratic solving question where ± notation should likely be used
+            // Only increment if the correct answer doesn't use ± (meaning it's a partial answer)
             window.APP.errorTracker.squareRootSign++;
         }
         
-        // Check for division by zero errors
-        // Detect when dealing with rational expressions
-        if (question.tex && (question.tex.includes('\\frac') || question.tex.includes('/'))) {
-            // Track potential division issues
+        // Check for division by zero errors - only when simplifying rational expressions
+        // Be conservative: only track for simplification questions with fractions
+        if (question.instruction && 
+            question.instruction.toLowerCase().includes('simplif') &&
+            question.tex && 
+            (question.tex.includes('\\frac') || question.tex.includes('/'))) {
+            // Track potential division issues only for simplification problems
             window.APP.errorTracker.divisionByZero++;
         }
     },

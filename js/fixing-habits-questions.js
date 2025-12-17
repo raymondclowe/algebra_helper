@@ -60,9 +60,9 @@ window.FixingHabitsQuestions = {
         
         // Common mistakes as distractors
         const distractors = [
-            `x = ${x}`,           // Forgot negative root
-            `x = -${x}`,          // Forgot positive root
-            `x = ${x}, x = ${-x}` // Correct values but wrong notation
+            `x = ${x}`,              // Forgot negative root
+            `x = -${x}`,             // Forgot positive root
+            `x = ${x} \\text{ or } x = ${-x}` // Correct values but verbose notation
         ];
         
         return {
@@ -84,17 +84,17 @@ window.FixingHabitsQuestions = {
         const a = window.Generator.rInt(2, 9);
         const b = window.Generator.rInt(1, 5);
         
-        // Expression that would involve division by zero
-        const expression = `\\frac{${a}x + ${b}}{x - 0}`;
+        // Expression that would involve division by zero when x = 0
+        const expression = `\\frac{${a}x + ${b}}{x}`;
         
         // Correct answer recognizes the issue
-        const correctAnswer = `Undefined (division by zero)`;
+        const correctAnswer = `Undefined (division by zero when x = 0)`;
         
         // Common mistakes as distractors
         const distractors = [
-            `${a}x + ${b}`,           // Ignored the denominator issue
-            `\\frac{${a}x + ${b}}{x}`, // "Simplified" incorrectly
-            `${a} + \\frac{${b}}{x}`  // Attempted invalid simplification
+            `${a}x + ${b}`,              // Ignored the denominator issue
+            `${a} + \\frac{${b}}{x}`,    // Attempted invalid simplification
+            `\\frac{${a}x + ${b}}{1}`    // Incorrectly "simplified" denominator
         ];
         
         return {
@@ -102,7 +102,7 @@ window.FixingHabitsQuestions = {
             instruction: "What is the simplified form?",
             displayAnswer: correctAnswer,
             distractors: distractors,
-            explanation: `This expression involves division by x - 0, which is the same as division by x when x = 0. Any expression with a denominator that equals zero is undefined. We cannot divide by zero in mathematics. Always check denominators before attempting to simplify rational expressions.`,
+            explanation: `This expression has a denominator of x, which equals zero when x = 0. Any expression with a denominator that equals zero is undefined. We cannot divide by zero in mathematics. Always check denominators before attempting to simplify rational expressions - if the denominator can be zero for any value of the variable, the expression is undefined at that point.`,
             calc: false,
             type: 'fixing-habits',
             habitType: 'divisionByZero',
