@@ -47,3 +47,8 @@ const DEFAULT_DISPLAY_MODE = DISPLAY_MODES.MASTERY;
 const FIXING_HABITS_CATEGORY = 0;        // Category code for internal use
 const FIXING_HABITS_INSERTION_RATE = 0.15; // 15% chance of inserting a fixing habits question when relevant errors detected
 const FIXING_HABITS_MIN_ERRORS = 2;      // Minimum error count before triggering habit fixing questions
+
+// Personalization Constants
+const PERSONALIZATION_PROBABILITY_SLOW = 0.4;  // 40% chance to use student name in slow answer feedback
+const PERSONALIZATION_PROBABILITY_FAST = 0.3;  // 30% chance to use student name in fast answer feedback
+const INPUT_FOCUS_DELAY_MS = 100;             // Delay before focusing input field in modals

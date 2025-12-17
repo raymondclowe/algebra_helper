@@ -21,15 +21,40 @@ window.Gamification = {
     showToast: function(isSlow) {
         const toast = document.createElement('div');
         let messages, className;
+        const name = window.APP.studentName || '';
         
         if (isSlow) {
             // Encouraging messages for thoughtful answers (removed speed pressure)
             // Research shows rushing can undermine deep learning (Schraw & Dennison, 1994)
-            messages = ['Well done! 🎯', 'Correct! Great thinking! 💡', 'Right answer! 🌟', 'Good work! ⭐'];
+            // Occasionally include student name for personalization
+            const shouldUseName = name && Math.random() < PERSONALIZATION_PROBABILITY_SLOW;
+            if (shouldUseName) {
+                messages = [
+                    `Well done, ${name}! 🎯`, 
+                    `Correct! Great thinking, ${name}! 💡`, 
+                    `Right answer, ${name}! 🌟`, 
+                    `Good work, ${name}! ⭐`
+                ];
+            } else {
+                messages = ['Well done! 🎯', 'Correct! Great thinking! 💡', 'Right answer! 🌟', 'Good work! ⭐'];
+            }
             className = 'toast bg-green-500 text-white px-8 py-4 rounded-xl shadow-2xl text-xl font-bold';
         } else {
             // Regular success messages
-            messages = ['Correct! 🎉', 'Nice! ✨', 'Perfect! ⭐', 'Great! 🌟', 'Awesome! 🎯', 'Excellent! 💫'];
+            // Occasionally include student name for personalization
+            const shouldUseName = name && Math.random() < PERSONALIZATION_PROBABILITY_FAST;
+            if (shouldUseName) {
+                messages = [
+                    `Correct, ${name}! 🎉`, 
+                    `Nice, ${name}! ✨`, 
+                    `Perfect, ${name}! ⭐`, 
+                    `Great, ${name}! 🌟`, 
+                    `Awesome, ${name}! 🎯`, 
+                    `Excellent, ${name}! 💫`
+                ];
+            } else {
+                messages = ['Correct! 🎉', 'Nice! ✨', 'Perfect! ⭐', 'Great! 🌟', 'Awesome! 🎯', 'Excellent! 💫'];
+            }
             className = 'toast bg-green-500 text-white px-8 py-4 rounded-xl shadow-2xl text-2xl font-bold';
         }
         

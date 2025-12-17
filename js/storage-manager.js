@@ -244,6 +244,21 @@ window.StorageManager = {
         return stats;
     },
     
+    // Student name management
+    getStudentName: function() {
+        return localStorage.getItem('algebraHelperStudentName') || '';
+    },
+    
+    setStudentName: function(name) {
+        const trimmedName = (name || '').trim();
+        if (trimmedName) {
+            localStorage.setItem('algebraHelperStudentName', trimmedName);
+        } else {
+            localStorage.removeItem('algebraHelperStudentName');
+        }
+        return trimmedName;
+    },
+    
     // Clear all data (for testing or reset)
     clearAllData: function() {
         return new Promise((resolve, reject) => {
