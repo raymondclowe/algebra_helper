@@ -375,18 +375,12 @@ window.Learning = {
     },
 
     applyLevelChange: function(delta) {
-        // 1. Update data
+        // Update internal level tracking
         window.APP.level = Math.max(MIN_LEVEL, Math.min(MAX_LEVEL, window.APP.level + delta));
         
-        // 2. Animate visually
-        const deltaEl = document.getElementById('delta-display');
-        deltaEl.innerText = (delta > 0 ? '+' : '') + delta.toFixed(1);
-        deltaEl.className = delta > 0 
-            ? "text-xl font-bold absolute left-16 top-0 float-up" 
-            : "text-xl font-bold absolute left-16 top-0 float-down";
-        
-        // Update text instantly
-        document.getElementById('level-display').innerText = window.APP.level.toFixed(1);
+        // Note: delta-display and direct level-display updates removed
+        // Display is now managed by DisplayModes system based on user preference
+        // Internal level numbers should never flash or be directly visible to users
     }
 };
 
