@@ -539,7 +539,7 @@ export default {
 
 **C. FERPA (US - Educational Records)**
 - ✅ Student records protected
-- ✅ Parent access rights for minors
+- ✅ Appropriate access controls for educational data
 
 ### 3. Content Security
 
@@ -773,31 +773,26 @@ export default {
 
 ---
 
-### Phase 3: Teacher Features (Weeks 9-14)
+### Phase 3: Enhanced Features (Weeks 9-14)
 
-#### Week 9-10: Class Management
-- [ ] Create Classroom Durable Objects
-- [ ] Build teacher registration flow
-- [ ] Implement class creation/management
-- [ ] Add student invitation system
-- [ ] Create roster management UI
+#### Week 9-10: Personal Analytics
+- [ ] Create user analytics dashboard
+- [ ] Build personal progress visualization
+- [ ] Implement data export functionality
 
-#### Week 11-12: Dashboard (Basic)
-- [ ] Build teacher dashboard UI
-- [ ] Show class roster with progress
-- [ ] Display aggregate statistics
-- [ ] Add filtering and sorting
-- [ ] Implement export to CSV
+#### Week 11-12: Dashboard Enhancement
+- [ ] Build analytics UI
+- [ ] Display progress trends
+- [ ] Show aggregate personal statistics
 
-#### Week 13-14: Real-Time Features
-- [ ] Implement WebSocket connections
-- [ ] Add live student activity feed
-- [ ] Build real-time progress updates
-- [ ] Create assignment tracking
+#### Week 13-14: Testing & Polish
+- [ ] User testing of analytics features
+- [ ] Performance optimization
+- [ ] Documentation
 
 **Deliverables:**
-- Functional teacher dashboard
-- Live progress monitoring
+- Functional personal analytics dashboard
+- Progress tracking and visualization
 
 ---
 
