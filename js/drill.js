@@ -298,7 +298,8 @@ window.Learning = {
 
     // Check if user needs a break based on session patterns
     checkForBreakTime: function() {
-        // Only check in learning/drill mode
+        // Only check in learning/drill mode (both checks needed for backward compatibility
+        // since older saved data may still use 'drill' mode identifier)
         if (window.APP.mode !== 'learning' && window.APP.mode !== 'drill') {
             return;
         }
@@ -327,11 +328,11 @@ window.Learning = {
                           (lastFiveHistory.length >= 5 && lastFiveCorrect <= 1);
         
         if (needsBreak) {
-            // Don't show more than once per 15 minutes
+            // Don't show more than once per cooldown period
             const lastBreakTime = window.APP.lastBreakSplashTime || 0;
             const timeSinceLastBreak = Date.now() - lastBreakTime;
             
-            if (timeSinceLastBreak > 15 * 60 * 1000) { // 15 minutes
+            if (timeSinceLastBreak > BREAK_SPLASH_COOLDOWN_MS) {
                 this.showBreakSplash();
                 window.APP.lastBreakSplashTime = Date.now();
             }
@@ -341,7 +342,7 @@ window.Learning = {
     // Show encouraging break splash screen
     showBreakSplash: function() {
         const messages = [
-            { emoji: "🌟", text: "Great work today!", subtext: "It's time to take a rest! Go touch grass!" },
+            { emoji: "🌟", text: "Great work today!", subtext: "It's time to take a rest! Get some fresh air!" },
             { emoji: "💪", text: "You've earned a break!", subtext: "Your brain needs time to process what you've learned!" },
             { emoji: "🎯", text: "Excellent effort today!", subtext: "Taking breaks helps you learn better!" },
             { emoji: "🌱", text: "Well done!", subtext: "Rest is an important part of learning!" },

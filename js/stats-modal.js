@@ -99,6 +99,7 @@ window.StatsModal = {
             document.getElementById('stat-today-minutes').textContent = minutesSpent + ' min';
             
             // Get all questions from today
+            // TODO: Consider adding StorageManager.getTodayQuestions() for better performance with large datasets
             const allQuestions = await window.StorageManager.getAllQuestions();
             const today = new Date().toDateString();
             const todayQuestions = allQuestions.filter(q => {

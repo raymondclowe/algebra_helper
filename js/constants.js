@@ -47,3 +47,6 @@ const DEFAULT_DISPLAY_MODE = DISPLAY_MODES.MASTERY;
 const FIXING_HABITS_CATEGORY = 0;        // Category code for internal use
 const FIXING_HABITS_INSERTION_RATE = 0.15; // 15% chance of inserting a fixing habits question when relevant errors detected
 const FIXING_HABITS_MIN_ERRORS = 2;      // Minimum error count before triggering habit fixing questions
+
+// Break Splash Screen Constants
+const BREAK_SPLASH_COOLDOWN_MS = 15 * 60 * 1000; // 15 minutes - minimum time between break splash screens
