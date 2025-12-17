@@ -21,8 +21,7 @@ This report evaluates the feasibility of implementing a serverless backend for A
 **Recommended Next Steps:**
 1. Create proof-of-concept for user authentication and progress sync (1-2 weeks)
 2. Implement AI-powered hint system using Workers AI (2-3 weeks)
-3. Develop teacher dashboard with class analytics (3-4 weeks)
-4. Migrate to full Cloudflare-hosted architecture (4-6 weeks)
+3. Migrate to full Cloudflare-hosted architecture (4-6 weeks)
 
 ---
 
@@ -76,9 +75,9 @@ Algebra Helper currently operates as a **pure client-side Progressive Web App (P
    - No user accounts or authentication
    - Data loss on browser cache clear
 
-2. **No Teacher/Parent Visibility**
-   - Students can't share progress with teachers
-   - No class-wide analytics or monitoring
+2. **No Progress Sharing**
+   - Students can't share progress easily
+   - No cross-device synchronization
    - No assignment/tracking features
 
 3. **Limited Personalization**
@@ -228,9 +227,10 @@ Cloudflare offers a comprehensive serverless platform ideal for edge computing:
 - Adaptive explanation generation
 - Misconception detection based on errors
 
-**Phase 3: Teacher Dashboard (Weeks 5-7)**
-- Class management interface
-- Real-time student progress monitoring
+**Phase 3: Enhanced Analytics (Weeks 5-7)**
+- Personal progress visualization
+- Long-term trend analysis
+- Export functionality for self-tracking
 - Assignment creation and tracking
 - Analytics and reporting
 
@@ -451,7 +451,7 @@ export default {
 
 **Batch Exports:**
 - Daily CSV exports to R2
-- Teacher-requested reports
+- User-requested reports
 - Long-term data archival
 - Research data exports
 
@@ -462,7 +462,7 @@ export default {
 
 ---
 
-### 5. Teacher Dashboard
+### 5. Personal Analytics Dashboard
 
 #### Recommended Solution: **Workers + Durable Objects + Analytics Engine**
 
@@ -485,9 +485,7 @@ export default {
 - Engagement metrics
 
 **Cost Estimate:**
-- 100 teachers × 30 students = 3,000 classroom connections
-- Real-time WebSocket monitoring: ~$10-20/month
-- Analytics queries: Included in free tier
+- Personal analytics queries: Included in free tier
 - Total: ~$10-30/month
 
 ---
@@ -535,14 +533,12 @@ export default {
 - ✅ Data portability
 
 **B. COPPA (US - Children under 13)**
-- ⚠️ Requires parental consent
+- ⚠️ Requires parental consent for minors
 - ⚠️ Age gate on registration
-- ⚠️ Teacher-managed accounts
 
 **C. FERPA (US - Educational Records)**
 - ✅ Student records protected
-- ✅ Teacher access controls
-- ✅ Parent access rights
+- ✅ Appropriate access controls for educational data
 
 ### 3. Content Security
 
@@ -776,31 +772,26 @@ export default {
 
 ---
 
-### Phase 3: Teacher Features (Weeks 9-14)
+### Phase 3: Enhanced Features (Weeks 9-14)
 
-#### Week 9-10: Class Management
-- [ ] Create Classroom Durable Objects
-- [ ] Build teacher registration flow
-- [ ] Implement class creation/management
-- [ ] Add student invitation system
-- [ ] Create roster management UI
+#### Week 9-10: Personal Analytics
+- [ ] Create user analytics dashboard
+- [ ] Build personal progress visualization
+- [ ] Implement data export functionality
 
-#### Week 11-12: Dashboard (Basic)
-- [ ] Build teacher dashboard UI
-- [ ] Show class roster with progress
-- [ ] Display aggregate statistics
-- [ ] Add filtering and sorting
-- [ ] Implement export to CSV
+#### Week 11-12: Dashboard Enhancement
+- [ ] Build analytics UI
+- [ ] Display progress trends
+- [ ] Show aggregate personal statistics
 
-#### Week 13-14: Real-Time Features
-- [ ] Implement WebSocket connections
-- [ ] Add live student activity feed
-- [ ] Build real-time progress updates
-- [ ] Create assignment tracking
+#### Week 13-14: Testing & Polish
+- [ ] User testing of analytics features
+- [ ] Performance optimization
+- [ ] Documentation
 
 **Deliverables:**
-- Functional teacher dashboard
-- Live progress monitoring
+- Functional personal analytics dashboard
+- Progress tracking and visualization
 
 ---
 
@@ -915,7 +906,6 @@ export default {
 **Impact:** Complex registration flow
 **Mitigation:**
 - Age gate on registration
-- Teacher-managed accounts
 - Minimal data collection
 
 **Verdict:** ⚠️ Requires careful implementation
@@ -960,7 +950,7 @@ export default {
 3. ✅ Low risk, incremental migration
 4. ✅ Excellent cost efficiency (~$20-40/month for 10K users)
 5. ✅ No major technical blockers identified
-6. ✅ Aligns with roadmap goals (user accounts, teacher dashboard)
+6. ✅ Aligns with roadmap goals (user accounts, personal analytics)
 
 **Implementation Strategy:**
 
@@ -1005,9 +995,9 @@ export default {
 
 ### Medium-Term Goals (Months 4-6)
 
-6. **Teacher Dashboard (MVP)**
-   - Class management
-   - Basic progress monitoring
+6. **Personal Analytics Dashboard**
+   - Personal progress visualization
+   - Long-term trend tracking
    - Export functionality
    - **Goal:** Enable classroom use cases
 
@@ -1092,7 +1082,6 @@ export default {
 - [ ] User authentication adoption > 50%
 - [ ] Cross-device sync usage > 30%
 - [ ] AI hint usage > 20% of questions
-- [ ] Teacher account creation > 100 in first 6 months
 - [ ] User satisfaction (NPS) > 50
 
 ### Business Metrics
@@ -1151,7 +1140,7 @@ The analysis demonstrates that a Cloudflare-based architecture is **highly feasi
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                    End Users (Students/Teachers)                │
+│                         End Users (Students)                    │
 └────────────────────┬────────────────────────────────────────────┘
                      │
                      ↓ HTTPS
@@ -1218,14 +1207,8 @@ POST   /api/ai/hint
 POST   /api/ai/explain
 POST   /api/ai/generate
 
-# Teacher Dashboard
-POST   /api/teacher/class
-GET    /api/teacher/class/:id
-POST   /api/teacher/class/:id/invite
-GET    /api/teacher/class/:id/students
-GET    /api/teacher/class/:id/analytics
-
 # Analytics
+GET    /api/analytics/user/:id
 POST   /api/analytics/event
 GET    /api/analytics/export
 

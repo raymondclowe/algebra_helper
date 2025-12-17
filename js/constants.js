@@ -35,7 +35,7 @@ const MIN_LEVEL = 1;                     // Minimum level in the app
 const DISPLAY_MODES = {
     MASTERY: 'mastery',    // Default: Show skill area and encouraging messages (recommended for students)
     GROWTH: 'growth',      // Show level bands and trends without exact numbers
-    FULL: 'full'          // Show all metrics with educational context (for teachers/advanced users)
+    FULL: 'full'          // Show all metrics with educational context (for advanced users)
 };
 
 // Default display mode - can be changed in settings or based on user role

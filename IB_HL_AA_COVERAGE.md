@@ -533,34 +533,32 @@ Every 3rd question is a conceptual "why" question that asks students to explain 
 - Connection between procedures and concepts
 
 ### Adaptive Difficulty
-The binary search calibration algorithm quickly finds each student's optimal starting level, ensuring they're working in their Zone of Proximal Development.
+The binary search calibration algorithm quickly finds your optimal starting level, ensuring you're working in your Zone of Proximal Development.
 
 ---
 
-## For Teachers
+## Usage Recommendations
 
-### Recommended Usage Patterns
-
-**Pre-Topic Assessment:**
-- Use calibration to assess current knowledge before starting a new unit
+### Self-Assessment
+- Use calibration to assess your current knowledge before starting a new topic
 - Identify gaps in prerequisite skills
 
-**Homework/Practice:**
-- Assign 15-20 minutes daily at appropriate level
-- Monitor "Last 5 Avg" to track progress
+### Regular Practice
+- Practice 15-20 minutes daily at your appropriate level
+- Monitor "Last 5 Avg" to track your progress
 
-**Intervention:**
-- Students struggling with a topic can practice at lower levels to build foundations
+### Building Foundations
+- If struggling with a topic, practice at lower levels to build foundations
 - The "I don't know" button prevents frustration and adjusts difficulty automatically
 
-**Exam Preparation:**
-- Students can practice specific level ranges for targeted review
+### Exam Preparation
+- Practice specific level ranges for targeted review
 - Wide coverage ensures comprehensive preparation
 
 ### Limitations
 This tool is designed for **procedural fluency** and **conceptual understanding** practice. It does NOT replace:
-- Teacher instruction and explanation
-- Collaborative problem-solving
+- Formal instruction and structured learning
+- Collaborative problem-solving with peers
 - Real-world application projects
 - Extended response or proof-writing
 - Graphing and visualization skills (not yet implemented)

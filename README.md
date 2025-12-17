@@ -14,7 +14,7 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 - **🎯 Personalized Learning**: The app starts by calibrating to your current skill level, ensuring you're neither bored with easy problems nor frustrated with impossible ones.
 
-- **⚡ Immediate Feedback**: Get instant validation of your answers with clear explanations when you make mistakes. No waiting for teachers to grade your work!
+- **⚡ Immediate Feedback**: Get instant validation of your answers with clear explanations when you make mistakes. No waiting for grading—get instant feedback!
 
 - **🤔 "I Don't Know" Option**: Stuck? No problem! Use the "I don't know" button to skip any question without penalty. You'll see the correct answer and explanation, and the app will automatically make future questions easier to help you learn at your own pace.
 
@@ -59,24 +59,24 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 ---
 
-## 👨‍🏫 For Teachers & Parents
+## 📖 Educational Philosophy
 
-### Educational Philosophy
+Algebra Helper is built on research-backed pedagogical principles designed for student self-help. For a comprehensive review of the learning science foundation, see [PEDAGOGY.md](PEDAGOGY.md).
 
-Algebra Helper is built on research-backed pedagogical principles. For a comprehensive review of the learning science foundation, see [PEDAGOGY.md](PEDAGOGY.md).
+### Key Learning Principles
 
 #### **Worked Examples & Practice (Cognitive Load Theory)**
-Students learn by working through specific examples with immediate practice. Research shows worked examples are effective for novice learners by reducing cognitive load (Sweller & Cooper, 1985), especially when combined with self-explanation prompts (Chi et al., 1989).
+Learn by working through specific examples with immediate practice. Research shows worked examples are effective for novice learners by reducing cognitive load (Sweller & Cooper, 1985), especially when combined with self-explanation prompts (Chi et al., 1989).
 
 **Current Implementation:** Multiple-choice practice with explanations on errors. "Why" questions every few problems promote conceptual understanding.
 
 #### **Immediate Feedback**
-The tool provides instant verification and explanations. Research on feedback is nuanced: immediate feedback prevents error consolidation and maintains engagement, but effectiveness depends on feedback quality (Hattie & Timperley, 2007). Elaborative feedback addressing misconceptions is more effective than simple verification.
+The tool provides instant verification and explanations. Research on feedback shows that immediate feedback prevents error consolidation and maintains engagement (Hattie & Timperley, 2007). Elaborative feedback addressing misconceptions is more effective than simple verification.
 
 **Current Implementation:** Immediate right/wrong indication with brief explanatory feedback on errors.
 
 #### **Adaptive Difficulty (Zone of Proximal Development)**
-Based on Vygotsky's theory, learning is optimal when tasks are challenging but achievable. The app uses a binary search algorithm to calibrate initial difficulty, then dynamically adjusts based on performance to keep students in the productive learning zone.
+Based on Vygotsky's theory, learning is optimal when tasks are challenging but achievable. The app uses a binary search algorithm to calibrate initial difficulty, then dynamically adjusts based on performance to keep you in the productive learning zone.
 
 **Current Implementation:** Adaptive difficulty with "I don't know" option to prevent frustration. Future versions will track skills separately and provide scaffolding beyond just difficulty adjustment.
 
@@ -86,7 +86,7 @@ Effective feedback addresses three questions (Hattie & Timperley, 2007): Where a
 **Current Implementation:** Brief explanations showing correct method. Enhanced versions will include common misconception addressing and conceptual reasoning.
 
 #### **Motivation & Engagement**
-Progress indicators and level advancement provide clear goals and achievement markers. Research on gamification shows mixed results: it can increase engagement but may undermine intrinsic motivation if overused (Deci & Ryan, 1985; Hanus & Fox, 2015).
+Progress indicators and level advancement provide clear goals and achievement markers. Research on gamification shows it can increase engagement when designed thoughtfully (Deci & Ryan, 1985; Hanus & Fox, 2015).
 
 **Design Choice:** Balanced approach with mastery-oriented progression and "I don't know" option to reduce performance pressure.
 
@@ -99,46 +99,46 @@ Progress indicators and level advancement provide clear goals and achievement ma
 
 **✅ This Tool is Effective For:**
 - Procedural fluency practice
-- Low-stakes skill reinforcement
-- Formative assessment
-- Homework and independent practice
+- Self-directed skill reinforcement
+- Self-assessment
+- Independent practice at your own pace
 - Building confidence through adaptive difficulty
 
 **⚠️ This Tool Does Not Replace:**
-- Teacher explanation and instruction
-- Collaborative problem-solving
+- Formal instruction and structured learning
+- Collaborative problem-solving with peers
 - Deep conceptual exploration
 - Real-world application projects
-- Mathematical reasoning and communication
+- Mathematical reasoning and communication practice
 
-**📊 Effectiveness:** We are committed to evidence-based practice and continuous improvement. See [PEDAGOGY.md](PEDAGOGY.md) for our validation framework, planned pilot studies, and research methodology.
+**📊 Effectiveness:** We are committed to evidence-based practice and continuous improvement. See [PEDAGOGY.md](PEDAGOGY.md) for our validation framework and research methodology.
 
-### Classroom & Home Usage Ideas
+### Tips for Effective Use
 
-**📊 Formative Assessment**
-- Use the calibration phase to quickly assess where students are in their algebra journey
-- Monitor the "Last 5 Avg" accuracy to identify students who need additional support
+**📊 Self-Assessment**
+- Use the calibration phase to understand where you are in your algebra journey
+- Monitor the "Last 5 Avg" accuracy to track your progress
 
-**🏠 Homework & Independent Practice**
-- Assign 15-20 minutes of daily practice as homework
-- Students can work at their own pace without frustration
+**🏠 Independent Practice**
+- Practice 15-20 minutes daily for best results
+- Work at your own pace without pressure
 
-**👥 Collaborative Learning**
-- Pair students and have them work through problems together
-- Use wrong answers as discussion points for the class
+**👥 Study with Friends**
+- Work through problems together with study partners
+- Discuss wrong answers to deepen understanding
 
-**🎯 Targeted Intervention**
-- Students struggling with specific concepts can focus practice at particular difficulty levels
-- The adaptive system ensures they're not overwhelmed
+**🎯 Focus on Weak Areas**
+- If struggling with specific concepts, use the calibration to adjust your level
+- The adaptive system ensures you're not overwhelmed
 
-**⏱️ Bell Work / Warm-Up Activity**
-- Quick 5-minute practice sessions at the start of class
-- Keeps algebra skills fresh between units
+**⏱️ Regular Practice**
+- Quick 5-10 minute practice sessions help maintain skills
+- Consistent practice is more effective than cramming
 
 ### Important Notes
 
 - 🔒 Future versions will include user accounts for progress tracking
-- 📝 This tool supplements but doesn't replace comprehensive math instruction
+- 📝 This tool is designed for student self-help and independent practice
 - 🐛 Debug mode is disabled by default; enable it only for development/testing
 
 ---
@@ -267,7 +267,7 @@ We're committed to making Algebra Helper even better. Here's what's planned:
 
 ### Medium Term (6 Months)
 - [ ] **AI-Generated Problems**: Use LLMs to create diverse problems (with human verification)
-- [ ] **Topic Selection**: Let students/teachers choose specific algebra topics to practice
+- [ ] **Topic Selection**: Let students choose specific algebra topics to practice
 - [ ] **Export Results**: Download practice session summaries as PDF/CSV
 - [ ] **Advanced Pedagogy**: 
   - Learning path recommendations
@@ -277,7 +277,6 @@ We're committed to making Algebra Helper even better. Here's what's planned:
 ### Long Term (12+ Months)
 - [ ] **User Accounts**: Backend storage for progress tracking across devices
 - [ ] **Google One-Tap Login**: Seamless authentication for saving scores
-- [ ] **Teacher Dashboard**: Class-wide analytics and progress monitoring
 - [ ] **Multi-Language Support**: Translate into Spanish, French, Mandarin, etc.
 
 ### Research & Innovation
