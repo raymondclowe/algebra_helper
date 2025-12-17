@@ -462,19 +462,14 @@ Transfer tests measure whether learning generalizes beyond practiced problems.
 - After difficulty: "What made that problem hard?"
 - After mastery: "What strategies helped you improve?"
 
-**2. Teacher Observations:**
+**2. Performance Tracking:**
 
-**Classroom Performance Indicators:**
-- Participation in algebra discussions
-- Homework completion and quality
-- Test performance on related concepts
+**Self-Assessment Indicators:**
+- Session completion and consistency
+- Improvement in accuracy over time
 - Confidence in approaching problems
 - Transfer to new problem types
-
-**Teacher Survey:**
-- "Have you noticed improvement in students using the tool?"
-- "What changes in problem-solving approach?"
-- "Which students benefit most/least?"
+- Reduction in use of "I don't know" option
 
 **3. Think-Aloud Protocols:**
 
@@ -727,12 +722,11 @@ x = 5"
 2. **Expert Consultation:**
    - Math education researchers
    - Cognitive psychologists specializing in learning
-   - Experienced algebra teachers
+   - Experienced educators with adaptive learning expertise
    
-3. **Pilot Study Design:**
-   - Partner with 2-3 teachers
-   - Small-scale implementation (50-100 students)
-   - Pre/post testing with control group
+3. **Study Design:**
+   - Small-scale user testing
+   - Pre/post self-assessment
    - Collect both quantitative and qualitative data
 
 ### Assessment Instrument Development
@@ -771,7 +765,7 @@ x = 5"
 - Learning gains (effect size > 0.4 = meaningful)
 - Engagement (avg session length > 15 min, return rate > 70%)
 - Transfer (success rate > 60% on novel problems)
-- Satisfaction (student rating > 4/5, teacher rating > 4/5)
+- Satisfaction (user rating > 4/5)
 
 ---
 
@@ -785,8 +779,8 @@ x = 5"
 5. ✅ Supplement to classroom instruction
 
 ### What This Tool Cannot Replace:
-1. ❌ Teacher explanation and modeling
-2. ❌ Collaborative problem-solving
+1. ❌ Formal instruction and structured learning
+2. ❌ Collaborative problem-solving with peers
 3. ❌ Deep conceptual instruction
 4. ❌ Real-world application projects
 5. ❌ Mathematical communication and reasoning

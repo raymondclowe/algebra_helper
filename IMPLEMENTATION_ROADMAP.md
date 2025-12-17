@@ -199,17 +199,17 @@ This document outlines the implementation path for evidence-based pedagogical im
 
 **Implementation:**
 1. Enhance existing storage-manager.js
-2. Add analytics dashboard (for researchers/teachers)
+2. Add analytics dashboard for self-monitoring
 3. Export to CSV for analysis
 
 **Estimated Effort:** 3-4 days
 **Impact:** Essential for continuous improvement
 
-### 3.3 Pilot Study
-**Goal:** Validate effectiveness with real students
+### 3.3 User Testing Study
+**Goal:** Validate effectiveness with real users
 
 **Design:**
-1. Partner with 2-3 teachers (50-100 students)
+1. Recruit volunteer users for testing
 2. Random assignment: Tool vs. Traditional practice
 3. Pre-test → 4 weeks intervention → Post-test → Delayed test
 4. Collect both quantitative and qualitative data
@@ -219,8 +219,7 @@ This document outlines the implementation path for evidence-based pedagogical im
 - Retention (4-week delayed test)
 - Transfer (novel problems)
 - Engagement (session length, return rate)
-- Student satisfaction surveys
-- Teacher observations
+- User satisfaction surveys
 
 **Estimated Effort:** 2-3 months (including recruitment, intervention, analysis)
 **Impact:** Critical - provides empirical validation
@@ -319,11 +318,11 @@ APP.skills = {
 - Contribute to learning science literature
 - Validate against established tools (e.g., Carnegie Learning)
 
-### 5.3 Teacher/Student Feedback Loop
+### 5.3 User Feedback Loop
 **Implementation:**
 1. In-app feedback mechanism
-2. Regular teacher surveys
-3. Student focus groups
+2. Regular user surveys
+3. User focus groups
 4. Incorporate insights into design
 
 ---
@@ -352,7 +351,7 @@ APP.skills = {
 ### NICE TO HAVE (Months 4-6)
 14. Worked examples module
 15. Advanced analytics dashboard
-16. Teacher/student accounts
+16. User accounts for progress tracking
 17. Comparative validation study
 
 ---
@@ -370,8 +369,7 @@ APP.skills = {
 - **Completion**: 80%+ finish started sessions
 
 ### Satisfaction
-- **Student rating**: > 4.0/5.0
-- **Teacher rating**: > 4.0/5.0
+- **User rating**: > 4.0/5.0
 - **Would recommend**: > 75%
 
 ### Pedagogical Quality
@@ -391,8 +389,7 @@ APP.skills = {
 
 ### Documentation
 - Update README with new features
-- Create teacher guide
-- Student tutorial videos
+- User tutorial videos
 - API documentation for researchers
 
 ### Accessibility
@@ -436,4 +433,4 @@ APP.skills = {
 **Next Review:** After Phase 2 completion
 
 **Maintainer:** Development team  
-**Stakeholders:** Students, teachers, education researchers, contributors
+**Stakeholders:** Students, education researchers, contributors

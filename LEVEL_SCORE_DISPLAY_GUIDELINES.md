@@ -102,7 +102,7 @@ The app targets approximately 80% accuracy as the optimal learning zone. This is
 - Trend indicators give actionable information without judgment
 - Celebrates growth over static achievement
 
-### Mode 3: Full Transparency (For Advanced Users/Teachers)
+### Mode 3: Full Transparency (For Advanced Users)
 
 **What to Display:**
 - ✅ Exact level (e.g., "5.3")
@@ -112,7 +112,6 @@ The app targets approximately 80% accuracy as the optimal learning zone. This is
 
 **When to Use:**
 - Self-directed adult learners
-- Teachers monitoring student progress
 - Students who explicitly request detailed metrics
 - Research/assessment contexts
 
@@ -133,10 +132,9 @@ The app targets approximately 80% accuracy as the optimal learning zone. This is
 - Show skill area and encouraging progress messages
 - Provide visual progress indicators (badges, progress bars)
 
-**For Teachers/Settings:**
+**For Advanced Users:**
 - Provide configuration option to enable Full Transparency Mode
 - Include educational context when showing raw metrics
-- Consider teacher dashboard separate from student view
 
 ### Contextual Display Rules
 
@@ -154,7 +152,6 @@ The app targets approximately 80% accuracy as the optimal learning zone. This is
 **Optional Display:**
 1. Student can manually toggle "Show Details" to see level/accuracy
 2. Summary screen at end of session showing progress
-3. Weekly progress email/report for parents/teachers
 
 ### Reframing Messages
 
@@ -301,7 +298,6 @@ Implement controlled study:
 7. ✅ Aligns with research on motivation and learning
 
 **Provide Full Transparency as Option** for:
-- Teachers monitoring progress
 - Self-directed adult learners
 - Users who explicitly prefer detailed metrics
 - Research and assessment contexts
@@ -321,12 +317,6 @@ Implement controlled study:
 - Can handle detailed metrics maturely
 - Still benefit from encouragement and context
 - Provide choice of display modes
-
-**For Classroom Use:**
-- Teacher dashboard with full metrics
-- Student view with mastery orientation
-- Prevents competitive comparison
-- Supports differentiated instruction
 
 ---
 
