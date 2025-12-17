@@ -14,7 +14,7 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 - **🎯 Personalized Learning**: The app starts by calibrating to your current skill level, ensuring you're neither bored with easy problems nor frustrated with impossible ones.
 
-- **⚡ Immediate Feedback**: Get instant validation of your answers with clear explanations when you make mistakes. No waiting for grades—learn immediately!
+- **⚡ Immediate Feedback**: Get instant validation of your answers with clear explanations when you make mistakes. No waiting for grading—get instant feedback!
 
 - **🤔 "I Don't Know" Option**: Stuck? No problem! Use the "I don't know" button to skip any question without penalty. You'll see the correct answer and explanation, and the app will automatically make future questions easier to help you learn at your own pace.
 

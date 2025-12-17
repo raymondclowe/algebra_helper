@@ -486,7 +486,6 @@ export default {
 
 **Cost Estimate:**
 - Personal analytics queries: Included in free tier
-- Analytics queries: Included in free tier
 - Total: ~$10-30/month
 
 ---

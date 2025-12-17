@@ -462,9 +462,9 @@ Transfer tests measure whether learning generalizes beyond practiced problems.
 - After difficulty: "What made that problem hard?"
 - After mastery: "What strategies helped you improve?"
 
-**2. Performance Tracking:**
+**2. Self-Assessment Tracking:**
 
-**Self-Assessment Indicators:**
+**Performance Indicators:**
 - Session completion and consistency
 - Improvement in accuracy over time
 - Confidence in approaching problems
