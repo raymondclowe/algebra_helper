@@ -293,7 +293,7 @@ body {
         font-size: 1.5rem !important;
     }
     
-    .p-8.min-h-\[200px\] {
+    .question-area {
         min-height: 100px !important;
     }
 }
@@ -361,7 +361,7 @@ body {
     }
     
     /* Reduce main area padding */
-    .p-8.min-h-\[200px\] {
+    .question-area {
         padding: 1rem !important;
         min-height: 120px !important;
     }
@@ -568,7 +568,7 @@ body {
 }
 
 /* Reduce vertical margin in question container to compensate for taller buttons */
-.p-8.min-h-\[200px\] {
+.question-area {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
 }

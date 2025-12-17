@@ -162,7 +162,7 @@ describe('Mobile Layout Optimization Tests', () => {
         await wait(1000);
         
         const padding = await page.evaluate(() => {
-            const mainArea = document.querySelector('.p-8.min-h-\\[200px\\]');
+            const mainArea = document.querySelector('.question-area');
             const styles = window.getComputedStyle(mainArea);
             
             return {
