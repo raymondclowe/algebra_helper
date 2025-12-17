@@ -56,6 +56,8 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 3. **Build Momentum**: Get 3 correct answers in a row to activate Turbo Mode 🔥 for faster progression. Hover over Turbo Mode to see how it works!
 4. **Learn from Mistakes**: Read the explanations when you get something wrong to understand the correct approach.
 5. **"I don't know" Option**: Stuck on a problem? Click "I don't know" to see the correct answer and explanation without penalty. The app will automatically adjust to give you easier questions next.
+6. **Track Paper Homework**: Click the stats button (📈) and navigate to the "Paper Homework" tab to input results from your paper-based homework. This helps the app understand your overall progress and identify persistent mistakes.
+7. **Get Personalized Insights**: Check the "Insights" tab in stats to see AI-powered recommendations based on your practice patterns, including areas that need habit correction.
 
 ---
 
@@ -135,11 +137,41 @@ Progress indicators and level advancement provide clear goals and achievement ma
 - Quick 5-10 minute practice sessions help maintain skills
 - Consistent practice is more effective than cramming
 
+### Paper Homework Tracking & Habit Improvement
+
+**📝 Track All Your Practice**
+
+Algebra Helper now supports tracking results from paper-based homework, giving you a complete view of your math learning journey:
+
+1. **Input Paper Homework Results**: 
+   - Click the stats button (📈) in the app
+   - Switch to the "Paper Homework" tab
+   - Click "Add Paper Homework" to input results from your written work
+   - Record the topic, question type, whether you got it right, and any error notes
+
+2. **AI-Powered Pattern Detection**:
+   - The system analyzes both in-app and paper homework to detect recurring mistakes
+   - Identifies "bad habits" - errors that persist even when you know the correct approach
+   - Flags topics and error types that need focused attention
+
+3. **Personalized Insights**:
+   - View the "Insights" tab to see AI-generated recommendations
+   - Get targeted suggestions for improving specific areas
+   - See which habits need correction with detailed explanations
+
+4. **Habit Improvement Mode**:
+   - The app automatically inserts targeted practice questions based on your patterns
+   - These special "Fixing Habits" questions address your most common mistakes
+   - As you master these habits, they appear less frequently
+
+**Why This Matters**: Research shows that identifying and correcting habitual mistakes is crucial for long-term mastery. By combining in-app practice with paper homework data, Algebra Helper provides a comprehensive view of your strengths and areas for improvement, helping you break bad habits before they become ingrained.
+
 ### Important Notes
 
 - 🔒 Future versions will include user accounts for progress tracking
 - 📝 This tool is designed for student self-help and independent practice
 - 🐛 Debug mode is disabled by default; enable it only for development/testing
+- 📊 All data is stored locally in your browser's IndexedDB
 
 ---
 
@@ -259,6 +291,9 @@ This is an open-source educational tool. Contributions welcome! Some ideas:
 We're committed to making Algebra Helper even better. Here's what's planned:
 
 ### Short Term (Next 3 Months)
+- [x] **Paper Homework Tracking**: Input results from paper-based homework to track progress across all practice
+- [x] **Pattern Analysis**: AI-powered detection of recurring mistakes and bad habits
+- [x] **Habit Improvement Mode**: Targeted exercises to break persistent bad habits
 - [ ] **More Problem Types**: Add inequalities, simultaneous equations, and word problems
 - [ ] **Better Mobile UX**: Optimize touch targets and layout for smartphones
 - [ ] **Performance Metrics**: Track average time per problem and learning velocity
@@ -273,6 +308,7 @@ We're committed to making Algebra Helper even better. Here's what's planned:
   - Learning path recommendations
   - Identifying knowledge gaps
   - Personalized study plans
+  - Enhanced habit correction with more error types
 
 ### Long Term (12+ Months)
 - [ ] **User Accounts**: Backend storage for progress tracking across devices
