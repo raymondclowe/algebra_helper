@@ -5,6 +5,11 @@ window.StorageManager = {
     DB_VERSION: 2, // Upgraded to support enhanced question tracking
     STORE_NAME: 'questions',
     
+    // Helper function for rounding to 1 decimal place
+    roundToOneDecimal: function(value) {
+        return Math.round(value * 10) / 10;
+    },
+    
     // IndexedDB configuration constants
     STORE_CONFIG: {
         keyPath: 'id',
@@ -433,7 +438,7 @@ window.StorageManager = {
             
             // Convert seconds to minutes
             Object.keys(topicTime).forEach(topic => {
-                topicTime[topic] = Math.round(topicTime[topic] / 60 * 10) / 10; // Round to 1 decimal
+                topicTime[topic] = this.roundToOneDecimal(topicTime[topic] / 60);
             });
             
             return topicTime;
@@ -502,7 +507,7 @@ window.StorageManager = {
                 trendData.push({
                     date: dateString,
                     shortDate: this.formatShortDate(date),
-                    minutes: Math.round(totalMinutes * 10) / 10
+                    minutes: this.roundToOneDecimal(totalMinutes)
                 });
             }
             

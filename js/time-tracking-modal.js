@@ -197,7 +197,9 @@ window.TimeTrackingModal = {
         }
         
         // Calculate max value for scaling
-        const maxMinutes = Math.max(...trendData.map(d => d.minutes), 1);
+        const maxMinutes = trendData.length > 0 
+            ? Math.max.apply(Math, trendData.map(d => d.minutes).concat([1]))
+            : 1;
         
         // Generate simple bar chart
         const barsHTML = trendData.map(day => {
