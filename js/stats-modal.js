@@ -27,7 +27,7 @@ window.StatsModal = {
                             <div class="text-center">
                                 <div class="text-gray-300 text-sm uppercase mb-2">⏰ Time Spent Today</div>
                                 <div id="stat-today-minutes" class="text-5xl font-bold text-blue-300">0 min</div>
-                                <div class="text-gray-400 text-xs mt-2">Keep up the great work! 🌟</div>
+                                <div id="stat-feedback-message" class="text-gray-400 text-xs mt-2">Keep up the great work! 🌟</div>
                             </div>
                         </div>
                         
@@ -93,10 +93,22 @@ window.StatsModal = {
                 window.ActivityTracker.saveDailyTime();
             }
             
-            // Get today's minutes
+            // Get today's minutes and questions
             const dailyStats = window.StorageManager.getDailyStats();
             const minutesSpent = Math.round(dailyStats.minutesSpent);
             document.getElementById('stat-today-minutes').textContent = minutesSpent + ' min';
+            
+            // Get all questions from today
+            // TODO: Consider adding StorageManager.getTodayQuestions() for better performance with large datasets
+            const allQuestions = await window.StorageManager.getAllQuestions();
+            const today = new Date().toDateString();
+            const todayQuestions = allQuestions.filter(q => {
+                const qDate = new Date(q.datetime).toDateString();
+                return qDate === today;
+            });
+            
+            // Update feedback message based on activity
+            this.updateFeedbackMessage(minutesSpent, todayQuestions);
             
             // Get topic statistics
             const topicStats = await window.StorageManager.getTopicStats();
@@ -105,6 +117,89 @@ window.StatsModal = {
         } catch (error) {
             console.error('Error loading stats:', error);
         }
+    },
+    
+    // Update feedback message based on session activity
+    updateFeedbackMessage: function(minutesSpent, todayQuestions) {
+        const feedbackElement = document.getElementById('stat-feedback-message');
+        if (!feedbackElement) return;
+        
+        const questionsCount = todayQuestions.length;
+        const correctCount = todayQuestions.filter(q => q.isCorrect && !q.isDontKnow).length;
+        const incorrectCount = todayQuestions.filter(q => !q.isCorrect && !q.isDontKnow).length;
+        const dontKnowCount = todayQuestions.filter(q => q.isDontKnow).length;
+        const answeredCount = correctCount + incorrectCount;
+        const currentScore = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+        
+        // Check for recent performance trend (last 10 questions)
+        const recentQuestions = todayQuestions.slice(-10);
+        const recentCorrect = recentQuestions.filter(q => q.isCorrect && !q.isDontKnow).length;
+        const recentAnswered = recentQuestions.filter(q => !q.isDontKnow).length;
+        const recentScore = recentAnswered > 0 ? Math.round((recentCorrect / recentAnswered) * 100) : 0;
+        
+        let message = '';
+        
+        // Short sessions (less than 2 minutes or no questions)
+        if (minutesSpent < 2 || questionsCount === 0) {
+            const startMessages = [
+                "Let's get started! 🚀",
+                "Ready to learn? Let's go! 💪",
+                "Time to dive in! 📚",
+                "Let's begin your journey! ✨"
+            ];
+            message = startMessages[Math.floor(Math.random() * startMessages.length)];
+        }
+        // Long sessions (over 30 minutes)
+        else if (minutesSpent > 30) {
+            // Check if performance is dropping
+            if (questionsCount >= 10 && recentScore < 40) {
+                const breakMessages = [
+                    "Great effort today! Time for a break! 🌟",
+                    "You've worked hard! Rest and come back stronger! 💪",
+                    "Excellent persistence! Take a breather! 🎯",
+                    "Well done! Your brain needs rest too! 🧠"
+                ];
+                message = breakMessages[Math.floor(Math.random() * breakMessages.length)];
+            } else {
+                const longSessionMessages = [
+                    "Amazing dedication! Keep going! 🏆",
+                    "You're on fire! Great work! 🔥",
+                    "Impressive focus! Keep it up! ⭐",
+                    "Outstanding effort! You're doing great! 🌟"
+                ];
+                message = longSessionMessages[Math.floor(Math.random() * longSessionMessages.length)];
+            }
+        }
+        // Medium sessions with good engagement
+        else if (questionsCount > 0) {
+            if (currentScore >= 70) {
+                const goodMessages = [
+                    "Keep up the great work! 🌟",
+                    "You're doing awesome! ⭐",
+                    "Excellent progress! 🎯",
+                    "Great job today! 💪"
+                ];
+                message = goodMessages[Math.floor(Math.random() * goodMessages.length)];
+            } else if (currentScore >= 50) {
+                const learningMessages = [
+                    "You're learning and growing! 🌱",
+                    "Keep practicing, you're improving! 📈",
+                    "Great effort, keep going! 💪",
+                    "You're building strong skills! 🔨"
+                ];
+                message = learningMessages[Math.floor(Math.random() * learningMessages.length)];
+            } else {
+                const challengingMessages = [
+                    "You're tackling tough material! 🎯",
+                    "Challenges help us grow! 🌱",
+                    "Keep exploring, you've got this! 🔍",
+                    "Every attempt is progress! 📚"
+                ];
+                message = challengingMessages[Math.floor(Math.random() * challengingMessages.length)];
+            }
+        }
+        
+        feedbackElement.textContent = message;
     },
     
     // Display topic progress with educational status messages

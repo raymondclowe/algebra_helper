@@ -13,7 +13,7 @@ window.ExplanationModal = {
                     <div class="bg-yellow-900 p-4 flex justify-between items-center border-b border-yellow-700">
                         <div class="flex items-center gap-3">
                             <span class="text-3xl">💡</span>
-                            <h2 class="text-2xl font-bold text-yellow-200">Let's Learn From This</h2>
+                            <h2 class="text-2xl font-bold text-yellow-200">Learning Opportunity!</h2>
                         </div>
                         <button onclick="ExplanationModal.hide()" class="text-gray-400 hover:text-white text-3xl leading-none" aria-label="Close">&times;</button>
                     </div>
@@ -21,7 +21,7 @@ window.ExplanationModal = {
                     <!-- Explanation Content -->
                     <div class="p-6 space-y-4">
                         <div id="explanation-modal-text" class="text-gray-300 text-base leading-relaxed"></div>
-                        <p class="text-gray-400 text-sm italic">💡 Tip: Take a moment to understand why this is the correct approach before moving on.</p>
+                        <p class="text-gray-400 text-sm italic">💡 Wrong answers are where we learn! Take a moment to understand the correct approach.</p>
                     </div>
                     
                     <!-- Footer with action buttons -->

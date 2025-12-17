@@ -48,6 +48,14 @@ const FIXING_HABITS_CATEGORY = 0;        // Category code for internal use
 const FIXING_HABITS_INSERTION_RATE = 0.15; // 15% chance of inserting a fixing habits question when relevant errors detected
 const FIXING_HABITS_MIN_ERRORS = 2;      // Minimum error count before triggering habit fixing questions
 
+// Break Splash Screen Constants
+const BREAK_SPLASH_COOLDOWN_MS = 15 * 60 * 1000; // 15 minutes - minimum time between break splash screens
+const BREAK_SESSION_MIN_MINUTES = 25;      // Minimum session length (minutes) before checking for break
+const BREAK_SCORE_THRESHOLD = 40;          // Score percentage below which break is suggested
+const BREAK_CHECK_RECENT_QUESTIONS = 15;   // Number of recent questions to check for performance trend
+const BREAK_CHECK_MIN_QUESTIONS = 10;      // Minimum questions needed before checking break conditions
+const BREAK_CHECK_RAPID_WINDOW = 5;        // Window of questions to check for rapid failures
+const BREAK_RAPID_CORRECT_THRESHOLD = 1;   // Maximum correct answers in rapid window before suggesting break
 // Personalization Constants
 const PERSONALIZATION_PROBABILITY_SLOW = 0.4;  // 40% chance to use student name in slow answer feedback
 const PERSONALIZATION_PROBABILITY_FAST = 0.3;  // 30% chance to use student name in fast answer feedback
