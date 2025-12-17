@@ -377,6 +377,151 @@ window.StorageManager = {
         return dailyStats;
     },
     
+    // Get historical daily stats (time tracking history)
+    getHistoricalDailyStats: function() {
+        const historyJSON = localStorage.getItem('algebraHelperDailyHistory');
+        if (historyJSON) {
+            try {
+                return JSON.parse(historyJSON);
+            } catch (e) {
+                console.error('Error parsing daily history:', e);
+                return {};
+            }
+        }
+        return {};
+    },
+    
+    // Save daily stats to history at end of day
+    saveDailyStatsToHistory: function() {
+        const dailyStats = this.getDailyStats();
+        const history = this.getHistoricalDailyStats();
+        
+        // Store by date as key
+        if (dailyStats.minutesSpent > 0) {
+            history[dailyStats.date] = {
+                minutesSpent: dailyStats.minutesSpent,
+                date: dailyStats.date,
+                timestamp: Date.now()
+            };
+            
+            try {
+                localStorage.setItem('algebraHelperDailyHistory', JSON.stringify(history));
+            } catch (e) {
+                console.error('Error saving daily history:', e);
+            }
+        }
+        
+        return history;
+    },
+    
+    // Get time spent by topic for a specific date
+    getTopicTimeForDate: async function(dateString) {
+        try {
+            const questions = await this.getAllQuestions();
+            const topicTime = {};
+            
+            questions.forEach(q => {
+                const qDate = new Date(q.datetime).toDateString();
+                if (qDate === dateString && q.topic && q.timeSpent) {
+                    const topic = q.topic;
+                    if (!topicTime[topic]) {
+                        topicTime[topic] = 0;
+                    }
+                    topicTime[topic] += q.timeSpent;
+                }
+            });
+            
+            // Convert seconds to minutes
+            Object.keys(topicTime).forEach(topic => {
+                topicTime[topic] = Math.round(topicTime[topic] / 60 * 10) / 10; // Round to 1 decimal
+            });
+            
+            return topicTime;
+        } catch (error) {
+            console.error('Error getting topic time for date:', error);
+            return {};
+        }
+    },
+    
+    // Get daily time tracking summary (today and yesterday with topic breakdown)
+    getDailyTimeSummary: async function() {
+        try {
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            
+            const todayTopicTime = await this.getTopicTimeForDate(today);
+            const yesterdayTopicTime = await this.getTopicTimeForDate(yesterday);
+            
+            // Calculate totals
+            const todayTotal = Object.values(todayTopicTime).reduce((sum, time) => sum + time, 0);
+            const yesterdayTotal = Object.values(yesterdayTopicTime).reduce((sum, time) => sum + time, 0);
+            
+            return {
+                today: {
+                    date: today,
+                    total: todayTotal,
+                    byTopic: todayTopicTime
+                },
+                yesterday: {
+                    date: yesterday,
+                    total: yesterdayTotal,
+                    byTopic: yesterdayTopicTime
+                }
+            };
+        } catch (error) {
+            console.error('Error getting daily time summary:', error);
+            return {
+                today: { date: new Date().toDateString(), total: 0, byTopic: {} },
+                yesterday: { date: new Date(Date.now() - 86400000).toDateString(), total: 0, byTopic: {} }
+            };
+        }
+    },
+    
+    // Get historical trend data (last N days)
+    getHistoricalTrend: async function(daysBack = 7) {
+        try {
+            const questions = await this.getAllQuestions();
+            const trendData = [];
+            
+            // Calculate date range
+            const today = new Date();
+            for (let i = daysBack - 1; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateString = date.toDateString();
+                
+                // Calculate time for this date
+                let totalMinutes = 0;
+                questions.forEach(q => {
+                    const qDate = new Date(q.datetime).toDateString();
+                    if (qDate === dateString && q.timeSpent) {
+                        totalMinutes += q.timeSpent / 60;
+                    }
+                });
+                
+                trendData.push({
+                    date: dateString,
+                    shortDate: this.formatShortDate(date),
+                    minutes: Math.round(totalMinutes * 10) / 10
+                });
+            }
+            
+            return trendData;
+        } catch (error) {
+            console.error('Error getting historical trend:', error);
+            return [];
+        }
+    },
+    
+    // Helper function to format date as short string (e.g., "Mon 12/17")
+    formatShortDate: function(date) {
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayName = days[date.getDay()];
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return `${dayName} ${month}/${day}`;
+    },
+    
     // Export all data (IndexedDB + localStorage) to JSON
     exportData: async function() {
         try {
