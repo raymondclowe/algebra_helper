@@ -4,6 +4,9 @@ window.SettingsModal = {
         const modal = document.getElementById('settings-modal');
         if (!modal) return;
         
+        // Update the current name display
+        this.updateNameDisplay();
+        
         // Set the current mode as selected
         const currentMode = window.DisplayModes ? window.DisplayModes.currentMode : 'mastery';
         const radioButtons = modal.querySelectorAll('input[name="display-mode"]');
@@ -41,6 +44,14 @@ window.SettingsModal = {
         });
         
         modal.classList.remove('hidden');
+    },
+    
+    updateNameDisplay: function() {
+        const nameDisplay = document.getElementById('current-name-display');
+        if (nameDisplay) {
+            const name = window.StorageManager.getStudentName();
+            nameDisplay.innerText = name || 'Not set';
+        }
     },
     
     close: function() {

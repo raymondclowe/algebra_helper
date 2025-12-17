@@ -56,3 +56,7 @@ const BREAK_CHECK_RECENT_QUESTIONS = 15;   // Number of recent questions to chec
 const BREAK_CHECK_MIN_QUESTIONS = 10;      // Minimum questions needed before checking break conditions
 const BREAK_CHECK_RAPID_WINDOW = 5;        // Window of questions to check for rapid failures
 const BREAK_RAPID_CORRECT_THRESHOLD = 1;   // Maximum correct answers in rapid window before suggesting break
+// Personalization Constants
+const PERSONALIZATION_PROBABILITY_SLOW = 0.4;  // 40% chance to use student name in slow answer feedback
+const PERSONALIZATION_PROBABILITY_FAST = 0.3;  // 30% chance to use student name in fast answer feedback
+const INPUT_FOCUS_DELAY_MS = 100;             // Delay before focusing input field in modals
