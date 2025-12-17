@@ -2,7 +2,7 @@
 
 ## Overview
 
-This integration allows teachers to track student practice sessions in Google Sheets **without requiring Google Cloud API authentication or OAuth setup**. Students export their practice data as CSV files, which teachers can then import into Google Sheets.
+This integration allows students or mentors to track student practice sessions in Google Sheets **without requiring Google Cloud API authentication or OAuth setup**. Students export their practice data as CSV files, which students or mentors can then import into Google Sheets.
 
 ## Key Features
 
@@ -10,7 +10,7 @@ This integration allows teachers to track student practice sessions in Google Sh
 ✅ **Privacy-Friendly** - Students control when and what they share  
 ✅ **Pre-Filtered Data** - Only meaningful practice sessions (>2 minutes, >50% correct) are exported  
 ✅ **Easy Setup** - Simple CSV import or one-time Apps Script installation  
-✅ **Teacher-Friendly** - Includes columns for comments and review status  
+✅ **Student or mentor-Friendly** - Includes columns for comments and review status  
 
 ---
 
@@ -19,11 +19,11 @@ This integration allows teachers to track student practice sessions in Google Sh
 ### For Students
 
 1. **Practice in Algebra Helper** - Complete practice sessions (aim for >2 minutes with good accuracy)
-2. **Set Your Name** - Go to Settings and enter your name (so teacher knows who exported the data)
-3. **Export CSV** - Click Stats (📈) → "📊 Export for Teacher" button
-4. **Share with Teacher** - Send the downloaded CSV file to your teacher (email, Google Drive, etc.)
+2. **Set Your Name** - Go to Settings and enter your name (so student or mentor knows who exported the data)
+3. **Export CSV** - Click Stats (📈) → "📊 Export for Student or mentor" button
+4. **Share with Student or mentor** - Send the downloaded CSV file to your student or mentor (email, Google Drive, etc.)
 
-### For Teachers
+### For Self-Analysis
 
 **Option A: Manual Import (Easiest)**
 1. Receive student's CSV file
@@ -63,8 +63,8 @@ This ensures you only see meaningful practice attempts, not quick trials or inco
 | **Topics Practiced** | List of topics with question counts, e.g., "Arithmetic(5); Algebra(3)" |
 
 When imported via Apps Script, two additional columns are added:
-- **Teacher Comments** - For your notes
-- **Reviewed** - To mark sessions as checked
+- **Student or mentor Comments** - For your notes
+- **Self-Assessment** - To mark sessions as checked
 
 ---
 
@@ -135,7 +135,7 @@ Example:
 ### Weekly Practice Tracking
 
 **Monday - Start of Week**
-- Teacher reminds students to practice
+- Student or mentor reminds students to practice
 - Students ensure name is set in app settings
 
 **Throughout Week**
@@ -143,13 +143,13 @@ Example:
 - App automatically tracks meaningful sessions
 
 **Friday - End of Week**
-1. Students export CSV: Stats → "📊 Export for Teacher"
+1. Students export CSV: Stats → "📊 Export for Student or mentor"
 2. Students submit CSV (email, Google Classroom, Drive folder, etc.)
-3. Teacher imports all CSVs into tracking sheet
-4. Teacher reviews data, adds comments, marks as reviewed
+3. Student or mentor imports all CSVs into tracking sheet
+4. Student or mentor reviews data, adds comments, marks as reviewed
 
 **Following Week**
-- Teacher provides feedback to students
+- Student or mentor provides feedback to students
 - Identifies students who need extra help
 - Celebrates improvements and achievements
 
@@ -168,7 +168,7 @@ Example:
 - Questions/answers not included in export
 - Only aggregated statistics are shared
 
-### Teacher Recommendations
+### Student or mentor Recommendations
 - Use school-approved sharing methods
 - Follow school data retention policies
 - Consider end-of-term data archival
@@ -276,7 +276,7 @@ See `sample-export.csv` for an example of exported data format.
 ## Support & Resources
 
 ### Documentation Files
-- **TEACHER_GUIDE.md** - Comprehensive guide for teachers
+- **TEACHER_GUIDE.md** - Comprehensive guide for self-analysis
 - **google-sheets-import.gs** - Apps Script code
 - **sample-export.csv** - Example export file
 

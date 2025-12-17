@@ -105,7 +105,7 @@ The exported JSON file has this structure:
 - **Restore backup**: Recover your data after clearing the browser cache
 - **Migrate data**: Move your progress to a different device or browser
 - **Combine data**: Merge data from multiple sessions
-- **Share with teacher/parent**: Import a student's data to review their progress
+- **Share with mentor or parent**: Import a student's data to review their progress
 
 ---
 
@@ -376,7 +376,7 @@ Planned features:
 - Integration with learning management systems
 - Advanced visualizations in Google Sheets
 - Hints tracking and analysis
-- Real-time parent/teacher dashboard
+- Real-time parent or mentor dashboard
 
 ---
 

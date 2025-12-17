@@ -1,14 +1,14 @@
-# Teacher Guide: Google Sheets Integration
+# Analytics Guide: Self-Reflection with Google Sheets
 
-This guide explains how to track student practice sessions from Algebra Helper in Google Sheets **without requiring Google Cloud authentication or complex API setup**.
+This guide explains how to export and analyze your practice sessions from Algebra Helper using Google Sheets **without requiring Google Cloud authentication or complex API setup**.
 
 ## Overview
 
-Students can export their meaningful practice sessions (>2 minutes duration, >50% correct answers) to a CSV file, which teachers can then import into Google Sheets for tracking and review.
+You can export your meaningful practice sessions (>2 minutes duration, >50% correct answers) to a CSV file for self-reflection and analysis. This data can also be shared with mentors or parents if you choose.
 
 ---
 
-## For Students: Exporting Practice Data
+## Exporting Your Practice Data
 
 ### Step 1: Complete Practice Sessions
 - Practice problems in Algebra Helper
@@ -17,7 +17,7 @@ Students can export their meaningful practice sessions (>2 minutes duration, >50
 
 ### Step 2: Export CSV File
 1. Click the **Stats** button (📈) in Algebra Helper
-2. Click the **"📊 Export for Teacher"** button
+2. Click the **"📊 Export Sessions"** button
 3. A CSV file will download automatically (e.g., `algebra-helper-sessions-2024-01-15.csv`)
 
 ### What Gets Exported?
@@ -38,7 +38,7 @@ The exported file contains:
 
 ---
 
-## For Teachers: Importing into Google Sheets
+## Analyzing in Google Sheets
 
 ### Method 1: Manual CSV Import (Simple)
 
@@ -77,7 +77,7 @@ You should now see a new **"Algebra Helper"** menu in the menu bar!
 The script will:
 - Parse the CSV data
 - Add it to a new sheet called "Algebra Helper Sessions" (or append to existing)
-- Add extra columns for **Teacher Comments** and **Reviewed** checkbox
+- Add extra columns for **Self-Analysis Comments** and **Reviewed** checkbox
 - Format the data with alternating row colors for easy reading
 
 ---
@@ -95,10 +95,10 @@ The script will:
 - The **Student Name** column helps you filter/sort by student
 - Use Google Sheets filters to view individual students
 
-### Recommended Columns for Teacher Use
+### Recommended Columns for Self-Analysis Use
 
 When using the Apps Script import, two additional columns are automatically added:
-1. **Teacher Comments**: Add notes about the session
+1. **Self-Analysis Comments**: Add notes about the session
 2. **Reviewed**: Mark sessions as reviewed (Yes/No or checkmark)
 
 You can add more columns as needed:
@@ -150,7 +150,7 @@ Use Google Sheets features:
 
 ### Data Retention
 - Students can export their full data (JSON format) for backup
-- Teachers should follow school policies for data retention
+- Self-Analysiss should follow school policies for data retention
 - Consider archiving old sheets at end of term/year
 
 ---
@@ -180,7 +180,7 @@ Use Google Sheets features:
 
 ## Advanced: Automated Import (Optional)
 
-For teachers wanting fully automated imports, consider:
+For mentor, parent, or for your own reviews wanting fully automated imports, consider:
 
 1. **Google Drive + Apps Script Trigger**
    - Students save CSV to shared Google Drive folder
@@ -206,9 +206,9 @@ For teachers wanting fully automated imports, consider:
 ### For Students
 - Check the app's Stats modal for export options
 - Make sure your browser allows downloads
-- Contact your teacher if exports aren't working
+- Contact your mentor, parent, or for your own review if exports aren't working
 
-### For Teachers
+### For Self-Analysiss
 - Review this guide and the `google-sheets-import.gs` file
 - Test with a sample CSV file first
 - Reach out to your school's IT support for Google Sheets help
@@ -232,7 +232,7 @@ For teachers wanting fully automated imports, consider:
 1. Ask students to export their CSV file
 2. Students submit CSV via agreed method (email, drive, etc.)
 
-**Weekend** (Teacher Review):
+**Weekend** (Self-Analysis Review):
 1. Import all student CSV files into your tracking sheet
 2. Review session data for each student
 3. Note students who need follow-up

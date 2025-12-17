@@ -1,8 +1,8 @@
 /**
  * Google Sheets AppScript for Algebra Helper Data Import and Analysis
  * 
- * This script imports exported data from Algebra Helper and creates
- * a session-based summary for tracking student progress.
+ * This script imports exported data from Algebra Helper for self-reflection
+ * and progress analysis.
  * 
  * HOW TO USE:
  * 1. Open Google Sheets
@@ -15,8 +15,8 @@
  * 
  * The script supports two import methods:
  * 
- * METHOD 1: Import CSV Sessions (Recommended for Teachers)
- * - Import the CSV file exported from the "Export for Teacher" button
+ * METHOD 1: Import CSV Sessions (Recommended for Self-Analysis)
+ * - Import the CSV file exported from the "Export Sessions" button
  * - CSV is pre-filtered to include only meaningful sessions (>2min, >50% correct)
  * - Direct import without additional processing needed
  * 
@@ -25,8 +25,8 @@
  * - Groups questions into sessions (max 30min gap between questions)
  * - Creates a summary sheet with columns:
  *   Date, Topic, What was done, How long did it take (min), Correct Questions, 
- *   Total Questions, If not right, Checked by AI (link) (optional), 
- *   Checked by human (mandatory), Percentage correct, Notes
+ *   Total Questions, If not right, Review Notes (optional), 
+ *   Self-Assessment, Percentage correct, Notes
  */
 
 // Add menu to Google Sheets
@@ -69,8 +69,8 @@ function importCSVSessions() {
     // Define expected CSV structure
     var CSV_HEADERS = ['Date', 'Student Name', 'Duration (min)', 'Questions Total', 'Questions Correct', 'Score %', 'Topics Practiced'];
     var NUM_CSV_COLUMNS = CSV_HEADERS.length;
-    var TEACHER_COLUMNS = ['Teacher Comments', 'Reviewed'];
-    var TOTAL_COLUMNS = NUM_CSV_COLUMNS + TEACHER_COLUMNS.length;
+    var ANALYSIS_COLUMNS = ['Review Notes', 'Self-Assessment'];
+    var TOTAL_COLUMNS = NUM_CSV_COLUMNS + ANALYSIS_COLUMNS.length;
     
     // Validate header row
     var headers = rows[0];
@@ -81,7 +81,7 @@ function importCSVSessions() {
     });
     
     if (!validHeader) {
-      ui.alert('Error', 'CSV header row does not match expected format. Please ensure you exported from the "Export for Teacher" button.', ui.ButtonSet.OK);
+      ui.alert('Error', 'CSV header row does not match expected format. Please ensure you exported from the "Export Sessions" button.', ui.ButtonSet.OK);
       return;
     }
     
@@ -93,8 +93,8 @@ function importCSVSessions() {
     if (!sheet) {
       sheet = ss.insertSheet(sheetName);
       
-      // Add headers with additional columns for teacher use
-      var enhancedHeaders = CSV_HEADERS.concat(TEACHER_COLUMNS);
+      // Add headers with additional columns for self-analysis
+      var enhancedHeaders = CSV_HEADERS.concat(ANALYSIS_COLUMNS);
       
       sheet.getRange(1, 1, 1, enhancedHeaders.length).setValues([enhancedHeaders]);
       formatHeaderRow(sheet, enhancedHeaders.length);
@@ -112,10 +112,10 @@ function importCSVSessions() {
       return;
     }
     
-    // Add data to sheet (with empty columns for teacher use)
+    // Add data to sheet (with empty columns for self-analysis)
     dataRows.forEach(function(row, index) {
-      // Extend row with empty teacher columns
-      var enhancedRow = row.slice(0, NUM_CSV_COLUMNS).concat(['', '']); // Add Teacher Comments and Reviewed columns
+      // Extend row with empty analysis columns
+      var enhancedRow = row.slice(0, NUM_CSV_COLUMNS).concat(['', '']); // Add Review Notes and Self-Assessment columns
       sheet.getRange(startRow + index, 1, 1, enhancedRow.length).setValues([enhancedRow]);
     });
     

@@ -264,7 +264,7 @@ describe('CSV Export for Google Sheets Integration', () => {
 
             // Check button text
             const buttonText = await page.evaluate(el => el.textContent, exportButton);
-            expect(buttonText).toContain('Export for Teacher');
+            expect(buttonText).toContain('Export Sessions');
         }
     });
 

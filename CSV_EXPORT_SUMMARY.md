@@ -18,20 +18,20 @@ Successfully implemented a complete CSV export system for tracking student pract
    - Helper functions for maintainability
 
 2. **User Interface** (`js/stats-modal.js`)
-   - "📊 Export for Teacher" button in Stats modal
+   - "📊 Export for Student or mentor" button in Stats modal
    - Clear success/error messages
    - Tooltip explaining filtering criteria
 
 3. **Google Sheets Integration** (`google-sheets-import.gs`)
    - CSV import via Apps Script menu
    - Enhanced parser handling escaped quotes
-   - Automatic addition of teacher columns
+   - Automatic addition of student or mentor columns
    - Named constants for maintainability
 
 4. **Comprehensive Documentation**
-   - `TEACHER_GUIDE.md` - Complete teacher instructions
+   - `ANALYTICS_GUIDE.md` - Complete student or mentor instructions
    - `GOOGLE_SHEETS_INTEGRATION.md` - Technical guide
-   - `README.md` - Updated with teacher section
+   - `README.md` - Updated with student or mentor section
    - `sample-export.csv` - Example export file
 
 5. **Testing**
@@ -49,7 +49,7 @@ Successfully implemented a complete CSV export system for tracking student pract
 - ✅ No account required
 - ✅ Automatic session filtering
 
-### For Teachers
+### For Self-Analysis
 - ✅ No Google API setup required
 - ✅ Manual CSV import or Apps Script
 - ✅ Pre-filtered meaningful sessions only
@@ -65,7 +65,7 @@ Only exports sessions meeting **BOTH** criteria:
 - Duration > 2 minutes
 - Correct answer rate > 50%
 
-This ensures teachers only see meaningful practice, not quick trials.
+This ensures students or mentors only see meaningful practice, not quick trials.
 
 ### CSV Format
 **Standard Columns:**
@@ -77,8 +77,8 @@ This ensures teachers only see meaningful practice, not quick trials.
 - Score %
 - Topics Practiced (with counts)
 
-**Teacher Columns** (added by Apps Script):
-- Teacher Comments
+**Student or mentor Columns** (added by Apps Script):
+- Student or mentor Comments
 - Reviewed
 
 ### Proper CSV Escaping
@@ -104,7 +104,7 @@ SESSION_GAP_MS: 30 * 60 * 1000 // 30 minutes
 
 ## Documentation
 
-### Teacher Guide (9,190 characters)
+### Student or mentor Guide (9,190 characters)
 - Setup instructions
 - Workflows and use cases
 - Privacy considerations
@@ -118,7 +118,7 @@ SESSION_GAP_MS: 30 * 60 * 1000 // 30 minutes
 - Advanced features
 
 ### Main README
-- Teacher section added
+- Student or mentor section added
 - Quick overview
 - Links to comprehensive docs
 
@@ -142,7 +142,7 @@ SESSION_GAP_MS: 30 * 60 * 1000 // 30 minutes
 ## Files Changed
 
 ### New Files
-- `TEACHER_GUIDE.md` - Complete teacher guide
+- `ANALYTICS_GUIDE.md` - Complete student or mentor guide
 - `GOOGLE_SHEETS_INTEGRATION.md` - Technical documentation
 - `sample-export.csv` - Example export
 - `tests/csv-export.test.js` - Test suite
@@ -152,7 +152,7 @@ SESSION_GAP_MS: 30 * 60 * 1000 // 30 minutes
 - `js/storage-manager.js` - Added export functionality
 - `js/stats-modal.js` - Added export button and UI
 - `google-sheets-import.gs` - Enhanced with CSV import
-- `README.md` - Added teacher section
+- `README.md` - Added student or mentor section
 
 ---
 
@@ -177,11 +177,11 @@ SESSION_GAP_MS: 30 * 60 * 1000 // 30 minutes
 ### Student Workflow
 1. Practice math problems (aim for >2 minutes with good accuracy)
 2. Open Stats modal (📈 button)
-3. Click "📊 Export for Teacher"
+3. Click "📊 Export for Student or mentor"
 4. CSV file downloads automatically
-5. Share file with teacher via email/drive
+5. Share file with student or mentor via email/drive
 
-### Teacher Workflow
+### Student or mentor Workflow
 1. Receive student CSV files
 2. Open Google Sheets
 3. **Simple:** File → Import → Upload CSV
@@ -203,7 +203,7 @@ SESSION_GAP_MS: 30 * 60 * 1000 // 30 minutes
 - Filtered to meaningful practice only
 - No personally identifiable information beyond name
 
-### Teacher Guidance
+### Student or mentor Guidance
 - Use school-approved sharing methods
 - Follow data retention policies
 - Respect student privacy
@@ -225,7 +225,7 @@ Potential improvements not in current scope:
 
 ### Requirements Met
 ✅ No Google Cloud authentication required  
-✅ Easy setup for teachers  
+✅ Easy setup for self-analysis  
 ✅ Privacy-friendly approach  
 ✅ Session filtering (>2min, >50%)  
 ✅ Comprehensive documentation  
@@ -262,11 +262,11 @@ Recommend notifying users about:
 - New CSV export feature
 - How to set student name
 - Where to find export button
-- How to share with teachers
+- How to share with students or mentors
 
-### Teacher Communication
-Recommend providing teachers with:
-- Link to TEACHER_GUIDE.md
+### Student or mentor Communication
+Recommend providing students or mentors with:
+- Link to ANALYTICS_GUIDE.md
 - Sample export file
 - Quick start instructions
 - Apps Script code (optional)

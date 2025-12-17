@@ -59,43 +59,43 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 ---
 
-## 👨‍🏫 For Teachers
+## 📊 Self-Reflection & Analytics
 
 ### Google Sheets Integration (No Authentication Required!)
 
-Track your students' practice sessions in Google Sheets **without complex API setup or Google Cloud authentication**. Students export their practice data as CSV files, which you can easily import into Google Sheets.
+Export your practice sessions for analysis in Google Sheets **without complex API setup or Google Cloud authentication**. This helps you reflect on your learning patterns and share progress with mentors or parents if desired.
 
 #### Key Features
 - ✅ **No Google API Keys or OAuth** - Simple CSV export/import workflow
-- ✅ **Privacy-Friendly** - Students control when and what they share
+- ✅ **Privacy-Friendly** - You control when and what to export
 - ✅ **Pre-Filtered Data** - Only meaningful sessions (>2 min, >50% correct) exported
 - ✅ **Easy Setup** - Manual CSV import or optional one-time Apps Script installation
 
 #### Quick Start
 
-**For Students:**
+**Exporting Your Sessions:**
 1. Complete practice sessions (>2 minutes with good accuracy)
-2. Click Stats (📈) → "📊 Export for Teacher" button
-3. Share the downloaded CSV file with teacher
+2. Click Stats (📈) → "📊 Export Sessions" button
+3. Optional: Share the downloaded CSV file with mentor or parent for review
 
-**For Teachers:**
-1. Receive student's CSV file
-2. Open Google Sheets
-3. File → Import → Upload CSV
-4. Choose "Append to current sheet"
+**Analyzing in Google Sheets:**
+1. Open Google Sheets
+2. File → Import → Upload your CSV file
+3. Choose "Append to current sheet" to combine multiple exports
+4. Review your progress trends and patterns
 
 **Advanced:** Install the provided Google Apps Script (one-time setup) for a custom import menu with additional features.
 
 #### Exported Data Includes
 - Date of practice session
-- Student name
+- Your name (if set)
 - Duration and question counts
 - Score percentage
 - Topics practiced with breakdown
 
 #### Documentation
 - 📖 **[GOOGLE_SHEETS_INTEGRATION.md](GOOGLE_SHEETS_INTEGRATION.md)** - Complete integration guide
-- 📚 **[TEACHER_GUIDE.md](TEACHER_GUIDE.md)** - Comprehensive teacher instructions
+- 📚 **[ANALYTICS_GUIDE.md](ANALYTICS_GUIDE.md)** - Comprehensive analysis guide
 - 📝 **[google-sheets-import.gs](google-sheets-import.gs)** - Apps Script code (optional)
 - 📊 **[sample-export.csv](sample-export.csv)** - Example export file
 

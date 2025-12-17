@@ -46,8 +46,8 @@ window.StatsModal = {
                     <!-- Footer -->
                     <div class="bg-gray-750 p-4 border-t border-gray-700 flex justify-between items-center flex-wrap gap-2">
                         <div class="flex gap-2 flex-wrap">
-                            <button onclick="StatsModal.exportSessionsCSV()" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold rounded" title="Export practice sessions to CSV (filtered: >2min, >50% correct)">
-                                📊 Export for Teacher
+                            <button onclick="StatsModal.exportSessionsCSV()" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold rounded" title="Export practice sessions for analysis (filtered: >2min, >50% correct)">
+                                📊 Export Sessions
                             </button>
                             <button onclick="StatsModal.exportData()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded">
                                 📥 Export Data
@@ -363,7 +363,7 @@ window.StatsModal = {
         };
     },
     
-    // Export sessions to CSV for teacher review
+    // Export sessions to CSV for self-analysis
     exportSessionsCSV: async function() {
         try {
             const result = await window.StorageManager.exportSessionsCSV();
