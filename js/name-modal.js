@@ -79,6 +79,12 @@ window.NameModal = {
     // Check if name should be prompted on startup
     checkAndPromptForName: function() {
         const name = window.StorageManager.getStudentName();
+        
+        // Update APP state with loaded name
+        if (window.APP) {
+            window.APP.studentName = name;
+        }
+        
         if (!name) {
             // Show the name modal for first-time users
             this.show(true);
