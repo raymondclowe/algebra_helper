@@ -17,6 +17,9 @@ window.APP.init = async function() {
         // Initialize stats modal
         window.StatsModal.init();
         
+        // Initialize time tracking modal
+        window.TimeTrackingModal.init();
+        
         // Initialize explanation modal
         window.ExplanationModal.init();
         
