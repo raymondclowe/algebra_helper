@@ -149,6 +149,9 @@ window.Learning = {
             btn.className = "p-2 bg-red-600 rounded text-lg border border-red-400 flex flex-wrap items-center justify-center min-h-[60px]";
             window.APP.history.push(0);
             
+            // Track specific error patterns for Fixing Habits questions
+            this.trackErrorPattern(window.APP.currentQ);
+            
             // Frustration Breaker
             if (window.APP.streak <= 0) delta = -0.8; // Second wrong answer drops hard
             else delta = -0.3; // First wrong answer drops distinct amount
@@ -179,8 +182,40 @@ window.Learning = {
             this.saveQuestionToStorage(timeSpent, false, false);
         }
         
+        // Record answer for Fixing Habits questions
+        if (window.APP.currentQ.type === 'fixing-habits' && window.FixingHabitsQuestions) {
+            window.FixingHabitsQuestions.recordFixingHabitsAnswer(
+                window.APP.currentQ.habitType,
+                isCorrect
+            );
+        }
+        
         // Update and Animate Level (applies to both correct and wrong)
         this.applyLevelChange(delta);
+    },
+    
+    // Track error patterns to trigger Fixing Habits questions
+    trackErrorPattern: function(question) {
+        // Only track errors on regular questions (not fixing-habits questions themselves)
+        if (question.type === 'fixing-habits') {
+            return;
+        }
+        
+        // Check for square root sign errors
+        // Detect when solving equations like x² = a
+        if (question.tex && question.tex.includes('x^2 =') && 
+            question.displayAnswer && !question.displayAnswer.includes('\\pm')) {
+            // This might indicate a question where ± should be used
+            // Track potential missed ± sign
+            window.APP.errorTracker.squareRootSign++;
+        }
+        
+        // Check for division by zero errors
+        // Detect when dealing with rational expressions
+        if (question.tex && (question.tex.includes('\\frac') || question.tex.includes('/'))) {
+            // Track potential division issues
+            window.APP.errorTracker.divisionByZero++;
+        }
     },
     
     saveQuestionToStorage: function(timeSpent, isCorrect, isDontKnow) {

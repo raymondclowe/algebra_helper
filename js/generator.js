@@ -120,6 +120,12 @@ window.Generator = {
         // Apply spaced repetition to determine actual question level
         const questionLevel = this.selectQuestionLevel(level);
         
+        // Check if we should insert a Fixing Habits question
+        // This takes priority over regular questions when error patterns are detected
+        if (window.FixingHabitsQuestions && window.FixingHabitsQuestions.shouldInsertFixingHabitsQuestion()) {
+            return window.FixingHabitsQuestions.getFixingHabitsQuestion();
+        }
+        
         // Interleave "why" questions every 3rd question in learning mode to promote deeper understanding
         // Research shows elaborative interrogation improves conceptual learning (Pressley et al., 1987)
         if (window.APP.mode === 'learning' || window.APP.mode === 'drill') {
