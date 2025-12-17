@@ -11,6 +11,9 @@ window.APP.init = async function() {
             console.error('Error initializing storage:', error);
         }
         
+        // Load student name from storage
+        window.APP.studentName = window.StorageManager.getStudentName();
+        
         // Initialize stats modal
         window.StatsModal.init();
         
@@ -19,6 +22,13 @@ window.APP.init = async function() {
         
         // Start first question
         window.UI.nextQuestion();
+        
+        // Check if we need to prompt for student name (after UI is ready)
+        setTimeout(() => {
+            if (window.NameModal) {
+                window.NameModal.checkAndPromptForName();
+            }
+        }, 500);
     } else {
         setTimeout(() => this.init(), 100);
     }

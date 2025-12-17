@@ -22,6 +22,9 @@ window.APP = {
     historyIndex: -1, // -1 means viewing current/live question, 0+ means viewing history
     questionHistory: [], // Cache of questions from IndexedDB for navigation
     
+    // Student personalization
+    studentName: '', // Loaded from storage on startup
+    
     // Fixing Habits: Track specific error types to trigger targeted reinforcement
     errorTracker: {
         squareRootSign: 0,      // Forgot ± when solving x² = a
