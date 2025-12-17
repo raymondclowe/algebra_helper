@@ -34,6 +34,31 @@ window.Generator = {
         return arr;
     },
     
+    // Ensure distractors are unique and different from the correct answer
+    // This prevents the bug where all buttons show the same content
+    ensureUniqueDistractors: function(correctAnswer, distractors, generateAlternative) {
+        const uniqueDistractors = [];
+        const seen = new Set([correctAnswer]);
+        
+        for (let distractor of distractors) {
+            if (!seen.has(distractor)) {
+                uniqueDistractors.push(distractor);
+                seen.add(distractor);
+            }
+        }
+        
+        // If we filtered out duplicates, generate alternatives
+        while (uniqueDistractors.length < 3) {
+            const alternative = generateAlternative ? generateAlternative() : `${this.rInt(1, 100)}`;
+            if (!seen.has(alternative)) {
+                uniqueDistractors.push(alternative);
+                seen.add(alternative);
+            }
+        }
+        
+        return uniqueDistractors.slice(0, 3); // Ensure exactly 3 distractors
+    },
+    
     // Helper function to safely evaluate mathematical expressions and check equivalence
     // Note: This is safe because all expressions come from our own generator
     evaluateExpression: function(expr, x) {
@@ -176,22 +201,36 @@ window.Generator = {
     },
     lvl1: function() {
         const a=this.rInt(2,9), x=this.rInt(2,9);
+        const correctAnswer = `x=${x}`;
+        const candidateDistractors = [`x=${x+1}`, `x=${a}`, `x=${x-1}`];
+        const distractors = this.ensureUniqueDistractors(
+            correctAnswer, 
+            candidateDistractors,
+            () => `x=${this.rInt(2, 9)}`
+        );
         return { 
             tex: `${a}x = ${a*x}`, 
             instruction: "Solve for x", 
-            displayAnswer:`x=${x}`, 
-            distractors:[`x=${x+1}`,`x=${a}`,`x=${x-1}`], 
+            displayAnswer: correctAnswer, 
+            distractors: distractors, 
             explanation:`To isolate x, we need to undo the multiplication by ${a}. We divide both sides by ${a} to keep the equation balanced: ${a}x ÷ ${a} = ${a*x} ÷ ${a}, which gives x = ${x}.`, 
             calc:false 
         };
     },
     lvl2: function() {
-        const a=this.rInt(2,9), b=this.rInt(2,9), x=this.rInt(2,9); 
+        const a=this.rInt(2,9), b=this.rInt(2,9), x=this.rInt(2,9);
+        const correctAnswer = `x=${x}`;
+        const candidateDistractors = [`x=${x+1}`, `x=${-x}`, `x=${b}`];
+        const distractors = this.ensureUniqueDistractors(
+            correctAnswer, 
+            candidateDistractors,
+            () => `x=${this.rInt(2, 9)}`
+        );
         return { 
             tex: `${a}x + ${b} = ${a*x+b}`, 
             instruction: "Solve for x", 
-            displayAnswer:`x=${x}`, 
-            distractors:[`x=${x+1}`,`x=${-x}`,`x=${b}`], 
+            displayAnswer: correctAnswer, 
+            distractors: distractors, 
             explanation:`First, subtract ${b} from both sides to isolate the term with x: ${a}x = ${a*x}. Then divide both sides by ${a} to get x alone: x = ${x}. Remember: we perform inverse operations in reverse order of operations (PEMDAS backwards).`, 
             calc:false 
         };
@@ -302,11 +341,18 @@ window.Generator = {
             const a = this.rInt(1, 20);
             const b = this.rInt(1, 20);
             const answer = a + b;
+            const correctAnswer = `${answer}`;
+            const candidateDistractors = [`${answer + 1}`, `${answer - 1}`, `${a - b}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 50)}`
+            );
             return {
                 tex: `${a} + ${b}`,
                 instruction: "Calculate",
-                displayAnswer: `${answer}`,
-                distractors: [`${answer + 1}`, `${answer - 1}`, `${a - b}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Adding ${a} and ${b} gives ${answer}. You can verify by counting up from ${a} by ${b} steps.`,
                 calc: false
             };
@@ -315,11 +361,18 @@ window.Generator = {
             const a = this.rInt(11, 30);
             const b = this.rInt(1, a - 1);
             const answer = a - b;
+            const correctAnswer = `${answer}`;
+            const candidateDistractors = [`${answer + 1}`, `${answer - 1}`, `${a + b}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 50)}`
+            );
             return {
                 tex: `${a} - ${b}`,
                 instruction: "Calculate",
-                displayAnswer: `${answer}`,
-                distractors: [`${answer + 1}`, `${answer - 1}`, `${a + b}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Subtracting ${b} from ${a} gives ${answer}. You can verify by adding: ${answer} + ${b} = ${a}.`,
                 calc: false
             };
@@ -328,11 +381,18 @@ window.Generator = {
             const b = this.rInt(1, 15);
             const c = this.rInt(b + 1, 30);
             const answer = c - b;
+            const correctAnswer = `${answer}`;
+            const candidateDistractors = [`${answer + 1}`, `${c}`, `${b}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 30)}`
+            );
             return {
                 tex: `? + ${b} = ${c}`,
                 instruction: "Find the missing number",
-                displayAnswer: `${answer}`,
-                distractors: [`${answer + 1}`, `${c}`, `${b}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `To find the missing number, subtract ${b} from ${c}: ${c} - ${b} = ${answer}. Check: ${answer} + ${b} = ${c} ✓`,
                 calc: false
             };
@@ -341,11 +401,18 @@ window.Generator = {
             const a = this.rInt(2, 9);
             const x = this.rInt(2, 9);
             const product = a * x;
+            const correctAnswer = `${x}`;
+            const candidateDistractors = [`${x + 1}`, `${x - 1}`, `${a}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(2, 9)}`
+            );
             return {
                 tex: `${product} \\div ${a}`,
                 instruction: "Calculate",
-                displayAnswer: `${x}`,
-                distractors: [`${x + 1}`, `${x - 1}`, `${a}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `${product} divided by ${a} equals ${x} because ${a} × ${x} = ${product}. Division is the inverse of multiplication.`,
                 calc: false
             };
@@ -360,11 +427,18 @@ window.Generator = {
             // Forward: "What is the square of n?"
             const n = this.rInt(2, 12);
             const answer = n * n;
+            const correctAnswer = `${answer}`;
+            const candidateDistractors = [`${n * 2}`, `${answer + n}`, `${answer - n}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(4, 150)}`
+            );
             return {
                 tex: `\\text{What is } ${n}^2?`,
                 instruction: "Calculate the square",
-                displayAnswer: `${answer}`,
-                distractors: [`${n * 2}`, `${answer + n}`, `${answer - n}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `${n}^2 = ${n} × ${n} = ${answer}. Squaring means multiplying a number by itself.`,
                 calc: false
             };
@@ -372,11 +446,18 @@ window.Generator = {
             // Reverse: "n² = answer, find n"
             const n = this.rInt(2, 12);
             const square = n * n;
+            const correctAnswer = `${n}`;
+            const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(square / 2)}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(2, 12)}`
+            );
             return {
                 tex: `${square} \\text{ is the square of what number?}`,
                 instruction: "Find the number",
-                displayAnswer: `${n}`,
-                distractors: [`${n + 1}`, `${n - 1}`, `${square / 2}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Since ${n} × ${n} = ${square}, the answer is ${n}. This is finding the square root: √${square} = ${n}.`,
                 calc: false
             };
@@ -384,11 +465,18 @@ window.Generator = {
             // Forward: "What is the cube of n?"
             const n = this.rInt(2, 6);
             const answer = n * n * n;
+            const correctAnswer = `${answer}`;
+            const candidateDistractors = [`${n * 3}`, `${n * n}`, `${answer + n}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(8, 250)}`
+            );
             return {
                 tex: `\\text{What is } ${n}^3?`,
                 instruction: "Calculate the cube",
-                displayAnswer: `${answer}`,
-                distractors: [`${n * 3}`, `${n * n}`, `${answer + n}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `${n}^3 = ${n} × ${n} × ${n} = ${answer}. Cubing means multiplying a number by itself three times.`,
                 calc: false
             };
@@ -396,11 +484,18 @@ window.Generator = {
             // Reverse: "n³ = answer, find n"
             const n = this.rInt(2, 6);
             const cube = n * n * n;
+            const correctAnswer = `${n}`;
+            const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(cube / 3)}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(2, 6)}`
+            );
             return {
                 tex: `${cube} \\text{ is the cube of what number?}`,
                 instruction: "Find the number",
-                displayAnswer: `${n}`,
-                distractors: [`${n + 1}`, `${n - 1}`, `${cube / 3}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Since ${n} × ${n} × ${n} = ${cube}, the answer is ${n}. This is finding the cube root: ∛${cube} = ${n}.`,
                 calc: false
             };
@@ -408,11 +503,18 @@ window.Generator = {
             // Square root
             const n = this.rInt(2, 12);
             const square = n * n;
+            const correctAnswer = `${n}`;
+            const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(square / 2)}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(2, 12)}`
+            );
             return {
                 tex: `\\sqrt{${square}}`,
                 instruction: "Calculate",
-                displayAnswer: `${n}`,
-                distractors: [`${n + 1}`, `${n - 1}`, `${square / 2}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `The square root of ${square} is ${n} because ${n} × ${n} = ${square}.`,
                 calc: false
             };
@@ -423,11 +525,18 @@ window.Generator = {
             const answer = Math.pow(base, exp);
             // Build the multiplication chain properly
             const multChain = Array(exp).fill(base).join(' × ');
+            const correctAnswer = `${answer}`;
+            const candidateDistractors = [`${base * exp}`, `${answer + base}`, `${answer - base}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(4, 500)}`
+            );
             return {
                 tex: `${base}^${exp}`,
                 instruction: "Calculate",
-                displayAnswer: `${answer}`,
-                distractors: [`${base * exp}`, `${answer + base}`, `${answer - base}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `${base}^${exp} means multiply ${base} by itself ${exp} times: ${multChain} = ${answer}.`,
                 calc: false
             };
