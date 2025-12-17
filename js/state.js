@@ -20,5 +20,12 @@ window.APP = {
     // Question History Navigation
     isViewingHistory: false,
     historyIndex: -1, // -1 means viewing current/live question, 0+ means viewing history
-    questionHistory: [] // Cache of questions from IndexedDB for navigation
+    questionHistory: [], // Cache of questions from IndexedDB for navigation
+    
+    // Fixing Habits: Track specific error types to trigger targeted reinforcement
+    errorTracker: {
+        squareRootSign: 0,      // Forgot ± when solving x² = a
+        divisionByZero: 0,      // Attempted invalid division by zero
+        // Add more error types as needed
+    }
 };

@@ -6,6 +6,9 @@ window.TopicDefinitions = {
     getTopicForLevel: function(level) {
         const band = Math.round(level);
         
+        // Internal-only category: Fixing Habits (not displayed in UI)
+        if (band === FIXING_HABITS_CATEGORY) return "Fixing Habits";
+        
         if (band <= 1) return "Basic Arithmetic";
         if (band <= 2) return "Powers and Roots";
         if (band <= 3) return "Multiplication and Division";

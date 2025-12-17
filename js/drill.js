@@ -149,6 +149,9 @@ window.Learning = {
             btn.className = "p-2 bg-red-600 rounded text-lg border border-red-400 flex flex-wrap items-center justify-center min-h-[60px]";
             window.APP.history.push(0);
             
+            // Track specific error patterns for Fixing Habits questions
+            this.trackErrorPattern(window.APP.currentQ);
+            
             // Frustration Breaker
             if (window.APP.streak <= 0) delta = -0.8; // Second wrong answer drops hard
             else delta = -0.3; // First wrong answer drops distinct amount
@@ -179,8 +182,51 @@ window.Learning = {
             this.saveQuestionToStorage(timeSpent, false, false);
         }
         
+        // Record answer for Fixing Habits questions
+        if (window.APP.currentQ.type === 'fixing-habits' && window.FixingHabitsQuestions) {
+            window.FixingHabitsQuestions.recordFixingHabitsAnswer(
+                window.APP.currentQ.habitType,
+                isCorrect
+            );
+        }
+        
         // Update and Animate Level (applies to both correct and wrong)
         this.applyLevelChange(delta);
+    },
+    
+    // Track error patterns to trigger Fixing Habits questions
+    trackErrorPattern: function(question) {
+        // Only track errors on regular questions (not fixing-habits questions themselves)
+        if (question.type === 'fixing-habits' || question.type === 'why') {
+            return;
+        }
+        
+        // Check for square root sign errors - only for quadratic solving questions
+        // Be conservative: only track when the question is explicitly about solving x² = constant
+        if (question.instruction && 
+            (question.instruction.toLowerCase().includes('solve') || 
+             question.instruction.toLowerCase().includes('find x')) &&
+            question.tex && 
+            question.tex.match(/x\^2\s*=\s*\d+/) && 
+            question.displayAnswer && 
+            question.displayAnswer.includes('x =') &&
+            !question.displayAnswer.includes('\\pm')) {
+            // This is a quadratic solving question where ± notation should likely be used
+            // The absence of ± suggests the question is asking for only one solution
+            // (e.g., "find the positive solution"), which when answered incorrectly
+            // may indicate the student doesn't understand the ± concept
+            window.APP.errorTracker.squareRootSign++;
+        }
+        
+        // Check for division by zero errors - only when simplifying rational expressions
+        // Be conservative: only track for simplification questions with fractions
+        if (question.instruction && 
+            question.instruction.toLowerCase().includes('simplif') &&
+            question.tex && 
+            (question.tex.includes('\\frac') || question.tex.includes('/'))) {
+            // Track potential division issues only for simplification problems
+            window.APP.errorTracker.divisionByZero++;
+        }
     },
     
     saveQuestionToStorage: function(timeSpent, isCorrect, isDontKnow) {
