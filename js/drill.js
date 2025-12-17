@@ -212,7 +212,9 @@ window.Learning = {
             question.displayAnswer.includes('x =') &&
             !question.displayAnswer.includes('\\pm')) {
             // This is a quadratic solving question where ± notation should likely be used
-            // Only increment if the correct answer doesn't use ± (meaning it's a partial answer)
+            // The absence of ± suggests the question is asking for only one solution
+            // (e.g., "find the positive solution"), which when answered incorrectly
+            // may indicate the student doesn't understand the ± concept
             window.APP.errorTracker.squareRootSign++;
         }
         

@@ -60,9 +60,9 @@ window.FixingHabitsQuestions = {
         
         // Common mistakes as distractors
         const distractors = [
-            `x = ${x}`,              // Forgot negative root
-            `x = -${x}`,             // Forgot positive root
-            `x = ${x} \\text{ or } x = ${-x}` // Correct values but verbose notation
+            `x = ${x}`,              // Forgot negative root (only positive)
+            `x = -${x}`,             // Forgot positive root (only negative)
+            `x = ${x} \\text{ or } x = -${x}` // Correct values but verbose notation (not using ±)
         ];
         
         return {
