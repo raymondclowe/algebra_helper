@@ -79,8 +79,8 @@ describe('Duplicate Answers Bug Fix', () => {
             window.Learning.setupUI();
         });
 
-        // Wait for MathJax to render
-        await page.waitForTimeout(1000);
+        // Wait for MathJax to render (using setTimeout instead of waitForTimeout)
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Get all button texts
         const buttonTexts = await page.evaluate(() => {
@@ -94,20 +94,33 @@ describe('Duplicate Answers Bug Fix', () => {
     });
 
     test('Verify fix works across multiple question generations', async () => {
-        const duplicateFound = await page.evaluate(() => {
-            // Test 100 question generations
-            for (let i = 0; i < 100; i++) {
-                const q = window.Generator.getQuestion(5);
-                const allAnswers = [q.displayAnswer, ...q.distractors];
-                const uniqueAnswers = new Set(allAnswers);
-                
-                if (uniqueAnswers.size !== allAnswers.length) {
-                    return true; // Duplicate found
+        const results = await page.evaluate(() => {
+            const issues = [];
+            // Test 100 question generations across different levels
+            for (let level = 1; level <= 10; level++) {
+                for (let i = 0; i < 10; i++) {
+                    const q = window.Generator.getQuestion(level);
+                    const allAnswers = [q.displayAnswer, ...q.distractors];
+                    const uniqueAnswers = new Set(allAnswers);
+                    
+                    if (uniqueAnswers.size !== allAnswers.length) {
+                        issues.push({
+                            level: level,
+                            iteration: i,
+                            topic: q.topic,
+                            correctAnswer: q.displayAnswer,
+                            distractors: q.distractors,
+                            allAnswers: allAnswers
+                        });
+                    }
                 }
             }
-            return false; // No duplicates
+            return issues;
         });
 
-        expect(duplicateFound).toBe(false);
+        if (results.length > 0) {
+            console.log('Found duplicate answers in getQuestion:', JSON.stringify(results.slice(0, 5), null, 2));
+        }
+        expect(results.length).toBe(0);
     });
 });
