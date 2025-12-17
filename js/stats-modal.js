@@ -39,15 +39,6 @@ window.StatsModal = {
                     <div class="p-6 space-y-6">
                         <!-- In-App Practice Tab -->
                         <div id="content-inApp" class="stats-tab-content">
-                        <!-- Today's Focus - Primary Metric -->
-                        <div class="bg-gradient-to-r from-blue-900 to-purple-900 p-6 rounded-xl border-2 border-blue-400 shadow-lg">
-                            <div class="text-center">
-                                <div class="text-gray-300 text-sm uppercase mb-2">⏰ Time Spent Today</div>
-                                <div id="stat-today-minutes" class="text-5xl font-bold text-blue-300">0 min</div>
-                                <div id="stat-feedback-message" class="text-gray-400 text-xs mt-2">Keep up the great work! 🌟</div>
-                            </div>
-                        </div>
-                        
                             <!-- Today's Focus - Primary Metric -->
                             <div class="bg-gradient-to-r from-blue-900 to-purple-900 p-6 rounded-xl border-2 border-blue-400 shadow-lg">
                                 <div class="text-center">

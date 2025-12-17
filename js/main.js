@@ -25,6 +25,11 @@ window.APP.init = async function() {
             window.PaperHomeworkModal.init();
         }
         
+        // Initialize fixing habits with pattern cache
+        if (window.FixingHabitsQuestions) {
+            window.FixingHabitsQuestions.init();
+        }
+        
         // Start first question
         window.UI.nextQuestion();
         

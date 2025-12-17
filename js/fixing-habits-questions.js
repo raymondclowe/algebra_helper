@@ -3,9 +3,32 @@
 // Enhanced to integrate with paper homework pattern analysis
 
 window.FixingHabitsQuestions = {
+    // Cache for paper homework patterns to avoid repeated async calls
+    _patternCache: null,
+    _patternCacheTime: 0,
+    _patternCacheDuration: 60000, // 1 minute cache
     
-    // Check if a Fixing Habits question should be inserted
-    shouldInsertFixingHabitsQuestion: async function() {
+    // Background update of pattern cache
+    _updatePatternCache: async function() {
+        if (window.PatternAnalysis) {
+            try {
+                this._patternCache = await window.PatternAnalysis.analyzeAllPatterns();
+                this._patternCacheTime = Date.now();
+            } catch (error) {
+                console.error('Error updating pattern cache:', error);
+            }
+        }
+    },
+    
+    // Initialize pattern cache (call once at startup)
+    init: function() {
+        this._updatePatternCache();
+        // Refresh cache periodically
+        setInterval(() => this._updatePatternCache(), this._patternCacheDuration);
+    },
+    
+    // Check if a Fixing Habits question should be inserted (synchronous)
+    shouldInsertFixingHabitsQuestion: function() {
         // Only insert in learning/drill mode
         if (window.APP.mode !== 'learning' && window.APP.mode !== 'drill') {
             return false;
@@ -15,15 +38,10 @@ window.FixingHabitsQuestions = {
         const errorTracker = window.APP.errorTracker;
         const hasSignificantInAppErrors = Object.values(errorTracker).some(count => count >= FIXING_HABITS_MIN_ERRORS);
         
-        // Also check paper homework patterns for persistent mistakes
+        // Check cached paper homework patterns for persistent mistakes
         let hasPersistentMistakes = false;
-        if (window.PatternAnalysis) {
-            try {
-                const patterns = await window.PatternAnalysis.analyzeAllPatterns();
-                hasPersistentMistakes = patterns && patterns.persistentMistakes && patterns.persistentMistakes.length > 0;
-            } catch (error) {
-                console.error('Error checking paper homework patterns:', error);
-            }
+        if (this._patternCache && this._patternCache.persistentMistakes) {
+            hasPersistentMistakes = this._patternCache.persistentMistakes.length > 0;
         }
         
         if (!hasSignificantInAppErrors && !hasPersistentMistakes) {
@@ -34,8 +52,8 @@ window.FixingHabitsQuestions = {
         return Math.random() < FIXING_HABITS_INSERTION_RATE;
     },
     
-    // Select which Fixing Habits question to show based on error frequency
-    getFixingHabitsQuestion: async function() {
+    // Select which Fixing Habits question to show based on error frequency (synchronous)
+    getFixingHabitsQuestion: function() {
         const errorTracker = window.APP.errorTracker;
         
         // Find the most frequent error type from in-app tracker
@@ -49,18 +67,16 @@ window.FixingHabitsQuestions = {
             }
         }
         
-        // Also check paper homework patterns for high-priority errors
-        if (window.PatternAnalysis) {
-            try {
-                const recommendations = await window.PatternAnalysis.getRecommendations();
-                const habitRecommendations = recommendations.filter(r => r.type === 'habit');
-                
-                // If there's a high-priority habit recommendation, prioritize it
-                if (habitRecommendations.length > 0 && habitRecommendations[0].priority >= maxErrors) {
-                    errorType = habitRecommendations[0].errorType;
+        // Check cached paper homework patterns for high-priority errors
+        if (this._patternCache && this._patternCache.persistentMistakes) {
+            const persistentMistakes = this._patternCache.persistentMistakes;
+            
+            // Find highest priority persistent mistake
+            if (persistentMistakes.length > 0) {
+                const topMistake = persistentMistakes[0];
+                if (topMistake.recentErrors >= maxErrors) {
+                    errorType = topMistake.errorType;
                 }
-            } catch (error) {
-                console.error('Error getting paper homework recommendations:', error);
             }
         }
         
