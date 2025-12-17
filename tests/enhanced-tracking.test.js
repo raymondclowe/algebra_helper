@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer');
 describe('Enhanced IndexedDB Tracking Tests', () => {
     let browser;
     let page;
-    const baseUrl = 'http://localhost:8080/algebra-helper.html';
+    const baseUrl = process.env.TEST_URL || 'http://localhost:8000';
 
     beforeAll(async () => {
         browser = await puppeteer.launch({
@@ -18,7 +18,7 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
 
     beforeEach(async () => {
         page = await browser.newPage();
-        await page.goto(baseUrl, { waitUntil: 'networkidle0' });
+        await page.goto(`${baseUrl}/algebra-helper.html`, { waitUntil: 'networkidle0' });
         
         // Clear any existing data
         await page.evaluate(() => {

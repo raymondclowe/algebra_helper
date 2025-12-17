@@ -63,6 +63,7 @@ window.StorageManager = {
     
     // Migrate existing data to add missing fields
     migrateExistingData: function(objectStore) {
+        const self = this; // Capture reference to StorageManager
         const getAllRequest = objectStore.getAll();
         getAllRequest.onsuccess = () => {
             const records = getAllRequest.result;
@@ -78,7 +79,7 @@ window.StorageManager = {
                     record.hintsUsed = 0;
                 }
                 if (!record.eventHash) {
-                    record.eventHash = this.generateEventHash(record);
+                    record.eventHash = self.generateEventHash(record);
                 }
                 
                 // Update the record
@@ -100,7 +101,7 @@ window.StorageManager = {
         for (let i = 0; i < hashData.length; i++) {
             const char = hashData.charCodeAt(i);
             hash = ((hash << 5) - hash) + char;
-            hash = hash & hash; // Convert to 32-bit integer
+            hash = hash & 0xFFFFFFFF; // Convert to 32-bit integer
         }
         return 'evt_' + Math.abs(hash).toString(36) + '_' + questionData.datetime;
     },
