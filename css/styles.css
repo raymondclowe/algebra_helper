@@ -168,6 +168,8 @@ body {
 }
 
 /* Mobile Optimizations */
+/* Note: 1920px breakpoint targets mobile, tablet, and standard desktop screens
+   Only ultra-wide monitors (>1920px) get desktop-specific styling */
 /* Increase touch target sizes for mobile (minimum 44x44px recommended) */
 @media (max-width: 1920px) {
     /* Make buttons larger and more touch-friendly */
@@ -446,12 +448,6 @@ body {
     #mc-options button {
         padding: 0.75rem !important;
         min-height: 56px !important;
-    }
-    
-    /* Additional header adjustments for portrait mobile */
-    #level-display,
-    #accuracy-display {
-        font-size: 0.75rem !important; /* 12px for better fit */
     }
 }
 
