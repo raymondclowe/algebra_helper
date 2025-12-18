@@ -750,7 +750,10 @@ Removed, not necessary in MathJax 4
 }
 
 
-#debug-mode-indicator {margin: 4rem}
+/* Debug mode indicator positioning - override default absolute positioning margins */
+#debug-mode-indicator {
+    margin: 0;
+}
 
 button.absolute, 
 .absolute {

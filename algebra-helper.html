@@ -99,13 +99,19 @@
     </div>
 
     <!-- Debug Mode Indicator -->
-    <div id="debug-mode-indicator" class="hidden fixed top-4 right-4 bg-yellow-500 text-black px-4 py-2 rounded-lg shadow-lg z-40 border-2 border-yellow-600">
-        <div class="flex items-center gap-2">
+    <div id="debug-mode-indicator" class="hidden fixed top-20 right-20 bg-yellow-500 text-black px-4 py-2 rounded-lg shadow-lg z-40 border-2 border-yellow-600">
+        <div class="flex items-center gap-3">
             <span class="text-xl">🐛</span>
             <div>
                 <div class="font-bold text-sm">DEBUG MODE</div>
                 <div id="debug-timer" class="text-xs font-mono">10:00</div>
             </div>
+            <button onclick="window.DebugCheatCode.deactivateDebugMode()" 
+                    class="ml-2 text-black hover:text-red-600 font-bold text-lg leading-none px-2 py-1 rounded hover:bg-yellow-600 transition-colors"
+                    title="Dismiss debug mode"
+                    aria-label="Close debug mode">
+                &times;
+            </button>
         </div>
     </div>
 
