@@ -18,7 +18,16 @@ describe('CSV Export for Google Sheets Integration', () => {
 
     beforeEach(async () => {
         page = await browser.newPage();
-        await page.goto(`${baseUrl}/algebra-helper.html`, { waitUntil: 'networkidle0' });
+        await page.goto(`${baseUrl}/algebra-helper.html`, { 
+            waitUntil: 'domcontentloaded',
+            timeout: 30000
+        });
+        
+        // Wait for essential scripts to load
+        await page.waitForFunction(() => {
+            return typeof window.StorageManager !== 'undefined';
+        }, { timeout: 10000 });
+
         
         // Clear any existing data
         await page.evaluate(() => {
@@ -31,8 +40,12 @@ describe('CSV Export for Google Sheets Integration', () => {
         });
         
         // Reload to initialize fresh
-        await page.reload({ waitUntil: 'networkidle0' });
-        await page.waitForTimeout(1000);
+        await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 });
+        
+        // Wait for essential scripts to load after reload
+        await page.waitForFunction(() => {
+            return typeof window.StorageManager !== 'undefined';
+        }, { timeout: 10000 });
     });
 
     afterEach(async () => {

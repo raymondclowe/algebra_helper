@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 
+const baseUrl = process.env.TEST_URL || 'http://localhost:8000';
+
 describe('Duplicate Answers Bug Fix', () => {
     let browser;
     let page;
@@ -10,7 +12,7 @@ describe('Duplicate Answers Bug Fix', () => {
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
         page = await browser.newPage();
-        await page.goto('http://localhost:8080/algebra-helper.html');
+        await page.goto(`${baseUrl}/algebra-helper.html`);
         
         // Wait for the app to initialize
         await page.waitForFunction(() => {
