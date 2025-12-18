@@ -5,7 +5,7 @@ const CONFETTI_DELAY_STEP_MS = 30;      // Delay between each confetti spawn
 // Success Sound Constants - Research-backed audio design for learning motivation
 // Based on educational feedback research and game audio design principles
 const SUCCESS_SOUND_BASE_FREQUENCY = 880;  // Hz - A5 note, pleasant and clear
-const SUCCESS_SOUND_INTERVAL_RATIO = 1.2599; // Major third interval (equal temperament: 2^(4/12))
+const SUCCESS_SOUND_INTERVAL_RATIO = Math.pow(2, 4/12); // Major third interval (equal temperament: 2^(4/12) ≈ 1.2599)
 const SUCCESS_SOUND_VOLUME = 0.25;         // Volume (0-1) - moderate, not harsh
 const SUCCESS_SOUND_DURATION = 0.35;       // Seconds - optimal 300-400ms range
 const SUCCESS_SOUND_ATTACK = 0.01;         // 10ms attack - fast but not clicky
@@ -16,6 +16,8 @@ const SUCCESS_SOUND_DETUNE_AMOUNT = 3;     // Cents - slight detuning for richne
 const SUCCESS_SOUND_PITCH_VARIATION = 2;   // Semitones - random variation range (±2)
 const SUCCESS_SOUND_TIMING_VARIATION = 0.015; // Seconds - ±15ms timing variation
 const SUCCESS_SOUND_ARPEGGIO_DELAY = 0.08; // Seconds - 80ms delay between notes for arpeggio effect
+const SUCCESS_SOUND_MIN_GAIN = 0.001;      // Minimum gain value for smooth envelope fadeout
+const SUCCESS_SOUND_STOP_BUFFER = 0.01;    // Seconds - buffer time after envelope completes before stopping oscillator
 const FLOAT_ANIMATION_DELAY_MS = 50;    // Delay before starting float animation
 const FLOAT_ANIMATION_DURATION_MS = 800; // Duration of float animation
 const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element

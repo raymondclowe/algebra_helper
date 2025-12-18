@@ -182,7 +182,7 @@ window.Gamification = {
             // Sustain (hold until release starts)
             gain1.gain.setValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN, sustainEnd);
             // Release to zero
-            gain1.gain.linearRampToValueAtTime(0.001, releaseEnd);
+            gain1.gain.linearRampToValueAtTime(SUCCESS_SOUND_MIN_GAIN, releaseEnd);
             
             // Second note (major third) - starts slightly after first for arpeggio effect
             const osc2 = ctx.createOscillator();
@@ -210,15 +210,15 @@ window.Gamification = {
             // Sustain (hold until release starts)
             gain2.gain.setValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN * 0.85, sustainEnd2);
             // Release to zero
-            gain2.gain.linearRampToValueAtTime(0.001, releaseEnd2);
+            gain2.gain.linearRampToValueAtTime(SUCCESS_SOUND_MIN_GAIN, releaseEnd2);
             
             // Start and stop oscillators
             // Stop slightly after the release completes to ensure smooth fadeout
             osc1.start(now);
-            osc1.stop(releaseEnd + 0.01);
+            osc1.stop(releaseEnd + SUCCESS_SOUND_STOP_BUFFER);
             
             osc2.start(startTime2);
-            osc2.stop(releaseEnd2 + 0.01);
+            osc2.stop(releaseEnd2 + SUCCESS_SOUND_STOP_BUFFER);
             
         } catch (e) {
             // Silent fail if audio not supported
