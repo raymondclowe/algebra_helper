@@ -34,4 +34,5 @@ window.APP = {
     
     // Session Question Log: Track questions asked in current session to avoid repetition
     sessionQuestions: new Map(), // Map: questionSignature -> { count, correctCount, incorrectCount, lastAsked }
+    sessionQuestionCount: 0, // Sequential counter for tracking question order
 };

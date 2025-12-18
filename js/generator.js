@@ -161,7 +161,7 @@ window.Generator = {
         
         // Consider "recent" as within the last 5 questions
         const RECENT_THRESHOLD = 5;
-        const questionsSinceLastAsked = sessionLog.size - entry.lastAsked;
+        const questionsSinceLastAsked = window.APP.sessionQuestionCount - entry.lastAsked;
         
         return entry.incorrectCount > 0 && questionsSinceLastAsked <= RECENT_THRESHOLD;
     },
@@ -170,6 +170,9 @@ window.Generator = {
     recordQuestionAsked: function(question, isCorrect) {
         const signature = this.generateQuestionSignature(question);
         const sessionLog = window.APP.sessionQuestions;
+        
+        // Increment the global question counter
+        window.APP.sessionQuestionCount++;
         
         if (!sessionLog.has(signature)) {
             sessionLog.set(signature, {
@@ -182,7 +185,7 @@ window.Generator = {
         
         const entry = sessionLog.get(signature);
         entry.count++;
-        entry.lastAsked = sessionLog.size;
+        entry.lastAsked = window.APP.sessionQuestionCount;
         
         if (isCorrect !== undefined) {
             if (isCorrect) {
