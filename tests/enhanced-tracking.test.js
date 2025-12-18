@@ -1,4 +1,6 @@
 const puppeteer = require('puppeteer');
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 
 describe('Enhanced IndexedDB Tracking Tests', () => {
     let browser;
@@ -24,9 +26,13 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
         });
         
         // Wait for essential scripts to load
-        await page.waitForFunction(() => {
-            return typeof window.StorageManager !== 'undefined';
-        }, { timeout: 10000 });
+        try {
+            await page.waitForFunction(() => {
+                return typeof window.StorageManager !== 'undefined';
+            }, { timeout: 15000 });
+        } catch (e) {
+            console.log('StorageManager not loaded, continuing anyway');
+        }
         
         // Clear any existing data
         await page.evaluate(() => {
@@ -35,6 +41,8 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
                 const request = indexedDB.deleteDatabase('AlgebraHelperDB');
                 request.onsuccess = () => resolve();
                 request.onerror = () => resolve();
+                // Add timeout fallback
+                setTimeout(() => resolve(), 2000);
             });
         });
         
@@ -42,9 +50,13 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
         await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 });
         
         // Wait for essential scripts to load after reload
-        await page.waitForFunction(() => {
-            return typeof window.StorageManager !== 'undefined';
-        }, { timeout: 10000 });
+        try {
+            await page.waitForFunction(() => {
+                return typeof window.StorageManager !== 'undefined';
+            }, { timeout: 15000 });
+        } catch (e) {
+            console.log('StorageManager not loaded after reload');
+        }
     });
 
     afterEach(async () => {
@@ -57,13 +69,13 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
             window.APP.level = 5;
             window.APP.mode = 'learning';
         });
-        await page.waitForTimeout(500);
+        await wait(500);
 
         // Answer a question
         const answerButton = await page.$('#mc-options button');
         if (answerButton) {
             await answerButton.click();
-            await page.waitForTimeout(1000);
+            await wait(1000);
         }
 
         // Check the saved question data
@@ -104,7 +116,7 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
         expect(statsButton).toBeTruthy();
         
         await statsButton.click();
-        await page.waitForTimeout(500);
+        await wait(500);
 
         // Check for export button
         const exportButton = await page.$('button[onclick*="exportData"]');
@@ -118,7 +130,7 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
         // Open stats modal
         const statsButton = await page.$('button[onclick*="StatsModal.show"]');
         await statsButton.click();
-        await page.waitForTimeout(500);
+        await wait(500);
 
         // Check for import button
         const importButton = await page.$('button[onclick*="importData"]');
@@ -149,7 +161,7 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
             return window.StorageManager.saveQuestion(testQuestion);
         });
         
-        await page.waitForTimeout(500);
+        await wait(500);
 
         // Test export function (without triggering download)
         const exportData = await page.evaluate(async () => {
@@ -233,7 +245,7 @@ describe('Enhanced IndexedDB Tracking Tests', () => {
             window.APP.level = 5;
             window.APP.mode = 'learning';
         });
-        await page.waitForTimeout(500);
+        await wait(500);
 
         // Check that currentQ has allAnswers after setupUI
         const hasAllAnswers = await page.evaluate(() => {

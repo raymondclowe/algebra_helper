@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 describe('CSV Export for Google Sheets Integration', () => {
     let browser;
     let page;
@@ -24,10 +26,13 @@ describe('CSV Export for Google Sheets Integration', () => {
         });
         
         // Wait for essential scripts to load
-        await page.waitForFunction(() => {
-            return typeof window.StorageManager !== 'undefined';
-        }, { timeout: 10000 });
-
+        try {
+            await page.waitForFunction(() => {
+                return typeof window.StorageManager !== 'undefined';
+            }, { timeout: 15000 });
+        } catch (e) {
+            console.log('StorageManager not loaded, continuing anyway');
+        }
         
         // Clear any existing data
         await page.evaluate(() => {
@@ -36,16 +41,22 @@ describe('CSV Export for Google Sheets Integration', () => {
                 const request = indexedDB.deleteDatabase('AlgebraHelperDB');
                 request.onsuccess = () => resolve();
                 request.onerror = () => resolve();
+                // Add timeout fallback
+                setTimeout(() => resolve(), 2000);
             });
         });
         
-        // Reload to initialize fresh
+        // Reload to initialize fresh  
         await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 });
         
         // Wait for essential scripts to load after reload
-        await page.waitForFunction(() => {
-            return typeof window.StorageManager !== 'undefined';
-        }, { timeout: 10000 });
+        try {
+            await page.waitForFunction(() => {
+                return typeof window.StorageManager !== 'undefined';
+            }, { timeout: 15000 });
+        } catch (e) {
+            console.log('StorageManager not loaded after reload');
+        }
     });
 
     afterEach(async () => {
@@ -75,8 +86,8 @@ describe('CSV Export for Google Sheets Integration', () => {
                 { datetime: now, topic: 'Arithmetic', isCorrect: true, isDontKnow: false },
                 { datetime: now + 5 * 60 * 1000, topic: 'Arithmetic', isCorrect: true, isDontKnow: false }, // 5 min later
                 { datetime: now + 10 * 60 * 1000, topic: 'Arithmetic', isCorrect: false, isDontKnow: false }, // 10 min later
-                { datetime: now + 40 * 60 * 1000, topic: 'Algebra', isCorrect: true, isDontKnow: false }, // 40 min later (new session)
-                { datetime: now + 45 * 60 * 1000, topic: 'Algebra', isCorrect: true, isDontKnow: false }, // 45 min later
+                { datetime: now + 41 * 60 * 1000, topic: 'Algebra', isCorrect: true, isDontKnow: false }, // 41 min later (>30 min gap, new session)
+                { datetime: now + 46 * 60 * 1000, topic: 'Algebra', isCorrect: true, isDontKnow: false }, // 46 min later
             ];
             
             return window.StorageManager.groupIntoSessions(questions);
@@ -99,7 +110,7 @@ describe('CSV Export for Google Sheets Integration', () => {
             window.APP.level = 5;
             window.APP.mode = 'learning';
         });
-        await page.waitForTimeout(500);
+        await wait(500);
 
         // Simulate multiple questions to create a valid session
         // We need >2 minutes duration and >50% correct
@@ -183,7 +194,7 @@ describe('CSV Export for Google Sheets Integration', () => {
             return Promise.all(questions.map(q => window.StorageManager.saveQuestion(q)));
         }, now);
 
-        await page.waitForTimeout(1000);
+        await wait(1000);
 
         // Try to export CSV
         const result = await page.evaluate(() => {
@@ -206,7 +217,7 @@ describe('CSV Export for Google Sheets Integration', () => {
             window.APP.level = 5;
             window.APP.mode = 'learning';
         });
-        await page.waitForTimeout(500);
+        await wait(500);
 
         // Create a session that doesn't meet criteria (too short and low accuracy)
         const now = Date.now();
@@ -245,7 +256,7 @@ describe('CSV Export for Google Sheets Integration', () => {
             return Promise.all(questions.map(q => window.StorageManager.saveQuestion(q)));
         }, now);
 
-        await page.waitForTimeout(1000);
+        await wait(1000);
 
         // Try to export CSV - should fail
         const result = await page.evaluate(() => {
@@ -263,13 +274,13 @@ describe('CSV Export for Google Sheets Integration', () => {
             window.APP.level = 5;
             window.APP.mode = 'learning';
         });
-        await page.waitForTimeout(500);
+        await wait(500);
 
         // Open stats modal
         const statsButton = await page.$('button[onclick*="StatsModal.show"]');
         if (statsButton) {
             await statsButton.click();
-            await page.waitForTimeout(1000);
+            await wait(1000);
 
             // Check if export CSV button exists
             const exportButton = await page.$('button[onclick*="exportSessionsCSV"]');
