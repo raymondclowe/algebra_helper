@@ -13,7 +13,7 @@ window.UI = {
         document.getElementById('explanation-box').classList.add('hidden');
         document.getElementById('next-btn').classList.add('invisible');
         document.getElementById('mc-options').innerHTML = '';
-        document.getElementById('delta-display').innerHTML = ''; // clear anim
+        // delta-display is permanently hidden (internal level tracking)
         
         this.updateUI();
         this.updateNavigationButtons();
@@ -129,7 +129,7 @@ window.UI = {
     displayHistoricalQuestion: function(historyQuestion) {
         // Clear current UI
         document.getElementById('mc-options').innerHTML = '';
-        document.getElementById('delta-display').innerHTML = '';
+        // delta-display is permanently hidden (internal level tracking)
         document.getElementById('next-btn').classList.add('invisible');
         
         // Show history indicator
@@ -241,14 +241,8 @@ window.UI = {
             }
         }
         
-        // Calibration Window Display
-        const rangeDiv = document.getElementById('search-range');
-        if (window.APP.mode === 'calibration') {
-            rangeDiv.classList.remove('hidden');
-            rangeDiv.innerText = `Range: ${window.APP.cMin.toFixed(1)} - ${window.APP.cMax.toFixed(1)}`;
-        } else {
-            rangeDiv.classList.add('hidden');
-        }
+        // Calibration Window Display - Removed: Internal level ranges should never be user-visible
+        // search-range element is permanently hidden in HTML
         
         // Show Turbo Fire if streak high (tooltip added in HTML)
         const fire = document.getElementById('streak-indicator');

@@ -101,11 +101,7 @@ window.ExplanationModal = {
             nextBtn.classList.add('invisible');
         }
         
-        // Clear delta display
-        const deltaEl = document.getElementById('delta-display');
-        if (deltaEl) {
-            deltaEl.innerHTML = '';
-        }
+        // delta-display is permanently hidden (internal level tracking)
     },
     
     // Retry the same question

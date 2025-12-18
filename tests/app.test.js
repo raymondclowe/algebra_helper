@@ -142,11 +142,15 @@ describe('Algebra Helper Tests', () => {
         expect(question.distractors.length).toBe(3);
     });
 
-    test('Level display is visible', async () => {
+    test('Level display shows skill description (not internal numbers)', async () => {
         const levelDisplay = await page.$('#level-display');
         const levelText = await page.evaluate(el => el.textContent, levelDisplay);
         
-        expect(levelText).toMatch(/\d+\.\d/);
+        // In MASTERY mode (default), should show skill description, not numeric level
+        // Examples: "Simple Equations", "Two-Step Equations", "Basic Arithmetic"
+        expect(levelText.length).toBeGreaterThan(0);
+        // Should NOT match numeric pattern like "5.0", "2.5", "5", or "10"
+        expect(levelText).not.toMatch(/^\d+(\.\d+)?$/);
     });
 
     test('CSS is loaded correctly', async () => {
