@@ -106,6 +106,11 @@ window.Learning = {
             // Save to storage (with dontKnow flag)
             this.saveQuestionToStorage(timeSpent, false, true);
             
+            // Update session log - don't count as correct or incorrect
+            if (window.Generator && window.Generator.recordQuestionAsked) {
+                window.Generator.recordQuestionAsked(window.APP.currentQ, undefined);
+            }
+            
         } else if (isCorrect) {
             btn.className = "p-2 bg-green-600 rounded text-lg border border-green-400 flex flex-wrap items-center justify-center min-h-[60px]";
             window.APP.history.push(1);
@@ -146,6 +151,11 @@ window.Learning = {
             
             // Save to storage (correct answer)
             this.saveQuestionToStorage(timeSpent, true, false);
+            
+            // Update session log with correct answer
+            if (window.Generator && window.Generator.recordQuestionAsked) {
+                window.Generator.recordQuestionAsked(window.APP.currentQ, true);
+            }
             
             // Auto-advance after short delay (no Next button needed)
             setTimeout(() => {
@@ -190,6 +200,11 @@ window.Learning = {
             
             // Save to storage (wrong answer)
             this.saveQuestionToStorage(timeSpent, false, false);
+            
+            // Update session log with incorrect answer
+            if (window.Generator && window.Generator.recordQuestionAsked) {
+                window.Generator.recordQuestionAsked(window.APP.currentQ, false);
+            }
         }
         
         // Record answer for Fixing Habits questions

@@ -129,6 +129,73 @@ window.Generator = {
         return true;
     },
     
+    // Generate a signature for a question to identify duplicates in the session
+    // This creates a unique key based on the question content
+    generateQuestionSignature: function(question) {
+        // Use the LaTeX content and correct answer as the signature
+        // This ensures the same mathematical question is recognized even if generated differently
+        return `${question.tex}_${question.displayAnswer}`;
+    },
+    
+    // Check if a question has been asked frequently (more correct than incorrect answers)
+    isFrequentQuestion: function(signature) {
+        const sessionLog = window.APP.sessionQuestions;
+        const entry = sessionLog.get(signature);
+        
+        if (!entry) {
+            return false; // Not asked yet, so not frequent
+        }
+        
+        // A question is considered "frequent" if answered correctly more often than incorrectly
+        return entry.correctCount > entry.incorrectCount;
+    },
+    
+    // Check if a question was recently answered incorrectly
+    isRecentlyIncorrect: function(signature) {
+        const sessionLog = window.APP.sessionQuestions;
+        const entry = sessionLog.get(signature);
+        
+        if (!entry) {
+            return false;
+        }
+        
+        // Consider "recent" as within the last 5 questions
+        const RECENT_THRESHOLD = 5;
+        const questionsSinceLastAsked = window.APP.sessionQuestionCount - entry.lastAsked;
+        
+        return entry.incorrectCount > 0 && questionsSinceLastAsked <= RECENT_THRESHOLD;
+    },
+    
+    // Record that a question was asked
+    recordQuestionAsked: function(question, isCorrect) {
+        const signature = this.generateQuestionSignature(question);
+        const sessionLog = window.APP.sessionQuestions;
+        
+        // Increment the global question counter
+        window.APP.sessionQuestionCount++;
+        
+        if (!sessionLog.has(signature)) {
+            sessionLog.set(signature, {
+                count: 0,
+                correctCount: 0,
+                incorrectCount: 0,
+                lastAsked: 0
+            });
+        }
+        
+        const entry = sessionLog.get(signature);
+        entry.count++;
+        entry.lastAsked = window.APP.sessionQuestionCount;
+        
+        if (isCorrect !== undefined) {
+            if (isCorrect) {
+                entry.correctCount++;
+            } else {
+                entry.incorrectCount++;
+            }
+        }
+    },
+    
     // Spaced repetition: Select question level with logarithmic fall-off
     // Returns the level to use for the next question (may be lower than current level)
     selectQuestionLevel: function(currentLevel) {
@@ -192,10 +259,66 @@ window.Generator = {
             }
         }
         
-        const question = this.getQuestionForLevel(questionLevel);
+        // Get a unique question, avoiding frequent repeats
+        const question = this.getUniqueQuestion(questionLevel);
         question.questionLevel = questionLevel; // Track the level this question came from
         question.topic = window.TopicDefinitions.getTopicForLevel(questionLevel); // Add topic
         return question;
+    },
+    
+    // Get a unique question, avoiding frequent questions from the session log
+    getUniqueQuestion: function(level) {
+        // Only apply session log filtering in learning/drill mode
+        if (window.APP.mode !== 'learning' && window.APP.mode !== 'drill') {
+            return this.getQuestionForLevel(level);
+        }
+        
+        const MAX_ATTEMPTS = 10; // Maximum attempts to find a unique question
+        let attempts = 0;
+        
+        // Try to get a unique question at the current level
+        while (attempts < MAX_ATTEMPTS) {
+            const question = this.getQuestionForLevel(level);
+            const signature = this.generateQuestionSignature(question);
+            
+            // Check if this question should be skipped (frequent and not recently incorrect)
+            if (this.isFrequentQuestion(signature) && !this.isRecentlyIncorrect(signature)) {
+                attempts++;
+                continue;
+            }
+            
+            // This question is acceptable - return it
+            // Note: Recording is handled by drill.js when the user answers
+            return question;
+        }
+        
+        // Fallback 1: Try one level higher or lower
+        const adjacentLevels = [
+            Math.min(level + 1, MAX_LEVEL),
+            Math.max(level - 1, MIN_LEVEL)
+        ];
+        
+        for (const adjLevel of adjacentLevels) {
+            attempts = 0;
+            while (attempts < MAX_ATTEMPTS) {
+                const question = this.getQuestionForLevel(adjLevel);
+                const signature = this.generateQuestionSignature(question);
+                
+                if (this.isFrequentQuestion(signature) && !this.isRecentlyIncorrect(signature)) {
+                    attempts++;
+                    continue;
+                }
+                
+                // Found an acceptable question at adjacent level
+                return question;
+            }
+        }
+        
+        // Final fallback: Just generate a question at the current level
+        // This ensures we always return a question
+        // The main loop and fallback 1 already check for recently incorrect questions
+        // If we reach here, it means we've exhausted unique options, so return any question
+        return this.getQuestionForLevel(level);
     },
     
     // Get a question for a specific level (extracted from getQuestion for reuse)
