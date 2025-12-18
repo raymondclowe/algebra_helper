@@ -57,12 +57,12 @@ describe('Calibration Timeout Tests', () => {
         expect(hasAnimationClass).toBe(true);
     });
 
-    test("Timeout automatically records 'don't know' after 10 seconds", async () => {
+    test("Timeout automatically records 'don't know' after 15 seconds", async () => {
         // Record the initial history length
         const initialHistoryLength = await page.evaluate(() => window.APP.calibrationHistory.length);
         
-        // Wait for timeout (10 seconds + buffer)
-        await wait(10500);
+        // Wait for timeout (15 seconds + buffer)
+        await wait(15500);
         
         // Check that a new entry was added to history
         const history = await page.evaluate(() => window.APP.calibrationHistory);
@@ -72,9 +72,9 @@ describe('Calibration Timeout Tests', () => {
         const lastAction = history[history.length - 1];
         expect(lastAction.action).toBe('fail');
         
-        // Check that time taken is approximately 10 seconds
-        expect(lastAction.timeTaken).toBeGreaterThan(9.9);
-        expect(lastAction.timeTaken).toBeLessThan(10.5);
+        // Check that time taken is approximately 15 seconds
+        expect(lastAction.timeTaken).toBeGreaterThan(14.9);
+        expect(lastAction.timeTaken).toBeLessThan(15.5);
     });
 
     test('Timeout is cleared when user responds before timeout', async () => {
@@ -138,7 +138,7 @@ describe('Calibration Timeout Tests', () => {
 
     test('Timeout bar restarts for next calibration question', async () => {
         // Let first question timeout
-        await wait(10500);
+        await wait(15500);
         
         // Wait for next question to load
         await wait(500);

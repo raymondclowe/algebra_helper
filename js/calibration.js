@@ -1,7 +1,17 @@
+// ============================================================================
+// CALIBRATION TIMEOUT CONFIGURATION
+// ============================================================================
+// Default timeout duration for calibration questions (in milliseconds).
+// This value determines how long users have to answer during initial calibration.
+// To change the timeout, modify the value below (e.g., 20000 for 20 seconds).
+const CALIBRATION_TIMEOUT_MS = 15000; // 15 seconds
+
+// ============================================================================
 // Calibration Logic
+// ============================================================================
 window.Calibration = {
     timeoutId: null,
-    timeoutDuration: 10000, // 10 seconds in milliseconds
+    timeoutDuration: CALIBRATION_TIMEOUT_MS,
     
     startTimeout: function() {
         // Clear any existing timeout
