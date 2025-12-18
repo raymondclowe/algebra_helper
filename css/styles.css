@@ -530,7 +530,7 @@ body {
 }
 
 .timeout-bar-shrinking {
-    animation: shrinkBar 5s linear forwards;
+    animation: shrinkBar 15s linear forwards;
 }
 
 /* MathJax Word Wrapping and Line Breaking Support */
