@@ -531,12 +531,79 @@ window.StorageManager = {
         return `${dayName} ${month}/${day}`;
     },
     
+    // Calculate learning velocity (rate of improvement over time)
+    // Returns improvement rate in percentage points per hour
+    // Note: This is calculated but not displayed per requirements
+    calculateLearningVelocity: async function(lookbackDays = 7) {
+        try {
+            const questions = await this.getAllQuestions();
+            if (questions.length < 10) {
+                return null; // Need minimum data for meaningful calculation
+            }
+            
+            // Sort by datetime
+            questions.sort((a, b) => a.datetime - b.datetime);
+            
+            // Calculate cutoff time for lookback period
+            const cutoffTime = Date.now() - (lookbackDays * 24 * 60 * 60 * 1000);
+            const recentQuestions = questions.filter(q => q.datetime >= cutoffTime);
+            
+            if (recentQuestions.length < 5) {
+                return null; // Need minimum recent data
+            }
+            
+            // Split into early and late half for comparison
+            const midpoint = Math.floor(recentQuestions.length / 2);
+            const earlyQuestions = recentQuestions.slice(0, midpoint);
+            const lateQuestions = recentQuestions.slice(midpoint);
+            
+            // Calculate accuracy for each period (excluding "I don't know")
+            const calcAccuracy = (questions) => {
+                const answered = questions.filter(q => !q.isDontKnow);
+                if (answered.length === 0) return null;
+                const correct = answered.filter(q => q.isCorrect).length;
+                return (correct / answered.length) * 100;
+            };
+            
+            const earlyAccuracy = calcAccuracy(earlyQuestions);
+            const lateAccuracy = calcAccuracy(lateQuestions);
+            
+            if (earlyAccuracy === null || lateAccuracy === null) {
+                return null;
+            }
+            
+            // Calculate time span in hours
+            const timeSpanMs = lateQuestions[lateQuestions.length - 1].datetime - earlyQuestions[0].datetime;
+            const timeSpanHours = timeSpanMs / (1000 * 60 * 60);
+            
+            if (timeSpanHours < 0.1) {
+                return null; // Too short time span
+            }
+            
+            // Learning velocity = change in accuracy / time
+            const accuracyChange = lateAccuracy - earlyAccuracy;
+            const learningVelocity = accuracyChange / timeSpanHours;
+            
+            return {
+                velocity: this.roundToOneDecimal(learningVelocity),
+                earlyAccuracy: this.roundToOneDecimal(earlyAccuracy),
+                lateAccuracy: this.roundToOneDecimal(lateAccuracy),
+                timeSpanHours: this.roundToOneDecimal(timeSpanHours),
+                questionCount: recentQuestions.length
+            };
+        } catch (error) {
+            console.error('Error calculating learning velocity:', error);
+            return null;
+        }
+    },
+    
     // Export all data (IndexedDB + localStorage) to JSON
     exportData: async function() {
         try {
             const questions = await this.getAllQuestions();
             const stats = this.getStats();
             const dailyStats = this.getDailyStats();
+            const learningVelocity = await this.calculateLearningVelocity();
             
             // Get all localStorage data
             const localStorageData = {};
@@ -558,6 +625,7 @@ window.StorageManager = {
                 questions: questions,
                 stats: stats,
                 dailyStats: dailyStats,
+                learningVelocity: learningVelocity,
                 localStorage: localStorageData
             };
             
