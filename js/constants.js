@@ -5,7 +5,7 @@ const CONFETTI_DELAY_STEP_MS = 30;      // Delay between each confetti spawn
 // Success Sound Constants - Research-backed audio design for learning motivation
 // Based on educational feedback research and game audio design principles
 const SUCCESS_SOUND_BASE_FREQUENCY = 880;  // Hz - A5 note, pleasant and clear
-const SUCCESS_SOUND_INTERVAL_RATIO = 1.26; // Major third interval (5/4 ratio ≈ 1.26)
+const SUCCESS_SOUND_INTERVAL_RATIO = 1.2599; // Major third interval (equal temperament: 2^(4/12))
 const SUCCESS_SOUND_VOLUME = 0.25;         // Volume (0-1) - moderate, not harsh
 const SUCCESS_SOUND_DURATION = 0.35;       // Seconds - optimal 300-400ms range
 const SUCCESS_SOUND_ATTACK = 0.01;         // 10ms attack - fast but not clicky
