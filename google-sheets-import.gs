@@ -83,6 +83,12 @@ function importCSVSessions() {
     var ANALYSIS_COLUMNS = ['Review Notes', 'Self-Assessment'];
     var TOTAL_COLUMNS = NUM_CSV_COLUMNS + ANALYSIS_COLUMNS.length;
     
+    // Column indices for duplicate detection
+    var COL_DATE = 0;
+    var COL_STUDENT_NAME = 1;
+    var COL_DURATION = 2;
+    var COL_TOPICS = 6;
+    
     // Validate header row
     var headers = rows[0];
     
@@ -120,25 +126,32 @@ function importCSVSessions() {
     }
     
     // Check for duplicates based on date, student name, duration, and topics
-    var existingData = [];
+    // Use a Set for O(n) lookup instead of O(n*m) with array.some()
+    var existingSignatures = new Set();
     if (sheet.getLastRow() > 1) {
-      existingData = sheet.getRange(2, 1, sheet.getLastRow() - 1, NUM_CSV_COLUMNS).getValues();
+      var existingData = sheet.getRange(2, 1, sheet.getLastRow() - 1, NUM_CSV_COLUMNS).getValues();
+      existingData.forEach(function(row) {
+        // Create a unique signature for each session
+        var signature = [row[COL_DATE], row[COL_STUDENT_NAME], row[COL_DURATION], row[COL_TOPICS]].join('|');
+        existingSignatures.add(signature);
+      });
     }
     
     var duplicateCount = 0;
     var newRows = [];
     
     dataRows.forEach(function(row) {
-      var isDuplicate = existingData.some(function(existingRow) {
-        // Check if date, student name, duration, and topics match
-        return existingRow[0] == row[0] && 
-               existingRow[1] == row[1] && 
-               existingRow[2] == row[2] && 
-               existingRow[6] == row[6];
-      });
+      // Create signature for this row using strict equality and explicit string conversion
+      var signature = [
+        String(row[COL_DATE]), 
+        String(row[COL_STUDENT_NAME]), 
+        String(row[COL_DURATION]), 
+        String(row[COL_TOPICS])
+      ].join('|');
       
-      if (!isDuplicate) {
+      if (!existingSignatures.has(signature)) {
         newRows.push(row);
+        existingSignatures.add(signature); // Add to set to detect duplicates within the import batch
       } else {
         duplicateCount++;
       }
