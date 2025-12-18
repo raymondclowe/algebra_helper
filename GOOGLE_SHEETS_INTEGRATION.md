@@ -102,15 +102,24 @@ Example:
 
 ### Using the Menu
 
-**Import CSV Sessions**
+**Import CSV Sessions** (Recommended for Homework Tracking)
 - Use this for pre-filtered CSV exports from students
 - Paste CSV content when prompted
-- Data is added to "Algebra Helper Sessions" sheet
+- **NEW**: Automatically detects and skips duplicate sessions
+- **NEW**: Shows top 2-3 topics for each session
+- Data is added to "Algebra Helper Sessions" sheet with homework-friendly columns:
+  - Date, Student Name, Duration (min), Questions Total, Questions Correct, Score %, Topics Practiced
+  - Plus: Review Notes and Self-Assessment columns for your notes
 
-**Import JSON Data** (Advanced)
-- For importing full JSON exports with all question details
+**Import JSON Data** (Advanced - Full Session Analysis)
+- For importing complete JSON exports with all question details
 - Processes raw data and groups into sessions
-- Creates detailed summary sheet
+- **NEW**: Enhanced homework-tracking format with these columns:
+  - Date, Time, Topics Covered, What Was Practiced
+  - Minutes Spent, Questions Answered, Questions Correct
+  - Success Rate %, Notes/Areas to Review, Checked ✓
+- Creates "Algebra Helper Summary" sheet with detailed session information
+- Perfect for in-depth analysis and progress tracking
 
 **Clear Summary Sheet**
 - Removes all data from current sheet
@@ -319,7 +328,56 @@ A: The tool itself doesn't collect data. Follow your school's policies for handl
 
 ---
 
+## What's New in v2.0
+
+### Enhanced Homework Tracking Features ✨
+
+**v2.0** introduces several improvements specifically designed to make practice sessions feel like homework that counts:
+
+1. **Duplicate Detection** 🔍
+   - Automatically detects and skips sessions that have already been imported
+   - Prevents double-counting of homework time
+   - Shows how many duplicates were skipped during import
+
+2. **Top Topics Display** 📚
+   - Shows the top 2-3 topics practiced in each session
+   - Makes it clear what subjects were covered
+   - Example: "Practiced Quadratics, Functions, and Trigonometry (20 questions)"
+
+3. **Enhanced Session Summaries** 📝
+   - "What Was Practiced" column clearly describes the work done
+   - Automatic notes for perfect scores and areas needing review
+   - Short session indicators help track study patterns
+
+4. **Improved Date & Time Tracking** ⏰
+   - Separate Date and Time columns for precise session timing
+   - Makes it easy to see when homework was completed
+   - Helps track study schedule patterns
+
+5. **Homework-Friendly Column Names** ✓
+   - "Minutes Spent" instead of "Duration"
+   - "Success Rate %" instead of "Score"
+   - "Checked ✓" column for marking reviewed sessions
+   - Makes the spreadsheet feel like a homework log
+
+### Benefits for Students
+
+- ✅ **Homework Accountability**: Each session clearly shows time and effort invested
+- ✅ **Progress Visibility**: Easy to see improvement over time
+- ✅ **Topic Coverage**: Parents and teachers can see what topics were practiced
+- ✅ **Effort Recognition**: Minutes spent and questions answered are prominently displayed
+
+---
+
 ## Version History
+
+**v2.0** (December 2024)
+- ✨ Duplicate detection to prevent re-importing same sessions
+- ✨ Top 2-3 topics display for better session summaries
+- ✨ Enhanced homework-tracking presentation
+- ✨ Improved date/time formatting
+- ✨ Better session descriptions
+- ✨ Homework-friendly column names
 
 **v1.0** (December 2024)
 - Initial CSV export implementation

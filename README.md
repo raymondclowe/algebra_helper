@@ -61,15 +61,18 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 ## 📊 Self-Reflection & Analytics
 
-### Google Sheets Integration (No Authentication Required!)
+### Google Sheets Integration v2.0 - Enhanced Homework Tracking! ✨
 
-Export your practice sessions for analysis in Google Sheets **without complex API setup or Google Cloud authentication**. This helps you reflect on your learning patterns and share progress with mentors or parents if desired.
+Export your practice sessions for analysis in Google Sheets **without complex API setup or Google Cloud authentication**. The new v2.0 update makes your practice feel like homework that counts toward requirements!
 
 #### Key Features
 - ✅ **No Google API Keys or OAuth** - Simple CSV export/import workflow
 - ✅ **Privacy-Friendly** - You control when and what to export
 - ✅ **Pre-Filtered Data** - Only meaningful sessions (>2 min, >50% correct) exported
 - ✅ **Easy Setup** - Manual CSV import or optional one-time Apps Script installation
+- ✨ **NEW: Duplicate Detection** - Prevents re-importing the same sessions
+- ✨ **NEW: Top Topics Display** - Shows 2-3 main topics practiced per session
+- ✨ **NEW: Homework-Friendly Format** - Clear, professional presentation for tracking requirements
 
 #### Quick Start
 
