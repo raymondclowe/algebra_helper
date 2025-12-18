@@ -661,3 +661,11 @@ Removed, not necessary in MathJax 4
 #mc-options button:has(mjx-container mjx-math[style*="width"]) mjx-container {
     font-size: 0.85em !important;
 }
+
+
+#debug-mode-indicator {margin: 4rem}
+
+button.absolute, 
+.absolute {
+    margin: 5px; /* Adjust the pixel value as needed */
+}
