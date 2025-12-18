@@ -164,7 +164,7 @@ window.Gamification = {
             const gain1 = ctx.createGain();
             osc1.type = waveType;
             osc1.frequency.value = SUCCESS_SOUND_BASE_FREQUENCY * pitchMultiplier;
-            osc1.detune.value = SUCCESS_SOUND_DETUNE_AMOUNT; // Slight detuning for richness
+            osc1.detune.value = SUCCESS_SOUND_DETUNE_AMOUNT; // Slight detuning for timbral richness
             osc1.connect(gain1);
             gain1.connect(ctx.destination);
             
@@ -189,7 +189,7 @@ window.Gamification = {
             const gain2 = ctx.createGain();
             osc2.type = waveType;
             osc2.frequency.value = SUCCESS_SOUND_BASE_FREQUENCY * SUCCESS_SOUND_INTERVAL_RATIO * pitchMultiplier;
-            osc2.detune.value = -SUCCESS_SOUND_DETUNE_AMOUNT; // Opposite detuning for stereo richness
+            osc2.detune.value = -SUCCESS_SOUND_DETUNE_AMOUNT; // Opposite detuning for timbral richness
             osc2.connect(gain2);
             gain2.connect(ctx.destination);
             
