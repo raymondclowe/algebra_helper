@@ -697,6 +697,7 @@ window.StorageManager = {
     },
     
     // Export all data (IndexedDB + localStorage) to JSON
+    // Learning velocity included per feature requirement: "export data from local storage/indexdb to json for analytics dashboard"
     exportData: async function() {
         try {
             const questions = await this.getAllQuestions();
