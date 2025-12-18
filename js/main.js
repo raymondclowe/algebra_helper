@@ -23,6 +23,9 @@ window.APP.init = async function() {
         // Initialize explanation modal
         window.ExplanationModal.init();
         
+        // Initialize help modal
+        window.HelpModal.init();
+        
         // Start first question
         window.UI.nextQuestion();
         
