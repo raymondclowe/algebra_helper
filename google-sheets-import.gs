@@ -131,8 +131,13 @@ function importCSVSessions() {
     if (sheet.getLastRow() > 1) {
       var existingData = sheet.getRange(2, 1, sheet.getLastRow() - 1, NUM_CSV_COLUMNS).getValues();
       existingData.forEach(function(row) {
-        // Create a unique signature for each session
-        var signature = [row[COL_DATE], row[COL_STUDENT_NAME], row[COL_DURATION], row[COL_TOPICS]].join('|');
+        // Create a unique signature using JSON.stringify to avoid delimiter collision
+        var signature = JSON.stringify([
+          String(row[COL_DATE]), 
+          String(row[COL_STUDENT_NAME]), 
+          String(row[COL_DURATION]), 
+          String(row[COL_TOPICS])
+        ]);
         existingSignatures.add(signature);
       });
     }
@@ -141,13 +146,13 @@ function importCSVSessions() {
     var newRows = [];
     
     dataRows.forEach(function(row) {
-      // Create signature for this row using strict equality and explicit string conversion
-      var signature = [
+      // Create signature using JSON.stringify for robust comparison
+      var signature = JSON.stringify([
         String(row[COL_DATE]), 
         String(row[COL_STUDENT_NAME]), 
         String(row[COL_DURATION]), 
         String(row[COL_TOPICS])
-      ].join('|');
+      ]);
       
       if (!existingSignatures.has(signature)) {
         newRows.push(row);
