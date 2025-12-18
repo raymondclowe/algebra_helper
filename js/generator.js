@@ -287,8 +287,8 @@ window.Generator = {
                 continue;
             }
             
-            // This question is acceptable
-            this.recordQuestionAsked(question); // Record without answer (will be updated later)
+            // This question is acceptable - return it
+            // Note: Recording is handled by drill.js when the user answers
             return question;
         }
         
@@ -309,27 +309,16 @@ window.Generator = {
                     continue;
                 }
                 
-                this.recordQuestionAsked(question);
-                return question;
-            }
-        }
-        
-        // Fallback 2: Allow repeating a recently answered incorrectly question
-        const sessionLog = window.APP.sessionQuestions;
-        for (const [signature, entry] of sessionLog.entries()) {
-            if (this.isRecentlyIncorrect(signature)) {
-                // Generate a new instance of this question type at the appropriate level
-                const question = this.getQuestionForLevel(level);
-                this.recordQuestionAsked(question);
+                // Found an acceptable question at adjacent level
                 return question;
             }
         }
         
         // Final fallback: Just generate a question at the current level
         // This ensures we always return a question
-        const question = this.getQuestionForLevel(level);
-        this.recordQuestionAsked(question);
-        return question;
+        // The main loop and fallback 1 already check for recently incorrect questions
+        // If we reach here, it means we've exhausted unique options, so return any question
+        return this.getQuestionForLevel(level);
     },
     
     // Get a question for a specific level (extracted from getQuestion for reuse)
