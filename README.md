@@ -59,6 +59,48 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 ---
 
+## 📊 Self-Reflection & Analytics
+
+### Google Sheets Integration (No Authentication Required!)
+
+Export your practice sessions for analysis in Google Sheets **without complex API setup or Google Cloud authentication**. This helps you reflect on your learning patterns and share progress with mentors or parents if desired.
+
+#### Key Features
+- ✅ **No Google API Keys or OAuth** - Simple CSV export/import workflow
+- ✅ **Privacy-Friendly** - You control when and what to export
+- ✅ **Pre-Filtered Data** - Only meaningful sessions (>2 min, >50% correct) exported
+- ✅ **Easy Setup** - Manual CSV import or optional one-time Apps Script installation
+
+#### Quick Start
+
+**Exporting Your Sessions:**
+1. Complete practice sessions (>2 minutes with good accuracy)
+2. Click Stats (📈) → "📊 Export Sessions" button
+3. Optional: Share the downloaded CSV file with mentor or parent for review
+
+**Analyzing in Google Sheets:**
+1. Open Google Sheets
+2. File → Import → Upload your CSV file
+3. Choose "Append to current sheet" to combine multiple exports
+4. Review your progress trends and patterns
+
+**Advanced:** Install the provided Google Apps Script (one-time setup) for a custom import menu with additional features.
+
+#### Exported Data Includes
+- Date of practice session
+- Your name (if set)
+- Duration and question counts
+- Score percentage
+- Topics practiced with breakdown
+
+#### Documentation
+- 📖 **[GOOGLE_SHEETS_INTEGRATION.md](GOOGLE_SHEETS_INTEGRATION.md)** - Complete integration guide
+- 📚 **[ANALYTICS_GUIDE.md](ANALYTICS_GUIDE.md)** - Comprehensive analysis guide
+- 📝 **[google-sheets-import.gs](google-sheets-import.gs)** - Apps Script code (optional)
+- 📊 **[sample-export.csv](sample-export.csv)** - Example export file
+
+---
+
 ## 📖 Educational Philosophy
 
 Algebra Helper is built on research-backed pedagogical principles designed for student self-help. For a comprehensive review of the learning science foundation, see [PEDAGOGY.md](PEDAGOGY.md).

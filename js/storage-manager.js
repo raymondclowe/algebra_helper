@@ -5,6 +5,10 @@ window.StorageManager = {
     DB_VERSION: 2, // Upgraded to support enhanced question tracking
     STORE_NAME: 'questions',
     
+    // Session export filtering constants
+    MIN_SESSION_DURATION_MINUTES: 2,
+    MIN_CORRECT_RATE: 0.5, // 50%
+    SESSION_GAP_MS: 30 * 60 * 1000, // 30 minutes in milliseconds
     // Helper function for rounding to 1 decimal place
     roundToOneDecimal: function(value) {
         return Math.round(value * 10) / 10;
@@ -624,6 +628,182 @@ window.StorageManager = {
             });
         } catch (error) {
             console.error('Error importing data:', error);
+            return { success: false, error: error.message };
+        }
+    },
+    
+    // Helper function to escape CSV field values
+    escapeCSVField: function(value) {
+        // Convert to string and escape quotes by doubling them
+        const stringValue = String(value);
+        if (stringValue.includes('"') || stringValue.includes(',') || stringValue.includes('\n')) {
+            return `"${stringValue.replace(/"/g, '""')}"`;
+        }
+        return stringValue;
+    },
+    
+    // Helper function to calculate session statistics
+    calculateSessionStats: function(questions) {
+        let correctCount = 0;
+        let answeredCount = 0;
+        const topicCounts = {};
+        
+        questions.forEach(q => {
+            if (!q.isDontKnow) {
+                answeredCount++;
+                if (q.isCorrect) correctCount++;
+            }
+            
+            // Track topics
+            const topic = q.topic || 'Unknown';
+            topicCounts[topic] = (topicCounts[topic] || 0) + 1;
+        });
+        
+        const scorePercent = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+        const correctRate = answeredCount > 0 ? correctCount / answeredCount : 0;
+        
+        return {
+            correctCount,
+            answeredCount,
+            topicCounts,
+            scorePercent,
+            correctRate
+        };
+    },
+    
+    // Group questions into sessions (30 min gap threshold)
+    groupIntoSessions: function(questions) {
+        if (questions.length === 0) return [];
+        
+        // Sort questions by datetime
+        questions.sort((a, b) => a.datetime - b.datetime);
+        
+        const sessions = [];
+        let currentSession = {
+            startTime: questions[0].datetime,
+            endTime: questions[0].datetime,
+            questions: [questions[0]]
+        };
+        
+        for (let i = 1; i < questions.length; i++) {
+            const q = questions[i];
+            const timeSinceLastQuestion = q.datetime - currentSession.endTime;
+            
+            if (timeSinceLastQuestion > this.SESSION_GAP_MS) {
+                // Start new session
+                sessions.push(currentSession);
+                currentSession = {
+                    startTime: q.datetime,
+                    endTime: q.datetime,
+                    questions: [q]
+                };
+            } else {
+                // Add to current session
+                currentSession.questions.push(q);
+                currentSession.endTime = q.datetime;
+            }
+        }
+        
+        // Add last session
+        sessions.push(currentSession);
+        
+        return sessions;
+    },
+    
+    // Export sessions to CSV format for Google Sheets
+    exportSessionsCSV: async function() {
+        try {
+            const questions = await this.getAllQuestions();
+            const studentName = this.getStudentName() || 'Anonymous';
+            
+            // Group into sessions
+            const sessions = this.groupIntoSessions(questions);
+            
+            // Filter sessions using configured thresholds
+            const filteredSessions = sessions.filter(session => {
+                const durationMin = (session.endTime - session.startTime) / 1000 / 60;
+                const stats = this.calculateSessionStats(session.questions);
+                
+                // Session must meet both duration and accuracy thresholds
+                return durationMin > this.MIN_SESSION_DURATION_MINUTES && 
+                       stats.correctRate > this.MIN_CORRECT_RATE;
+            });
+            
+            if (filteredSessions.length === 0) {
+                const minMinutes = this.MIN_SESSION_DURATION_MINUTES;
+                const minPercent = Math.round(this.MIN_CORRECT_RATE * 100);
+                return { 
+                    success: false, 
+                    error: `No sessions meet the criteria (>${minMinutes} minutes and >${minPercent}% correct)` 
+                };
+            }
+            
+            // Build CSV content
+            const csvRows = [];
+            
+            // Header row
+            csvRows.push([
+                'Date',
+                'Student Name',
+                'Duration (min)',
+                'Questions Total',
+                'Questions Correct',
+                'Score %',
+                'Topics Practiced'
+            ].join(','));
+            
+            // Data rows
+            filteredSessions.forEach(session => {
+                const date = new Date(session.startTime).toLocaleDateString();
+                const durationMin = Math.round((session.endTime - session.startTime) / 1000 / 60);
+                
+                // Calculate statistics using helper
+                const stats = this.calculateSessionStats(session.questions);
+                
+                // Build topics string
+                const topicsStr = Object.entries(stats.topicCounts)
+                    .map(([topic, count]) => `${topic}(${count})`)
+                    .join('; ');
+                
+                // CSV row - properly escape fields
+                csvRows.push([
+                    date,
+                    this.escapeCSVField(studentName),
+                    durationMin,
+                    stats.answeredCount,
+                    stats.correctCount,
+                    stats.scorePercent,
+                    this.escapeCSVField(topicsStr)
+                ].join(','));
+            });
+            
+            const csvContent = csvRows.join('\n');
+            
+            // Create downloadable CSV file
+            const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            
+            // Create filename with timestamp
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            const filename = `algebra-helper-sessions-${timestamp}.csv`;
+            
+            // Trigger download
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            return { 
+                success: true, 
+                filename: filename, 
+                sessionCount: filteredSessions.length,
+                totalSessions: sessions.length
+            };
+        } catch (error) {
+            console.error('Error exporting CSV:', error);
             return { success: false, error: error.message };
         }
     }

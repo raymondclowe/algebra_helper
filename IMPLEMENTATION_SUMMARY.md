@@ -2,7 +2,7 @@
 
 ## Overview
 
-This implementation adds comprehensive data tracking, export/import functionality, and analytics tools to Algebra Helper, enabling students, teachers, and parents to analyze learning patterns and progress.
+This implementation adds comprehensive data tracking, export/import functionality, and analytics tools to Algebra Helper, enabling students, mentors, and parents to analyze learning patterns and progress.
 
 ## What Was Implemented
 
@@ -246,7 +246,7 @@ Stats Modal with Export/Import Buttons:
    - View session summaries (time, topics, accuracy)
    - Track progress over time
 
-2. **Parent/Teacher Monitoring**
+2. **Mentor or Parent Monitoring**
    - Student exports and shares JSON file
    - Import into Google Sheets for review
    - Run Python analytics for detailed insights
@@ -270,7 +270,7 @@ Ideas for further development:
 - Real-time hints tracking (infrastructure in place)
 - ML-based pattern detection
 - Automatic recommendations in app
-- Teacher dashboard with multiple student data
+- Mentor dashboard with multiple student data
 - Advanced visualizations in Google Sheets
 - Integration with learning management systems
 - Mobile app with sync capability

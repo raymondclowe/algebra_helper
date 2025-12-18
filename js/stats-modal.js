@@ -45,7 +45,10 @@ window.StatsModal = {
                     
                     <!-- Footer -->
                     <div class="bg-gray-750 p-4 border-t border-gray-700 flex justify-between items-center flex-wrap gap-2">
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 flex-wrap">
+                            <button onclick="StatsModal.exportSessionsCSV()" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white text-sm font-bold rounded" title="Export practice sessions for analysis (filtered: >2min, >50% correct)">
+                                📊 Export Sessions
+                            </button>
                             <button onclick="StatsModal.exportData()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded">
                                 📥 Export Data
                             </button>
@@ -358,6 +361,39 @@ window.StatsModal = {
                     setTimeout(() => errorMsg.remove(), 3000);
                 });
         };
+    },
+    
+    // Export sessions to CSV for self-analysis
+    exportSessionsCSV: async function() {
+        try {
+            const result = await window.StorageManager.exportSessionsCSV();
+            
+            if (result.success) {
+                // Show success message with details
+                const successMsg = document.createElement('div');
+                successMsg.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+                successMsg.innerHTML = `
+                    <div class="font-bold">✓ CSV Export Successful!</div>
+                    <div class="text-sm mt-1">Exported ${result.sessionCount} of ${result.totalSessions} sessions</div>
+                    <div class="text-xs mt-1 opacity-90">(Filtered: >2 minutes and >50% correct)</div>
+                `;
+                document.body.appendChild(successMsg);
+                
+                setTimeout(() => successMsg.remove(), 5000);
+            } else {
+                throw new Error(result.error || 'Export failed');
+            }
+        } catch (error) {
+            console.error('Error exporting CSV:', error);
+            
+            // Show error message
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            errorMsg.textContent = '✗ Error exporting CSV: ' + error.message;
+            document.body.appendChild(errorMsg);
+            
+            setTimeout(() => errorMsg.remove(), 4000);
+        }
     },
     
     // Export data to JSON file
