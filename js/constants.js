@@ -2,10 +2,19 @@
 const AUTO_ADVANCE_DELAY_MS = 1500;     // Time before auto-advancing after correct answer
 const CONFETTI_COUNT = 30;              // Number of confetti particles
 const CONFETTI_DELAY_STEP_MS = 30;      // Delay between each confetti spawn
-const SUCCESS_SOUND_FREQUENCY = 800;    // Hz for success beep
-const SUCCESS_SOUND_VOLUME = 0.3;       // Volume (0-1)
-const SUCCESS_SOUND_DURATION = 0.3;     // Seconds
-const SUCCESS_SOUND_MIN_GAIN = 0.01;    // Minimum gain for exponential ramp
+// Success Sound Constants - Research-backed audio design for learning motivation
+// Based on educational feedback research and game audio design principles
+const SUCCESS_SOUND_BASE_FREQUENCY = 880;  // Hz - A5 note, pleasant and clear
+const SUCCESS_SOUND_INTERVAL_RATIO = 1.26; // Major third interval (5/4 ratio ≈ 1.26)
+const SUCCESS_SOUND_VOLUME = 0.25;         // Volume (0-1) - moderate, not harsh
+const SUCCESS_SOUND_DURATION = 0.35;       // Seconds - optimal 300-400ms range
+const SUCCESS_SOUND_ATTACK = 0.01;         // 10ms attack - fast but not clicky
+const SUCCESS_SOUND_DECAY = 0.20;          // 200ms decay
+const SUCCESS_SOUND_SUSTAIN = 0.05;        // Very low sustain level
+const SUCCESS_SOUND_RELEASE = 0.12;        // 120ms release
+const SUCCESS_SOUND_DETUNE_AMOUNT = 3;     // Cents - slight detuning for richness
+const SUCCESS_SOUND_PITCH_VARIATION = 2;   // Semitones - random variation range (±2)
+const SUCCESS_SOUND_TIMING_VARIATION = 0.015; // Seconds - ±15ms timing variation
 const FLOAT_ANIMATION_DELAY_MS = 50;    // Delay before starting float animation
 const FLOAT_ANIMATION_DURATION_MS = 800; // Duration of float animation
 const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element
