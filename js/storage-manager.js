@@ -351,6 +351,105 @@ window.StorageManager = {
         return 0;
     },
     
+    // Get topics that need review based on spaced repetition algorithm
+    // Returns topics sorted by review priority (most urgent first)
+    getTopicsNeedingReview: async function() {
+        try {
+            const topicStats = await this.getTopicStats();
+            const reviewTopics = [];
+            
+            // Thresholds for determining if a topic needs review
+            const MIN_ATTEMPTS = 3; // Need at least 3 attempts to evaluate
+            const NEEDS_REVIEW_THRESHOLD = 70; // Below 70% accuracy needs review
+            const MASTERED_THRESHOLD = 85; // Above 85% is mastered
+            
+            Object.entries(topicStats).forEach(([topic, stats]) => {
+                const answeredCount = stats.correct + stats.incorrect;
+                
+                // Skip if not enough data
+                if (answeredCount < MIN_ATTEMPTS) {
+                    return;
+                }
+                
+                const accuracy = stats.averageScore;
+                
+                // Classify topic status
+                let status = 'working';
+                if (accuracy >= MASTERED_THRESHOLD) {
+                    status = 'mastered';
+                } else if (accuracy < NEEDS_REVIEW_THRESHOLD) {
+                    status = 'needs_review';
+                }
+                
+                // Calculate time since last attempt
+                const lastAttempt = stats.recentQuestions[stats.recentQuestions.length - 1];
+                const daysSinceLastAttempt = lastAttempt ? 
+                    (Date.now() - lastAttempt.datetime) / (1000 * 60 * 60 * 24) : 999;
+                
+                // Calculate review urgency (higher = more urgent)
+                let urgency = 0;
+                if (status === 'needs_review') {
+                    // More urgent if accuracy is low and hasn't been practiced recently
+                    urgency = (100 - accuracy) * (1 + Math.min(daysSinceLastAttempt / 7, 2));
+                } else if (status === 'working') {
+                    // Moderate urgency for topics being worked on
+                    urgency = (MASTERED_THRESHOLD - accuracy) * (1 + Math.min(daysSinceLastAttempt / 14, 1));
+                } else if (status === 'mastered') {
+                    // Low urgency for mastered topics (maintenance review)
+                    if (daysSinceLastAttempt > 7) {
+                        urgency = Math.min(daysSinceLastAttempt / 7, 10);
+                    }
+                }
+                
+                reviewTopics.push({
+                    topic,
+                    status,
+                    accuracy,
+                    attempts: answeredCount,
+                    daysSinceLastAttempt: Math.round(daysSinceLastAttempt * 10) / 10,
+                    urgency: Math.round(urgency * 10) / 10
+                });
+            });
+            
+            // Sort by urgency (highest first)
+            reviewTopics.sort((a, b) => b.urgency - a.urgency);
+            
+            return reviewTopics;
+        } catch (error) {
+            console.error('Error getting topics needing review:', error);
+            return [];
+        }
+    },
+    
+    // Get mastery summary for dashboard
+    getMasterySummary: async function() {
+        try {
+            const reviewTopics = await this.getTopicsNeedingReview();
+            
+            const summary = {
+                mastered: reviewTopics.filter(t => t.status === 'mastered').length,
+                needsReview: reviewTopics.filter(t => t.status === 'needs_review').length,
+                working: reviewTopics.filter(t => t.status === 'working').length,
+                total: reviewTopics.length,
+                topReviewTopics: reviewTopics
+                    .filter(t => t.status === 'needs_review')
+                    .slice(0, 5)
+                    .map(t => ({ topic: t.topic, accuracy: t.accuracy }))
+            };
+            
+            return summary;
+        } catch (error) {
+            console.error('Error getting mastery summary:', error);
+            return {
+                mastered: 0,
+                needsReview: 0,
+                working: 0,
+                total: 0,
+                topReviewTopics: []
+            };
+        }
+    },
+    
     // Get daily stats (time spent today)
     getDailyStats: function() {
         const dailyStatsJSON = localStorage.getItem('algebraHelperDailyStats');

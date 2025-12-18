@@ -31,6 +31,29 @@ window.StatsModal = {
                             </div>
                         </div>
                         
+                        <!-- Mastery Summary -->
+                        <div id="mastery-summary-container" class="hidden">
+                            <h3 class="text-xl font-bold text-gray-300 mb-4 flex items-center gap-2">
+                                <span>🎯</span>
+                                <span>Mastery Overview</span>
+                            </h3>
+                            <div class="grid grid-cols-3 gap-4 mb-4">
+                                <div class="bg-green-900 bg-opacity-30 border border-green-500 p-4 rounded-lg text-center">
+                                    <div class="text-3xl font-bold text-green-400" id="mastery-mastered-count">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">Mastered</div>
+                                </div>
+                                <div class="bg-yellow-900 bg-opacity-30 border border-yellow-500 p-4 rounded-lg text-center">
+                                    <div class="text-3xl font-bold text-yellow-400" id="mastery-working-count">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">Working On</div>
+                                </div>
+                                <div class="bg-red-900 bg-opacity-30 border border-red-500 p-4 rounded-lg text-center">
+                                    <div class="text-3xl font-bold text-red-400" id="mastery-review-count">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">Needs Review</div>
+                                </div>
+                            </div>
+                            <div id="top-review-topics" class="space-y-2"></div>
+                        </div>
+                        
                         <!-- Topic Progress -->
                         <div>
                             <h3 class="text-xl font-bold text-gray-300 mb-4 flex items-center gap-2">
@@ -116,6 +139,10 @@ window.StatsModal = {
             // Get topic statistics
             const topicStats = await window.StorageManager.getTopicStats();
             await this.displayTopicProgress(topicStats);
+            
+            // Get and display mastery summary
+            const masterySummary = await window.StorageManager.getMasterySummary();
+            this.displayMasterySummary(masterySummary);
             
         } catch (error) {
             console.error('Error loading stats:', error);
@@ -302,6 +329,45 @@ window.StatsModal = {
         if (status === "Doing Great") return "💪";
         if (status === "Progressing Well") return "📈";
         return "🎯";
+    },
+    
+    // Display mastery summary
+    displayMasterySummary: function(summary) {
+        const container = document.getElementById('mastery-summary-container');
+        if (!container) return;
+        
+        // Only show if there's meaningful data
+        if (summary.total === 0) {
+            container.classList.add('hidden');
+            return;
+        }
+        
+        container.classList.remove('hidden');
+        
+        // Update counts
+        document.getElementById('mastery-mastered-count').textContent = summary.mastered;
+        document.getElementById('mastery-working-count').textContent = summary.working;
+        document.getElementById('mastery-review-count').textContent = summary.needsReview;
+        
+        // Display top topics needing review
+        const topReviewDiv = document.getElementById('top-review-topics');
+        if (summary.topReviewTopics.length === 0) {
+            topReviewDiv.innerHTML = '<div class="text-gray-500 text-sm italic">No topics need urgent review! Great work! 🎉</div>';
+        } else {
+            const topicsHTML = summary.topReviewTopics.map(t => `
+                <div class="bg-red-900 bg-opacity-20 border border-red-700 p-3 rounded-lg flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <span class="text-red-400">⚠️</span>
+                        <span class="text-gray-300 font-semibold">${t.topic}</span>
+                    </div>
+                    <div class="text-red-400 font-bold">${t.accuracy}%</div>
+                </div>
+            `).join('');
+            topReviewDiv.innerHTML = `
+                <div class="text-sm text-gray-400 mb-2">Top Topics to Review:</div>
+                ${topicsHTML}
+            `;
+        }
     },
     
     // Clear all data with confirmation
