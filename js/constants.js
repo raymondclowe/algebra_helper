@@ -15,6 +15,7 @@ const SUCCESS_SOUND_RELEASE = 0.12;        // 120ms release
 const SUCCESS_SOUND_DETUNE_AMOUNT = 3;     // Cents - slight detuning for richness
 const SUCCESS_SOUND_PITCH_VARIATION = 2;   // Semitones - random variation range (±2)
 const SUCCESS_SOUND_TIMING_VARIATION = 0.015; // Seconds - ±15ms timing variation
+const SUCCESS_SOUND_ARPEGGIO_DELAY = 0.08; // Seconds - 80ms delay between notes for arpeggio effect
 const FLOAT_ANIMATION_DELAY_MS = 50;    // Delay before starting float animation
 const FLOAT_ANIMATION_DURATION_MS = 800; // Duration of float animation
 const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element

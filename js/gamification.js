@@ -169,19 +169,20 @@ window.Gamification = {
             gain1.connect(ctx.destination);
             
             // ADSR Envelope for first note
+            const attackEnd = now + SUCCESS_SOUND_ATTACK;
+            const decayEnd = attackEnd + SUCCESS_SOUND_DECAY;
+            const sustainEnd = now + actualDuration - SUCCESS_SOUND_RELEASE;
+            const releaseEnd = sustainEnd + SUCCESS_SOUND_RELEASE;
+            
             gain1.gain.setValueAtTime(0, now);
             // Attack
-            gain1.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME, now + SUCCESS_SOUND_ATTACK);
+            gain1.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME, attackEnd);
             // Decay to sustain
-            gain1.gain.linearRampToValueAtTime(
-                SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN, 
-                now + SUCCESS_SOUND_ATTACK + SUCCESS_SOUND_DECAY
-            );
-            // Sustain (hold for the remaining duration minus release time)
-            const sustainEnd = now + actualDuration - SUCCESS_SOUND_RELEASE;
+            gain1.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN, decayEnd);
+            // Sustain (hold until release starts)
             gain1.gain.setValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN, sustainEnd);
             // Release to zero
-            gain1.gain.linearRampToValueAtTime(0.001, now + actualDuration);
+            gain1.gain.linearRampToValueAtTime(0.001, releaseEnd);
             
             // Second note (major third) - starts slightly after first for arpeggio effect
             const osc2 = ctx.createOscillator();
@@ -192,34 +193,32 @@ window.Gamification = {
             osc2.connect(gain2);
             gain2.connect(ctx.destination);
             
-            const arpeggioDelay = 0.08; // 80ms delay for pleasant arpeggio
+            const arpeggioDelay = SUCCESS_SOUND_ARPEGGIO_DELAY;
             
             // ADSR Envelope for second note
-            gain2.gain.setValueAtTime(0, now + arpeggioDelay);
+            const startTime2 = now + arpeggioDelay;
+            const attackEnd2 = startTime2 + SUCCESS_SOUND_ATTACK;
+            const decayEnd2 = attackEnd2 + SUCCESS_SOUND_DECAY;
+            const sustainEnd2 = startTime2 + actualDuration - SUCCESS_SOUND_RELEASE;
+            const releaseEnd2 = sustainEnd2 + SUCCESS_SOUND_RELEASE;
+            
+            gain2.gain.setValueAtTime(0, startTime2);
             // Attack
-            gain2.gain.linearRampToValueAtTime(
-                SUCCESS_SOUND_VOLUME * 0.85, // Slightly quieter than root
-                now + arpeggioDelay + SUCCESS_SOUND_ATTACK
-            );
+            gain2.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME * 0.85, attackEnd2); // Slightly quieter than root
             // Decay to sustain
-            gain2.gain.linearRampToValueAtTime(
-                SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN * 0.85,
-                now + arpeggioDelay + SUCCESS_SOUND_ATTACK + SUCCESS_SOUND_DECAY
-            );
-            // Sustain (hold for the remaining duration minus release time)
-            const sustainEnd2 = now + arpeggioDelay + actualDuration - SUCCESS_SOUND_RELEASE;
+            gain2.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN * 0.85, decayEnd2);
+            // Sustain (hold until release starts)
             gain2.gain.setValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN * 0.85, sustainEnd2);
             // Release to zero
-            gain2.gain.linearRampToValueAtTime(0.001, now + arpeggioDelay + actualDuration);
+            gain2.gain.linearRampToValueAtTime(0.001, releaseEnd2);
             
             // Start and stop oscillators
             // Stop slightly after the release completes to ensure smooth fadeout
-            const stopTime = actualDuration + SUCCESS_SOUND_RELEASE + 0.01;
             osc1.start(now);
-            osc1.stop(now + stopTime);
+            osc1.stop(releaseEnd + 0.01);
             
-            osc2.start(now + arpeggioDelay);
-            osc2.stop(now + arpeggioDelay + stopTime);
+            osc2.start(startTime2);
+            osc2.stop(releaseEnd2 + 0.01);
             
         } catch (e) {
             // Silent fail if audio not supported
