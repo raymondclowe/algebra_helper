@@ -73,6 +73,14 @@ window.UI = {
     
     navigateHistory: async function(direction) {
         try {
+            // Guard clause: Prevent navigation when button should be disabled
+            // Direction -1 (right button → forward to newer/present): Only allow when viewing history
+            // Direction 1 (left button ← back to older): Allow when not viewing history with history available, or in history not at oldest
+            if (direction === -1 && !window.APP.isViewingHistory) {
+                // Trying to go forward/next when already at present - button should be disabled
+                return;
+            }
+            
             // Load question history if not already loaded
             if (window.APP.questionHistory.length === 0) {
                 window.APP.questionHistory = await window.StorageManager.getAllQuestions();
