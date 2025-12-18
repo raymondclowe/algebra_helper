@@ -132,27 +132,94 @@ window.Gamification = {
     },
     
     playSuccessSound: function() {
-        // Create a simple success sound using Web Audio API
+        // Create a research-backed success sound using Web Audio API
+        // Design based on educational feedback research and game audio principles
+        // Features: two-note arpeggio, ADSR envelope, subtle variation for naturalness
         try {
             // Initialize audio context once
             if (!window.APP.audioContext) {
                 window.APP.audioContext = new (window.AudioContext || window.webkitAudioContext)();
             }
             
-            const oscillator = window.APP.audioContext.createOscillator();
-            const gainNode = window.APP.audioContext.createGain();
+            const ctx = window.APP.audioContext;
+            const now = ctx.currentTime;
             
-            oscillator.connect(gainNode);
-            gainNode.connect(window.APP.audioContext.destination);
+            // Subtle parameter variation for naturalness and reduced habituation
+            // Random pitch transposition: ±2 semitones (multiply by 2^(semitones/12))
+            const pitchVariation = (Math.random() * SUCCESS_SOUND_PITCH_VARIATION * 2) - SUCCESS_SOUND_PITCH_VARIATION;
+            const pitchMultiplier = Math.pow(2, pitchVariation / 12);
             
-            oscillator.frequency.value = SUCCESS_SOUND_FREQUENCY;
-            oscillator.type = 'sine';
+            // Random timing variation: ±15ms
+            const timingVariation = (Math.random() * SUCCESS_SOUND_TIMING_VARIATION * 2) - SUCCESS_SOUND_TIMING_VARIATION;
+            const actualDuration = SUCCESS_SOUND_DURATION + timingVariation;
             
-            gainNode.gain.setValueAtTime(SUCCESS_SOUND_VOLUME, window.APP.audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(SUCCESS_SOUND_MIN_GAIN, window.APP.audioContext.currentTime + SUCCESS_SOUND_DURATION);
+            // Occasionally switch waveform for variety (80% sine, 20% triangle)
+            const waveType = Math.random() < 0.8 ? 'sine' : 'triangle';
             
-            oscillator.start(window.APP.audioContext.currentTime);
-            oscillator.stop(window.APP.audioContext.currentTime + SUCCESS_SOUND_DURATION);
+            // Create two-note arpeggio (root and major third)
+            // Two oscillators for richer, more pleasant sound
+            
+            // First note (root) - starts immediately
+            const osc1 = ctx.createOscillator();
+            const gain1 = ctx.createGain();
+            osc1.type = waveType;
+            osc1.frequency.value = SUCCESS_SOUND_BASE_FREQUENCY * pitchMultiplier;
+            osc1.detune.value = SUCCESS_SOUND_DETUNE_AMOUNT; // Slight detuning for timbral richness
+            osc1.connect(gain1);
+            gain1.connect(ctx.destination);
+            
+            // ADSR Envelope for first note
+            const attackEnd = now + SUCCESS_SOUND_ATTACK;
+            const decayEnd = attackEnd + SUCCESS_SOUND_DECAY;
+            const sustainEnd = now + actualDuration - SUCCESS_SOUND_RELEASE;
+            const releaseEnd = sustainEnd + SUCCESS_SOUND_RELEASE;
+            
+            gain1.gain.setValueAtTime(0, now);
+            // Attack
+            gain1.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME, attackEnd);
+            // Decay to sustain
+            gain1.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN, decayEnd);
+            // Sustain (hold until release starts)
+            gain1.gain.setValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN, sustainEnd);
+            // Release to zero
+            gain1.gain.linearRampToValueAtTime(SUCCESS_SOUND_MIN_GAIN, releaseEnd);
+            
+            // Second note (major third) - starts slightly after first for arpeggio effect
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.type = waveType;
+            osc2.frequency.value = SUCCESS_SOUND_BASE_FREQUENCY * SUCCESS_SOUND_INTERVAL_RATIO * pitchMultiplier;
+            osc2.detune.value = -SUCCESS_SOUND_DETUNE_AMOUNT; // Opposite detuning for timbral richness
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            
+            const arpeggioDelay = SUCCESS_SOUND_ARPEGGIO_DELAY;
+            
+            // ADSR Envelope for second note
+            const startTime2 = now + arpeggioDelay;
+            const attackEnd2 = startTime2 + SUCCESS_SOUND_ATTACK;
+            const decayEnd2 = attackEnd2 + SUCCESS_SOUND_DECAY;
+            const sustainEnd2 = startTime2 + actualDuration - SUCCESS_SOUND_RELEASE;
+            const releaseEnd2 = sustainEnd2 + SUCCESS_SOUND_RELEASE;
+            
+            gain2.gain.setValueAtTime(0, startTime2);
+            // Attack
+            gain2.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME * 0.85, attackEnd2); // Slightly quieter than root
+            // Decay to sustain
+            gain2.gain.linearRampToValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN * 0.85, decayEnd2);
+            // Sustain (hold until release starts)
+            gain2.gain.setValueAtTime(SUCCESS_SOUND_VOLUME * SUCCESS_SOUND_SUSTAIN * 0.85, sustainEnd2);
+            // Release to zero
+            gain2.gain.linearRampToValueAtTime(SUCCESS_SOUND_MIN_GAIN, releaseEnd2);
+            
+            // Start and stop oscillators
+            // Stop slightly after the release completes to ensure smooth fadeout
+            osc1.start(now);
+            osc1.stop(releaseEnd + SUCCESS_SOUND_STOP_BUFFER);
+            
+            osc2.start(startTime2);
+            osc2.stop(releaseEnd2 + SUCCESS_SOUND_STOP_BUFFER);
+            
         } catch (e) {
             // Silent fail if audio not supported
         }
