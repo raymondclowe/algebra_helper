@@ -1,8 +1,17 @@
 /**
- * Google Sheets AppScript for Algebra Helper Data Import and Analysis
+ * Google Sheets AppScript for Algebra Helper - Homework Tracking & Analysis
  * 
- * This script imports exported data from Algebra Helper for self-reflection
- * and progress analysis.
+ * This enhanced script imports exported data from Algebra Helper for homework
+ * tracking, self-reflection, and progress analysis.
+ * 
+ * VERSION: 2.0 - Enhanced for Homework Tracking
+ * 
+ * NEW FEATURES:
+ * - ✓ Duplicate detection - prevents re-importing the same sessions
+ * - ✓ Top 2-3 topics display - shows what was actually practiced
+ * - ✓ Homework-friendly formatting - makes sessions count toward homework requirements
+ * - ✓ Date & Time tracking - precise session timing
+ * - ✓ Enhanced session summaries - clear descriptions of what was accomplished
  * 
  * HOW TO USE:
  * 1. Open Google Sheets
@@ -10,23 +19,25 @@
  * 3. Copy this entire file into the script editor
  * 4. Save and close
  * 5. Refresh your Google Sheet - you'll see a new "Algebra Helper" menu
- * 6. Use "Algebra Helper > Import Data" to import your JSON file
- *    OR use "Import CSV Sessions" to import pre-filtered CSV exports
+ * 6. Use "Algebra Helper > Import CSV Sessions" for homework tracking (Recommended)
+ *    OR use "Import JSON Data" for detailed analysis with full data
  * 
  * The script supports two import methods:
  * 
- * METHOD 1: Import CSV Sessions (Recommended for Self-Analysis)
+ * METHOD 1: Import CSV Sessions (Recommended for Homework Tracking)
  * - Import the CSV file exported from the "Export Sessions" button
  * - CSV is pre-filtered to include only meaningful sessions (>2min, >50% correct)
- * - Direct import without additional processing needed
+ * - Automatically detects and skips duplicate sessions
+ * - Shows top 2-3 topics practiced in each session
+ * - Perfect for demonstrating homework completion
  * 
- * METHOD 2: Import JSON Data (Full Import)
+ * METHOD 2: Import JSON Data (Full Import for Detailed Analysis)
  * - Import the complete JSON export with all question data
  * - Groups questions into sessions (max 30min gap between questions)
- * - Creates a summary sheet with columns:
- *   Date, Topic, What was done, How long did it take (min), Correct Questions, 
- *   Total Questions, If not right, Review Notes (optional), 
- *   Self-Assessment, Percentage correct, Notes
+ * - Creates a detailed summary sheet with homework-tracking columns:
+ *   Date, Time, Topics Covered, What Was Practiced, Minutes Spent,
+ *   Questions Answered, Questions Correct, Success Rate %, 
+ *   Notes/Areas to Review, Checked ✓
  */
 
 // Add menu to Google Sheets
@@ -100,10 +111,6 @@ function importCSVSessions() {
       formatHeaderRow(sheet, enhancedHeaders.length);
     }
     
-    // Find the next empty row
-    var lastRow = sheet.getLastRow();
-    var startRow = lastRow + 1;
-    
     // Import data rows (skip header)
     var dataRows = rows.slice(1);
     
@@ -112,8 +119,42 @@ function importCSVSessions() {
       return;
     }
     
-    // Add data to sheet (with empty columns for self-analysis)
-    dataRows.forEach(function(row, index) {
+    // Check for duplicates based on date, student name, duration, and topics
+    var existingData = [];
+    if (sheet.getLastRow() > 1) {
+      existingData = sheet.getRange(2, 1, sheet.getLastRow() - 1, NUM_CSV_COLUMNS).getValues();
+    }
+    
+    var duplicateCount = 0;
+    var newRows = [];
+    
+    dataRows.forEach(function(row) {
+      var isDuplicate = existingData.some(function(existingRow) {
+        // Check if date, student name, duration, and topics match
+        return existingRow[0] == row[0] && 
+               existingRow[1] == row[1] && 
+               existingRow[2] == row[2] && 
+               existingRow[6] == row[6];
+      });
+      
+      if (!isDuplicate) {
+        newRows.push(row);
+      } else {
+        duplicateCount++;
+      }
+    });
+    
+    if (newRows.length === 0) {
+      ui.alert('Info', 'All ' + duplicateCount + ' session(s) already exist in the sheet. No new data imported.', ui.ButtonSet.OK);
+      return;
+    }
+    
+    // Find the next empty row
+    var lastRow = sheet.getLastRow();
+    var startRow = lastRow + 1;
+    
+    // Add new data to sheet (with empty columns for self-analysis)
+    newRows.forEach(function(row, index) {
       // Extend row with empty analysis columns
       var enhancedRow = row.slice(0, NUM_CSV_COLUMNS).concat(['', '']); // Add Review Notes and Self-Assessment columns
       sheet.getRange(startRow + index, 1, 1, enhancedRow.length).setValues([enhancedRow]);
@@ -131,7 +172,11 @@ function importCSVSessions() {
     // Activate the sheet
     ss.setActiveSheet(sheet);
     
-    ui.alert('Success', 'Imported ' + dataRows.length + ' session(s) successfully!', ui.ButtonSet.OK);
+    var message = 'Imported ' + newRows.length + ' new session(s) successfully!';
+    if (duplicateCount > 0) {
+      message += '\n' + duplicateCount + ' duplicate(s) were skipped.';
+    }
+    ui.alert('Success', message, ui.ButtonSet.OK);
     
   } catch (e) {
     ui.alert('Error', 'Failed to import CSV: ' + e.message, ui.ButtonSet.OK);
@@ -273,25 +318,25 @@ function groupIntoSessions(questions) {
 function createSummaryData(sessions) {
   var summaryRows = [];
   
-  // Header row
+  // Header row - homework tracking friendly
   summaryRows.push([
     'Date',
-    'Topic',
-    'What was done',
-    'How long did it take (min)',
-    'Correct Questions',
-    'Total Questions',
-    'If not right',
-    'Checked by AI (link) (optional)',
-    'Checked by human (mandatory)',
-    'Percentage correct',
-    'Notes'
+    'Time',
+    'Topics Covered',
+    'What Was Practiced',
+    'Minutes Spent',
+    'Questions Answered',
+    'Questions Correct',
+    'Success Rate %',
+    'Notes/Areas to Review',
+    'Checked ✓'
   ]);
   
   // Process each session
   sessions.forEach(function(session) {
     var date = new Date(session.startTime);
     var dateStr = Utilities.formatDate(date, Session.getScriptTimeZone(), 'dd/MM/yyyy');
+    var timeStr = Utilities.formatDate(date, Session.getScriptTimeZone(), 'HH:mm');
     
     // Calculate session duration in minutes
     var durationMin = Math.round((session.endTime - session.startTime) / 1000 / 60);
@@ -318,65 +363,87 @@ function createSummaryData(sessions) {
       topicCounts[topic] = (topicCounts[topic] || 0) + 1;
     });
     
-    // Get primary topic (most common)
-    var primaryTopic = 'Mixed';
-    var maxCount = 0;
+    // Sort topics by count (descending) to get top topics
+    var topicEntries = [];
     for (var topic in topicCounts) {
-      if (topicCounts[topic] > maxCount) {
-        maxCount = topicCounts[topic];
-        primaryTopic = topic;
-      }
+      topicEntries.push({ topic: topic, count: topicCounts[topic] });
     }
+    topicEntries.sort(function(a, b) { return b.count - a.count; });
     
-    // Create topic string with counts if multiple topics
-    var topicStr = primaryTopic;
-    if (Object.keys(topicCounts).length > 1) {
-      var topicDetails = [];
-      for (var topic in topicCounts) {
-        topicDetails.push(topic + ': ' + topicCounts[topic]);
+    // Get top 2-3 topics for display
+    var topTopics = topicEntries.slice(0, 3);
+    var topicStr = '';
+    
+    if (topicEntries.length === 1) {
+      // Single topic
+      topicStr = topTopics[0].topic + ' (' + topTopics[0].count + ' questions)';
+    } else {
+      // Multiple topics - show top 2-3
+      var topicParts = topTopics.map(function(t) {
+        return t.topic + ' (' + t.count + ')';
+      });
+      
+      if (topicEntries.length > 3) {
+        // Add "and X more" if there are more than 3 topics
+        var remaining = topicEntries.length - 3;
+        topicStr = topicParts.join('; ') + '; +' + remaining + ' more';
+      } else {
+        topicStr = topicParts.join('; ');
       }
-      topicStr = 'Mixed (' + topicDetails.join(', ') + ')';
     }
     
     // Calculate percentage (excluding "I don't know")
     var answeredCount = totalCount - dontKnowCount;
     var percentageCorrect = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) / 100 : 0;
     
-    // Build "What was done" description
-    var whatDone = totalCount + ' questions practiced';
-    if (dontKnowCount > 0) {
-      whatDone += ' (' + dontKnowCount + ' skipped with "I don\'t know")';
+    // Build "What was done" description - make it homework-tracking friendly
+    var whatDone = 'Practiced ';
+    
+    // Add top topics to the description
+    if (topTopics.length === 1) {
+      whatDone += topTopics[0].topic;
+    } else if (topTopics.length === 2) {
+      whatDone += topTopics[0].topic + ' and ' + topTopics[1].topic;
+    } else if (topTopics.length >= 3) {
+      whatDone += topTopics[0].topic + ', ' + topTopics[1].topic + ', and ' + topTopics[2].topic;
     }
     
-    // Build "If not right" field
-    var wrongDetails = '';
+    whatDone += ' (' + totalCount + ' question' + (totalCount > 1 ? 's' : '') + ')';
+    
+    if (dontKnowCount > 0) {
+      whatDone += ' - ' + dontKnowCount + ' skipped';
+    }
+    
+    // Build notes with areas needing review
+    var notes = '';
     if (correctCount < answeredCount) {
       var wrongCount = answeredCount - correctCount;
-      wrongDetails = wrongCount + ' incorrect';
+      notes = wrongCount + ' incorrect';
       if (dontKnowCount > 0) {
-        wrongDetails += ', ' + dontKnowCount + ' skipped';
+        notes += '; ' + dontKnowCount + ' skipped';
       }
+      notes += ' - Review needed';
+    } else if (correctCount === answeredCount && answeredCount > 0) {
+      notes = 'Perfect! All correct ⭐';
     }
     
-    // Notes field - include any useful metadata
-    var notes = '';
-    if (session.questions.length === 1) {
-      notes = 'Single question session';
+    if (durationMin < 5) {
+      if (notes) notes += '; ';
+      notes += 'Short session';
     }
     
-    // Add row
+    // Add row with new structure
     summaryRows.push([
       dateStr,
+      timeStr,
       topicStr,
       whatDone,
       durationMin,
-      correctCount,
       answeredCount,
-      wrongDetails,
-      '', // Checked by AI (optional) - empty for manual entry
-      '', // Checked by human (mandatory) - empty for manual entry
+      correctCount,
       percentageCorrect,
-      notes
+      notes,
+      '' // Checked - empty for manual marking
     ]);
   });
   
@@ -413,9 +480,9 @@ function writeToSummarySheet(summaryData) {
       sheet.autoResizeColumn(i);
     }
     
-    // Format percentage column as percentage
+    // Format percentage column as percentage (Column H - Success Rate %)
     if (summaryData.length > 1) {
-      var percentageCol = 10; // Column J
+      var percentageCol = 8; // Column H - Success Rate %
       var percentageRange = sheet.getRange(2, percentageCol, summaryData.length - 1, 1);
       percentageRange.setNumberFormat('0.00%');
     }
