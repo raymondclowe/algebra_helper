@@ -30,5 +30,8 @@ window.APP = {
         squareRootSign: 0,      // Forgot ± when solving x² = a
         divisionByZero: 0,      // Attempted invalid division by zero
         // Add more error types as needed
-    }
+    },
+    
+    // Session Question Log: Track questions asked in current session to avoid repetition
+    sessionQuestions: new Map(), // Map: questionSignature -> { count, correctCount, incorrectCount, lastAsked }
 };
