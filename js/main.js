@@ -11,7 +11,7 @@ window.APP.init = async function() {
             console.error('Error initializing storage:', error);
         }
         
-        // Load student name from storage
+        // Load user name from storage
         window.APP.studentName = window.StorageManager.getStudentName();
         
         // Initialize stats modal

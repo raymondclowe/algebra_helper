@@ -157,10 +157,10 @@ var signature = JSON.stringify([
 - Topic coverage is transparent
 - Effort is recognized and counted
 
-### For Teachers/Parents
+### For Mentors/Advisors
 - Clear view of what topics were practiced
 - Easy to identify areas needing review
-- Professional presentation suitable for homework tracking
+- Professional presentation suitable for progress tracking
 - Duplicate prevention ensures accurate tracking
 
 ### For Developers
