@@ -241,10 +241,10 @@ A: The tool itself doesn't collect data. Follow your school's policies for handl
 
 ## Additional Resources
 
-- **TEACHER_GUIDE.md** - Comprehensive teacher guide
+- **DATA_ANALYTICS_GUIDE.md** - Comprehensive data export and analytics guide
 - **google-sheets-import.gs** - Apps Script code
 - **sample-export.csv** - Example export file
 
 ---
 
-*For more information, see the main README.md and TEACHER_GUIDE.md files.*
+*For more information, see the main README.md and DATA_ANALYTICS_GUIDE.md files.*
