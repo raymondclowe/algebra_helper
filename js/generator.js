@@ -24,6 +24,67 @@ window.Generator = {
     gcd: (a, b) => b === 0 ? a : window.Generator.gcd(b, a % b),
     lcm: (a, b) => (a * b) / window.Generator.gcd(a, b),
     
+    // Parse LaTeX fraction string and return {numerator, denominator}
+    // Handles formats like: \frac{6}{12}, \frac{1}{2}, 0.5, ${decimal}
+    parseFraction: function(str) {
+        if (!str) return null;
+        
+        // Match LaTeX fraction: \frac{num}{den}
+        const fracMatch = str.match(/\\frac\{(-?\d+)\}\{(-?\d+)\}/);
+        if (fracMatch) {
+            return {
+                numerator: parseInt(fracMatch[1], 10),
+                denominator: parseInt(fracMatch[2], 10)
+            };
+        }
+        
+        // Match decimal number
+        const decMatch = str.match(/^-?\d+\.?\d*$/);
+        if (decMatch) {
+            const val = parseFloat(str);
+            // Convert decimal to fraction (up to 6 decimal places)
+            const denominator = 1000000;
+            const numerator = Math.round(val * denominator);
+            const divisor = this.gcd(Math.abs(numerator), denominator);
+            return {
+                numerator: numerator / divisor,
+                denominator: denominator / divisor
+            };
+        }
+        
+        return null;
+    },
+    
+    // Normalize fraction to lowest terms
+    normalizeFraction: function(numerator, denominator) {
+        if (denominator === 0) return { numerator, denominator };
+        const divisor = this.gcd(Math.abs(numerator), Math.abs(denominator));
+        return {
+            numerator: numerator / divisor,
+            denominator: denominator / divisor
+        };
+    },
+    
+    // Check if two answer strings are mathematically equivalent
+    // This handles fractions in different forms (e.g., 6/12 vs 1/2)
+    areAnswersEquivalent: function(answer1, answer2) {
+        // Direct string match
+        if (answer1 === answer2) return true;
+        
+        const frac1 = this.parseFraction(answer1);
+        const frac2 = this.parseFraction(answer2);
+        
+        // If both are fractions, compare normalized forms
+        if (frac1 && frac2) {
+            const norm1 = this.normalizeFraction(frac1.numerator, frac1.denominator);
+            const norm2 = this.normalizeFraction(frac2.numerator, frac2.denominator);
+            return norm1.numerator === norm2.numerator && 
+                   norm1.denominator === norm2.denominator;
+        }
+        
+        return false;
+    },
+    
     // Fisher-Yates shuffle algorithm for proper randomization
     shuffleArray: function(array) {
         const arr = [...array]; // Create a copy to avoid mutation
@@ -82,6 +143,71 @@ window.Generator = {
             if (!seen.has(alternative)) {
                 uniqueDistractors.push(alternative);
                 seen.add(alternative);
+            }
+        }
+        
+        return uniqueDistractors.slice(0, 3); // Ensure exactly 3 distractors
+    },
+    
+    // Enhanced version that checks for mathematical equivalence (especially for fractions)
+    // This prevents issues like having both "6/12" and "1/2" where only one is marked correct
+    ensureUniqueDistractorsFractionAware: function(correctAnswer, distractors, generateAlternative) {
+        const uniqueDistractors = [];
+        const seenAnswers = [correctAnswer];
+        
+        // Helper to check if answer is equivalent to any seen answer
+        const isEquivalentToAny = (answer) => {
+            for (let seen of seenAnswers) {
+                if (this.areAnswersEquivalent(answer, seen)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        
+        // Filter out duplicates and mathematically equivalent answers
+        for (let distractor of distractors) {
+            if (!isEquivalentToAny(distractor)) {
+                uniqueDistractors.push(distractor);
+                seenAnswers.push(distractor);
+            }
+        }
+        
+        // Joke answers as fallback when it's impractical to generate distinct answers
+        const jokeAnswers = [
+            "42 (the ultimate answer)",
+            "blue",
+            "∞ (infinity)",
+            "🤔",
+            "i (imaginary unit)",
+            "undefined",
+            "NaN (Not a Number)",
+            "π (exactly)",
+            "e (Euler's number)",
+            "∅ (empty set)"
+        ];
+        
+        // If we filtered out duplicates, generate alternatives
+        let jokeIndex = 0;
+        let attempts = 0;
+        const maxAttempts = 100; // Prevent infinite loops
+        
+        while (uniqueDistractors.length < 3 && attempts < maxAttempts) {
+            attempts++;
+            let alternative;
+            
+            // First try the provided generator
+            if (generateAlternative && attempts < 50) {
+                alternative = generateAlternative();
+            } else {
+                // Fall back to joke answers when generator fails or isn't provided
+                alternative = jokeAnswers[jokeIndex % jokeAnswers.length];
+                jokeIndex++;
+            }
+            
+            if (!isEquivalentToAny(alternative)) {
+                uniqueDistractors.push(alternative);
+                seenAnswers.push(alternative);
             }
         }
         
@@ -922,15 +1048,32 @@ window.Generator = {
             // Simple probability: choosing from a bag
             const total = this.rInt(8, 15);
             const favorable = this.rInt(2, total - 2);
+            const correctAnswer = `\\frac{${favorable}}{${total}}`;
+            
+            // Generate candidate distractors
+            const candidateDistractors = [
+                `\\frac{${total - favorable}}{${total}}`,
+                `\\frac{${favorable}}{${total - favorable}}`,
+                `\\frac{${total}}{${favorable}}`
+            ];
+            
+            // Use fraction-aware deduplication to ensure no mathematical equivalence
+            const distractors = this.ensureUniqueDistractorsFractionAware(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    // Generate alternative wrong fractions
+                    const wrongNum = this.rInt(1, total);
+                    const wrongDen = this.rInt(2, total + 5);
+                    return `\\frac{${wrongNum}}{${wrongDen}}`;
+                }
+            );
+            
             return {
                 tex: `\\text{Bag has ${total} balls, ${favorable} are red. P(red) = ?}`,
                 instruction: "Find the probability",
-                displayAnswer: `\\frac{${favorable}}{${total}}`,
-                distractors: [
-                    `\\frac{${total - favorable}}{${total}}`,
-                    `\\frac{${favorable}}{${total - favorable}}`,
-                    `\\frac{${total}}{${favorable}}`
-                ],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Probability = (favorable outcomes)/(total outcomes) = ${favorable}/${total}. This can be simplified if needed.`,
                 calc: false
             };
@@ -939,16 +1082,26 @@ window.Generator = {
             const total = this.rInt(6, 10);
             const choose = this.rInt(2, 3);
             const black = this.rInt(1, 3);
+            const correctAnswer = `\\text{Use combinations: } C(${total}, ${choose})`;
+            
+            const candidateDistractors = [
+                `${total - choose}`,
+                `${total} \\times ${choose}`,
+                `\\frac{${total}}{${choose}}`
+            ];
+            
+            // Use standard deduplication (not fraction-specific for this type)
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `C(${this.rInt(3, 12)}, ${this.rInt(1, 4)})`
+            );
             
             return {
                 tex: `\\text{Choosing ${choose} balls from ${total}, where ${black} is black}`,
                 instruction: "This is a probability setup question",
-                displayAnswer: `\\text{Use combinations: } C(${total}, ${choose})`,
-                distractors: [
-                    `${total - choose}`,
-                    `${total} \\times ${choose}`,
-                    `\\frac{${total}}{${choose}}`
-                ],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `The total number of ways to choose ${choose} balls from ${total} is C(${total},${choose}) = ${total}!/((${total - choose})!×${choose}!). This is a combination problem.`,
                 calc: true
             };
@@ -957,15 +1110,31 @@ window.Generator = {
             const total = this.rInt(10, 20);
             const favorable = this.rInt(3, 7);
             const complement = total - favorable;
+            const correctAnswer = `\\frac{${complement}}{${total}}`;
+            
+            const candidateDistractors = [
+                `\\frac{${favorable}}{${total}}`,
+                `\\frac{${total}}{${complement}}`,
+                `1 - \\frac{${complement}}{${total}}`
+            ];
+            
+            // Use fraction-aware deduplication
+            const distractors = this.ensureUniqueDistractorsFractionAware(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    // Generate alternative wrong fractions
+                    const wrongNum = this.rInt(1, total);
+                    const wrongDen = this.rInt(2, total + 5);
+                    return `\\frac{${wrongNum}}{${wrongDen}}`;
+                }
+            );
+            
             return {
                 tex: `\\text{If P(success) = } \\frac{${favorable}}{${total}}\\text{, what is P(failure)?}`,
                 instruction: "Find the complementary probability",
-                displayAnswer: `\\frac{${complement}}{${total}}`,
-                distractors: [
-                    `\\frac{${favorable}}{${total}}`,
-                    `\\frac{${total}}{${complement}}`,
-                    `1 - \\frac{${complement}}{${total}}`
-                ],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `P(failure) = 1 - P(success) = 1 - ${favorable}/${total} = ${complement}/${total}. The probabilities of all outcomes sum to 1.`,
                 calc: false
             };
@@ -1987,16 +2156,26 @@ window.Generator = {
             const total = 100;
             const eventA = this.rInt(40, 60);
             const both = this.rInt(15, Math.min(30, eventA));
+            const correctAnswer = `${(both / eventA).toFixed(2)}`;
+            
+            const candidateDistractors = [
+                `${(both / total).toFixed(2)}`,
+                `${(eventA / total).toFixed(2)}`,
+                `${((eventA - both) / total).toFixed(2)}`
+            ];
+            
+            // Use fraction-aware deduplication for decimal probabilities
+            const distractors = this.ensureUniqueDistractorsFractionAware(
+                correctAnswer,
+                candidateDistractors,
+                () => (Math.random() * 0.9 + 0.1).toFixed(2)
+            );
             
             return {
                 tex: `P(A) = ${eventA / total}, P(A \\cap B) = ${both / total}`,
                 instruction: "Find P(B|A) = P(A∩B)/P(A)",
-                displayAnswer: `${(both / eventA).toFixed(2)}`,
-                distractors: [
-                    `${(both / total).toFixed(2)}`,
-                    `${(eventA / total).toFixed(2)}`,
-                    `${((eventA - both) / total).toFixed(2)}`
-                ],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Conditional probability: P(B|A) = P(A∩B)/P(A) = ${both / total}/${eventA / total} = ${both}/${eventA} ≈ ${(both / eventA).toFixed(2)}.`,
                 calc: true
             };
@@ -2005,16 +2184,26 @@ window.Generator = {
             const pA = [0.3, 0.4, 0.5, 0.6][this.rInt(0, 3)];
             const pB = [0.2, 0.3, 0.5][this.rInt(0, 2)];
             const pBoth = pA * pB;
+            const correctAnswer = `${pBoth}`;
+            
+            const candidateDistractors = [
+                `${pA + pB}`,
+                `${pA}`,
+                `${pB}`
+            ];
+            
+            // Use fraction-aware deduplication
+            const distractors = this.ensureUniqueDistractorsFractionAware(
+                correctAnswer,
+                candidateDistractors,
+                () => (Math.random() * 0.9 + 0.1).toFixed(2)
+            );
             
             return {
                 tex: `\\text{If A and B are independent: } P(A) = ${pA}, P(B) = ${pB}`,
                 instruction: "Find P(A and B)",
-                displayAnswer: `${pBoth}`,
-                distractors: [
-                    `${pA + pB}`,
-                    `${pA}`,
-                    `${pB}`
-                ],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `For independent events: P(A and B) = P(A) × P(B) = ${pA} × ${pB} = ${pBoth}.`,
                 calc: false
             };
@@ -2023,16 +2212,26 @@ window.Generator = {
             const outcomes = [1, 2, 3, 4, 5, 6];
             const probs = [1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6];
             const ev = outcomes.reduce((sum, val, i) => sum + val * probs[i], 0);
+            const correctAnswer = `${ev.toFixed(1)}`;
+            
+            const candidateDistractors = [
+                `${3}`,
+                `${4}`,
+                `${6}`
+            ];
+            
+            // Use fraction-aware deduplication
+            const distractors = this.ensureUniqueDistractorsFractionAware(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 10)}`
+            );
             
             return {
                 tex: `\\text{Fair die: outcomes 1-6, each with P = 1/6}`,
                 instruction: "Find expected value E(X)",
-                displayAnswer: `${ev.toFixed(1)}`,
-                distractors: [
-                    `${3}`,
-                    `${4}`,
-                    `${6}`
-                ],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `E(X) = Σ(x × P(x)) = 1(1/6) + 2(1/6) + ... + 6(1/6) = (1+2+3+4+5+6)/6 = 21/6 = ${ev.toFixed(1)}.`,
                 calc: false
             };
