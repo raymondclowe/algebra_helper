@@ -61,8 +61,8 @@ window.Generator = {
             const numerator = Math.round(val * denominator);
             const divisor = this.gcd(Math.abs(numerator), denominator);
             return {
-                numerator: Math.round(numerator / divisor),
-                denominator: Math.round(denominator / divisor)
+                numerator: numerator / divisor,
+                denominator: denominator / divisor
             };
         }
         
@@ -109,63 +109,23 @@ window.Generator = {
         return arr;
     },
     
-    // Ensure distractors are unique and different from the correct answer
-    // This prevents the bug where all buttons show the same content
-    ensureUniqueDistractors: function(correctAnswer, distractors, generateAlternative) {
-        const uniqueDistractors = [];
-        const seen = new Set([correctAnswer]);
-        
-        for (let distractor of distractors) {
-            if (!seen.has(distractor)) {
-                uniqueDistractors.push(distractor);
-                seen.add(distractor);
-            }
-        }
-        
-        // If we filtered out duplicates, generate alternatives
-        let jokeIndex = 0;
-        let attempts = 0;
-        const maxAttempts = 100; // Prevent infinite loops
-        
-        while (uniqueDistractors.length < 3 && attempts < maxAttempts) {
-            attempts++;
-            let alternative;
-            
-            // First try the provided generator
-            if (generateAlternative && attempts < 50) {
-                alternative = generateAlternative();
-            } else {
-                // Fall back to joke answers when generator fails or isn't provided
-                alternative = this.JOKE_ANSWERS[jokeIndex % this.JOKE_ANSWERS.length];
-                jokeIndex++;
-            }
-            
-            if (!seen.has(alternative)) {
-                uniqueDistractors.push(alternative);
-                seen.add(alternative);
-            }
-        }
-        
-        return uniqueDistractors.slice(0, 3); // Ensure exactly 3 distractors
-    },
-    
-    // Enhanced version that checks for mathematical equivalence (especially for fractions)
-    // This prevents issues like having both "6/12" and "1/2" where only one is marked correct
-    ensureUniqueDistractorsFractionAware: function(correctAnswer, distractors, generateAlternative) {
+    // Generic helper for ensuring unique distractors with custom equality check
+    // Internal function used by both ensureUniqueDistractors and ensureUniqueDistractorsFractionAware
+    _ensureUniqueDistractorsWithEqualityCheck: function(correctAnswer, distractors, generateAlternative, isEqual) {
         const uniqueDistractors = [];
         const seenAnswers = [correctAnswer];
         
         // Helper to check if answer is equivalent to any seen answer
         const isEquivalentToAny = (answer) => {
             for (let seen of seenAnswers) {
-                if (this.areAnswersEquivalent(answer, seen)) {
+                if (isEqual(answer, seen)) {
                     return true;
                 }
             }
             return false;
         };
         
-        // Filter out duplicates and mathematically equivalent answers
+        // Filter out duplicates and equivalent answers
         for (let distractor of distractors) {
             if (!isEquivalentToAny(distractor)) {
                 uniqueDistractors.push(distractor);
@@ -198,6 +158,28 @@ window.Generator = {
         }
         
         return uniqueDistractors.slice(0, 3); // Ensure exactly 3 distractors
+    },
+    
+    // Ensure distractors are unique and different from the correct answer
+    // This prevents the bug where all buttons show the same content
+    ensureUniqueDistractors: function(correctAnswer, distractors, generateAlternative) {
+        return this._ensureUniqueDistractorsWithEqualityCheck(
+            correctAnswer,
+            distractors,
+            generateAlternative,
+            (a, b) => a === b
+        );
+    },
+    
+    // Enhanced version that checks for mathematical equivalence (especially for fractions)
+    // This prevents issues like having both "6/12" and "1/2" where only one is marked correct
+    ensureUniqueDistractorsFractionAware: function(correctAnswer, distractors, generateAlternative) {
+        return this._ensureUniqueDistractorsWithEqualityCheck(
+            correctAnswer,
+            distractors,
+            generateAlternative,
+            (a, b) => this.areAnswersEquivalent(a, b)
+        );
     },
     
     // Helper function to safely evaluate mathematical expressions and check equivalence
