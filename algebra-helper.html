@@ -25,10 +25,23 @@
     <title>IB Math Trainer (Fast Response)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+    // EXPERIMENTAL: MathJax displayOverflow configuration
+    // This setting enables horizontal scrolling for wide mathematical expressions
+    // that exceed the container width. This is an EXPERIMENTAL feature that may
+    // need to be reverted if it causes display issues or user complaints.
+    // 
+    // To revert: Remove the 'output' configuration block below and restore the
+    // default behavior (wide expressions will wrap or overflow).
+    //
+    // See: https://github.com/raymondclowe/algebra_helper/issues/[issue-number]
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
       svg: {fontCache: 'global'},
       startup: { typeset: false },
+      // EXPERIMENTAL: Enable horizontal scroll for wide math expressions
+      output: {
+        displayOverflow: 'scroll'  // Allows scrolling for expressions wider than container
+      },
       options: {
         enableMenu: false,
         enableAssistiveMml: false,
