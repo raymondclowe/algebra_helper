@@ -24,6 +24,20 @@ window.Generator = {
     gcd: (a, b) => b === 0 ? a : window.Generator.gcd(b, a % b),
     lcm: (a, b) => (a * b) / window.Generator.gcd(a, b),
     
+    // Joke answers as fallback when it's impractical to generate distinct answers
+    JOKE_ANSWERS: [
+        "42 (the ultimate answer)",
+        "blue",
+        "∞ (infinity)",
+        "🤔",
+        "i (imaginary unit)",
+        "undefined",
+        "NaN (Not a Number)",
+        "π (exactly)",
+        "e (Euler's number)",
+        "∅ (empty set)"
+    ],
+    
     // Parse LaTeX fraction string and return {numerator, denominator}
     // Handles formats like: \frac{6}{12}, \frac{1}{2}, 0.5, ${decimal}
     parseFraction: function(str) {
@@ -47,8 +61,8 @@ window.Generator = {
             const numerator = Math.round(val * denominator);
             const divisor = this.gcd(Math.abs(numerator), denominator);
             return {
-                numerator: numerator / divisor,
-                denominator: denominator / divisor
+                numerator: Math.round(numerator / divisor),
+                denominator: Math.round(denominator / divisor)
             };
         }
         
@@ -108,20 +122,6 @@ window.Generator = {
             }
         }
         
-        // Joke answers as fallback when it's impractical to generate distinct answers
-        const jokeAnswers = [
-            "42 (the ultimate answer)",
-            "blue",
-            "∞ (infinity)",
-            "🤔",
-            "i (imaginary unit)",
-            "undefined",
-            "NaN (Not a Number)",
-            "π (exactly)",
-            "e (Euler's number)",
-            "∅ (empty set)"
-        ];
-        
         // If we filtered out duplicates, generate alternatives
         let jokeIndex = 0;
         let attempts = 0;
@@ -136,7 +136,7 @@ window.Generator = {
                 alternative = generateAlternative();
             } else {
                 // Fall back to joke answers when generator fails or isn't provided
-                alternative = jokeAnswers[jokeIndex % jokeAnswers.length];
+                alternative = this.JOKE_ANSWERS[jokeIndex % this.JOKE_ANSWERS.length];
                 jokeIndex++;
             }
             
@@ -173,20 +173,6 @@ window.Generator = {
             }
         }
         
-        // Joke answers as fallback when it's impractical to generate distinct answers
-        const jokeAnswers = [
-            "42 (the ultimate answer)",
-            "blue",
-            "∞ (infinity)",
-            "🤔",
-            "i (imaginary unit)",
-            "undefined",
-            "NaN (Not a Number)",
-            "π (exactly)",
-            "e (Euler's number)",
-            "∅ (empty set)"
-        ];
-        
         // If we filtered out duplicates, generate alternatives
         let jokeIndex = 0;
         let attempts = 0;
@@ -201,7 +187,7 @@ window.Generator = {
                 alternative = generateAlternative();
             } else {
                 // Fall back to joke answers when generator fails or isn't provided
-                alternative = jokeAnswers[jokeIndex % jokeAnswers.length];
+                alternative = this.JOKE_ANSWERS[jokeIndex % this.JOKE_ANSWERS.length];
                 jokeIndex++;
             }
             

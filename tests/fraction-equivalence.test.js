@@ -124,7 +124,9 @@ describe('Fraction Equivalence in Probability Questions', () => {
         const results = await page.evaluate(() => {
             const issues = [];
             
-            // Test 2000 probability questions
+            // Test 2000 probability questions to ensure comprehensive coverage
+            // This high iteration count is intentional to catch rare edge cases
+            // where random number generation might create equivalent fractions
             for (let i = 0; i < 2000; i++) {
                 const q = window.Generator.getProbability();
                 const allAnswers = [q.displayAnswer, ...q.distractors];
@@ -171,7 +173,9 @@ describe('Fraction Equivalence in Probability Questions', () => {
         const results = await page.evaluate(() => {
             const issues = [];
             
-            // Test 2000 advanced probability questions
+            // Test 2000 advanced probability questions to ensure comprehensive coverage
+            // This high iteration count is intentional to catch rare edge cases
+            // where random number generation might create equivalent fractions or decimals
             for (let i = 0; i < 2000; i++) {
                 const q = window.Generator.getAdvancedProbability();
                 const allAnswers = [q.displayAnswer, ...q.distractors];
