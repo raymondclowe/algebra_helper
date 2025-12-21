@@ -2,17 +2,17 @@
 
 ## Quick Start
 
-### For Students
+### For Learners
 
 1. **Set Your Name** - Go to Settings and enter your name
 2. **Practice** - Complete practice sessions (aim for >2 minutes with good accuracy)
-3. **Export CSV** - Click Stats → "Export for Teacher" button
-4. **Share** - Send the downloaded CSV file to your teacher (email, Google Drive, etc.)
+3. **Export CSV** - Click Stats → "Export Sessions" button
+4. **Share** - Send the downloaded CSV file to your mentor/advisor (email, Google Drive, etc.), or use it for self-analysis
 
-### For Teachers
+### For Self-Analysis or Mentor/Advisor Review
 
 **Option A: Manual Import (Easiest)**
-1. Receive student's CSV file
+1. Obtain the CSV file (your own export or from a learner)
 2. Open Google Sheets
 3. File → Import → Upload → Select CSV file
 4. Choose "Append to current sheet" to add to existing data
@@ -59,7 +59,7 @@ The exported CSV includes these columns:
 | Column | Description |
 |--------|-------------|
 | Date | Date of practice session |
-| Student Name | Name set in app settings |
+| Learner Name | Name set in app settings |
 | Duration (min) | How long the session lasted |
 | Questions Total | Number of questions answered |
 | Questions Correct | Number of correct answers |
@@ -83,7 +83,7 @@ The exported CSV includes these columns:
 ### Available Functions
 
 **Import CSV Sessions**
-- Use for pre-filtered CSV exports from students
+- Use for pre-filtered CSV exports
 - Automatically detects and skips duplicate sessions
 - Shows top topics for each session
 - Adds review notes and assessment columns
@@ -142,10 +142,10 @@ Consider using practice data for effort-based grades, focusing on consistent pra
 - CSV contains only session summaries, not individual questions or answers
 - Only aggregated statistics are shared
 
-### Teacher Recommendations
-- Use school-approved sharing methods
-- Follow school data retention policies
-- Respect student privacy in shared documents
+### Recommendations for Sharing with Mentors/Advisors
+- Use approved sharing methods
+- Follow appropriate data retention policies
+- Respect learner privacy in shared documents
 
 ---
 
@@ -154,7 +154,7 @@ Consider using practice data for effort-based grades, focusing on consistent pra
 ### CSV Format Specification
 
 ```csv
-Date,Student Name,Duration (min),Questions Total,Questions Correct,Score %,Topics Practiced
+Date,Learner Name,Duration (min),Questions Total,Questions Correct,Score %,Topics Practiced
 12/17/2024,"John Doe",5,8,7,87,"Arithmetic(5); Algebra(3)"
 ```
 

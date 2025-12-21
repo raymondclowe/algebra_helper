@@ -2,13 +2,13 @@
 
 ## The Problem
 
-Students want to track and reflect on their own student practice sessions from Algebra Helper in Google Sheets, but traditional solutions required:
+Learners want to track and reflect on their own practice sessions from Algebra Helper in Google Sheets, but traditional solutions required:
 - ❌ Google Cloud Console setup
 - ❌ OAuth authentication flows
 - ❌ API keys and credentials management
 - ❌ Complex technical configuration
 
-This creates barriers for self-analysis who just want to see if students are practicing.
+This creates barriers for self-analysis and progress tracking.
 
 ---
 
@@ -20,12 +20,12 @@ A **simple CSV export/import workflow** that requires **zero cloud authenticatio
 
 ```
 ┌─────────────┐
-│   Student   │
+│   Learner   │
 │  Practices  │
 │  Math       │
 └──────┬──────┘
        │
-       │ Click "Export for Student"
+       │ Click "Export Sessions"
        ▼
 ┌─────────────┐
 │ CSV File    │
@@ -33,33 +33,33 @@ A **simple CSV export/import workflow** that requires **zero cloud authenticatio
 │ (Filtered)  │
 └──────┬──────┘
        │
-       │ Share via email/drive
+       │ Share or self-analyze
        ▼
 ┌─────────────┐
-│   Student   │
-│  Imports to │
+│   Import    │
+│   to Google │
 │   Sheets    │
 └─────────────┘
 ```
 
 ### Three-Step Process
 
-**Step 1: Student Exports**
+**Step 1: Learner Exports**
 - Opens Stats modal
-- Clicks "📊 Export for Student"
+- Clicks "📊 Export Sessions"
 - CSV file downloads automatically
 - Contains only meaningful sessions (>2min, >50% correct)
 
-**Step 2: Student Shares**
-- Emails CSV to student, OR
-- Uploads to Google Drive folder, OR
-- Submits via school LMS
+**Step 2: Learner Shares (Optional)**
+- Emails CSV to mentor/advisor, OR
+- Uploads to shared folder, OR
+- Keeps for personal analysis
 
-**Step 3: Student Imports**
+**Step 3: Import and Analyze**
 - Opens Google Sheets
 - File → Import → Upload CSV
 - Data appears in spreadsheet
-- Can add comments and mark as reviewed
+- Can add comments and review notes
 
 ---
 
@@ -73,8 +73,8 @@ A **simple CSV export/import workflow** that requires **zero cloud authenticatio
 - Just CSV files!
 
 ### 2. Privacy-Friendly
-- Student controls when to export
-- Student controls what to share
+- Learner controls when to export
+- Learner controls what to share
 - No automatic uploads
 - No background tracking
 - Complete transparency
@@ -84,15 +84,15 @@ Only exports sessions that are:
 - **Longer than 2 minutes** (not quick trials)
 - **More than 50% correct** (meaningful practice)
 
-This means students only see practice that matters.
+This ensures only meaningful practice sessions are tracked.
 
 ### 4. Easy Setup
-**For Students:**
+**For Learners:**
 - Set name in settings (one time)
 - Click export button when ready
 - No configuration needed
 
-**For Self-Analysis:**
+**For Analysis:**
 - Import CSV files
 - OR install Apps Script (one time, optional)
 - No technical expertise required
@@ -121,7 +121,7 @@ sessions.filter(session =>
 
 **CSV Format:**
 ```csv
-Date,Student Name,Duration (min),Questions Total,Questions Correct,Score %,Topics Practiced
+Date,Learner Name,Duration (min),Questions Total,Questions Correct,Score %,Topics Practiced
 12/17/2024,"Alice Smith",5,8,7,87,"Arithmetic(5); Algebra(3)"
 ```
 
@@ -147,7 +147,7 @@ Date,Student Name,Duration (min),Questions Total,Questions Correct,Score %,Topic
 
 **Apps Script Features:**
 - Validates CSV format
-- Adds "Student Comments" column
+- Adds "Review Notes" column
 - Adds "Self-Assessment" checkbox column
 - Applies formatting automatically
 - Handles multiple imports
@@ -160,7 +160,7 @@ Date,Student Name,Duration (min),Questions Total,Questions Correct,Score %,Topic
 
 **Session Information:**
 - Date of practice session
-- Student name (set in app)
+- Learner name (set in app)
 - Duration in minutes
 - Number of questions answered
 - Number of correct answers
@@ -170,7 +170,7 @@ Date,Student Name,Duration (min),Questions Total,Questions Correct,Score %,Topic
 **Example:**
 ```
 Session on 12/17/2024
-Student: Alice Smith
+Learner: Alice Smith
 Duration: 5 minutes
 Questions: 8 total, 7 correct
 Score: 87%
@@ -190,63 +190,53 @@ Topics: Arithmetic(5), Algebra(3)
 
 ## Use Cases
 
-### Weekly Practice Tracking
-1. Students practice throughout week
+### Weekly Self-Review
+1. Practice throughout the week
 2. Friday: Export CSV
-3. Submit to student
-4. Student reviews over weekend
-5. Monday: Provide feedback
+3. Review your progress
+4. Identify areas for improvement
+5. Plan next week's focus
 
-### Homework Verification
-1. Assign 20 minutes practice as homework
-2. Students export and submit CSV
-3. Student verifies completion and effort
-4. Grade based on participation
+### Progress Documentation
+1. Regular practice sessions
+2. Export and track in Google Sheets
+3. Review completion and effort
+4. Maintain practice journal
 
-### Progress Monitoring
-1. Track improvement over semester
+### Long-term Progress Monitoring
+1. Track improvement over time
 2. Compare early vs. recent scores
-3. Identify struggling students
-4. Adjust lesson plans based on data
+3. Identify growth areas
+4. Adjust learning strategies
 
-### Parent Communication
-1. Export student data
-2. Share during conferences
+### Sharing with Mentor/Advisor
+1. Export session data
+2. Share during meetings
 3. Show practice time and accuracy
-4. Demonstrate engagement
+4. Demonstrate engagement and progress
 
 ---
 
 ## Documentation Provided
 
-### 1. Student Guide (`TEACHER_GUIDE.md`)
-**9,190 characters covering:**
+### 1. Integration Guide (`GOOGLE_SHEETS_INTEGRATION.md`)
+**Comprehensive documentation covering:**
 - Setup instructions (simple and advanced)
-- Student workflow
-- Student workflow
+- Learner workflow
 - Sample workflows
 - Privacy considerations
 - Troubleshooting
 - FAQ
 
-### 2. Integration Guide (`GOOGLE_SHEETS_INTEGRATION.md`)
-**9,859 characters covering:**
-- Technical overview
-- Quick start guides
-- CSV format specification
-- Session grouping algorithm
-- Advanced use cases
-- Comparison with other methods
-
-### 3. Main README Update
-**Student section with:**
+### 2. Main README
+**User-focused documentation with:**
 - Feature highlights
-- Quick start
+- Quick start guide
 - Links to comprehensive docs
 
-### 4. Sample Data (`sample-export.csv`)
+### 3. Sample Data (`sample-export.csv`)
 - Example export file
-- Multiple students
+- Multiple sessions
 - Various session types
 - Ready for testing
 
@@ -260,7 +250,7 @@ Topics: Arithmetic(5), Algebra(3)
 
 ## Benefits
 
-### For Students
+### For Learners
 ✅ Simple one-click export  
 ✅ Control over data sharing  
 ✅ No account required  
@@ -289,7 +279,7 @@ Topics: Arithmetic(5), Algebra(3)
 **Pros:**
 - ✅ Zero authentication setup
 - ✅ No cloud dependencies
-- ✅ Student controls sharing
+- ✅ Learner controls sharing
 - ✅ Simple to understand
 - ✅ Works offline
 - ✅ No API limits
@@ -319,23 +309,23 @@ Topics: Arithmetic(5), Algebra(3)
 
 ## Security & Privacy
 
-### Student Privacy
+### Learner Privacy
 - **Manual export only** - No automatic uploads
-- **Student controlled** - They decide when to share
+- **Learner controlled** - You decide when to share
 - **Transparent** - Clear what's being exported
 - **Name required** - Must be set intentionally
 - **Filtered data** - Only session summaries
 
 ### Data Security
-- **Local storage** - Data stays on student device
-- **Secure sharing** - Use school-approved methods
+- **Local storage** - Data stays on your device
+- **Secure sharing** - Use approved sharing methods
 - **No cloud storage** - CSV files only
-- **Student control** - Decide who sees what
-- **Retention policies** - Follow school guidelines
+- **User control** - Decide who sees what
+- **Retention policies** - Follow appropriate guidelines
 
 ### Compliance
-- **FERPA-friendly** - Student controls disclosure
-- **COPPA-compliant** - No automatic data collection
+- **Privacy-friendly** - User controls disclosure
+- **No automatic data collection** - Manual export only
 - **GDPR-compatible** - Clear consent and control
 - **School policies** - Integrates with existing guidelines
 
@@ -381,7 +371,7 @@ Potential improvements not in current scope:
 ### Enhanced Reporting
 - Dashboard with charts
 - Progress trend analysis
-- Multi-student comparisons
+- Multi-session comparisons
 - Topic mastery visualization
 
 ### Integration Options
@@ -394,37 +384,35 @@ Potential improvements not in current scope:
 
 ## Getting Started
 
-### For Students
+### For Learners
 1. Practice math problems in Algebra Helper
-2. Set your name: Settings → Student Name
-3. When ready: Stats → "📊 Export for Student"
-4. Share CSV file with student
+2. Set your name: Settings → Name
+3. When ready: Stats → "📊 Export Sessions"
+4. Use for self-analysis or share with mentor/advisor
 
-### For Self-Analysis
-1. Read `TEACHER_GUIDE.md`
+### For Analysis
+1. Review `GOOGLE_SHEETS_INTEGRATION.md` for setup instructions
 2. Choose import method (manual or Apps Script)
 3. Test with `sample-export.csv`
 4. Set up your workflow
-5. Communicate process to students
 
 ### Need Help?
-- Check `TEACHER_GUIDE.md` for detailed instructions
-- Review `GOOGLE_SHEETS_INTEGRATION.md` for technical details
+- Check `GOOGLE_SHEETS_INTEGRATION.md` for detailed instructions
+- Review technical details in the integration guide
 - Use `sample-export.csv` for testing
-- Consult school IT for Google Sheets help
 
 ---
 
 ## Summary
 
 **What we built:**
-A simple, privacy-friendly CSV export system that lets students track student practice sessions without complex authentication or cloud setup.
+A simple, privacy-friendly CSV export system that lets learners track their practice sessions without complex authentication or cloud setup.
 
 **Why it matters:**
-Makes practice tracking accessible to all students, regardless of technical expertise, while respecting student privacy.
+Makes practice tracking accessible to all learners, regardless of technical expertise, while respecting privacy.
 
 **How it works:**
-Students export → Share CSV → Students import → Track progress
+Learners export → Analyze or share → Import to Sheets → Track progress
 
 **Result:**
 ✅ Easy setup  
@@ -435,4 +423,4 @@ Students export → Share CSV → Students import → Track progress
 
 ---
 
-*Ready to use! See TEACHER_GUIDE.md to get started.*
+*Ready to use! See GOOGLE_SHEETS_INTEGRATION.md to get started.*

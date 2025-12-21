@@ -253,7 +253,7 @@ window.StorageManager = {
         return stats;
     },
     
-    // Student name management
+    // User name management
     getStudentName: function() {
         return localStorage.getItem('algebraHelperStudentName') || '';
     },
@@ -912,7 +912,7 @@ window.StorageManager = {
             // Header row
             csvRows.push([
                 'Date',
-                'Student Name',
+                'Learner Name',
                 'Duration (min)',
                 'Questions Total',
                 'Questions Correct',
