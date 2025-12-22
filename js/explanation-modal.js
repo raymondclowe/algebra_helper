@@ -27,7 +27,7 @@ window.ExplanationModal = {
                     </div>
                     
                     <!-- Feedback buttons (shown initially) -->
-                    <div id="feedback-buttons" class="bg-gray-750 p-4 border-t border-gray-700">
+                    <div id="feedback-buttons" class="bg-gray-700 p-4 border-t border-gray-700">
                         <p class="text-gray-300 text-sm mb-3 text-center">Was this explanation clear?</p>
                         <div class="flex gap-3">
                             <button onclick="ExplanationModal.handleGotIt()" class="flex-1 px-4 py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded shadow-lg transition">
@@ -40,7 +40,7 @@ window.ExplanationModal = {
                     </div>
                     
                     <!-- Action buttons (shown after feedback or for "I don't know") -->
-                    <div id="action-buttons" class="hidden bg-gray-750 p-4 border-t border-gray-700 flex gap-3">
+                    <div id="action-buttons" class="hidden bg-gray-700 p-4 border-t border-gray-700 flex gap-3">
                         <button id="retry-btn" onclick="ExplanationModal.retry()" class="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg">
                             Try Again
                         </button>
@@ -208,6 +208,14 @@ window.ExplanationModal = {
             return question.detailedExplanation;
         }
         
+        // Helper function to escape HTML to prevent XSS
+        const escapeHtml = (text) => {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        };
+        
         // Otherwise, enhance the basic explanation with step-by-step breakdown
         const basicExplanation = question.explanation || '';
         
@@ -217,16 +225,23 @@ window.ExplanationModal = {
         detailed += `<h3 class="text-lg font-bold text-blue-300 mb-2">📚 Detailed Step-by-Step Explanation</h3>`;
         detailed += `</div>`;
         
-        // Add the problem context
+        // Add the problem context (escape plain text, but allow LaTeX)
         detailed += `<div class="bg-gray-700 p-3 rounded">`;
-        detailed += `<p class="text-gray-300"><strong>Problem:</strong> ${question.instruction || 'Solve the question'}</p>`;
+        if (question.instruction) {
+            // Instructions are safe as they come from Generator
+            detailed += `<p class="text-gray-300"><strong>Problem:</strong> ${escapeHtml(question.instruction)}</p>`;
+        }
         if (question.tex) {
+            // LaTeX expressions are safe as they come from Generator
             detailed += `<p class="text-gray-300 mt-2"><strong>Expression:</strong> \\(${question.tex}\\)</p>`;
         }
-        detailed += `<p class="text-green-300 mt-2"><strong>Correct Answer:</strong> \\(${question.displayAnswer}\\)</p>`;
+        if (question.displayAnswer) {
+            // Display answers are safe as they come from Generator
+            detailed += `<p class="text-green-300 mt-2"><strong>Correct Answer:</strong> \\(${question.displayAnswer}\\)</p>`;
+        }
         detailed += `</div>`;
         
-        // Add the basic explanation
+        // Add the basic explanation (already safe HTML from Generator)
         detailed += `<div class="bg-gray-700 p-3 rounded">`;
         detailed += `<p class="text-sm font-semibold text-yellow-300 mb-2">Step-by-step approach:</p>`;
         detailed += `<p class="text-gray-300">${basicExplanation}</p>`;
