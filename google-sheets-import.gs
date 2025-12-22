@@ -40,6 +40,19 @@
  *   Notes/Areas to Review, Checked ✓
  */
 
+// Helper function to safely get UI - handles contexts where UI is not available
+function safeGetUi() {
+  try {
+    return SpreadsheetApp.getUi();
+  } catch (e) {
+    // UI is not available in this context (e.g., triggered from API, time-based trigger, etc.)
+    throw new Error('This function must be run from the Algebra Helper menu in Google Sheets. ' +
+                    'It cannot be called from triggers, API calls, or other automated contexts. ' +
+                    'Please open the Google Sheet and run the function from the menu: ' +
+                    'Algebra Helper > Import CSV Sessions or Import JSON Data');
+  }
+}
+
 // Add menu to Google Sheets
 function onOpen() {
   var ui = SpreadsheetApp.getUi();
@@ -53,7 +66,7 @@ function onOpen() {
 
 // Import CSV sessions directly (pre-filtered data)
 function importCSVSessions() {
-  var ui = SpreadsheetApp.getUi();
+  var ui = safeGetUi();
   
   // Prompt user to paste CSV data
   var response = ui.prompt(
@@ -252,7 +265,7 @@ function formatHeaderRow(sheet, columnCount) {
 
 // Main JSON import function
 function importAlgebraHelperData() {
-  var ui = SpreadsheetApp.getUi();
+  var ui = safeGetUi();
   
   // Prompt user to paste JSON data
   var response = ui.prompt(
@@ -527,14 +540,15 @@ function writeToSummarySheet(summaryData) {
 
 // Clear summary sheet
 function clearSummarySheet() {
+  var ui = safeGetUi();
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sheetName = 'Algebra Helper Summary';
   var sheet = ss.getSheetByName(sheetName);
   
   if (sheet) {
     sheet.clear();
-    SpreadsheetApp.getUi().alert('Summary sheet cleared.');
+    ui.alert('Summary sheet cleared.');
   } else {
-    SpreadsheetApp.getUi().alert('No summary sheet found.');
+    ui.alert('No summary sheet found.');
   }
 }
