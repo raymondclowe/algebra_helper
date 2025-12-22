@@ -29,12 +29,15 @@ The CSV includes **only meaningful practice sessions**:
 ### CSV Format
 The exported file contains:
 - **Date**: When the practice session occurred
-- **Student Name**: The name set in the app
-- **Duration (min)**: How long the session lasted
-- **Questions Total**: Total questions answered (excluding "I don't know")
-- **Questions Correct**: Number of correct answers
-- **Score %**: Percentage of correct answers
-- **Topics Practiced**: List of topics covered with question counts
+- **Topic**: Topics covered with question counts
+- **What was done**: Description of the practice session
+- **How long did it take (min)**: Duration of the session
+- **Correct Questions**: Number of correct answers
+- **Total Questions**: Total questions answered (excluding "I don't know")
+- **If not right**: List of incorrect questions for review
+- **Checked by AI (link)**: Optional field for AI-powered review links
+- **Checked by human**: Field to mark when reviewed by teacher/parent
+- **Percentage correct**: Percentage of correct answers
 
 ---
 

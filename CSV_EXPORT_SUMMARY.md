@@ -70,16 +70,15 @@ This ensures students or mentors only see meaningful practice, not quick trials.
 ### CSV Format
 **Standard Columns:**
 - Date
-- Student Name
-- Duration (min)
-- Questions Total
-- Questions Correct
-- Score %
-- Topics Practiced (with counts)
-
-**Student or mentor Columns** (added by Apps Script):
-- Student or mentor Comments
-- Reviewed
+- Topic
+- What was done
+- How long did it take (min)
+- Correct Questions
+- Total Questions
+- If not right
+- Checked by AI (link) (optional)
+- Checked by human (mandatory)
+- Percentage correct
 
 ### Proper CSV Escaping
 - Doubles quotes within fields (`"` → `""`)

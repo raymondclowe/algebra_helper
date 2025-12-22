@@ -154,15 +154,18 @@ Consider using practice data for effort-based grades, focusing on consistent pra
 ### CSV Format Specification
 
 ```csv
-Date,Learner Name,Duration (min),Questions Total,Questions Correct,Score %,Topics Practiced
-12/17/2024,"John Doe",5,8,7,87,"Arithmetic(5); Algebra(3)"
+Date,Topic,What was done,How long did it take (min),Correct Questions,Total Questions,If not right,Checked by AI (link),Checked by human,Percentage correct
+12/17/2024,"Arithmetic(5); Algebra(3)","Practiced 8 questions across topics: Arithmetic(5); Algebra(3)",5,7,8,"What is 2+2?",,,87
 ```
 
 **Format Notes:**
-- Header row is required
-- Student name and topics are quoted (allows commas within fields)
+- Header row is required with exact column names
+- Topics and descriptions are quoted (allows commas within fields)
 - Date format: MM/DD/YYYY (locale-dependent)
 - Numbers are unquoted integers/percentages
+- "If not right" shows up to 3 incorrect questions for review
+- "Checked by AI (link)" is optional and left empty
+- "Checked by human" is mandatory but left empty for user to fill
 
 ### Session Calculation Algorithm
 

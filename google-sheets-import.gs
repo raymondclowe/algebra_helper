@@ -92,16 +92,16 @@ function importCSVSessions() {
     }
     
     // Define expected CSV structure
-    var CSV_HEADERS = ['Date', 'Student Name', 'Duration (min)', 'Questions Total', 'Questions Correct', 'Score %', 'Topics Practiced'];
+    var CSV_HEADERS = ['Date', 'Topic', 'What was done', 'How long did it take (min)', 'Correct Questions', 'Total Questions', 'If not right', 'Checked by AI (link)', 'Checked by human', 'Percentage correct'];
     var NUM_CSV_COLUMNS = CSV_HEADERS.length;
-    var ANALYSIS_COLUMNS = ['Review Notes', 'Self-Assessment'];
+    var ANALYSIS_COLUMNS = []; // No additional analysis columns needed - they're already in the CSV
     var TOTAL_COLUMNS = NUM_CSV_COLUMNS + ANALYSIS_COLUMNS.length;
     
     // Column indices for duplicate detection
     var COL_DATE = 0;
-    var COL_STUDENT_NAME = 1;
-    var COL_DURATION = 2;
-    var COL_TOPICS = 6;
+    var COL_TOPIC = 1;
+    var COL_DURATION = 3;
+    var COL_TOTAL_QUESTIONS = 5;
     
     // Validate header row
     var headers = rows[0];
@@ -124,11 +124,9 @@ function importCSVSessions() {
     if (!sheet) {
       sheet = ss.insertSheet(sheetName);
       
-      // Add headers with additional columns for self-analysis
-      var enhancedHeaders = CSV_HEADERS.concat(ANALYSIS_COLUMNS);
-      
-      sheet.getRange(1, 1, 1, enhancedHeaders.length).setValues([enhancedHeaders]);
-      formatHeaderRow(sheet, enhancedHeaders.length);
+      // Add headers - use CSV headers directly since they include all needed columns
+      sheet.getRange(1, 1, 1, CSV_HEADERS.length).setValues([CSV_HEADERS]);
+      formatHeaderRow(sheet, CSV_HEADERS.length);
     }
     
     // Import data rows (skip header)
@@ -139,7 +137,7 @@ function importCSVSessions() {
       return;
     }
     
-    // Check for duplicates based on date, student name, duration, and topics
+    // Check for duplicates based on date, topic, duration, and total questions
     // Use a Set for O(n) lookup instead of O(n*m) with array.some()
     var existingSignatures = new Set();
     if (sheet.getLastRow() > 1) {
@@ -148,9 +146,9 @@ function importCSVSessions() {
         // Create a unique signature using JSON.stringify to avoid delimiter collision
         var signature = JSON.stringify([
           String(row[COL_DATE]), 
-          String(row[COL_STUDENT_NAME]), 
+          String(row[COL_TOPIC]), 
           String(row[COL_DURATION]), 
-          String(row[COL_TOPICS])
+          String(row[COL_TOTAL_QUESTIONS])
         ]);
         existingSignatures.add(signature);
       });
@@ -163,9 +161,9 @@ function importCSVSessions() {
       // Create signature using JSON.stringify for robust comparison
       var signature = JSON.stringify([
         String(row[COL_DATE]), 
-        String(row[COL_STUDENT_NAME]), 
+        String(row[COL_TOPIC]), 
         String(row[COL_DURATION]), 
-        String(row[COL_TOPICS])
+        String(row[COL_TOTAL_QUESTIONS])
       ]);
       
       if (!existingSignatures.has(signature)) {
@@ -185,10 +183,10 @@ function importCSVSessions() {
     var lastRow = sheet.getLastRow();
     var startRow = lastRow + 1;
     
-    // Add new data to sheet (with empty columns for self-analysis)
+    // Add new data to sheet (rows already have all columns including manual entry columns)
     newRows.forEach(function(row, index) {
-      // Extend row with empty analysis columns
-      var enhancedRow = row.slice(0, NUM_CSV_COLUMNS).concat(['', '']); // Add Review Notes and Self-Assessment columns
+      // Use row as-is since CSV already has all needed columns
+      var enhancedRow = row.slice(0, NUM_CSV_COLUMNS);
       sheet.getRange(startRow + index, 1, 1, enhancedRow.length).setValues([enhancedRow]);
     });
     
