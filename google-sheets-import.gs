@@ -46,10 +46,11 @@ function safeGetUi() {
     return SpreadsheetApp.getUi();
   } catch (e) {
     // UI is not available in this context (e.g., triggered from API, time-based trigger, etc.)
+    // Log the original error for debugging
+    console.error('Original error when getting UI:', e);
     throw new Error('This function must be run from the Algebra Helper menu in Google Sheets. ' +
                     'It cannot be called from triggers, API calls, or other automated contexts. ' +
-                    'Please open the Google Sheet and run the function from the menu: ' +
-                    'Algebra Helper > Import CSV Sessions or Import JSON Data');
+                    'Please open the Google Sheet and run the function manually from the menu.');
   }
 }
 
