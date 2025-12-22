@@ -940,12 +940,13 @@ window.StorageManager = {
                 const whatWasDone = `Practiced ${stats.answeredCount} questions across topics: ${topicsStr}`;
                 
                 // Build "If not right" list - questions that were incorrect
+                const totalIncorrect = stats.answeredCount - stats.correctCount;
                 const incorrectQuestions = session.questions
                     .filter(q => !q.isCorrect && !q.isDontKnow)
                     .map(q => q.question)
                     .slice(0, 3); // Limit to first 3 to keep manageable
                 const ifNotRight = incorrectQuestions.length > 0 
-                    ? incorrectQuestions.join('; ') + (incorrectQuestions.length >= 3 && stats.answeredCount - stats.correctCount > 3 ? '...' : '')
+                    ? incorrectQuestions.join('; ') + (incorrectQuestions.length === 3 && totalIncorrect > 3 ? '...' : '')
                     : '';
                 
                 // CSV row - properly escape fields with exact column order from issue
