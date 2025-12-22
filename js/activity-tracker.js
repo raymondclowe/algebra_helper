@@ -157,19 +157,19 @@ window.ActivityTracker = {
     logAwaySession: function(startTime, endTime, duration) {
         const awaySeconds = Math.floor(duration / 1000);
         
-        // Categorize the away session
+        // Categorize the away session using constants
         let sessionType = 'unknown';
-        if (awaySeconds < 5) {
-            sessionType = 'quick_check'; // Quick tab switch (< 5 seconds)
-        } else if (awaySeconds < 30) {
-            sessionType = 'brief_distraction'; // Brief distraction (5-30 seconds)
-        } else if (awaySeconds < 300) {
-            sessionType = 'short_break'; // Short break (30s - 5 min)
+        if (awaySeconds < AWAY_SESSION_QUICK_CHECK_THRESHOLD) {
+            sessionType = 'quick_check'; // Quick tab switch
+        } else if (awaySeconds < AWAY_SESSION_BRIEF_DISTRACTION_THRESHOLD) {
+            sessionType = 'brief_distraction'; // Brief distraction
+        } else if (awaySeconds < AWAY_SESSION_SHORT_BREAK_THRESHOLD) {
+            sessionType = 'short_break'; // Short break
         } else {
-            sessionType = 'long_break'; // Long break or left (> 5 min)
+            sessionType = 'long_break'; // Long break or left
         }
         
-        // Store in localStorage for analytics (keep last 100 sessions)
+        // Store in localStorage for analytics (keep last MAX_AWAY_SESSIONS)
         try {
             const awaySessionsKey = 'away_sessions';
             let sessions = JSON.parse(localStorage.getItem(awaySessionsKey) || '[]');
@@ -182,9 +182,9 @@ window.ActivityTracker = {
                 date: new Date(startTime).toISOString()
             });
             
-            // Keep only last 100 sessions
-            if (sessions.length > 100) {
-                sessions = sessions.slice(-100);
+            // Keep only last MAX_AWAY_SESSIONS
+            if (sessions.length > MAX_AWAY_SESSIONS) {
+                sessions = sessions.slice(-MAX_AWAY_SESSIONS);
             }
             
             localStorage.setItem(awaySessionsKey, JSON.stringify(sessions));
