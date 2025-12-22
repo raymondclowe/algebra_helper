@@ -909,15 +909,18 @@ window.StorageManager = {
             // Build CSV content
             const csvRows = [];
             
-            // Header row
+            // Header row - using exact format from issue requirements
             csvRows.push([
                 'Date',
-                'Learner Name',
-                'Duration (min)',
-                'Questions Total',
-                'Questions Correct',
-                'Score %',
-                'Topics Practiced'
+                'Topic',
+                'What was done',
+                'How long did it take (min)',
+                'Correct Questions',
+                'Total Questions',
+                'If not right',
+                'Checked by AI (link)',
+                'Checked by human',
+                'Percentage correct'
             ].join(','));
             
             // Data rows
@@ -928,20 +931,35 @@ window.StorageManager = {
                 // Calculate statistics using helper
                 const stats = this.calculateSessionStats(session.questions);
                 
-                // Build topics string
+                // Build topics string with counts
                 const topicsStr = Object.entries(stats.topicCounts)
                     .map(([topic, count]) => `${topic}(${count})`)
                     .join('; ');
                 
-                // CSV row - properly escape fields
+                // Build "What was done" description
+                const whatWasDone = `Practiced ${stats.answeredCount} questions across topics: ${topicsStr}`;
+                
+                // Build "If not right" list - questions that were incorrect
+                const incorrectQuestions = session.questions
+                    .filter(q => !q.isCorrect && !q.isDontKnow)
+                    .map(q => q.question)
+                    .slice(0, 3); // Limit to first 3 to keep manageable
+                const ifNotRight = incorrectQuestions.length > 0 
+                    ? incorrectQuestions.join('; ') + (incorrectQuestions.length >= 3 && stats.answeredCount - stats.correctCount > 3 ? '...' : '')
+                    : '';
+                
+                // CSV row - properly escape fields with exact column order from issue
                 csvRows.push([
                     date,
-                    this.escapeCSVField(studentName),
+                    this.escapeCSVField(topicsStr),
+                    this.escapeCSVField(whatWasDone),
                     durationMin,
-                    stats.answeredCount,
                     stats.correctCount,
-                    stats.scorePercent,
-                    this.escapeCSVField(topicsStr)
+                    stats.answeredCount,
+                    this.escapeCSVField(ifNotRight),
+                    '', // Checked by AI (link) - optional, left empty
+                    '', // Checked by human - mandatory but left empty for user to fill
+                    stats.scorePercent
                 ].join(','));
             });
             

@@ -1,7 +1,7 @@
-Date,Student Name,Duration (min),Questions Total,Questions Correct,Score %,Topics Practiced
-12/15/2024,"Alice Smith",5,8,7,87,"Arithmetic(5); Basic Algebra(3)"
-12/15/2024,"Alice Smith",12,20,16,80,"Quadratics(8); Functions(7); Trigonometry(5)"
-12/16/2024,"Alice Smith",8,15,12,80,"Exponentials & Logarithms(10); Sequences & Series(5)"
-12/17/2024,"Bob Johnson",6,10,9,90,"Arithmetic(4); Fractions(6)"
-12/17/2024,"Bob Johnson",15,25,20,80,"Linear Equations(15); Inequalities(10)"
-12/17/2024,"Carol Davis",4,7,6,86,"Basic Algebra(4); Expanding Expressions(3)"
+Date,Topic,What was done,How long did it take (min),Correct Questions,Total Questions,If not right,Checked by AI (link),Checked by human,Percentage correct
+12/15/2024,"Arithmetic(5); Basic Algebra(3)","Practiced 8 questions across topics: Arithmetic(5); Basic Algebra(3)",5,7,8,"What is 3 + 4?",,,87
+12/15/2024,"Quadratics(8); Functions(7); Trigonometry(5)","Practiced 20 questions across topics: Quadratics(8); Functions(7); Trigonometry(5)",12,16,20,"Solve x^2 - 5x + 6 = 0; Find domain of f(x) = 1/(x-2); Calculate sin(45°)...",,,80
+12/16/2024,"Exponentials & Logarithms(10); Sequences & Series(5)","Practiced 15 questions across topics: Exponentials & Logarithms(10); Sequences & Series(5)",8,12,15,"Simplify log(100); Find sum of series 1+2+3+...+10; Solve e^x = 10",,,80
+12/17/2024,"Arithmetic(4); Fractions(6)","Practiced 10 questions across topics: Arithmetic(4); Fractions(6)",6,9,10,"What is 3/4 + 1/2?",,,90
+12/17/2024,"Linear Equations(15); Inequalities(10)","Practiced 25 questions across topics: Linear Equations(15); Inequalities(10)",15,20,25,"Solve 2x + 5 = 11; Find x when 3x - 7 > 5; Solve y = 2x + 3...",,,80
+12/17/2024,"Basic Algebra(4); Expanding Expressions(3)","Practiced 7 questions across topics: Basic Algebra(4); Expanding Expressions(3)",4,6,7,"Expand (x+2)(x+3)",,,86
