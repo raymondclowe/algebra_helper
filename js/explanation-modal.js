@@ -2,7 +2,9 @@
 window.ExplanationModal = {
     isOpen: false,
     currentExplanation: '',
+    currentDetailedExplanation: '',
     allowRetry: false,
+    showingDetailed: false,
     
     // Create and inject modal HTML into the page
     init: function() {
@@ -24,8 +26,21 @@ window.ExplanationModal = {
                         <p class="text-gray-400 text-sm italic">💡 Wrong answers are where we learn! Take a moment to understand the correct approach.</p>
                     </div>
                     
-                    <!-- Footer with action buttons -->
-                    <div class="bg-gray-750 p-4 border-t border-gray-700 flex gap-3">
+                    <!-- Feedback buttons (shown initially) -->
+                    <div id="feedback-buttons" class="bg-gray-750 p-4 border-t border-gray-700">
+                        <p class="text-gray-300 text-sm mb-3 text-center">Was this explanation clear?</p>
+                        <div class="flex gap-3">
+                            <button onclick="ExplanationModal.handleGotIt()" class="flex-1 px-4 py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded shadow-lg transition">
+                                ✓ Got it!
+                            </button>
+                            <button onclick="ExplanationModal.showDetailedExplanation()" class="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg transition">
+                                🔍 Explain more
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Action buttons (shown after feedback or for "I don't know") -->
+                    <div id="action-buttons" class="hidden bg-gray-750 p-4 border-t border-gray-700 flex gap-3">
                         <button id="retry-btn" onclick="ExplanationModal.retry()" class="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg">
                             Try Again
                         </button>
@@ -42,20 +57,36 @@ window.ExplanationModal = {
     },
     
     // Show the modal with explanation
-    show: function(explanation, allowRetry = true) {
+    show: function(explanation, allowRetry = true, detailedExplanation = '') {
         this.isOpen = true;
         this.currentExplanation = explanation;
+        this.currentDetailedExplanation = detailedExplanation;
         this.allowRetry = allowRetry;
+        this.showingDetailed = false;
         
         // Update content
         document.getElementById('explanation-modal-text').innerHTML = explanation;
         
-        // Show/hide retry button based on allowRetry
+        // Show/hide feedback buttons vs action buttons
+        const feedbackButtons = document.getElementById('feedback-buttons');
+        const actionButtons = document.getElementById('action-buttons');
         const retryBtn = document.getElementById('retry-btn');
-        if (allowRetry) {
-            retryBtn.classList.remove('hidden');
+        
+        if (allowRetry && detailedExplanation) {
+            // Show feedback buttons for wrong answers with detailed explanation available
+            feedbackButtons.classList.remove('hidden');
+            actionButtons.classList.add('hidden');
         } else {
-            retryBtn.classList.add('hidden');
+            // Show action buttons for "I don't know" or when no detailed explanation
+            feedbackButtons.classList.add('hidden');
+            actionButtons.classList.remove('hidden');
+            
+            // Show/hide retry button based on allowRetry
+            if (allowRetry) {
+                retryBtn.classList.remove('hidden');
+            } else {
+                retryBtn.classList.add('hidden');
+            }
         }
         
         // Show modal
@@ -64,6 +95,51 @@ window.ExplanationModal = {
         // Typeset math if MathJax is available
         if (window.MathJax && window.MathJax.typesetPromise) {
             MathJax.typesetPromise([document.getElementById('explanation-modal-text')]);
+        }
+    },
+    
+    // Handle "Got it!" button click
+    handleGotIt: function() {
+        // User understood the basic explanation
+        // Switch to action buttons
+        document.getElementById('feedback-buttons').classList.add('hidden');
+        document.getElementById('action-buttons').classList.remove('hidden');
+        
+        // Show retry button if allowed
+        const retryBtn = document.getElementById('retry-btn');
+        if (this.allowRetry) {
+            retryBtn.classList.remove('hidden');
+        } else {
+            retryBtn.classList.add('hidden');
+        }
+    },
+    
+    // Show detailed explanation
+    showDetailedExplanation: function() {
+        if (this.currentDetailedExplanation) {
+            // Update content with detailed explanation
+            this.showingDetailed = true;
+            document.getElementById('explanation-modal-text').innerHTML = this.currentDetailedExplanation;
+            
+            // Switch to action buttons
+            document.getElementById('feedback-buttons').classList.add('hidden');
+            document.getElementById('action-buttons').classList.remove('hidden');
+            
+            // Show retry button if allowed
+            const retryBtn = document.getElementById('retry-btn');
+            if (this.allowRetry) {
+                retryBtn.classList.remove('hidden');
+            } else {
+                retryBtn.classList.add('hidden');
+            }
+            
+            // Typeset math if MathJax is available
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                MathJax.typesetPromise([document.getElementById('explanation-modal-text')]);
+            }
+        } else {
+            // Fallback: just show action buttons if no detailed explanation
+            this.handleGotIt();
         }
     },
     
@@ -122,5 +198,58 @@ window.ExplanationModal = {
         } else if (window.APP && window.APP.nextQuestion) {
             window.APP.nextQuestion();
         }
+    },
+    
+    // Generate a detailed explanation from the basic explanation
+    // This expands on the basic explanation with more step-by-step details
+    generateDetailedExplanation: function(question) {
+        // If question already has a detailedExplanation field, use it
+        if (question.detailedExplanation) {
+            return question.detailedExplanation;
+        }
+        
+        // Otherwise, enhance the basic explanation with step-by-step breakdown
+        const basicExplanation = question.explanation || '';
+        
+        // Create a more detailed version with step-by-step structure
+        let detailed = `<div class="space-y-4">`;
+        detailed += `<div class="bg-blue-900 bg-opacity-30 p-3 rounded border border-blue-700">`;
+        detailed += `<h3 class="text-lg font-bold text-blue-300 mb-2">📚 Detailed Step-by-Step Explanation</h3>`;
+        detailed += `</div>`;
+        
+        // Add the problem context
+        detailed += `<div class="bg-gray-700 p-3 rounded">`;
+        detailed += `<p class="text-gray-300"><strong>Problem:</strong> ${question.instruction || 'Solve the question'}</p>`;
+        if (question.tex) {
+            detailed += `<p class="text-gray-300 mt-2"><strong>Expression:</strong> \\(${question.tex}\\)</p>`;
+        }
+        detailed += `<p class="text-green-300 mt-2"><strong>Correct Answer:</strong> \\(${question.displayAnswer}\\)</p>`;
+        detailed += `</div>`;
+        
+        // Add the basic explanation
+        detailed += `<div class="bg-gray-700 p-3 rounded">`;
+        detailed += `<p class="text-sm font-semibold text-yellow-300 mb-2">Step-by-step approach:</p>`;
+        detailed += `<p class="text-gray-300">${basicExplanation}</p>`;
+        detailed += `</div>`;
+        
+        // Add additional tips based on question type
+        if (question.type === 'why') {
+            detailed += `<div class="bg-purple-900 bg-opacity-30 p-3 rounded border border-purple-700">`;
+            detailed += `<p class="text-sm text-purple-200"><strong>💡 Understanding "Why":</strong> This question tests your conceptual understanding. Make sure you understand the reasoning, not just the procedure.</p>`;
+            detailed += `</div>`;
+        } else if (question.type === 'fixing-habits') {
+            detailed += `<div class="bg-orange-900 bg-opacity-30 p-3 rounded border border-orange-700">`;
+            detailed += `<p class="text-sm text-orange-200"><strong>⚠️ Common Mistake:</strong> This is a frequently made error. Take time to understand why the correct approach works.</p>`;
+            detailed += `</div>`;
+        } else {
+            // Add generic study tips
+            detailed += `<div class="bg-green-900 bg-opacity-30 p-3 rounded border border-green-700">`;
+            detailed += `<p class="text-sm text-green-200"><strong>📝 Study Tip:</strong> Practice similar problems to build confidence. Try working backwards from the answer to understand the logic.</p>`;
+            detailed += `</div>`;
+        }
+        
+        detailed += `</div>`;
+        
+        return detailed;
     }
 };
