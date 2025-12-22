@@ -353,8 +353,19 @@ function createSummaryData(sessions) {
   // Process each session
   sessions.forEach(function(session) {
     var date = new Date(session.startTime);
-    var dateStr = Utilities.formatDate(date, Session.getScriptTimeZone(), 'dd/MM/yyyy');
-    var timeStr = Utilities.formatDate(date, Session.getScriptTimeZone(), 'HH:mm');
+    // Use spreadsheet timezone or fall back to GMT
+    var timezone = 'GMT';
+    try {
+      var ss = SpreadsheetApp.getActiveSpreadsheet();
+      if (ss) {
+        timezone = ss.getSpreadsheetTimeZone();
+      }
+    } catch (e) {
+      // If we can't get spreadsheet timezone, use GMT as fallback
+      timezone = 'GMT';
+    }
+    var dateStr = Utilities.formatDate(date, timezone, 'dd/MM/yyyy');
+    var timeStr = Utilities.formatDate(date, timezone, 'HH:mm');
     
     // Calculate session duration in minutes
     var durationMin = Math.round((session.endTime - session.startTime) / 1000 / 60);
