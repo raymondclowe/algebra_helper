@@ -1,0 +1,121 @@
+{
+  "success": true,
+  "data": {
+    "worksheetTitle": "Habit Improvement Practice - Square Root Signs & Exponential Rules",
+    "headerMessage": "This is to help you gain more IB exam points by developing your habit / muscle memory to automatically do the right thing when writing answers. These targeted exercises are specially designed to break persistent mistakes and reinforce good habits.",
+    "targetHabits": [
+      {
+        "habitName": "Square Root Sign Awareness",
+        "description": "Always include ± (plus-minus) notation when taking the square root of both sides of an equation",
+        "importance": "Missing the negative root loses you marks in every IB exam question involving square roots. This is one of the most common mistakes that costs students 1-2 marks per question.",
+        "examPointsAtRisk": "1-2 points per question"
+      },
+      {
+        "habitName": "Division by Zero Check",
+        "description": "Always check if the denominator can equal zero before simplifying rational expressions",
+        "importance": "Failing to identify division by zero issues shows lack of mathematical rigor and can lead to invalid solutions, losing marks in IB exams.",
+        "examPointsAtRisk": "1-3 points per question"
+      },
+      {
+        "habitName": "Negative Exponent Rules",
+        "description": "Remember that negative exponents indicate reciprocals: x⁻ⁿ = 1/xⁿ",
+        "importance": "Mishandling negative exponents leads to completely wrong answers in exponential and logarithmic questions, a core IB HL topic.",
+        "examPointsAtRisk": "2-4 points per question"
+      }
+    ],
+    "exercises": [
+      {
+        "questionNumber": 1,
+        "question": "Solve for x: x² = 49",
+        "hints": [
+          "Remember that both positive and negative numbers square to give positive results",
+          "Use the ± symbol to show both solutions"
+        ],
+        "correctAnswer": "x = ±7",
+        "commonMistake": "Only writing x = 7 and forgetting the negative solution",
+        "keyReminder": "Square roots ALWAYS have two solutions: one positive and one negative"
+      },
+      {
+        "questionNumber": 2,
+        "question": "Solve for x: (x - 3)² = 16",
+        "hints": [
+          "Take the square root of both sides, remembering ±",
+          "Then solve two separate linear equations"
+        ],
+        "correctAnswer": "x - 3 = ±4, so x = 7 or x = -1",
+        "commonMistake": "Only finding x = 7 by forgetting the negative root",
+        "keyReminder": "When you take a square root, you must include both the positive and negative values"
+      },
+      {
+        "questionNumber": 3,
+        "question": "Simplify: (2x + 6) / x",
+        "hints": [
+          "Check: what happens when x = 0?",
+          "Can you divide by zero?"
+        ],
+        "correctAnswer": "2 + 6/x, with restriction x ≠ 0",
+        "commonMistake": "Simplifying without noting the restriction that x cannot equal zero",
+        "keyReminder": "Always identify values that make the denominator zero - these are excluded from the domain"
+      },
+      {
+        "questionNumber": 4,
+        "question": "Simplify: x / (x² - 4)",
+        "hints": [
+          "Factor the denominator first",
+          "Identify which values of x make the denominator zero"
+        ],
+        "correctAnswer": "x / [(x-2)(x+2)], with restrictions x ≠ 2 and x ≠ -2",
+        "commonMistake": "Not identifying that x cannot be 2 or -2",
+        "keyReminder": "Factor denominators to find ALL values that would cause division by zero"
+      },
+      {
+        "questionNumber": 5,
+        "question": "Simplify: 2⁻³",
+        "hints": [
+          "A negative exponent means 'take the reciprocal'",
+          "x⁻ⁿ = 1/xⁿ"
+        ],
+        "correctAnswer": "1/8",
+        "commonMistake": "Writing -8 instead of 1/8",
+        "keyReminder": "Negative exponents create fractions: move the base to the denominator and make the exponent positive"
+      },
+      {
+        "questionNumber": 6,
+        "question": "Simplify: (5x)⁻²",
+        "hints": [
+          "Apply the negative exponent rule",
+          "Remember to square both the coefficient and the variable"
+        ],
+        "correctAnswer": "1/(25x²)",
+        "commonMistake": "Writing 1/(5x²) instead of 1/(25x²), forgetting to square the 5",
+        "keyReminder": "When raising a product to a power, you must apply that power to each factor"
+      },
+      {
+        "questionNumber": 7,
+        "question": "Solve: x² - 2x - 15 = 0",
+        "hints": [
+          "Factor or use the quadratic formula",
+          "Remember there should be two solutions"
+        ],
+        "correctAnswer": "x = 5 or x = -3",
+        "commonMistake": "Only finding one solution",
+        "keyReminder": "Quadratic equations typically have two solutions - make sure to find both"
+      },
+      {
+        "questionNumber": 8,
+        "question": "Express with positive exponents: 3x⁻¹y²",
+        "hints": [
+          "Only the x has a negative exponent",
+          "Move only the x to the denominator"
+        ],
+        "correctAnswer": "3y²/x",
+        "commonMistake": "Moving everything to the denominator or handling the negative exponent incorrectly",
+        "keyReminder": "Only terms with negative exponents move to the denominator; positive exponents stay in place"
+      }
+    ],
+    "rationale": "These exercises systematically address your three most common error patterns. By practicing these specific types of problems, you'll build automatic responses that prevent these mistakes. The key is repetition - your brain will learn to automatically include the ± symbol, check for division by zero, and correctly handle negative exponents. Each correct answer strengthens the neural pathway for the right habit. With consistent practice, these correct methods will become second nature, and you'll stop losing points on these common errors in your IB exams.",
+    "generatedAt": "2024-12-24T02:00:00.000Z",
+    "studentName": "John",
+    "currentLevel": 10.5
+  }
+}
