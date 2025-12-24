@@ -13,7 +13,15 @@
 window.WorksheetGenerator = {
   
   // Cloudflare Worker endpoint URL (update with your deployed worker URL)
+  // IMPORTANT: Replace YOUR-SUBDOMAIN with your actual Cloudflare subdomain before production use
   API_ENDPOINT: 'https://algebra-helper-worksheet-generator.YOUR-SUBDOMAIN.workers.dev/api/worksheet/analyze',
+  
+  /**
+   * Check if API endpoint is properly configured
+   */
+  isConfigured() {
+    return !this.API_ENDPOINT.includes('YOUR-SUBDOMAIN');
+  },
   
   /**
    * Collect student data for worksheet generation
@@ -121,6 +129,12 @@ window.WorksheetGenerator = {
    */
   async generateWorksheet() {
     try {
+      // Check if API endpoint is configured
+      if (!this.isConfigured()) {
+        this.showError('API endpoint not configured. Please update the worker URL in worksheet-generator.js');
+        return;
+      }
+      
       // Show loading indicator
       this.showLoadingIndicator();
       
@@ -192,7 +206,23 @@ window.WorksheetGenerator = {
    * Show error message
    */
   showError(message) {
-    alert(`Worksheet Generation Error: ${message}\n\nPlease try again later.`);
+    // Create error modal instead of using alert()
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+      <div class="bg-white rounded-lg p-6 max-w-md mx-4 shadow-xl">
+        <div class="flex items-center mb-4">
+          <span class="text-3xl mr-3">⚠️</span>
+          <h3 class="text-xl font-bold text-red-600">Worksheet Generation Error</h3>
+        </div>
+        <p class="text-gray-700 mb-6">${message}</p>
+        <button onclick="this.closest('.fixed').remove()" 
+                class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          Close
+        </button>
+      </div>
+    `;
+    document.body.appendChild(modal);
   },
   
   /**

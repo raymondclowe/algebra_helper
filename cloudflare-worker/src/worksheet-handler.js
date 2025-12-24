@@ -97,8 +97,15 @@ Format your response as a structured JSON object with this exact structure:
  */
 function parseAIResponse(aiOutput) {
   try {
-    // The AI response should be JSON
-    const parsed = JSON.parse(aiOutput);
+    // Check if aiOutput is already parsed (object) or needs parsing (string)
+    let parsed;
+    if (typeof aiOutput === 'string') {
+      parsed = JSON.parse(aiOutput);
+    } else if (typeof aiOutput === 'object' && aiOutput !== null) {
+      parsed = aiOutput;
+    } else {
+      throw new Error('Invalid AI response type');
+    }
     
     // Validate structure
     if (!parsed.worksheetTitle || !parsed.headerMessage || !parsed.targetHabits || !parsed.exercises) {
@@ -153,14 +160,34 @@ export async function handleWorksheetRequest(request, env, corsHeaders) {
     // Build AI prompt
     const prompt = buildAnalysisPrompt(body);
     
-    // Call Cloudflare Workers AI
-    // Using @cf/meta/llama-2-7b-chat-int8 model (good balance of quality and speed)
-    // See: https://developers.cloudflare.com/workers-ai/models/
-    const aiResponse = await env.AI.run('@cf/meta/llama-2-7b-chat-int8', {
-      prompt: prompt,
-      max_tokens: 2000,
-      temperature: 0.7,
-    });
+    // Call Cloudflare Workers AI with error handling
+    let aiResponse;
+    try {
+      // Using @cf/meta/llama-2-7b-chat-int8 model (good balance of quality and speed)
+      // See: https://developers.cloudflare.com/workers-ai/models/
+      aiResponse = await env.AI.run('@cf/meta/llama-2-7b-chat-int8', {
+        prompt: prompt,
+        max_tokens: 2000,
+        temperature: 0.7,
+      });
+      
+      if (!aiResponse || (!aiResponse.response && !aiResponse)) {
+        throw new Error('AI service returned empty response');
+      }
+    } catch (aiError) {
+      console.error('AI service error:', aiError);
+      return new Response(JSON.stringify({
+        error: 'AI Service Error',
+        message: 'The AI service is temporarily unavailable. Please try again later.',
+        details: aiError.message
+      }), {
+        status: 503,
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders,
+        },
+      });
+    }
     
     // Parse AI response
     const worksheetData = parseAIResponse(aiResponse.response || aiResponse);

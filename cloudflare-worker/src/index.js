@@ -17,6 +17,8 @@ export default {
     const url = new URL(request.url);
     
     // CORS headers for front-end access
+    // TODO: For production, replace '*' with your specific domain
+    // Example: 'https://raymondclowe.github.io'
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
