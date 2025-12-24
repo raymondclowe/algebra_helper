@@ -9,12 +9,16 @@ window.ActivityTracker = {
     dailySaveInterval: null,
     totalAwayTime: 0, // Total time spent away from tab (milliseconds)
     awaySessionStart: null, // Timestamp when current away session started
+    lastActivityTime: null, // Timestamp of last user activity
+    inactivityCheckInterval: null, // Interval for checking inactivity
+    inactivityOverlayVisible: false, // Whether inactivity overlay is shown
     
     // Initialize tracking with all major JS APIs
     init: function() {
         this.startTime = Date.now();
         this.isActive = true;
         this.lastDailySaveTime = Date.now();
+        this.lastActivityTime = Date.now();
         
         // Page Visibility API - detects when tab is focused
         document.addEventListener('visibilitychange', () => {
@@ -32,20 +36,93 @@ window.ActivityTracker = {
         // User interaction tracking (helps determine if user is active)
         this.setupInteractionTracking();
         
+        // Setup inactivity detection
+        this.setupInactivityDetection();
+        
         // Save daily stats every minute
         this.dailySaveInterval = setInterval(() => this.saveDailyTime(), DAILY_SAVE_INTERVAL_MS);
     },
     
     setupInteractionTracking: function() {
         // Track any user interaction as activity
-        const events = ['mousedown', 'keydown', 'touchstart', 'scroll'];
+        const events = ['mousedown', 'keydown', 'touchstart', 'scroll', 'mousemove', 'click'];
         events.forEach(event => {
             document.addEventListener(event, () => {
+                // Update last activity time
+                this.lastActivityTime = Date.now();
+                
+                // Hide inactivity overlay if visible
+                if (this.inactivityOverlayVisible) {
+                    this.hideInactivityOverlay();
+                    this.resume();
+                }
+                
                 if (!this.isActive && !document.hidden && document.hasFocus()) {
                     this.resume();
                 }
             }, { passive: true });
         });
+    },
+    
+    setupInactivityDetection: function() {
+        // Check for inactivity every 5 seconds
+        this.inactivityCheckInterval = setInterval(() => {
+            // Only check if tab is visible and not already paused
+            if (!document.hidden && !this.isPaused && !this.inactivityOverlayVisible) {
+                const timeSinceLastActivity = Date.now() - this.lastActivityTime;
+                
+                if (timeSinceLastActivity >= INACTIVITY_TIMEOUT_MS) {
+                    this.showInactivityOverlay();
+                    this.pause();
+                }
+            }
+        }, 5000); // Check every 5 seconds
+    },
+    
+    showInactivityOverlay: function() {
+        // Create overlay if it doesn't exist
+        let overlay = document.getElementById('inactivity-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.id = 'inactivity-overlay';
+            overlay.style.cssText = `
+                position: fixed;
+                top: 10%;
+                left: 10%;
+                right: 10%;
+                bottom: 10%;
+                background-color: rgba(0, 0, 0, 0.9);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 8px;
+            `;
+            
+            const message = document.createElement('div');
+            message.style.cssText = `
+                color: white;
+                font-size: 48px;
+                font-weight: bold;
+                text-align: center;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            `;
+            message.textContent = 'Session Paused';
+            
+            overlay.appendChild(message);
+            document.body.appendChild(overlay);
+        }
+        
+        overlay.style.display = 'flex';
+        this.inactivityOverlayVisible = true;
+    },
+    
+    hideInactivityOverlay: function() {
+        const overlay = document.getElementById('inactivity-overlay');
+        if (overlay) {
+            overlay.style.display = 'none';
+        }
+        this.inactivityOverlayVisible = false;
     },
     
     pause: function() {
@@ -107,6 +184,8 @@ window.ActivityTracker = {
         this.lastPauseTime = null;
         this.totalAwayTime = 0;
         this.awaySessionStart = null;
+        this.lastActivityTime = Date.now();
+        this.hideInactivityOverlay();
     },
     
     // Get formatted time string (HH:MM:SS)
@@ -221,5 +300,10 @@ window.ActivityTracker = {
             clearInterval(this.dailySaveInterval);
             this.dailySaveInterval = null;
         }
+        if (this.inactivityCheckInterval) {
+            clearInterval(this.inactivityCheckInterval);
+            this.inactivityCheckInterval = null;
+        }
+        this.hideInactivityOverlay();
     }
 };

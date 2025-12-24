@@ -32,6 +32,9 @@ const AWAY_SESSION_BRIEF_DISTRACTION_THRESHOLD = 30;  // Seconds - brief distrac
 const AWAY_SESSION_SHORT_BREAK_THRESHOLD = 300;    // Seconds - short break (30s - 5min)
 const MAX_AWAY_SESSIONS = 100;                     // Maximum number of away sessions to store
 
+// Inactivity Timeout Constants
+const INACTIVITY_TIMEOUT_MS = 60000;               // 1 minute - timeout for inactivity detection
+
 // Response Speed Thresholds (seconds)
 // Note: Thresholds adjusted to reduce speed pressure and encourage thoughtful problem-solving
 // Research shows deeper learning occurs when students have time to reflect (Schraw & Dennison, 1994)
