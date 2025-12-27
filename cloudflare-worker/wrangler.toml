@@ -1,0 +1,15 @@
+name = "algebra-helper-worksheet-generator"
+main = "src/index.js"
+compatibility_date = "2024-12-24"
+
+# Workers AI binding for AI models (free tier: 10,000 neurons/day)
+# See: https://developers.cloudflare.com/workers-ai/
+[ai]
+binding = "AI"
+
+# CORS configuration for front-end access
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[env.development]
+vars = { ENVIRONMENT = "development" }

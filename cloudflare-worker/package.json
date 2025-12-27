@@ -1,0 +1,27 @@
+{
+  "name": "algebra-helper-worksheet-generator",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker AI microservice for generating personalized student worksheets",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:production": "wrangler deploy --env production",
+    "deploy:development": "wrangler deploy --env development",
+    "tail": "wrangler tail"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "ai",
+    "education",
+    "worksheet",
+    "personalized-learning"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "studentName": "John",
+  "errorPatterns": {
+    "squareRootSign": 5,
+    "divisionByZero": 3,
+    "negativeExponents": 2
+  },
+  "performanceHistory": [
+    {
+      "topic": "Quadratic Equations",
+      "correct": 7,
+      "total": 10,
+      "successRate": "70.0"
+    },
+    {
+      "topic": "Exponentials & Logarithms",
+      "correct": 4,
+      "total": 8,
+      "successRate": "50.0"
+    },
+    {
+      "topic": "Factorising Quadratics",
+      "correct": 9,
+      "total": 10,
+      "successRate": "90.0"
+    },
+    {
+      "topic": "Linear Equations",
+      "correct": 15,
+      "total": 15,
+      "successRate": "100.0"
+    }
+  ],
+  "weaknessAreas": [
+    "Square Root Signs (±)",
+    "Division by Zero Awareness",
+    "Exponentials & Logarithms"
+  ],
+  "level": 10.5,
+  "timestamp": "2024-12-24T01:00:00.000Z"
+}
