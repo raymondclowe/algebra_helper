@@ -196,7 +196,8 @@ window.Learning = {
             });
             
             // Show explanation in modal with retry option - use positive framing
-            window.ExplanationModal.show(window.APP.currentQ.explanation, true);
+            const detailedExplanation = window.ExplanationModal.generateDetailedExplanation(window.APP.currentQ);
+            window.ExplanationModal.show(window.APP.currentQ.explanation, true, detailedExplanation);
             
             // Save to storage (wrong answer)
             this.saveQuestionToStorage(timeSpent, false, false);
