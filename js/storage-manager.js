@@ -2,9 +2,17 @@
 window.StorageManager = {
     db: null,
     DB_NAME: 'AlgebraHelperDB',
-    DB_VERSION: 3, // Upgraded to support paper homework tracking
+    DB_VERSION: 2, // Upgraded to support enhanced question tracking
     STORE_NAME: 'questions',
-    PAPER_HOMEWORK_STORE: 'paperHomework',
+    
+    // Session export filtering constants
+    MIN_SESSION_DURATION_MINUTES: 2,
+    MIN_CORRECT_RATE: 0.5, // 50%
+    SESSION_GAP_MS: 30 * 60 * 1000, // 30 minutes in milliseconds
+    // Helper function for rounding to 1 decimal place
+    roundToOneDecimal: function(value) {
+        return Math.round(value * 10) / 10;
+    },
     
     // IndexedDB configuration constants
     STORE_CONFIG: {
@@ -57,20 +65,6 @@ window.StorageManager = {
                         // Migrate existing records to add missing fields
                         this.migrateExistingData(objectStore);
                     }
-                }
-                
-                // Create paper homework store if upgrading to version 3 or if new installation
-                if (!db.objectStoreNames.contains(this.PAPER_HOMEWORK_STORE)) {
-                    const paperHomeworkStore = db.createObjectStore(this.PAPER_HOMEWORK_STORE, {
-                        keyPath: 'id',
-                        autoIncrement: true
-                    });
-                    
-                    // Create indexes for paper homework queries
-                    paperHomeworkStore.createIndex('datetime', 'datetime', { unique: false });
-                    paperHomeworkStore.createIndex('topic', 'topic', { unique: false });
-                    paperHomeworkStore.createIndex('isCorrect', 'isCorrect', { unique: false });
-                    paperHomeworkStore.createIndex('errorType', 'errorType', { unique: false });
                 }
             };
         });
@@ -259,7 +253,7 @@ window.StorageManager = {
         return stats;
     },
     
-    // Student name management
+    // User name management
     getStudentName: function() {
         return localStorage.getItem('algebraHelperStudentName') || '';
     },
@@ -357,6 +351,105 @@ window.StorageManager = {
         return 0;
     },
     
+    // Get topics that need review based on spaced repetition algorithm
+    // Returns topics sorted by review priority (most urgent first)
+    getTopicsNeedingReview: async function() {
+        try {
+            const topicStats = await this.getTopicStats();
+            const reviewTopics = [];
+            
+            // Thresholds for determining if a topic needs review
+            const MIN_ATTEMPTS = 3; // Need at least 3 attempts to evaluate
+            const NEEDS_REVIEW_THRESHOLD = 70; // Below 70% accuracy needs review
+            const MASTERED_THRESHOLD = 85; // Above 85% is mastered
+            
+            Object.entries(topicStats).forEach(([topic, stats]) => {
+                const answeredCount = stats.correct + stats.incorrect;
+                
+                // Skip if not enough data
+                if (answeredCount < MIN_ATTEMPTS) {
+                    return;
+                }
+                
+                const accuracy = stats.averageScore;
+                
+                // Classify topic status
+                let status = 'working';
+                if (accuracy >= MASTERED_THRESHOLD) {
+                    status = 'mastered';
+                } else if (accuracy < NEEDS_REVIEW_THRESHOLD) {
+                    status = 'needs_review';
+                }
+                
+                // Calculate time since last attempt
+                const lastAttempt = stats.recentQuestions[stats.recentQuestions.length - 1];
+                const daysSinceLastAttempt = lastAttempt ? 
+                    (Date.now() - lastAttempt.datetime) / (1000 * 60 * 60 * 24) : 999;
+                
+                // Calculate review urgency (higher = more urgent)
+                let urgency = 0;
+                if (status === 'needs_review') {
+                    // More urgent if accuracy is low and hasn't been practiced recently
+                    urgency = (100 - accuracy) * (1 + Math.min(daysSinceLastAttempt / 7, 2));
+                } else if (status === 'working') {
+                    // Moderate urgency for topics being worked on
+                    urgency = (MASTERED_THRESHOLD - accuracy) * (1 + Math.min(daysSinceLastAttempt / 14, 1));
+                } else if (status === 'mastered') {
+                    // Low urgency for mastered topics (maintenance review)
+                    if (daysSinceLastAttempt > 7) {
+                        urgency = Math.min(daysSinceLastAttempt / 7, 10);
+                    }
+                }
+                
+                reviewTopics.push({
+                    topic,
+                    status,
+                    accuracy,
+                    attempts: answeredCount,
+                    daysSinceLastAttempt: Math.round(daysSinceLastAttempt * 10) / 10,
+                    urgency: Math.round(urgency * 10) / 10
+                });
+            });
+            
+            // Sort by urgency (highest first)
+            reviewTopics.sort((a, b) => b.urgency - a.urgency);
+            
+            return reviewTopics;
+        } catch (error) {
+            console.error('Error getting topics needing review:', error);
+            return [];
+        }
+    },
+    
+    // Get mastery summary for dashboard
+    getMasterySummary: async function() {
+        try {
+            const reviewTopics = await this.getTopicsNeedingReview();
+            
+            const summary = {
+                mastered: reviewTopics.filter(t => t.status === 'mastered').length,
+                needsReview: reviewTopics.filter(t => t.status === 'needs_review').length,
+                working: reviewTopics.filter(t => t.status === 'working').length,
+                total: reviewTopics.length,
+                topReviewTopics: reviewTopics
+                    .filter(t => t.status === 'needs_review')
+                    .slice(0, 5)
+                    .map(t => ({ topic: t.topic, accuracy: t.accuracy }))
+            };
+            
+            return summary;
+        } catch (error) {
+            console.error('Error getting mastery summary:', error);
+            return {
+                mastered: 0,
+                needsReview: 0,
+                working: 0,
+                total: 0,
+                topReviewTopics: []
+            };
+        }
+    },
+    
     // Get daily stats (time spent today)
     getDailyStats: function() {
         const dailyStatsJSON = localStorage.getItem('algebraHelperDailyStats');
@@ -392,12 +485,225 @@ window.StorageManager = {
         return dailyStats;
     },
     
+    // Get historical daily stats (time tracking history)
+    getHistoricalDailyStats: function() {
+        const historyJSON = localStorage.getItem('algebraHelperDailyHistory');
+        if (historyJSON) {
+            try {
+                return JSON.parse(historyJSON);
+            } catch (e) {
+                console.error('Error parsing daily history:', e);
+                return {};
+            }
+        }
+        return {};
+    },
+    
+    // Save daily stats to history at end of day
+    saveDailyStatsToHistory: function() {
+        const dailyStats = this.getDailyStats();
+        const history = this.getHistoricalDailyStats();
+        
+        // Store by date as key
+        if (dailyStats.minutesSpent > 0) {
+            history[dailyStats.date] = {
+                minutesSpent: dailyStats.minutesSpent,
+                date: dailyStats.date,
+                timestamp: Date.now()
+            };
+            
+            try {
+                localStorage.setItem('algebraHelperDailyHistory', JSON.stringify(history));
+            } catch (e) {
+                console.error('Error saving daily history:', e);
+            }
+        }
+        
+        return history;
+    },
+    
+    // Get time spent by topic for a specific date
+    getTopicTimeForDate: async function(dateString) {
+        try {
+            const questions = await this.getAllQuestions();
+            const topicTime = {};
+            
+            questions.forEach(q => {
+                const qDate = new Date(q.datetime).toDateString();
+                if (qDate === dateString && q.topic && q.timeSpent) {
+                    const topic = q.topic;
+                    if (!topicTime[topic]) {
+                        topicTime[topic] = 0;
+                    }
+                    topicTime[topic] += q.timeSpent;
+                }
+            });
+            
+            // Convert seconds to minutes
+            Object.keys(topicTime).forEach(topic => {
+                topicTime[topic] = this.roundToOneDecimal(topicTime[topic] / 60);
+            });
+            
+            return topicTime;
+        } catch (error) {
+            console.error('Error getting topic time for date:', error);
+            return {};
+        }
+    },
+    
+    // Get daily time tracking summary (today and yesterday with topic breakdown)
+    getDailyTimeSummary: async function() {
+        try {
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            
+            const todayTopicTime = await this.getTopicTimeForDate(today);
+            const yesterdayTopicTime = await this.getTopicTimeForDate(yesterday);
+            
+            // Calculate totals
+            const todayTotal = Object.values(todayTopicTime).reduce((sum, time) => sum + time, 0);
+            const yesterdayTotal = Object.values(yesterdayTopicTime).reduce((sum, time) => sum + time, 0);
+            
+            return {
+                today: {
+                    date: today,
+                    total: todayTotal,
+                    byTopic: todayTopicTime
+                },
+                yesterday: {
+                    date: yesterday,
+                    total: yesterdayTotal,
+                    byTopic: yesterdayTopicTime
+                }
+            };
+        } catch (error) {
+            console.error('Error getting daily time summary:', error);
+            return {
+                today: { date: new Date().toDateString(), total: 0, byTopic: {} },
+                yesterday: { date: new Date(Date.now() - 86400000).toDateString(), total: 0, byTopic: {} }
+            };
+        }
+    },
+    
+    // Get historical trend data (last N days)
+    getHistoricalTrend: async function(daysBack = 7) {
+        try {
+            const questions = await this.getAllQuestions();
+            const trendData = [];
+            
+            // Calculate date range
+            const today = new Date();
+            for (let i = daysBack - 1; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() - i);
+                const dateString = date.toDateString();
+                
+                // Calculate time for this date
+                let totalMinutes = 0;
+                questions.forEach(q => {
+                    const qDate = new Date(q.datetime).toDateString();
+                    if (qDate === dateString && q.timeSpent) {
+                        totalMinutes += q.timeSpent / 60;
+                    }
+                });
+                
+                trendData.push({
+                    date: dateString,
+                    shortDate: this.formatShortDate(date),
+                    minutes: this.roundToOneDecimal(totalMinutes)
+                });
+            }
+            
+            return trendData;
+        } catch (error) {
+            console.error('Error getting historical trend:', error);
+            return [];
+        }
+    },
+    
+    // Helper function to format date as short string (e.g., "Mon 12/17")
+    formatShortDate: function(date) {
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayName = days[date.getDay()];
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return `${dayName} ${month}/${day}`;
+    },
+    
+    // Calculate learning velocity (rate of improvement over time)
+    // Returns improvement rate in percentage points per hour
+    // Note: This is calculated but not displayed per requirements
+    calculateLearningVelocity: async function(lookbackDays = 7) {
+        try {
+            const questions = await this.getAllQuestions();
+            if (questions.length < 10) {
+                return null; // Need minimum data for meaningful calculation
+            }
+            
+            // Sort by datetime
+            questions.sort((a, b) => a.datetime - b.datetime);
+            
+            // Calculate cutoff time for lookback period
+            const cutoffTime = Date.now() - (lookbackDays * 24 * 60 * 60 * 1000);
+            const recentQuestions = questions.filter(q => q.datetime >= cutoffTime);
+            
+            if (recentQuestions.length < 5) {
+                return null; // Need minimum recent data
+            }
+            
+            // Split into early and late half for comparison
+            const midpoint = Math.floor(recentQuestions.length / 2);
+            const earlyQuestions = recentQuestions.slice(0, midpoint);
+            const lateQuestions = recentQuestions.slice(midpoint);
+            
+            // Calculate accuracy for each period (excluding "I don't know")
+            const calcAccuracy = (questions) => {
+                const answered = questions.filter(q => !q.isDontKnow);
+                if (answered.length === 0) return null;
+                const correct = answered.filter(q => q.isCorrect).length;
+                return (correct / answered.length) * 100;
+            };
+            
+            const earlyAccuracy = calcAccuracy(earlyQuestions);
+            const lateAccuracy = calcAccuracy(lateQuestions);
+            
+            if (earlyAccuracy === null || lateAccuracy === null) {
+                return null;
+            }
+            
+            // Calculate time span in hours
+            const timeSpanMs = lateQuestions[lateQuestions.length - 1].datetime - earlyQuestions[0].datetime;
+            const timeSpanHours = timeSpanMs / (1000 * 60 * 60);
+            
+            if (timeSpanHours < 0.1) {
+                return null; // Too short time span
+            }
+            
+            // Learning velocity = change in accuracy / time
+            const accuracyChange = lateAccuracy - earlyAccuracy;
+            const learningVelocity = accuracyChange / timeSpanHours;
+            
+            return {
+                velocity: this.roundToOneDecimal(learningVelocity),
+                earlyAccuracy: this.roundToOneDecimal(earlyAccuracy),
+                lateAccuracy: this.roundToOneDecimal(lateAccuracy),
+                timeSpanHours: this.roundToOneDecimal(timeSpanHours),
+                questionCount: recentQuestions.length
+            };
+        } catch (error) {
+            console.error('Error calculating learning velocity:', error);
+            return null;
+        }
+    },
+    
     // Export all data (IndexedDB + localStorage) to JSON
+    // Learning velocity included per feature requirement: "export data from local storage/indexdb to json for analytics dashboard"
     exportData: async function() {
         try {
             const questions = await this.getAllQuestions();
             const stats = this.getStats();
             const dailyStats = this.getDailyStats();
+            const learningVelocity = await this.calculateLearningVelocity();
             
             // Get all localStorage data
             const localStorageData = {};
@@ -419,6 +725,7 @@ window.StorageManager = {
                 questions: questions,
                 stats: stats,
                 dailyStats: dailyStats,
+                learningVelocity: learningVelocity,
                 localStorage: localStorageData
             };
             
@@ -493,165 +800,179 @@ window.StorageManager = {
         }
     },
     
-    // ============================================
-    // Paper Homework Management
-    // ============================================
-    
-    // Save a paper homework entry
-    savePaperHomework: function(homeworkData) {
-        return new Promise((resolve, reject) => {
-            if (!this.db) {
-                reject(new Error('Database not initialized'));
-                return;
-            }
-            
-            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readwrite');
-            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
-            
-            // Add timestamp if not present
-            if (!homeworkData.datetime) {
-                homeworkData.datetime = Date.now();
-            }
-            
-            const request = objectStore.add(homeworkData);
-            
-            request.onsuccess = () => {
-                resolve(request.result);
-            };
-            
-            request.onerror = () => {
-                reject(request.error);
-            };
-        });
+    // Helper function to escape CSV field values
+    escapeCSVField: function(value) {
+        // Convert to string and escape quotes by doubling them
+        const stringValue = String(value);
+        if (stringValue.includes('"') || stringValue.includes(',') || stringValue.includes('\n')) {
+            return `"${stringValue.replace(/"/g, '""')}"`;
+        }
+        return stringValue;
     },
     
-    // Get all paper homework entries
-    getAllPaperHomework: function() {
-        return new Promise((resolve, reject) => {
-            if (!this.db) {
-                reject(new Error('Database not initialized'));
-                return;
+    // Helper function to calculate session statistics
+    calculateSessionStats: function(questions) {
+        let correctCount = 0;
+        let answeredCount = 0;
+        const topicCounts = {};
+        
+        questions.forEach(q => {
+            if (!q.isDontKnow) {
+                answeredCount++;
+                if (q.isCorrect) correctCount++;
             }
             
-            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readonly');
-            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
-            const request = objectStore.getAll();
-            
-            request.onsuccess = () => {
-                resolve(request.result);
-            };
-            
-            request.onerror = () => {
-                reject(request.error);
-            };
+            // Track topics
+            const topic = q.topic || 'Unknown';
+            topicCounts[topic] = (topicCounts[topic] || 0) + 1;
         });
+        
+        const scorePercent = answeredCount > 0 ? Math.round((correctCount / answeredCount) * 100) : 0;
+        const correctRate = answeredCount > 0 ? correctCount / answeredCount : 0;
+        
+        return {
+            correctCount,
+            answeredCount,
+            topicCounts,
+            scorePercent,
+            correctRate
+        };
     },
     
-    // Get paper homework entries by topic
-    getPaperHomeworkByTopic: function(topic) {
-        return new Promise((resolve, reject) => {
-            if (!this.db) {
-                reject(new Error('Database not initialized'));
-                return;
-            }
+    // Group questions into sessions (30 min gap threshold)
+    groupIntoSessions: function(questions) {
+        if (questions.length === 0) return [];
+        
+        // Sort questions by datetime
+        questions.sort((a, b) => a.datetime - b.datetime);
+        
+        const sessions = [];
+        let currentSession = {
+            startTime: questions[0].datetime,
+            endTime: questions[0].datetime,
+            questions: [questions[0]]
+        };
+        
+        for (let i = 1; i < questions.length; i++) {
+            const q = questions[i];
+            const timeSinceLastQuestion = q.datetime - currentSession.endTime;
             
-            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readonly');
-            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
-            const index = objectStore.index('topic');
-            const request = index.getAll(topic);
-            
-            request.onsuccess = () => {
-                resolve(request.result);
-            };
-            
-            request.onerror = () => {
-                reject(request.error);
-            };
-        });
-    },
-    
-    // Get paper homework entries by error type
-    getPaperHomeworkByErrorType: function(errorType) {
-        return new Promise((resolve, reject) => {
-            if (!this.db) {
-                reject(new Error('Database not initialized'));
-                return;
-            }
-            
-            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readonly');
-            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
-            const index = objectStore.index('errorType');
-            const request = index.getAll(errorType);
-            
-            request.onsuccess = () => {
-                resolve(request.result);
-            };
-            
-            request.onerror = () => {
-                reject(request.error);
-            };
-        });
-    },
-    
-    // Update a paper homework entry
-    updatePaperHomework: function(id, updates) {
-        return new Promise((resolve, reject) => {
-            if (!this.db) {
-                reject(new Error('Database not initialized'));
-                return;
-            }
-            
-            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readwrite');
-            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
-            
-            const getRequest = objectStore.get(id);
-            
-            getRequest.onsuccess = () => {
-                const data = getRequest.result;
-                if (!data) {
-                    reject(new Error('Paper homework entry not found'));
-                    return;
-                }
-                
-                // Merge updates
-                Object.assign(data, updates);
-                
-                const updateRequest = objectStore.put(data);
-                
-                updateRequest.onsuccess = () => {
-                    resolve(updateRequest.result);
+            if (timeSinceLastQuestion > this.SESSION_GAP_MS) {
+                // Start new session
+                sessions.push(currentSession);
+                currentSession = {
+                    startTime: q.datetime,
+                    endTime: q.datetime,
+                    questions: [q]
                 };
-                
-                updateRequest.onerror = () => {
-                    reject(updateRequest.error);
-                };
-            };
-            
-            getRequest.onerror = () => {
-                reject(getRequest.error);
-            };
-        });
+            } else {
+                // Add to current session
+                currentSession.questions.push(q);
+                currentSession.endTime = q.datetime;
+            }
+        }
+        
+        // Add last session
+        sessions.push(currentSession);
+        
+        return sessions;
     },
     
-    // Delete a paper homework entry
-    deletePaperHomework: function(id) {
-        return new Promise((resolve, reject) => {
-            if (!this.db) {
-                reject(new Error('Database not initialized'));
-                return;
+    // Export sessions to CSV format for Google Sheets
+    exportSessionsCSV: async function() {
+        try {
+            const questions = await this.getAllQuestions();
+            const studentName = this.getStudentName() || 'Anonymous';
+            
+            // Group into sessions
+            const sessions = this.groupIntoSessions(questions);
+            
+            // Filter sessions using configured thresholds
+            const filteredSessions = sessions.filter(session => {
+                const durationMin = (session.endTime - session.startTime) / 1000 / 60;
+                const stats = this.calculateSessionStats(session.questions);
+                
+                // Session must meet both duration and accuracy thresholds
+                return durationMin > this.MIN_SESSION_DURATION_MINUTES && 
+                       stats.correctRate > this.MIN_CORRECT_RATE;
+            });
+            
+            if (filteredSessions.length === 0) {
+                const minMinutes = this.MIN_SESSION_DURATION_MINUTES;
+                const minPercent = Math.round(this.MIN_CORRECT_RATE * 100);
+                return { 
+                    success: false, 
+                    error: `No sessions meet the criteria (>${minMinutes} minutes and >${minPercent}% correct)` 
+                };
             }
             
-            const transaction = this.db.transaction([this.PAPER_HOMEWORK_STORE], 'readwrite');
-            const objectStore = transaction.objectStore(this.PAPER_HOMEWORK_STORE);
-            const request = objectStore.delete(id);
+            // Build CSV content
+            const csvRows = [];
             
-            request.onsuccess = () => {
-                resolve();
-            };
+            // Header row
+            csvRows.push([
+                'Date',
+                'Learner Name',
+                'Duration (min)',
+                'Questions Total',
+                'Questions Correct',
+                'Score %',
+                'Topics Practiced'
+            ].join(','));
             
-            request.onerror = () => {
-                reject(request.error);
+            // Data rows
+            filteredSessions.forEach(session => {
+                const date = new Date(session.startTime).toLocaleDateString();
+                const durationMin = Math.round((session.endTime - session.startTime) / 1000 / 60);
+                
+                // Calculate statistics using helper
+                const stats = this.calculateSessionStats(session.questions);
+                
+                // Build topics string
+                const topicsStr = Object.entries(stats.topicCounts)
+                    .map(([topic, count]) => `${topic}(${count})`)
+                    .join('; ');
+                
+                // CSV row - properly escape fields
+                csvRows.push([
+                    date,
+                    this.escapeCSVField(studentName),
+                    durationMin,
+                    stats.answeredCount,
+                    stats.correctCount,
+                    stats.scorePercent,
+                    this.escapeCSVField(topicsStr)
+                ].join(','));
+            });
+            
+            const csvContent = csvRows.join('\n');
+            
+            // Create downloadable CSV file
+            const dataBlob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            
+            // Create filename with timestamp
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            const filename = `algebra-helper-sessions-${timestamp}.csv`;
+            
+            // Trigger download
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            return { 
+                success: true, 
+                filename: filename, 
+                sessionCount: filteredSessions.length,
+                totalSessions: sessions.length
             };
-        });
+        } catch (error) {
+            console.error('Error exporting CSV:', error);
+            return { success: false, error: error.message };
+        }
     }
 };

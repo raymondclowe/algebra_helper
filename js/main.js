@@ -11,24 +11,20 @@ window.APP.init = async function() {
             console.error('Error initializing storage:', error);
         }
         
-        // Load student name from storage
+        // Load user name from storage
         window.APP.studentName = window.StorageManager.getStudentName();
         
         // Initialize stats modal
         window.StatsModal.init();
         
+        // Initialize time tracking modal
+        window.TimeTrackingModal.init();
+        
         // Initialize explanation modal
         window.ExplanationModal.init();
         
-        // Initialize paper homework modal
-        if (window.PaperHomeworkModal) {
-            window.PaperHomeworkModal.init();
-        }
-        
-        // Initialize fixing habits with pattern cache
-        if (window.FixingHabitsQuestions) {
-            window.FixingHabitsQuestions.init();
-        }
+        // Initialize help modal
+        window.HelpModal.init();
         
         // Start first question
         window.UI.nextQuestion();
