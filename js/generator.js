@@ -2298,21 +2298,37 @@ window.Generator = {
                 calc: false
             };
         } else {
-            // Critical points: f'(x) = 0
+            // Critical points: Give f(x), find f'(x), then solve f'(x) = 0
+            // This requires students to differentiate first, then find roots
             const a = this.rInt(1, 3);
             const root = this.rInt(2, 5);
-            const b = -2 * a * root;
+            // For f'(x) = ax + b = 0 to have solution x = root:
+            // ax + b = 0 → x = -b/a → root = -b/a → b = -a * root
+            const b = -a * root;
+            const c = this.rInt(1, 10);  // Constant term (disappears in derivative)
+            
+            // f(x) = (a/2)x² + bx + c, so f'(x) = ax + b
+            // Use fraction notation when a is odd to avoid floating point display issues
+            const fxTerm = (a % 2 === 1) ? `\\frac{${a}}{2}x^2` : `${a/2}x^2`;
+            
+            const correctAnswer = `x = ${root}`;
+            const candidateDistractors = [
+                `x = ${-root}`,
+                `x = ${root + 1}`,
+                `x = 0`
+            ];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `x = ${this.rInt(1, 10)}`
+            );
             
             return {
-                tex: this.toUnicodeFunction(`f'(x) = ${a}x ${b >= 0 ? '+' : ''}${b} = 0`),
-                instruction: this.toUnicodeFunction("Find critical point (where f'(x) = 0)"),
-                displayAnswer: `x = ${root}`,
-                distractors: [
-                    `x = ${-root}`,
-                    `x = ${b / a}`,
-                    `x = 0`
-                ],
-                explanation: `Set derivative to zero: ${a}x + ${b} = 0. Solve: ${a}x = ${-b}, so x = ${root}. This is a critical point (potential max/min).`,
+                tex: this.toUnicodeFunction(`f(x) = ${fxTerm} ${b >= 0 ? '+' : ''}${b}x + ${c}`),
+                instruction: this.toUnicodeFunction("Find the critical point of f(x)"),
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: this.toUnicodeFunction(`First find the derivative: f'(x) = ${a}x ${b >= 0 ? '+' : ''}${b}. Set f'(x) = 0: ${a}x ${b >= 0 ? '+' : ''}${b} = 0. Solve: ${a}x = ${-b}, so x = ${root}. This is a critical point where the function has a potential maximum or minimum.`),
                 calc: false
             };
         }
