@@ -1,5 +1,5 @@
 // Service Worker for Algebra Helper PWA
-const CACHE_NAME = 'algebra-helper-v1.0.0';
+const CACHE_NAME = 'algebra-helper-v1.0.1';
 const urlsToCache = [
   '/algebra_helper/algebra-helper.html',
   '/algebra_helper/index.html',
