@@ -907,7 +907,7 @@ window.Generator = {
             const x = this.rInt(1, 8);
             const answer = a * x + b;
             return {
-                tex: this.toUnicodeFunction(`f(x) = ${a}x + ${b}, \\quad f(${x}) = ?`),
+                tex: this.toUnicodeFunction(`f(x) = ${a}x + ${b} \\\\[0.5em] f(${x}) = ?`),
                 instruction: "Evaluate the function",
                 displayAnswer: `${answer}`,
                 distractors: [`${a * x}`, `${answer + a}`, `${answer - b}`],
@@ -920,7 +920,7 @@ window.Generator = {
             const gResult = x + 3;
             const fResult = 2 * gResult;
             return {
-                tex: this.toUnicodeFunction(`f(x) = 2x, \\quad g(x) = x + 3, \\quad f(g(${x})) = ?`),
+                tex: this.toUnicodeFunction(`f(x) = 2x \\\\[0.5em] g(x) = x + 3 \\\\[0.5em] f(g(${x})) = ?`),
                 instruction: "Evaluate the composite function",
                 displayAnswer: `${fResult}`,
                 distractors: [`${fResult + 2}`, `${gResult}`, `${x * 2 + 3}`],
@@ -939,7 +939,7 @@ window.Generator = {
                 const xInt = this.rInt(3, 8);
                 const resultInt = m * xInt - c;
                 return {
-                    tex: this.toUnicodeFunction(`f(x) = ${m}x - ${c}, \\quad f(a) = ${resultInt}, \\quad a = ?`),
+                    tex: this.toUnicodeFunction(`f(x) = ${m}x - ${c} \\\\[0.5em] f(a) = ${resultInt} \\\\[0.5em] a = ?`),
                     instruction: "Find the input value",
                     displayAnswer: `${xInt}`,
                     distractors: [`${xInt + 1}`, `${xInt - 1}`, `${resultInt}`],
@@ -948,7 +948,7 @@ window.Generator = {
                 };
             }
             return {
-                tex: this.toUnicodeFunction(`f(x) = ${m}x - ${c}, \\quad f(a) = ${result}, \\quad a = ?`),
+                tex: this.toUnicodeFunction(`f(x) = ${m}x - ${c} \\\\[0.5em] f(a) = ${result} \\\\[0.5em] a = ?`),
                 instruction: "Find the input value",
                 displayAnswer: `${x}`,
                 distractors: [`${x + 1}`, `${x - 1}`, `${result}`],
@@ -1776,7 +1776,7 @@ window.Generator = {
         } else {
             // Solving trig equation: sin(x) = 0.5 for 0 ≤ x < 360°
             return {
-                tex: `\\sin(x) = 0.5, \\quad 0° \\leq x < 360°`,
+                tex: `\\sin(x) = 0.5 \\\\[0.5em] 0° \\leq x < 360°`,
                 instruction: "Find the smallest solution",
                 displayAnswer: `30°`,
                 distractors: [`45°`, `60°`, `90°`],
@@ -2373,7 +2373,7 @@ window.Generator = {
                 const result = a * x;
                 whyQuestions.push({
                     type: 'why',
-                    tex: this.toUnicodeFunction(`f(x) = ${a}x, \\quad f(${x}) = ${result}`),
+                    tex: this.toUnicodeFunction(`f(x) = ${a}x \\\\[0.5em] f(${x}) = ${result}`),
                     instruction: this.toUnicodeFunction("What does f(" + x + ") mean?"),
                     displayAnswer: `\\text{Substitute } ${x} \\text{ for } x \\text{ in the function definition}`,
                     distractors: [
