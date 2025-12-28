@@ -483,22 +483,44 @@ window.Generator = {
     },
     lvl3: function() {
         const a=this.rInt(2,5), b=this.rInt(2,8);
+        const correctAnswer = `${a}x + ${a*b}`;
+        const candidateDistractors = [`${a}x+${b}`, `x+${a*b}`, `${a}x^2+${b}`];
+        const distractors = this.ensureUniqueDistractors(
+            correctAnswer,
+            candidateDistractors,
+            () => {
+                const randA = this.rInt(2, 9);
+                const randB = this.rInt(2, 12);
+                return `${randA}x+${randB}`;
+            }
+        );
         return { 
             tex: `${a}(x + ${b})`, 
             instruction: "Expand", 
-            displayAnswer:`${a}x + ${a*b}`, 
-            distractors:[`${a}x+${b}`,`x+${a*b}`,`${a}x^2+${b}`], 
+            displayAnswer: correctAnswer, 
+            distractors: distractors, 
             explanation:`Use the distributive property: multiply ${a} by each term inside the parentheses. ${a} × x = ${a}x, and ${a} × ${b} = ${a*b}. This gives ${a}x + ${a*b}. Common mistake: forgetting to multiply ${a} by ${b}.`, 
             calc:false 
         };
     },
     lvl4: function() {
         const a=this.rInt(1,5), b=this.rInt(2,6);
+        const correctAnswer = `(x+${a})(x+${b})`;
+        const candidateDistractors = [`(x+${a+b})(x+${a*b})`, `x(x+${a+b})`, `(x-${a})(x-${b})`];
+        const distractors = this.ensureUniqueDistractors(
+            correctAnswer,
+            candidateDistractors,
+            () => {
+                const randA = this.rInt(1, 9);
+                const randB = this.rInt(1, 9);
+                return `(x+${randA})(x+${randB})`;
+            }
+        );
         return { 
             tex: `x^2 + ${a+b}x + ${a*b}`, 
             instruction: "Factorise", 
-            displayAnswer:`(x+${a})(x+${b})`, 
-            distractors:[`(x+${a+b})(x+${a*b})`, `x(x+${a+b})`, `(x-${a})(x-${b})`], 
+            displayAnswer: correctAnswer, 
+            distractors: distractors, 
             explanation:`We need two numbers that multiply to ${a*b} (the constant term) and add to ${a+b} (the coefficient of x). These numbers are ${a} and ${b} because ${a} × ${b} = ${a*b} and ${a} + ${b} = ${a+b}. So the answer is (x+${a})(x+${b}). Check by expanding: you should get back to the original expression.`, 
             calc:false 
         };
@@ -510,11 +532,22 @@ window.Generator = {
         if (questionType === 1) {
             // Original differentiation question
             const a=this.rInt(2,5), n=this.rInt(2,4);
+            const correctAnswer = `${a*n}x^{${n-1}}`;
+            const candidateDistractors = [`${a*n}x^{${n}}`, `${a}x^{${n-1}}`, `${n}x^{${a}}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const randCoeff = this.rInt(2, 20);
+                    const randExp = this.rInt(0, 5);
+                    return `${randCoeff}x^{${randExp}}`;
+                }
+            );
             return { 
                 tex: this.toUnicodeFunction(`f(x) = ${a}x^{${n}}`), 
                 instruction: this.toUnicodeFunction("Find f'(x)"), 
-                displayAnswer:`${a*n}x^{${n-1}}`, 
-                distractors:[`${a*n}x^{${n}}`,`${a}x^{${n-1}}`,`${n}x^{${a}}`], 
+                displayAnswer: correctAnswer, 
+                distractors: distractors, 
                 explanation: this.toUnicodeFunction(`Use the power rule for differentiation: multiply the coefficient by the exponent, then reduce the exponent by 1. So ${a}x^${n} becomes ${a} × ${n} × x^${n-1} = ${a*n}x^${n-1}. The derivative tells us the rate of change of the function.`), 
                 calc:false 
             };
@@ -906,11 +939,18 @@ window.Generator = {
             const b = this.rInt(1, 10);
             const x = this.rInt(1, 8);
             const answer = a * x + b;
+            const correctAnswer = `${answer}`;
+            const candidateDistractors = [`${a * x}`, `${answer + a}`, `${answer - b}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 100)}`
+            );
             return {
                 tex: this.toUnicodeFunction(`f(x) = ${a}x + ${b} \\\\[0.5em] f(${x}) = ?`),
                 instruction: "Evaluate the function",
-                displayAnswer: `${answer}`,
-                distractors: [`${a * x}`, `${answer + a}`, `${answer - b}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: this.toUnicodeFunction(`Substitute x = ${x} into the function: f(${x}) = ${a}(${x}) + ${b} = ${a * x} + ${b} = ${answer}.`),
                 calc: false
             };
@@ -919,11 +959,18 @@ window.Generator = {
             const x = this.rInt(1, 5);
             const gResult = x + 3;
             const fResult = 2 * gResult;
+            const correctAnswer = `${fResult}`;
+            const candidateDistractors = [`${fResult + 2}`, `${gResult}`, `${x * 2 + 3}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(5, 30)}`
+            );
             return {
                 tex: this.toUnicodeFunction(`f(x) = 2x \\\\[0.5em] g(x) = x + 3 \\\\[0.5em] f(g(${x})) = ?`),
                 instruction: "Evaluate the composite function",
-                displayAnswer: `${fResult}`,
-                distractors: [`${fResult + 2}`, `${gResult}`, `${x * 2 + 3}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: this.toUnicodeFunction(`First find g(${x}) = ${x} + 3 = ${gResult}. Then find f(${gResult}) = 2(${gResult}) = ${fResult}. Work from the inside out.`),
                 calc: false
             };
@@ -938,20 +985,34 @@ window.Generator = {
                 // Recalculate with values that work
                 const xInt = this.rInt(3, 8);
                 const resultInt = m * xInt - c;
+                const correctAnswer = `${xInt}`;
+                const candidateDistractors = [`${xInt + 1}`, `${xInt - 1}`, `${resultInt}`];
+                const distractors = this.ensureUniqueDistractors(
+                    correctAnswer,
+                    candidateDistractors,
+                    () => `${this.rInt(1, 20)}`
+                );
                 return {
                     tex: this.toUnicodeFunction(`f(x) = ${m}x - ${c} \\\\[0.5em] f(a) = ${resultInt} \\\\[0.5em] a = ?`),
                     instruction: "Find the input value",
-                    displayAnswer: `${xInt}`,
-                    distractors: [`${xInt + 1}`, `${xInt - 1}`, `${resultInt}`],
+                    displayAnswer: correctAnswer,
+                    distractors: distractors,
                     explanation: `We have ${m}a - ${c} = ${resultInt}. Add ${c}: ${m}a = ${resultInt + c}. Divide by ${m}: a = ${xInt}.`,
                     calc: false
                 };
             }
+            const correctAnswer = `${x}`;
+            const candidateDistractors = [`${x + 1}`, `${x - 1}`, `${result}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 20)}`
+            );
             return {
                 tex: this.toUnicodeFunction(`f(x) = ${m}x - ${c} \\\\[0.5em] f(a) = ${result} \\\\[0.5em] a = ?`),
                 instruction: "Find the input value",
-                displayAnswer: `${x}`,
-                distractors: [`${x + 1}`, `${x - 1}`, `${result}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `We have ${m}a - ${c} = ${result}. Add ${c}: ${m}a = ${result + c}. Divide by ${m}: a = ${x}.`,
                 calc: false
             };
@@ -975,21 +1036,43 @@ window.Generator = {
         
         if (questionType === 1) {
             // Find sin of angle
+            const correctAnswer = `${angle.sin}`;
+            const candidateDistractors = [`${angle.cos}`, `${angle.tan}`, `${angle.deg / 90}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const altAngles = ['0', '\\frac{1}{2}', '\\frac{1}{\\sqrt{2}}', '\\frac{\\sqrt{3}}{2}', '1'];
+                    return altAngles[this.rInt(0, altAngles.length - 1)];
+                }
+            );
             return {
                 tex: `\\sin(${angle.deg}°)`,
                 instruction: "Calculate (use exact values)",
-                displayAnswer: `${angle.sin}`,
-                distractors: [`${angle.cos}`, `${angle.tan}`, `${angle.deg / 90}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `sin(${angle.deg}°) = ${angle.sin}. This is one of the standard angles you should memorize.`,
                 calc: false
             };
         } else if (questionType === 2) {
             // Find cos of angle
+            const correctAnswer = `${angle.cos}`;
+            // Use a clearer way to compute a plausible distractor
+            const complementDistractor = angle.sinVal ? `${(1 - angle.sinVal).toFixed(3)}` : `${1 - Number(angle.sin)}`;
+            const candidateDistractors = [`${angle.sin}`, `${angle.tan}`, complementDistractor];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const altAngles = ['0', '\\frac{1}{2}', '\\frac{1}{\\sqrt{2}}', '\\frac{\\sqrt{3}}{2}', '1'];
+                    return altAngles[this.rInt(0, altAngles.length - 1)];
+                }
+            );
             return {
                 tex: `\\cos(${angle.deg}°)`,
                 instruction: "Calculate (use exact values)",
-                displayAnswer: `${angle.cos}`,
-                distractors: [`${angle.sin}`, `${angle.tan}`, `${1 - (angle.sinVal || angle.sin)}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `cos(${angle.deg}°) = ${angle.cos}. Remember: cos(θ) is the x-coordinate on the unit circle.`,
                 calc: false
             };
@@ -997,11 +1080,21 @@ window.Generator = {
             // Find tan of angle (avoid 90°)
             const validAngles = angles.filter(a => a.deg !== 90);
             const tanAngle = validAngles[this.rInt(0, validAngles.length - 1)];
+            const correctAnswer = `${tanAngle.tan}`;
+            const candidateDistractors = [`${tanAngle.sin}`, `${tanAngle.cos}`, `${tanAngle.deg / 45}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const altAngles = ['0', '\\frac{1}{\\sqrt{3}}', '1', '\\sqrt{3}'];
+                    return altAngles[this.rInt(0, altAngles.length - 1)];
+                }
+            );
             return {
                 tex: `\\tan(${tanAngle.deg}°)`,
                 instruction: "Calculate (use exact values)",
-                displayAnswer: `${tanAngle.tan}`,
-                distractors: [`${tanAngle.sin}`, `${tanAngle.cos}`, `${tanAngle.deg / 45}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `tan(${tanAngle.deg}°) = ${tanAngle.tan}. Remember: tan(θ) = sin(θ)/cos(θ).`,
                 calc: false
             };
@@ -1453,12 +1546,23 @@ window.Generator = {
             const a = this.rInt(2, 9);
             const b = this.rInt(10, 50);
             const x = Math.floor(b / a);
+            const correctAnswer = `x < ${x}`;
+            const candidateDistractors = [`x > ${x}`, `x = ${x}`, `x \\leq ${x}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const randX = this.rInt(1, 20);
+                    const ops = ['<', '>', '\\leq', '\\geq'];
+                    return `x ${ops[this.rInt(0, ops.length - 1)]} ${randX}`;
+                }
+            );
             
             return {
                 tex: `${a}x < ${b}`,
                 instruction: "Solve for x",
-                displayAnswer: `x < ${x}`,
-                distractors: [`x > ${x}`, `x = ${x}`, `x \\leq ${x}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Divide both sides by ${a}: x < ${b}/${a} = ${x}. The inequality sign stays the same when dividing by a positive number.`,
                 calc: false
             };
@@ -1467,12 +1571,23 @@ window.Generator = {
             const a = this.rInt(2, 6);
             const b = this.rInt(-20, -5);
             const x = Math.ceil(b / (-a));
+            const correctAnswer = `x < ${x}`;
+            const candidateDistractors = [`x > ${x}`, `x = ${x}`, `x < ${-x}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const randX = this.rInt(-10, 10);
+                    const ops = ['<', '>', '\\leq', '\\geq'];
+                    return `x ${ops[this.rInt(0, ops.length - 1)]} ${randX}`;
+                }
+            );
             
             return {
                 tex: `-${a}x > ${b}`,
                 instruction: "Solve for x",
-                displayAnswer: `x < ${x}`,
-                distractors: [`x > ${x}`, `x = ${x}`, `x < ${-x}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Divide both sides by -${a}: x < ${b}/(-${a}) = ${x}. IMPORTANT: Flip the inequality sign when dividing by a negative number.`,
                 calc: false
             };
@@ -1482,12 +1597,23 @@ window.Generator = {
             const b = this.rInt(1, 10);
             const c = this.rInt(b + 10, 50);
             const x = Math.floor((c - b) / a);
+            const correctAnswer = `x < ${x}`;
+            const candidateDistractors = [`x > ${x}`, `x < ${x + 1}`, `x \\leq ${x}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const randX = this.rInt(1, 20);
+                    const ops = ['<', '>', '\\leq', '\\geq'];
+                    return `x ${ops[this.rInt(0, ops.length - 1)]} ${randX}`;
+                }
+            );
             
             return {
                 tex: `${a}x + ${b} < ${c}`,
                 instruction: "Solve for x",
-                displayAnswer: `x < ${x}`,
-                distractors: [`x > ${x}`, `x < ${x + 1}`, `x \\leq ${x}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Subtract ${b}: ${a}x < ${c - b}. Divide by ${a}: x < ${x}. Solve inequalities like equations, but remember to flip the sign when multiplying/dividing by negatives.`,
                 calc: false
             };
@@ -1506,11 +1632,19 @@ window.Generator = {
             const b = -(p + q);
             const c = p * q;
             
+            const correctAnswer = `x = ${Math.min(p, q)}`;
+            const candidateDistractors = [`x = ${Math.max(p, q)}`, `x = ${-p}`, `x = ${p + q}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `x = ${this.rInt(-10, 10)}`
+            );
+            
             return {
                 tex: `x^2 ${b >= 0 ? '+' : ''}${b}x + ${c} = 0`,
                 instruction: "Solve for x (give smaller solution)",
-                displayAnswer: `x = ${Math.min(p, q)}`,
-                distractors: [`x = ${Math.max(p, q)}`, `x = ${-p}`, `x = ${p + q}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `This factors as (x - ${p})(x - ${q}) = 0. Solutions are x = ${p} and x = ${q}. The smaller solution is ${Math.min(p, q)}.`,
                 calc: false
             };
@@ -1519,11 +1653,19 @@ window.Generator = {
             const b = this.rInt(2, 8);
             const square = b * b;
             
+            const correctAnswer = `${square}`;
+            const candidateDistractors = [`${b}`, `${2 * b}`, `${square / 2}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 100)}`
+            );
+            
             return {
                 tex: `x^2 + ${2 * b}x + \\underline{\\quad}`,
                 instruction: "What value completes the perfect square?",
-                displayAnswer: `${square}`,
-                distractors: [`${b}`, `${2 * b}`, `${square / 2}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `To complete the square for x² + ${2 * b}x, take half the coefficient of x: (${2 * b})/2 = ${b}, then square it: ${b}² = ${square}. This gives (x + ${b})².`,
                 calc: false
             };
@@ -1536,12 +1678,19 @@ window.Generator = {
             ];
             const q = discriminants[this.rInt(0, discriminants.length - 1)];
             const disc = q.b * q.b - 4 * q.c;
+            const correctAnswer = `${disc}`;
+            const candidateDistractors = [`${q.b * q.b}`, `${4 * q.c}`, `${q.b - 4 * q.c}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(-20, 50)}`
+            );
             
             return {
                 tex: `x^2 + ${q.b}x + ${q.c} = 0`,
                 instruction: "What is the discriminant b² - 4ac?",
-                displayAnswer: `${disc}`,
-                distractors: [`${q.b * q.b}`, `${4 * q.c}`, `${q.b - 4 * q.c}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Discriminant = b² - 4ac = ${q.b}² - 4(1)(${q.c}) = ${q.b * q.b} - ${4 * q.c} = ${disc}. This means ${q.nature}.`,
                 calc: false
             };
@@ -1560,12 +1709,19 @@ window.Generator = {
             const b2 = this.rInt(1, 7);
             const sumA = a1 + a2;
             const sumB = b1 + b2;
+            const correctAnswer = `${sumA}x + ${sumB}`;
+            const candidateDistractors = [`${a1}x + ${sumB}`, `${sumA}x + ${b1}`, `${a1 * a2}x + ${b1 * b2}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 15)}x + ${this.rInt(1, 15)}`
+            );
             
             return {
                 tex: `(${a1}x + ${b1}) + (${a2}x + ${b2})`,
                 instruction: "Simplify",
-                displayAnswer: `${sumA}x + ${sumB}`,
-                distractors: [`${a1}x + ${sumB}`, `${sumA}x + ${b1}`, `${a1 * a2}x + ${b1 * b2}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Combine like terms: (${a1} + ${a2})x + (${b1} + ${b2}) = ${sumA}x + ${sumB}.`,
                 calc: false
             };
@@ -1574,12 +1730,22 @@ window.Generator = {
             const a = this.rInt(1, 5);
             const b = this.rInt(1, 6);
             const c = -a * b; // Make (x - a) a factor
+            const correctAnswer = `\\text{Yes}`;
+            const candidateDistractors = [`\\text{No}`, `\\text{Only if x > 0}`, `\\text{Cannot determine}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const options = [`\\text{Yes}`, `\\text{No}`, `\\text{Maybe}`, `\\text{Sometimes}`];
+                    return options[this.rInt(0, options.length - 1)];
+                }
+            );
             
             return {
                 tex: this.toUnicodeFunction(`f(x) = x^2 + ${b - a}x + ${c}`),
                 instruction: `\\text{Is } (x - ${a}) \\text{ a factor?}`,
-                displayAnswer: `\\text{Yes}`,
-                distractors: [`\\text{No}`, `\\text{Only if x > 0}`, `\\text{Cannot determine}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: this.toUnicodeFunction(`By factor theorem, if (x - ${a}) is a factor, then f(${a}) = 0. Check: f(${a}) = ${a}² + ${b - a}(${a}) + ${c} = ${a * a} + ${a * (b - a)} + ${c} = 0. Yes, it's a factor.`),
                 calc: false
             };
@@ -1589,12 +1755,19 @@ window.Generator = {
             const b = this.rInt(2, 8);
             const c = this.rInt(1, 10);
             const remainder = a * a + b * a + c;
+            const correctAnswer = `${remainder}`;
+            const candidateDistractors = [`${remainder - a}`, `${c}`, `0`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 50)}`
+            );
             
             return {
                 tex: this.toUnicodeFunction(`f(x) = x^2 + ${b}x + ${c}`),
                 instruction: `\\text{Find remainder when divided by } (x - ${a})`,
-                displayAnswer: `${remainder}`,
-                distractors: [`${remainder - a}`, `${c}`, `0`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: this.toUnicodeFunction(`By remainder theorem, the remainder when f(x) is divided by (x - ${a}) is f(${a}) = ${a}² + ${b}(${a}) + ${c} = ${remainder}.`),
                 calc: false
             };
@@ -1611,12 +1784,20 @@ window.Generator = {
             const base = bases[this.rInt(0, bases.length - 1)];
             const exp = this.rInt(2, 4);
             const result = Math.pow(base, exp);
+            const correctAnswer = `x = ${exp}`;
+            // Avoid using Math.log() which produces non-integer values
+            const candidateDistractors = [`x = ${exp + 1}`, `x = ${result / base}`, `x = ${Math.floor(result / 2)}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `x = ${this.rInt(1, 10)}`
+            );
             
             return {
                 tex: `${base}^x = ${result}`,
                 instruction: "Solve for x",
-                displayAnswer: `x = ${exp}`,
-                distractors: [`x = ${exp + 1}`, `x = ${result / base}`, `x = ${Math.log(result)}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `${base}^${exp} = ${result}, so x = ${exp}.`,
                 calc: false
             };
@@ -1626,12 +1807,19 @@ window.Generator = {
             const exp = this.rInt(2, 3);
             const arg = Math.pow(base, exp);
             const logNotation = base === 10 ? '\\log' : `\\log_{${base}}`;
+            const correctAnswer = `${exp}`;
+            const candidateDistractors = [`${exp + 1}`, `${arg / base}`, `${arg}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(1, 10)}`
+            );
             
             return {
                 tex: `${logNotation}(${arg})`,
                 instruction: "Evaluate",
-                displayAnswer: `${exp}`,
-                distractors: [`${exp + 1}`, `${arg / base}`, `${arg}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `${logNotation}(${arg}) = ${exp} because ${base}^${exp} = ${arg}. Logarithm asks: "what power gives us ${arg}?"`,
                 calc: false
             };
@@ -1640,24 +1828,39 @@ window.Generator = {
             const a = [2, 4, 5, 8][this.rInt(0, 3)];
             const b = [2, 3, 5][this.rInt(0, 2)];
             const product = a * b;
+            const correctAnswer = `\\log(${product})`;
+            // Use LaTeX format for all distractors for consistency
+            const candidateDistractors = [`\\log(${a + b})`, `\\log(${a * 10})`, `\\log(${a}) \\times \\log(${b})`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\log(${this.rInt(10, 100)})`
+            );
             
             return {
                 tex: `\\log(${a}) + \\log(${b})`,
                 instruction: "Simplify using log laws",
-                displayAnswer: `\\log(${product})`,
-                distractors: [`\\log(${a + b})`, `${Math.log10(a) + Math.log10(b)}`, `\\log(${a}) \\times \\log(${b})`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Using the product rule: log(a) + log(b) = log(ab). So log(${a}) + log(${b}) = log(${product}).`,
                 calc: false
             };
         } else {
             // Exponential equation: e^x = e^3
             const exp = this.rInt(2, 6);
+            const correctAnswer = `x = ${exp}`;
+            const candidateDistractors = [`x = e^{${exp}}`, `x = ${exp}e`, `x = \\ln(${exp})`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `x = ${this.rInt(1, 10)}`
+            );
             
             return {
                 tex: `e^x = e^{${exp}}`,
                 instruction: "Solve for x",
-                displayAnswer: `x = ${exp}`,
-                distractors: [`x = e^{${exp}}`, `x = ${exp}e`, `x = \\ln(${exp})`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `If e^x = e^${exp}, then x = ${exp}. Equal bases mean equal exponents.`,
                 calc: false
             };
@@ -1674,12 +1877,19 @@ window.Generator = {
             const d = this.rInt(2, 7);
             const n = this.rInt(5, 10);
             const term = a + (n - 1) * d;
+            const correctAnswer = `${term}`;
+            const candidateDistractors = [`${a + n * d}`, `${term - d}`, `${a * n}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(10, 100)}`
+            );
             
             return {
                 tex: `\\text{Arithmetic sequence: } a_1 = ${a}, d = ${d}`,
                 instruction: `\\text{Find } a_{${n}}`,
-                displayAnswer: `${term}`,
-                distractors: [`${a + n * d}`, `${term - d}`, `${a * n}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Formula: a_n = a_1 + (n-1)d = ${a} + (${n}-1)(${d}) = ${a} + ${(n - 1) * d} = ${term}.`,
                 calc: false
             };
@@ -1689,12 +1899,19 @@ window.Generator = {
             const r = this.rInt(2, 3);
             const n = this.rInt(3, 5);
             const term = a * Math.pow(r, n - 1);
+            const correctAnswer = `${term}`;
+            const candidateDistractors = [`${a * r * n}`, `${term / r}`, `${a + Math.pow(r, n)}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(10, 200)}`
+            );
             
             return {
                 tex: `\\text{Geometric sequence: } a_1 = ${a}, r = ${r}`,
                 instruction: `\\text{Find } a_{${n}}`,
-                displayAnswer: `${term}`,
-                distractors: [`${a * r * n}`, `${term / r}`, `${a + Math.pow(r, n)}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Formula: a_n = a_1 × r^(n-1) = ${a} × ${r}^${n - 1} = ${a} × ${Math.pow(r, n - 1)} = ${term}.`,
                 calc: false
             };
@@ -1705,12 +1922,19 @@ window.Generator = {
             const n = this.rInt(5, 10);
             const l = a + (n - 1) * d;
             const sum = (n * (a + l)) / 2;
+            const correctAnswer = `${sum}`;
+            const candidateDistractors = [`${n * a}`, `${sum + n}`, `${a + l}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(50, 300)}`
+            );
             
             return {
                 tex: `\\text{Sum of arithmetic series: } a_1 = ${a}, d = ${d}, n = ${n}`,
                 instruction: "Find the sum S_n",
-                displayAnswer: `${sum}`,
-                distractors: [`${n * a}`, `${sum + n}`, `${a + l}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `S_n = n(a_1 + a_n)/2. First find a_${n} = ${a} + ${(n - 1) * d} = ${l}. Then S_${n} = ${n}(${a} + ${l})/2 = ${sum}.`,
                 calc: false
             };
@@ -1718,12 +1942,19 @@ window.Generator = {
             // Sigma notation
             const n = this.rInt(3, 6);
             const sum = (n * (n + 1)) / 2;
+            const correctAnswer = `${sum}`;
+            const candidateDistractors = [`${n * n}`, `${n + 1}`, `${sum + n}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${this.rInt(10, 50)}`
+            );
             
             return {
                 tex: `\\sum_{k=1}^{${n}} k`,
                 instruction: "Evaluate the sum",
-                displayAnswer: `${sum}`,
-                distractors: [`${n * n}`, `${n + 1}`, `${sum + n}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Sum of first ${n} natural numbers: 1 + 2 + ... + ${n} = n(n+1)/2 = ${n}(${n + 1})/2 = ${sum}.`,
                 calc: false
             };
@@ -1736,21 +1967,41 @@ window.Generator = {
         
         if (questionType === 1) {
             // Trig identity: sin²θ + cos²θ = 1
+            const correctAnswer = `1`;
+            const candidateDistractors = [`\\sin\\theta`, `\\cos\\theta`, `2`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const options = ['0', '1', '2', '\\sin\\theta', '\\cos\\theta'];
+                    return options[this.rInt(0, options.length - 1)];
+                }
+            );
             return {
                 tex: `\\sin^2\\theta + \\cos^2\\theta`,
                 instruction: "Simplify using trig identity",
-                displayAnswer: `1`,
-                distractors: [`\\sin\\theta`, `\\cos\\theta`, `2`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Fundamental identity: sin²θ + cos²θ = 1 for all θ. This is derived from the Pythagorean theorem on the unit circle.`,
                 calc: false
             };
         } else if (questionType === 2) {
             // Double angle formula: sin(2θ)
+            const correctAnswer = `2\\sin\\theta\\cos\\theta`;
+            const candidateDistractors = [`\\sin^2\\theta`, `2\\sin\\theta`, `\\sin\\theta + \\cos\\theta`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const options = ['\\sin\\theta\\cos\\theta', '\\sin^2\\theta + \\cos^2\\theta', '\\tan\\theta'];
+                    return options[this.rInt(0, options.length - 1)];
+                }
+            );
             return {
                 tex: `\\sin(2\\theta)`,
                 instruction: "Express in terms of sinθ and cosθ",
-                displayAnswer: `2\\sin\\theta\\cos\\theta`,
-                distractors: [`\\sin^2\\theta`, `2\\sin\\theta`, `\\sin\\theta + \\cos\\theta`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `Double angle formula: sin(2θ) = 2sinθcosθ. This comes from the sum formula sin(A+B).`,
                 calc: false
             };
@@ -1764,22 +2015,42 @@ window.Generator = {
                 90: '\\frac{\\pi}{2}',
                 180: '\\pi'
             };
+            const correctAnswer = `${radians[degrees]}`;
+            const candidateDistractors = [`${degrees}\\pi`, `\\frac{${degrees}}{180}`, `\\frac{\\pi}{${degrees}}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const options = ['\\pi', '\\frac{\\pi}{2}', '\\frac{\\pi}{3}', '\\frac{\\pi}{4}', '\\frac{\\pi}{6}', '2\\pi'];
+                    return options[this.rInt(0, options.length - 1)];
+                }
+            );
             
             return {
                 tex: `${degrees}°`,
                 instruction: "Convert to radians",
-                displayAnswer: `${radians[degrees]}`,
-                distractors: [`${degrees}\\pi`, `\\frac{${degrees}}{180}`, `\\frac{\\pi}{${degrees}}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `To convert degrees to radians: multiply by π/180. ${degrees}° × (π/180°) = ${radians[degrees]}.`,
                 calc: false
             };
         } else {
             // Solving trig equation: sin(x) = 0.5 for 0 ≤ x < 360°
+            const correctAnswer = `30°`;
+            const candidateDistractors = [`45°`, `60°`, `90°`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const options = ['0°', '30°', '45°', '60°', '90°', '120°', '135°', '150°', '180°'];
+                    return options[this.rInt(0, options.length - 1)];
+                }
+            );
             return {
                 tex: `\\sin(x) = 0.5 \\\\[0.5em] 0° \\leq x < 360°`,
                 instruction: "Find the smallest solution",
-                displayAnswer: `30°`,
-                distractors: [`45°`, `60°`, `90°`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `sin(30°) = 1/2 = 0.5. The solutions in [0°, 360°) are 30° and 150° (supplementary angles). The smallest is 30°.`,
                 calc: false
             };
@@ -1946,12 +2217,22 @@ window.Generator = {
                 { exp: 4, result: '1' }
             ];
             const p = powers[this.rInt(0, powers.length - 1)];
+            const correctAnswer = `${p.result}`;
+            const candidateDistractors = [`i`, `${p.exp}i`, `${p.exp}`];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const options = ['1', '-1', 'i', '-i', '0'];
+                    return options[this.rInt(0, options.length - 1)];
+                }
+            );
             
             return {
                 tex: `i^{${p.exp}}`,
                 instruction: "Simplify",
-                displayAnswer: `${p.result}`,
-                distractors: [`i`, `${p.exp}i`, `${p.exp}`],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: `i¹ = i, i² = -1, i³ = -i, i⁴ = 1, and the pattern repeats. So i^${p.exp} = ${p.result}.`,
                 calc: false
             };
