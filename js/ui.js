@@ -42,7 +42,10 @@ window.UI = {
             qDiv.innerHTML = `\\[ ${processedTex} \\]`;
         }
         
-        MathJax.typesetPromise([qDiv]);
+        MathJax.typesetPromise([qDiv]).then(() => {
+            // Adjust font size if question is too big for mobile
+            this.adjustQuestionFontSize(qDiv);
+        });
 
         // Icon
         document.getElementById('calc-indicator').innerHTML = window.APP.currentQ.calc 
@@ -138,7 +141,10 @@ window.UI = {
         // Display question
         const qDiv = document.getElementById('question-math');
         qDiv.innerHTML = `\\[ ${historyQuestion.question} \\]`;
-        MathJax.typesetPromise([qDiv]);
+        MathJax.typesetPromise([qDiv]).then(() => {
+            // Adjust font size if question is too big for mobile
+            this.adjustQuestionFontSize(qDiv);
+        });
         
         // Show result indicator
         const resultClass = historyQuestion.isCorrect ? 'text-green-400' : 'text-red-400';
@@ -248,5 +254,70 @@ window.UI = {
         const fire = document.getElementById('streak-indicator');
         if (window.APP.streak >= 3) fire.classList.remove('hidden');
         else fire.classList.add('hidden');
+    },
+    
+    /**
+     * Dynamically adjust question font size when content is too wide for mobile screens
+     * Reduces font size by up to 25% if question overflows horizontally
+     * This helps prevent text from overlapping screen edges on narrow viewports
+     * 
+     * @param {HTMLElement} qDiv - The question math div element
+     */
+    adjustQuestionFontSize: function(qDiv) {
+        // Get MathJax container - wait a moment for it to be fully rendered
+        setTimeout(() => {
+            const mathContainer = qDiv.querySelector('mjx-container');
+            if (!mathContainer) {
+                return;
+            }
+            
+            // Reset any previous font size adjustment
+            mathContainer.style.fontSize = '';
+            
+            // Only apply on mobile/tablet viewports
+            if (window.innerWidth > 768) {
+                return;
+            }
+            
+            // Check if content overflows the container
+            // We need to check the actual scrollWidth vs clientWidth
+            const containerWidth = qDiv.clientWidth;
+            const contentWidth = mathContainer.scrollWidth;
+            
+            // If content fits comfortably, no adjustment needed
+            if (contentWidth <= containerWidth) {
+                return;
+            }
+            
+            // Calculate overflow percentage
+            const overflowRatio = contentWidth / containerWidth;
+            
+            // Reduce font size progressively, up to 25% reduction (0.75 scale)
+            // Start with current effective font size (0.85em on mobile from CSS)
+            let scaleFactor = 1.0;
+            
+            // Try reducing in 5% increments up to 25% total
+            for (let reduction = 0.05; reduction <= 0.25; reduction += 0.05) {
+                scaleFactor = 1.0 - reduction;
+                const newSize = scaleFactor;
+                
+                // Temporarily apply the new size to check if it fits
+                mathContainer.style.fontSize = newSize + 'em';
+                
+                // Force reflow to get accurate measurements
+                void mathContainer.offsetWidth;
+                
+                // Check if it fits now
+                if (mathContainer.scrollWidth <= containerWidth) {
+                    // Found a size that fits!
+                    return;
+                }
+            }
+            
+            // If even 25% reduction doesn't work, keep the 25% reduction
+            // and let the existing CSS word-wrapping handle the rest
+            mathContainer.style.fontSize = '0.75em';
+            
+        }, 100); // Small delay to ensure MathJax has fully rendered
     }
 };
