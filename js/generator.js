@@ -1057,7 +1057,9 @@ window.Generator = {
         } else if (questionType === 2) {
             // Find cos of angle
             const correctAnswer = `${angle.cos}`;
-            const candidateDistractors = [`${angle.sin}`, `${angle.tan}`, `${1 - (angle.sinVal || angle.sin)}`];
+            // Use a clearer way to compute a plausible distractor
+            const complementDistractor = angle.sinVal ? `${(1 - angle.sinVal).toFixed(3)}` : `${1 - Number(angle.sin)}`;
+            const candidateDistractors = [`${angle.sin}`, `${angle.tan}`, complementDistractor];
             const distractors = this.ensureUniqueDistractors(
                 correctAnswer,
                 candidateDistractors,
@@ -1783,7 +1785,8 @@ window.Generator = {
             const exp = this.rInt(2, 4);
             const result = Math.pow(base, exp);
             const correctAnswer = `x = ${exp}`;
-            const candidateDistractors = [`x = ${exp + 1}`, `x = ${result / base}`, `x = ${Math.log(result)}`];
+            // Avoid using Math.log() which produces non-integer values
+            const candidateDistractors = [`x = ${exp + 1}`, `x = ${result / base}`, `x = ${Math.floor(result / 2)}`];
             const distractors = this.ensureUniqueDistractors(
                 correctAnswer,
                 candidateDistractors,
@@ -1826,7 +1829,8 @@ window.Generator = {
             const b = [2, 3, 5][this.rInt(0, 2)];
             const product = a * b;
             const correctAnswer = `\\log(${product})`;
-            const candidateDistractors = [`\\log(${a + b})`, `${Math.log10(a) + Math.log10(b)}`, `\\log(${a}) \\times \\log(${b})`];
+            // Use LaTeX format for all distractors for consistency
+            const candidateDistractors = [`\\log(${a + b})`, `\\log(${a * 10})`, `\\log(${a}) \\times \\log(${b})`];
             const distractors = this.ensureUniqueDistractors(
                 correctAnswer,
                 candidateDistractors,
