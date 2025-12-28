@@ -2029,15 +2029,23 @@ window.Generator = {
             const isHalfCoeff = (coeffX2 !== Math.floor(coeffX2));
             const fxTerm = isHalfCoeff ? `\\frac{${a}}{2}x^2` : `${coeffX2}x^2`;
             
+            const correctAnswer = `x = ${root}`;
+            const candidateDistractors = [
+                `x = ${-root}`,
+                `x = ${root + 1}`,
+                `x = 0`
+            ];
+            const distractors = this.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `x = ${this.rInt(1, 10)}`
+            );
+            
             return {
                 tex: this.toUnicodeFunction(`f(x) = ${fxTerm} ${b >= 0 ? '+' : ''}${b}x + ${c}`),
                 instruction: this.toUnicodeFunction("Find the critical point of f(x)"),
-                displayAnswer: `x = ${root}`,
-                distractors: [
-                    `x = ${-root}`,
-                    `x = ${Math.abs(b)}`,
-                    `x = 0`
-                ],
+                displayAnswer: correctAnswer,
+                distractors: distractors,
                 explanation: this.toUnicodeFunction(`First find the derivative: f'(x) = ${a}x ${b >= 0 ? '+' : ''}${b}. Set f'(x) = 0: ${a}x ${b >= 0 ? '+' : ''}${b} = 0. Solve: ${a}x = ${-b}, so x = ${root}. This is a critical point where the function has a potential maximum or minimum.`),
                 calc: false
             };
