@@ -119,9 +119,11 @@ window.Calibration = {
             return true;
         }
         
-        // Early termination: If both cMin and cMax indicate maximum level or above
+        // Early termination: If cMin is at or very close to maximum level
         // This handles the case where user knows everything
-        if (window.APP.cMin >= MAX_LEVEL && window.APP.calibrationHistory.length >= MIN_RESPONSES) {
+        // We check >= MAX_LEVEL - 1 because the binary search asymptotically approaches MAX_LEVEL
+        // but may never reach it exactly (e.g., 23.25, 23.625, 23.8125, ...)
+        if (window.APP.cMin >= MAX_LEVEL - 1 && window.APP.calibrationHistory.length >= MIN_RESPONSES) {
             return true;
         }
         
