@@ -571,7 +571,7 @@ window.Generator = {
             instruction: this.toUnicodeFunction("Find f^{-1}(x) for x ≥ 0"),
             displayAnswer: correctAnswer,
             distractors: wrongAnswers,
-            explanation: this.toUnicodeFunction(`To find the inverse function, we swap x and y, then solve for y. Start with y = ${a}x^2, swap to get x = ${a}y^2, then divide both sides by ${a} to get y^2 = x/${a}. Finally, take the square root of both sides: y = √(x/${a}). We take the positive root because x ≥ 0. The inverse "undoes" what the original function does.`),
+            explanation: this.toUnicodeFunction(`To find the inverse function, we swap x and y, then solve for y. Start with y = ${a}x^2, swap to get x = ${a}y^2, then divide both sides by ${a} to get y^2 = x/${a}. Finally, take the square root of both sides: y = $\\sqrt{x/${a}}$. We take the positive root because x ≥ 0. The inverse "undoes" what the original function does.`),
             calc: false
         };
     },
@@ -704,7 +704,7 @@ window.Generator = {
                 instruction: "Find the number",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
-                explanation: `Since ${n} × ${n} = ${square}, the answer is ${n}. This is finding the square root: √${square} = ${n}.`,
+                explanation: `Since ${n} × ${n} = ${square}, the answer is ${n}. This is finding the square root: $\\sqrt{${square}} = ${n}$.`,
                 calc: false
             };
         } else if (questionType === 3) {
@@ -1848,7 +1848,7 @@ window.Generator = {
                     `${Math.max(v1, v2)}`,
                     `\\sqrt{${v1 * v2}}`
                 ],
-                explanation: `Magnitude = √(${v1}² + ${v2}²) = √(${v1 * v1} + ${v2 * v2}) = √${magSquared}${isExact ? ' = ' + mag : ''}.`,
+                explanation: `Magnitude = $\\sqrt{${v1}^2 + ${v2}^2} = \\sqrt{${v1 * v1} + ${v2 * v2}} = \\sqrt{${magSquared}}${isExact ? ' = ' + mag : ''}$.`,
                 calc: false
             };
         } else {
@@ -1935,7 +1935,7 @@ window.Generator = {
                     `${Math.max(a, b)}`,
                     `${a * b}`
                 ],
-                explanation: `Modulus = √(a² + b²) = √(${a}² + ${b}²) = √${modSquared}${isExact ? ' = ' + mod : ''}.`,
+                explanation: `Modulus = $\\sqrt{a^2 + b^2} = \\sqrt{${a}^2 + ${b}^2} = \\sqrt{${modSquared}}${isExact ? ' = ' + mod : ''}$.`,
                 calc: false
             };
         } else {
@@ -2246,7 +2246,7 @@ window.Generator = {
                     `\\text{Because we reverse the addition}`,
                     `\\text{Because } ${n} + ${n} = ${n * 2}`
                 ],
-                explanation: `The square root undoes squaring. Since ${n}² = ${square}, we have √${square} = ${n}.`,
+                explanation: `The square root undoes squaring. Since ${n}² = ${square}, we have $\\sqrt{${square}} = ${n}$.`,
                 calc: false
             });
         }
