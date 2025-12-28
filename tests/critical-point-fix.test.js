@@ -81,7 +81,7 @@ describe('Critical Point Question Fix', () => {
                         
                         // Parse the derivative from the explanation
                         // Explanation should say "f'(x) = ax + b" or "𝑓'(x) = ax + b"
-                        const derivMatch = q.explanation.match(/[f𝑓]'?\(x\)\s*=\s*(\d+)x\s*([+-]\s*\d+)/);
+                        const derivMatch = q.explanation.match(/[f𝑓]'\(x\)\s*=\s*(\d+)x\s*([+-]\s*\d+)/);
                         if (derivMatch) {
                             const a = parseInt(derivMatch[1]);
                             const bStr = derivMatch[2].replace(/\s/g, '');

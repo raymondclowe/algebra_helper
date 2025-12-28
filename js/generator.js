@@ -2021,13 +2021,14 @@ window.Generator = {
             // This requires students to differentiate first, then find roots
             const a = this.rInt(1, 3);
             const root = this.rInt(2, 5);
-            const b = -a * root;  // So f'(x) = ax + b = 0 gives x = root
+            // For f'(x) = ax + b = 0 to have solution x = root:
+            // ax + b = 0 → x = -b/a → root = -b/a → b = -a * root
+            const b = -a * root;
             const c = this.rInt(1, 10);  // Constant term (disappears in derivative)
             
             // f(x) = (a/2)x² + bx + c, so f'(x) = ax + b
-            const coeffX2 = a / 2;
-            const isHalfCoeff = (coeffX2 !== Math.floor(coeffX2));
-            const fxTerm = isHalfCoeff ? `\\frac{${a}}{2}x^2` : `${coeffX2}x^2`;
+            // Use fraction notation when a is odd to avoid floating point display issues
+            const fxTerm = (a % 2 === 1) ? `\\frac{${a}}{2}x^2` : `${a/2}x^2`;
             
             const correctAnswer = `x = ${root}`;
             const candidateDistractors = [
