@@ -31,8 +31,8 @@ window.UI = {
         // Split on line breaks to create separate display math blocks
         let processedTex = window.APP.currentQ.tex;
         
-        // Check if the question has the "Step:" pattern with line breaks
-        if (processedTex.includes('\\\\[') && processedTex.includes('\\text{Step:')) {
+        // Check if the question has line breaks (\\[...em])
+        if (processedTex.includes('\\\\[')) {
             // Split into lines and render each as a separate display block
             const lines = processedTex.split(/\\\[\d*\.?\d*em\]/);
             const displayBlocks = lines.map(line => `\\[ ${line.trim()} \\]`).join('\n');
