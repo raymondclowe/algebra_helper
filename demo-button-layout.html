@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Layout Demo - Before vs After</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+        }
+        .demo-container {
+            max-width: 375px;
+            margin: 0 auto;
+            background: #374151;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .question-area {
+            background: #1f2937;
+            padding: 40px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .vector {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-3xl font-bold text-center mb-8">Mobile Button Layout Fix</h1>
+    <p class="text-center mb-8 text-gray-300">Demonstrating the change from 1x4 (vertical) to 2x2 (grid) layout</p>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <!-- BEFORE: 1 column layout -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 text-red-400">❌ Before (1 column - problematic)</h2>
+            <div class="demo-container">
+                <div class="question-area">
+                    <div class="text-blue-400 font-bold text-sm mb-4">ADD THE VECTORS</div>
+                    <div class="text-3xl mb-2">
+                        <span class="vector">(2<br>1)</span>
+                        <span class="mx-2">+</span>
+                        <span class="vector">(3<br>1)</span>
+                    </div>
+                </div>
+                
+                <!-- Buttons in 1 column (old layout) -->
+                <div class="grid grid-cols-1 gap-4">
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px]">(5<br>2)</button>
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px]">(5<br>1)</button>
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px]">(2<br>2)</button>
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px]">(6<br>1)</button>
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px] italic text-gray-400">I don't know<br><span class="text-xs">(no penalty)</span></button>
+                </div>
+                
+                <div class="mt-4 text-red-400 text-sm text-center">
+                    ⚠️ Issue: Buttons obscure the vector question above
+                </div>
+            </div>
+        </div>
+
+        <!-- AFTER: 2 column layout -->
+        <div>
+            <h2 class="text-2xl font-bold mb-4 text-green-400">✓ After (2x2 grid - fixed)</h2>
+            <div class="demo-container">
+                <div class="question-area">
+                    <div class="text-blue-400 font-bold text-sm mb-4">ADD THE VECTORS</div>
+                    <div class="text-3xl mb-2">
+                        <span class="vector">(2<br>1)</span>
+                        <span class="mx-2">+</span>
+                        <span class="vector">(3<br>1)</span>
+                    </div>
+                </div>
+                
+                <!-- Buttons in 2 columns (new layout) -->
+                <div class="grid grid-cols-2 gap-4">
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px]">(5<br>2)</button>
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px]">(5<br>1)</button>
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px]">(2<br>2)</button>
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px]">(6<br>1)</button>
+                    <button class="p-4 bg-gray-700 rounded text-lg border border-gray-600 min-h-[64px] italic text-gray-400 col-span-2">I don't know<br><span class="text-xs">(no penalty)</span></button>
+                </div>
+                
+                <div class="mt-4 text-green-400 text-sm text-center">
+                    ✓ Fixed: 2x2 grid prevents overlap, better use of space
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-12 max-w-4xl mx-auto">
+        <h3 class="text-xl font-bold mb-4 text-center">Key Changes</h3>
+        <div class="bg-gray-800 p-6 rounded-lg">
+            <ul class="list-disc list-inside space-y-2 text-gray-300">
+                <li><strong class="text-white">Before:</strong> <code class="bg-gray-700 px-2 py-1 rounded">grid-cols-1 sm:grid-cols-2</code> - 1 column on mobile, causing vertical stacking (1x4 or 1x5 with "I don't know")</li>
+                <li><strong class="text-white">After:</strong> <code class="bg-gray-700 px-2 py-1 rounded">grid-cols-2</code> - 2 columns on all screen sizes, creating a compact 2x2 grid</li>
+                <li><strong class="text-green-400">Benefit:</strong> Reduces vertical space used by buttons, preventing overlap with question content</li>
+                <li><strong class="text-green-400">Benefit:</strong> Better utilizes horizontal screen space on mobile devices</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
