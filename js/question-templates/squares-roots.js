@@ -1,0 +1,129 @@
+// Squares, Cubes, and Roots Question Templates
+// Level 1-2
+window.QuestionTemplates = window.QuestionTemplates || {};
+
+window.QuestionTemplates.SquaresRoots = {
+    getSquaresAndRoots: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 6);
+                
+                if (questionType === 1) {
+                    // Forward: "What is the square of n?"
+                    const n = utils.rInt(2, 12);
+                    const answer = n * n;
+                    const correctAnswer = `${answer}`;
+                    const candidateDistractors = [`${n * 2}`, `${answer + n}`, `${answer - n}`];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(4, 150)}`
+                    );
+                    return {
+                        tex: `\\text{What is } ${n}^2?`,
+                        instruction: "Calculate the square",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `${n}^2 = ${n} × ${n} = ${answer}. Squaring means multiplying a number by itself.`,
+                        calc: false
+                    };
+                } else if (questionType === 2) {
+                    // Reverse: "n² = answer, find n"
+                    const n = utils.rInt(2, 12);
+                    const square = n * n;
+                    const correctAnswer = `${n}`;
+                    const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(square / 2)}`];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(2, 12)}`
+                    );
+                    return {
+                        tex: `${square} \\text{ is the square of what number?}`,
+                        instruction: "Find the number",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `Since ${n} × ${n} = ${square}, the answer is ${n}. This is finding the square root: $\\sqrt{${square}} = ${n}$.`,
+                        calc: false
+                    };
+                } else if (questionType === 3) {
+                    // Forward: "What is the cube of n?"
+                    const n = utils.rInt(2, 6);
+                    const answer = n * n * n;
+                    const correctAnswer = `${answer}`;
+                    const candidateDistractors = [`${n * 3}`, `${n * n}`, `${answer + n}`];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(8, 250)}`
+                    );
+                    return {
+                        tex: `\\text{What is } ${n}^3?`,
+                        instruction: "Calculate the cube",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `${n}^3 = ${n} × ${n} × ${n} = ${answer}. Cubing means multiplying a number by itself three times.`,
+                        calc: false
+                    };
+                } else if (questionType === 4) {
+                    // Reverse: "n³ = answer, find n"
+                    const n = utils.rInt(2, 6);
+                    const cube = n * n * n;
+                    const correctAnswer = `${n}`;
+                    const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(cube / 3)}`];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(2, 6)}`
+                    );
+                    return {
+                        tex: `${cube} \\text{ is the cube of what number?}`,
+                        instruction: "Find the number",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `Since ${n} × ${n} × ${n} = ${cube}, the answer is ${n}. This is finding the cube root: ∛${cube} = ${n}.`,
+                        calc: false
+                    };
+                } else if (questionType === 5) {
+                    // Square root
+                    const n = utils.rInt(2, 12);
+                    const square = n * n;
+                    const correctAnswer = `${n}`;
+                    const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(square / 2)}`];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(2, 12)}`
+                    );
+                    return {
+                        tex: `\\sqrt{${square}}`,
+                        instruction: "Calculate",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `The square root of ${square} is ${n} because ${n} × ${n} = ${square}.`,
+                        calc: false
+                    };
+                } else {
+                    // Power notation with small exponents
+                    const base = utils.rInt(2, 8);
+                    const exp = utils.rInt(2, 4);
+                    const answer = Math.pow(base, exp);
+                    // Build the multiplication chain properly
+                    const multChain = Array(exp).fill(base).join(' × ');
+                    const correctAnswer = `${answer}`;
+                    const candidateDistractors = [`${base * exp}`, `${answer + base}`, `${answer - base}`];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(4, 500)}`
+                    );
+                    return {
+                        tex: `${base}^${exp}`,
+                        instruction: "Calculate",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `${base}^${exp} means multiply ${base} by itself ${exp} times: ${multChain} = ${answer}.`,
+                        calc: false
+                    };
+                }
+    }
+};
