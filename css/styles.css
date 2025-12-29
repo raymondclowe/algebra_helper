@@ -553,7 +553,7 @@ input[type="checkbox"] {
     /* Reduce MC button padding for better fit - increased for wrapping */
     #mc-options button {
         padding: 0.5rem 0.4rem !important;
-        min-height: 52px !important;
+        min-height: 60px !important;
     }
 }
 
@@ -684,7 +684,7 @@ Removed, not necessary in MathJax 4
     align-items: center !important;
     justify-content: center !important;
     padding: 0.6rem 0.4rem !important;
-    min-height: 52px !important;
+    min-height: 60px !important;
     height: auto !important;
     line-height: 1.3 !important;
 }
