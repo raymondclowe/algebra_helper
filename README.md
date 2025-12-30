@@ -51,7 +51,7 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 
 ### How to Use
 
-1. **Calibration Phase**: The app will show you problems and ask if they're too hard, just right, or too easy. Answer honestly! The app needs at least 6 responses with a clear pattern to accurately find your level.
+1. **Calibration Phase**: The app will show you problems and ask if they're too hard, just right, or too easy. Answer honestly! The app uses a quick binary search (4-6 questions) to accurately find your level.
 2. **Learning Phase**: Once calibrated, practice with multiple-choice questions at your level. Answer quickly to maximize your progress!
 3. **Build Momentum**: Get 3 correct answers in a row to activate Turbo Mode 🔥 for faster progression. Hover over Turbo Mode to see how it works!
 4. **Learn from Mistakes**: Read the explanations when you get something wrong to understand the correct approach.
