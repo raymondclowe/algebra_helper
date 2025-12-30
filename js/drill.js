@@ -52,7 +52,12 @@ window.Learning = {
             }
             container.appendChild(btn);
         });
-        MathJax.typesetPromise([container]);
+        MathJax.typesetPromise([container]).then(() => {
+            // After MathJax renders, check for overflow and prevent clipping
+            if (window.UI && window.UI.checkAnswerButtonOverflow) {
+                window.UI.checkAnswerButtonOverflow();
+            }
+        });
     },
 
     handleAnswer: function(btn, isCorrect, isDontKnow, chosenAnswer) {

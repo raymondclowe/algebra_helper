@@ -319,5 +319,91 @@ window.UI = {
             mathContainer.style.fontSize = '0.75em';
             
         }, 100); // Small delay to ensure MathJax has fully rendered
+    },
+    
+    /**
+     * Dynamically check and prevent overflow in answer buttons
+     * Ensures all answer text wraps properly and is never clipped or hidden
+     * Applies font size reduction if needed and forces wrapping behavior
+     * 
+     * This function is called after MathJax renders answer buttons in learning mode
+     * to ensure answers of any length display properly without overflow or clipping
+     */
+    checkAnswerButtonOverflow: function() {
+        // Small delay to ensure MathJax rendering is complete
+        setTimeout(() => {
+            const buttons = document.querySelectorAll('#mc-options button');
+            
+            buttons.forEach(button => {
+                // Skip the "I don't know" button which is plain text
+                if (button.dataset.dontKnow === 'true') {
+                    return;
+                }
+                
+                // Find MathJax containers or plain text spans in this button
+                const mathContainer = button.querySelector('mjx-container');
+                const textSpan = button.querySelector('span[style*="font-style"]');
+                const contentElement = mathContainer || textSpan;
+                
+                if (!contentElement) {
+                    return;
+                }
+                
+                // Reset any previous adjustments
+                if (mathContainer) {
+                    mathContainer.style.fontSize = '';
+                }
+                
+                // Check if content overflows
+                const buttonWidth = button.clientWidth;
+                const contentWidth = contentElement.scrollWidth;
+                
+                // If content fits, no adjustment needed
+                if (contentWidth <= buttonWidth * 0.95) { // 95% to allow some margin
+                    return;
+                }
+                
+                // Content is too wide - apply progressive font size reduction
+                // This works in combination with CSS wrapping rules
+                let scaleFactor = 1.0;
+                
+                // Try reducing in 5% increments up to 30% total for buttons
+                for (let reduction = 0.05; reduction <= 0.30; reduction += 0.05) {
+                    scaleFactor = 1.0 - reduction;
+                    
+                    if (mathContainer) {
+                        mathContainer.style.fontSize = scaleFactor + 'em';
+                    } else if (textSpan) {
+                        textSpan.style.fontSize = scaleFactor + 'em';
+                    }
+                    
+                    // Force reflow
+                    void contentElement.offsetWidth;
+                    
+                    // Check if it fits now (with some tolerance)
+                    if (contentElement.scrollWidth <= buttonWidth * 0.95) {
+                        // Found a size that works!
+                        return;
+                    }
+                }
+                
+                // Even with 30% reduction, ensure wrapping is forced
+                // The CSS rules should handle wrapping, but we set explicit styles
+                button.style.whiteSpace = 'normal';
+                button.style.wordBreak = 'break-word';
+                button.style.overflowWrap = 'break-word';
+                button.style.height = 'auto';
+                button.style.minHeight = '60px';
+                button.style.maxHeight = 'none';
+                button.style.overflow = 'visible';
+                
+                // Ensure content element also allows wrapping
+                contentElement.style.maxWidth = '100%';
+                contentElement.style.width = '100%';
+                contentElement.style.display = 'inline-block';
+                contentElement.style.wordBreak = 'break-word';
+                contentElement.style.overflowWrap = 'break-word';
+            });
+        }, 150); // 150ms delay to ensure MathJax is fully rendered
     }
 };
