@@ -37,7 +37,7 @@ window.QuestionTemplates.ComplexNumbers = {
                     
                     return {
                         tex: `(${a} + ${b}i)(${a} - ${b}i)`,
-                        instruction: "Multiply (use i² = -1)",
+                        instruction: utils.toUnicodeFunction("Multiply (use i² = -1)"),
                         displayAnswer: `${result}`,
                         distractors: [
                             `${a * a} - ${b * b}`,
