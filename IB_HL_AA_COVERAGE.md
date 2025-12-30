@@ -614,6 +614,73 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 
 ---
 
+#### Level 31-32: Differential Equations
+**Topics:**
+- First-order differential equations
+- Separation of variables
+- Direct integration
+- Exponential growth/decay (dy/dx = ky)
+- Initial value problems
+
+**Example Problems:**
+- `dy/dx = xy, separate variables` → (1/y) dy = x dx
+- `dy/dx = 3y, general solution` → y = Ae^(3x)
+- `dy/dx = 2x², solve` → y = (2x³)/3 + C
+- `dy/dx = 2y, y(0) = 5` → y = 5e^(2x)
+
+**IB Curriculum:**
+- HL Topic 6.5: First-order differential equations
+- HL Topic 6.5: Separation of variables
+- HL Topic: Exponential models
+
+---
+
+#### Level 32-33: Probability Distributions
+**Topics:**
+- Binomial distribution B(n, p)
+- Normal distribution N(μ, σ²)
+- Mean and variance of distributions
+- Standard normal distribution
+- Standardizing (Z = (X - μ)/σ)
+
+**Example Problems:**
+- `X ~ B(10, 0.3), find E(X)` → 3
+- `X ~ B(20, 0.4), find Var(X)` → 4.8
+- `N(50, 100), standardize X` → Z = (X - 50)/10
+- `Heights N(170, 25). What notation?` → N(170, 25)
+
+**IB Curriculum:**
+- HL Topic 5.5: Binomial distribution
+- HL Topic 5.5: Normal distribution
+- HL Topic 5.5: Mean, variance, standard deviation
+- HL Topic 5.5: Standardization
+
+---
+
+#### Level 33-34: Hypothesis Testing
+**Topics:**
+- Null hypothesis (H₀)
+- Alternative hypothesis (H₁)
+- One-tailed vs two-tailed tests
+- Significance level (α)
+- Type I and Type II errors
+- P-value interpretation
+
+**Example Problems:**
+- `Test if μ differs from 50, what is H₀?` → H₀: μ = 50
+- `Test if μ > 50, what type of test?` → One-tailed (upper)
+- `α = 0.05 means what?` → 5% probability of Type I error
+- `Reject H₀ when H₀ is true` → Type I error
+- `p-value = 0.03, α = 0.05, conclusion?` → Reject H₀
+
+**IB Curriculum:**
+- HL Topic 5.6: Hypothesis testing
+- HL Topic 5.6: Significance levels
+- HL Topic 5.6: Type I and Type II errors
+- HL Topic 5.6: P-values
+
+---
+
 ## Curriculum Alignment Summary
 
 ### IB Math SL Topics Covered:
@@ -632,7 +699,7 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 ✅ HL Topic 6.1: Advanced differentiation rules  
 ✅ HL Topic 6.3: Optimization
 
-### Advanced HL Topics - NEW (Levels 25-31):
+### Advanced HL Topics - NEW (Levels 25-34):
 ✅ **HL Proof by Induction** (Level 25-26)
   - Sum of natural numbers (1 + 2 + ... + n = n(n+1)/2)
   - Sum of odd numbers (1 + 3 + ... + (2n-1) = n²)
@@ -677,11 +744,31 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
   - Trigonometric substitution
   - Step-by-step method identification
 
+✅ **HL Differential Equations** (Level 31-32)
+  - First-order differential equations
+  - Separation of variables
+  - Exponential growth/decay (dy/dx = ky)
+  - Direct integration
+  - Initial value problems
+
+✅ **HL Probability Distributions** (Level 32-33)
+  - Binomial distribution B(n, p)
+  - Normal distribution N(μ, σ²)
+  - Mean and variance calculations
+  - Standard normal distribution
+  - Standardization (Z-scores)
+
+✅ **HL Hypothesis Testing** (Level 33-34)
+  - Null and alternative hypotheses
+  - One-tailed vs two-tailed tests
+  - Significance level (α)
+  - Type I and Type II errors
+  - P-value interpretation
+
 ### Topics Not Yet Covered (Future Enhancement):
-- Differential equations
-- Probability distributions (binomial, normal)
-- Hypothesis testing
 - Further calculus topics
+- Advanced probability theory
+- Multivariate analysis
 
 ---
 
@@ -745,7 +832,16 @@ The proof questions use a **fill-in-the-missing-step** format with multiple-choi
 
 ## Version History
 
-**v3.0 (Current)** - Advanced IB Math HL AA with Proof Questions
+**v3.1 (Current)** - Complete IB Math HL AA Advanced Topics
+- Expanded from 31 to 34+ levels
+- Added 3 more advanced HL topic areas:
+  - Differential Equations (first-order, separation of variables)
+  - Probability Distributions (binomial, normal, standardization)
+  - Hypothesis Testing (null/alternative hypotheses, Type I/II errors)
+- 300+ total advanced questions
+- Comprehensive coverage of all IB HL AA exam topics
+
+**v3.0** - Advanced IB Math HL AA with Proof Questions
 - Expanded from 25 to 31+ levels
 - Added 6 new advanced HL topic areas:
   - Proof by Induction

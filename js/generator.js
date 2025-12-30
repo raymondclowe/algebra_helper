@@ -218,7 +218,10 @@ window.Generator = {
         if (band <= 28) return this.getMatrixAlgebra();
         if (band <= 29) return this.getVectors3D();
         if (band <= 30) return this.getComplexPolar();
-        return this.getAdvancedIntegration();
+        if (band <= 31) return this.getAdvancedIntegration();
+        if (band <= 32) return this.getDifferentialEquations();
+        if (band <= 33) return this.getProbabilityDistributions();
+        return this.getHypothesisTesting();
     },
     
     // Delegate to question template modules
@@ -256,5 +259,8 @@ window.Generator = {
     getMatrixAlgebra: function() { return window.QuestionTemplates.MatrixAlgebra.getMatrixQuestion(); },
     getVectors3D: function() { return window.QuestionTemplates.Vectors3D.get3DVectorQuestion(); },
     getComplexPolar: function() { return window.QuestionTemplates.ComplexPolar.getComplexPolarQuestion(); },
-    getAdvancedIntegration: function() { return window.QuestionTemplates.AdvancedIntegration.getAdvancedIntegrationQuestion(); }
+    getAdvancedIntegration: function() { return window.QuestionTemplates.AdvancedIntegration.getAdvancedIntegrationQuestion(); },
+    getDifferentialEquations: function() { return window.QuestionTemplates.DifferentialEquations.getDifferentialEquationQuestion(); },
+    getProbabilityDistributions: function() { return window.QuestionTemplates.ProbabilityDistributions.getProbabilityDistributionQuestion(); },
+    getHypothesisTesting: function() { return window.QuestionTemplates.HypothesisTesting.getHypothesisTestingQuestion(); }
 };

@@ -53,7 +53,10 @@ An intelligent, adaptive math practice tool that helps students master mathemati
   - **Level 27-28**: Matrix algebra (operations, determinants, inverses)
   - **Level 28-29**: 3D vectors (cross product, vector equations)
   - **Level 29-30**: Complex numbers polar form (De Moivre's theorem, conversions)
-  - **Level 30+**: Advanced integration (substitution, integration by parts)
+  - **Level 30-31**: Advanced integration (substitution, integration by parts)
+  - **Level 31-32**: Differential equations (separation of variables, first-order)
+  - **Level 32-33**: Probability distributions (binomial, normal, mean & variance)
+  - **Level 33+**: Hypothesis testing (null/alternative hypotheses, Type I/II errors)
 
 ### How to Use
 

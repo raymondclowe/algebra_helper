@@ -40,7 +40,10 @@ window.TopicDefinitions = {
         if (band <= 28) return "Matrix Algebra";
         if (band <= 29) return "3D Vectors";
         if (band <= 30) return "Complex Numbers (Polar)";
-        return "Advanced Integration";
+        if (band <= 31) return "Advanced Integration";
+        if (band <= 32) return "Differential Equations";
+        if (band <= 33) return "Probability Distributions";
+        return "Hypothesis Testing";
     },
     
     // Get all available topics (in order)
@@ -76,7 +79,10 @@ window.TopicDefinitions = {
             "Matrix Algebra",
             "3D Vectors",
             "Complex Numbers (Polar)",
-            "Advanced Integration"
+            "Advanced Integration",
+            "Differential Equations",
+            "Probability Distributions",
+            "Hypothesis Testing"
         ];
     }
 };
