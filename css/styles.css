@@ -553,7 +553,7 @@ input[type="checkbox"] {
     /* Reduce MC button padding for better fit - increased for wrapping */
     #mc-options button {
         padding: 0.5rem 0.4rem !important;
-        min-height: 52px !important;
+        min-height: 60px !important;
     }
 }
 
@@ -647,6 +647,8 @@ input[type="checkbox"] {
     max-width: 100% !important;
     overflow-wrap: break-word !important;
     word-break: break-word !important;
+    overflow: visible !important; /* Ensure content is never clipped */
+    box-sizing: border-box !important;
 }
 
 /*
@@ -664,6 +666,7 @@ Removed, not necessary in MathJax 4
 #mc-options mjx-math {
     display: inline-block !important;
     max-width: 100% !important;
+    overflow: visible !important; /* Prevent clipping of math content */
 }
 
 /* Support for line breaks in display mode */
@@ -678,15 +681,19 @@ Removed, not necessary in MathJax 4
     overflow-wrap: break-word !important;
     word-wrap: break-word !important;
     word-break: break-word !important;
+    hyphens: auto !important; /* Enable automatic hyphenation for long words */
     text-align: center !important;
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: center !important;
     justify-content: center !important;
     padding: 0.6rem 0.4rem !important;
-    min-height: 52px !important;
+    min-height: 60px !important;
     height: auto !important;
+    max-height: none !important; /* Ensure buttons can grow as needed */
     line-height: 1.3 !important;
+    overflow: visible !important; /* Never clip button content */
+    box-sizing: border-box !important;
 }
 
 /* Ensure wrapped content in buttons is properly spaced */
@@ -694,6 +701,9 @@ Removed, not necessary in MathJax 4
     margin: 0.25rem !important;
     display: inline-block !important;
     max-width: 100% !important;
+    width: 100% !important; /* Force container to use full width for better wrapping */
+    box-sizing: border-box !important;
+    overflow: visible !important; /* Prevent clipping */
 }
 
 /* Add word spacing for plain text in buttons to make it readable */
@@ -701,6 +711,17 @@ Removed, not necessary in MathJax 4
     word-spacing: 0.2em !important;
     letter-spacing: 0.02em !important;
     margin: 0.15rem !important; /* Slightly reduced margin */
+    overflow: visible !important; /* Ensure math never gets clipped */
+}
+
+/* Ensure plain text spans in buttons also wrap properly */
+#mc-options button span {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 
 /* Mobile-specific MathJax improvements */
@@ -766,12 +787,16 @@ Removed, not necessary in MathJax 4
     .question-area {
         padding-left: 1rem !important;
         padding-right: 1rem !important;
+        overflow: visible !important; /* Ensure questions never get clipped */
     }
     
     /* Ensure question text has enough space on sides to avoid nav button overlap */
     #question-math {
         padding-left: 3.5rem !important;
         padding-right: 3.5rem !important;
+        overflow: visible !important; /* Never clip question content */
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -783,6 +808,27 @@ Removed, not necessary in MathJax 4
 /* For very long button text, scale down more */
 #mc-options button:has(mjx-container mjx-math[style*="width"]) mjx-container {
     font-size: 0.85em !important;
+}
+
+/* Container-level overflow prevention for answer grid */
+#mc-options {
+    overflow: visible !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Ensure grid layout doesn't cause overflow */
+#mc-options.grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.75rem !important;
+    overflow: visible !important;
+}
+
+/* Make sure answer button container has proper spacing */
+#controls-learning {
+    overflow: visible !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 

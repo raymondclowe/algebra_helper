@@ -33,7 +33,7 @@ describe('Improved Calibration Tests', () => {
         await page.close();
     });
 
-    test('Calibration requires minimum 6 responses', async () => {
+    test('Calibration requires minimum 4 responses', async () => {
         // Simulate only 3 responses and check that calibration doesn't end
         for (let i = 0; i < 3; i++) {
             const mode = await page.evaluate(() => window.APP.mode);
@@ -57,9 +57,9 @@ describe('Improved Calibration Tests', () => {
         // Simulate responses that are all the same (no discrimination)
         for (let i = 0; i < 8; i++) {
             const mode = await page.evaluate(() => window.APP.mode);
-            if (mode === 'drill') break;
+            if (mode === 'drill' || mode === 'learning') break;
             
-            // All pass responses - should not end calibration
+            // All pass responses - should end at max 6 responses
             await page.evaluate(() => {
                 window.APP.handleCalibration('pass');
             });
@@ -70,14 +70,9 @@ describe('Improved Calibration Tests', () => {
         const mode = await page.evaluate(() => window.APP.mode);
         const historyLength = await page.evaluate(() => window.APP.calibrationHistory.length);
         
-        // Even after 8 responses, if all are the same, might still be calibrating
-        // or if it ended, it should have taken at least 6 responses
-        if (mode === 'calibration') {
-            expect(historyLength).toBeGreaterThanOrEqual(6);
-        } else {
-            // If it ended, verify it required at least 6 responses
-            expect(historyLength).toBeGreaterThanOrEqual(6);
-        }
+        // With new limits, should end by 6 responses max regardless of pattern
+        expect(mode === 'learning' || mode === 'drill').toBe(true);
+        expect(historyLength).toBeLessThanOrEqual(6);
     });
 
     test('Calibration history is tracked correctly', async () => {
@@ -133,7 +128,9 @@ describe('Improved Calibration Tests', () => {
         
         // Should have transitioned to learning mode (or drill for backward compatibility) after showing consistent pattern
         expect(mode === 'learning' || mode === 'drill').toBe(true);
-        expect(historyLength).toBeGreaterThanOrEqual(6);
+        // With new limits, calibration should end within 4-6 questions
+        expect(historyLength).toBeGreaterThanOrEqual(4);
+        expect(historyLength).toBeLessThanOrEqual(6);
     });
 
     test('shouldEndCalibration returns false with insufficient data', async () => {
@@ -148,7 +145,7 @@ describe('Improved Calibration Tests', () => {
     });
 
     test('shouldEndCalibration checks for consistency', async () => {
-        // Test with insufficient consistency - fewer than 6 responses
+        // Test with insufficient consistency - but now with hard max at 6
         const result = await page.evaluate(() => {
             // Simulate only 5 responses but all doubt - should not end yet
             window.APP.calibrationHistory = [
@@ -163,8 +160,8 @@ describe('Improved Calibration Tests', () => {
             return window.APP.shouldEndCalibration();
         });
         
-        // Too much doubt AND not at max questions yet - should not end
-        expect(result).toBe(false);
+        // At 6 responses (MAX_RESPONSES), should end regardless of doubt
+        expect(result).toBe(true);
     });
 
     test('shouldEndCalibration requires mixed signals', async () => {
@@ -188,47 +185,51 @@ describe('Improved Calibration Tests', () => {
         expect(result).toBe(true);
     });
 
-    test('Calibration ends after exactly MAX_CALIBRATION_QUESTIONS (6) regardless of consistency', async () => {
-        // Simulate 6 responses with poor consistency (all doubt) - should still end
-        const result = await page.evaluate(() => {
-            // Set all responses to doubt, which would normally prevent ending
-            window.APP.calibrationHistory = [
-                { level: 5, action: 'doubt', timeTaken: 10 },
-                { level: 5, action: 'doubt', timeTaken: 10 },
-                { level: 5, action: 'doubt', timeTaken: 10 },
-                { level: 5, action: 'doubt', timeTaken: 10 },
-                { level: 5, action: 'doubt', timeTaken: 10 },
-                { level: 5, action: 'doubt', timeTaken: 10 }
-            ];
-            window.APP.cMin = 4;
-            window.APP.cMax = 10; // Wide range, not converged
-            return window.APP.shouldEndCalibration();
-        });
+    test('Calibration always ends by 6 questions maximum', async () => {
+        // Test that calibration cannot go beyond 6 questions regardless of pattern
+        // Simulate ambiguous responses where user is inconsistent
+        const responses = ['pass', 'fail', 'doubt', 'pass', 'doubt', 'fail', 'pass', 'fail', 'doubt', 'pass'];
         
-        // Should end due to reaching maximum questions, even with poor consistency
-        expect(result).toBe(true);
-    });
-
-    test('Calibration never exceeds 6 questions in practice', async () => {
-        // Simulate a difficult-to-calibrate user (inconsistent responses)
-        const responses = ['doubt', 'doubt', 'doubt', 'doubt', 'doubt', 'doubt', 'doubt', 'doubt'];
-        
+        let questionCount = 0;
         for (let i = 0; i < responses.length; i++) {
             const mode = await page.evaluate(() => window.APP.mode);
-            if (mode === 'drill' || mode === 'learning') break;
+            if (mode === 'learning' || mode === 'drill') break;
             
             await page.evaluate((action) => {
                 window.APP.handleCalibration(action);
             }, responses[i]);
             
+            questionCount++;
             await wait(200);
         }
         
-        // Should have ended after 6 questions
+        // Should have ended by question 6 at the latest
         const mode = await page.evaluate(() => window.APP.mode);
         const historyLength = await page.evaluate(() => window.APP.calibrationHistory.length);
         
         expect(mode === 'learning' || mode === 'drill').toBe(true);
         expect(historyLength).toBeLessThanOrEqual(6);
+        expect(questionCount).toBeLessThanOrEqual(6);
+    });
+
+    test('Hard maximum enforced at 6 questions in shouldEndCalibration', async () => {
+        // Directly test the hard maximum enforcement
+        const result = await page.evaluate(() => {
+            // Simulate exactly 6 responses
+            window.APP.calibrationHistory = [
+                { level: 5, action: 'pass', timeTaken: 5 },
+                { level: 6, action: 'fail', timeTaken: 10 },
+                { level: 5.5, action: 'doubt', timeTaken: 15 },
+                { level: 5.2, action: 'pass', timeTaken: 7 },
+                { level: 5.3, action: 'doubt', timeTaken: 12 },
+                { level: 5.1, action: 'fail', timeTaken: 9 }
+            ];
+            window.APP.cMin = 4;
+            window.APP.cMax = 7; // Wide range, but should still end at 6 responses
+            return window.APP.shouldEndCalibration();
+        });
+        
+        // At 6 responses (MAX_RESPONSES), should always end
+        expect(result).toBe(true);
     });
 });

@@ -11,15 +11,25 @@ window.QuestionTemplates.Calculus = {
                     // Basic integration: ∫x^n dx
                     const n = utils.rInt(2, 5);
                     const newExp = n + 1;
+                    const correctAnswer = `\\frac{x^{${newExp}}}{${newExp}} + C`;
+                    const candidateDistractors = [
+                        `\\frac{x^{${n}}}{${n}} + C`,
+                        `${n}x^{${n - 1}} + C`,
+                        `x^{${newExp}} + C`
+                    ];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => {
+                            const randExp = utils.rInt(2, 7);
+                            return `\\frac{x^{${randExp}}}{${randExp}} + C`;
+                        }
+                    );
                     return {
                         tex: `\\int x^${n} \\, dx`,
                         instruction: "Integrate",
-                        displayAnswer: `\\frac{x^{${newExp}}}{${newExp}} + C`,
-                        distractors: [
-                            `\\frac{x^{${n}}}{${n}} + C`,
-                            `${n}x^{${n - 1}} + C`,
-                            `x^{${newExp}} + C`
-                        ],
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
                         explanation: `Using the power rule for integration: ∫x^n dx = x^(n+1)/(n+1) + C. So ∫x^${n} dx = x^${newExp}/${newExp} + C. Don't forget the constant of integration!`,
                         calc: false
                     };
@@ -28,15 +38,26 @@ window.QuestionTemplates.Calculus = {
                     const a = utils.rInt(2, 8);
                     const n = utils.rInt(2, 4);
                     const newExp = n + 1;
+                    const correctAnswer = `\\frac{${a}x^{${newExp}}}{${newExp}} + C`;
+                    const candidateDistractors = [
+                        `${a}x^{${newExp}} + C`,
+                        `\\frac{x^{${newExp}}}{${newExp}} + C`,
+                        `${a * n}x^{${n - 1}} + C`
+                    ];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => {
+                            const randA = utils.rInt(2, 9);
+                            const randExp = utils.rInt(2, 6);
+                            return `\\frac{${randA}x^{${randExp}}}{${randExp}} + C`;
+                        }
+                    );
                     return {
                         tex: `\\int ${a}x^${n} \\, dx`,
                         instruction: "Integrate",
-                        displayAnswer: `\\frac{${a}x^{${newExp}}}{${newExp}} + C`,
-                        distractors: [
-                            `${a}x^{${newExp}} + C`,
-                            `\\frac{x^{${newExp}}}{${newExp}} + C`,
-                            `${a * n}x^{${n - 1}} + C`
-                        ],
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
                         explanation: `Integrate using the power rule, keeping the coefficient: ∫${a}x^${n} dx = ${a} × x^${newExp}/${newExp} + C = ${a}x^${newExp}/${newExp} + C.`,
                         calc: false
                     };
@@ -50,16 +71,23 @@ window.QuestionTemplates.Calculus = {
                     ];
                     
                     const series = seriesOptions[utils.rInt(0, seriesOptions.length - 1)];
+                    const correctAnswer = `${series.answerDisplay}`;
+                    const candidateDistractors = [
+                        `\\text{diverges}`,
+                        `${series.display}`,
+                        `\\infty`
+                    ];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${(Math.random() * 9 + 1).toFixed(2)}`
+                    );
                     
                     return {
                         tex: `\\sum_{n=0}^{\\infty} (${series.display})^n`,
                         instruction: "Find the sum (if |r| < 1)",
-                        displayAnswer: `${series.answerDisplay}`,
-                        distractors: [
-                            `\\text{diverges}`,
-                            `${series.display}`,
-                            `\\infty`
-                        ],
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
                         explanation: `This is a geometric series with first term a=1 and ratio r=${series.display}. Since |r| < 1, it converges to S = a/(1-r) = 1/(1-${series.display}) = ${series.answerDisplay}.`,
                         calc: false
                     };

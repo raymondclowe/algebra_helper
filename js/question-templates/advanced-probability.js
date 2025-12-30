@@ -28,7 +28,7 @@ window.QuestionTemplates.AdvancedProbability = {
                     );
                     
                     return {
-                        tex: `P(A) = ${eventA / total}, P(A \\cap B) = ${both / total}`,
+                        tex: `P(A) = ${eventA / total},\\\\[0.5em]P(A \\cap B) = ${both / total}`,
                         instruction: "Find P(B|A) = P(A∩B)/P(A)",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
@@ -56,7 +56,7 @@ window.QuestionTemplates.AdvancedProbability = {
                     );
                     
                     return {
-                        tex: `\\text{If A and B are independent: } P(A) = ${pA}, P(B) = ${pB}`,
+                        tex: `\\text{If A and B are independent:}\\\\[0.5em]P(A) = ${pA},\\\\[0.5em]P(B) = ${pB}`,
                         instruction: "Find P(A and B)",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
@@ -84,7 +84,7 @@ window.QuestionTemplates.AdvancedProbability = {
                     );
                     
                     return {
-                        tex: `\\text{Fair die: outcomes 1-6, each with P = 1/6}`,
+                        tex: `\\text{Fair die: outcomes 1-6,}\\\\[0.5em]\\text{each with P = 1/6}`,
                         instruction: "Find expected value E(X)",
                         displayAnswer: correctAnswer,
                         distractors: distractors,

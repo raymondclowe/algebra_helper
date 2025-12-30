@@ -112,8 +112,15 @@ window.Calibration = {
     // Ensures calibration completes within MAX_CALIBRATION_QUESTIONS for efficiency
     shouldEndCalibration: function() {
         const MIN_RESPONSES = 4; // Minimum responses before considering early termination
-        const CONVERGENCE_THRESHOLD = 1.5; // Range must be narrow (within 1.5 levels)
-        const CONSISTENCY_WINDOW = 4; // Check last N responses for consistency
+        const MAX_RESPONSES = 6; // Maximum number of responses - binary search should converge by then
+        const CONVERGENCE_THRESHOLD = 2.0; // Range must be narrow (relaxed from 1.5)
+        const CONSISTENCY_WINDOW = 3; // Check last N responses for consistency (reduced from 4)
+        
+        // Hard maximum: Binary search should converge rapidly
+        // After 6 questions, we have enough information to determine the level
+        if (window.APP.calibrationHistory.length >= MAX_RESPONSES) {
+            return true;
+        }
         
         // Hard limit: Force calibration to end at maximum question count
         // This ensures rapid convergence and prevents prolonged questioning
@@ -165,12 +172,12 @@ window.Calibration = {
         // - Should have both "can do" and "can't do" signals
         // - Or consistent alternating pattern indicating we're at the boundary
         
-        // If all same response, not confident yet
+        // If all same response, not confident yet (unless we're at max responses)
         if (passCount === CONSISTENCY_WINDOW || failCount === CONSISTENCY_WINDOW) {
             return false;
         }
         
-        // If too much doubt/uncertainty, not confident yet
+        // If too much doubt/uncertainty, not confident yet (unless we're at max responses)
         if (doubtCount > CONSISTENCY_WINDOW / 2) {
             return false;
         }

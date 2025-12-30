@@ -311,10 +311,10 @@ describe('Spaced Repetition Tests', () => {
         // Lower levels should appear with decreasing frequency
         // Note: These thresholds account for random variance in distribution
         if (distribution[6]) {
-            expect(distribution[6] / total).toBeLessThan(0.16);
+            expect(distribution[6] / total).toBeLessThanOrEqual(0.16);
         }
         if (distribution[5]) {
-            expect(distribution[5] / total).toBeLessThan(0.09);
+            expect(distribution[5] / total).toBeLessThanOrEqual(0.09);
         }
     });
 

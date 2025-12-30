@@ -64,10 +64,10 @@ describe('Calibration "I Know" Button Fix', () => {
         // Should have ended before MAX_ITERATIONS
         expect(iterationCount).toBeLessThan(MAX_ITERATIONS);
         
-        // Should have at least MIN_RESPONSES (4) for adequate sampling
-        // Note: In practice, reaching cMin >= MAX_LEVEL-1 takes about 5-6 questions
+        // Should have at least MIN_RESPONSES (4) and at most MAX_RESPONSES (6)
         const historyLength = await page.evaluate(() => window.APP.calibrationHistory.length);
         expect(historyLength).toBeGreaterThanOrEqual(4);
+        expect(historyLength).toBeLessThanOrEqual(6);
         
         console.log(`Calibration ended after ${iterationCount} iterations with ${historyLength} total responses`);
     }, 30000); // 30 second timeout
@@ -145,24 +145,23 @@ describe('Calibration "I Know" Button Fix', () => {
     });
 
     test('Calibration does NOT end when cMin is below MAX_LEVEL - 1', async () => {
-        // Test that we don't end too early (before reaching max questions)
+        // Test that we don't end too early (unless we hit MAX_RESPONSES)
         const result = await page.evaluate(() => {
             // Simulate state where cMin is at 22 (not yet at threshold)
-            // with only 5 responses (below MAX_CALIBRATION_QUESTIONS)
+            // with only 4 responses (below MAX_RESPONSES)
             window.APP.cMin = 22;
             window.APP.cMax = 24;
             window.APP.calibrationHistory = [
                 { level: 18, action: 'pass', timeTaken: 5 },
                 { level: 21, action: 'pass', timeTaken: 5 },
                 { level: 22.5, action: 'pass', timeTaken: 5 },
-                { level: 23, action: 'pass', timeTaken: 5 },
-                { level: 22.5, action: 'pass', timeTaken: 5 }
+                { level: 23, action: 'pass', timeTaken: 5 }
             ];
             
             return window.APP.shouldEndCalibration();
         });
         
-        // Should return false (calibration should continue - not at max questions yet)
+        // Should return false (calibration should continue, not at threshold yet and below MAX_RESPONSES)
         expect(result).toBe(false);
     });
 });

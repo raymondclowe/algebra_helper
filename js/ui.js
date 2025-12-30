@@ -2,6 +2,16 @@
 window.UI = {
     _updatingButtons: false, // Flag to prevent concurrent button updates
     
+    // Constants for dynamic font sizing and overflow detection
+    _FONT_SIZE_CONSTANTS: {
+        MATHJAX_RENDER_DELAY_MS: 100,          // Delay for MathJax question rendering
+        BUTTON_RENDER_DELAY_MS: 150,           // Delay for MathJax button rendering
+        WIDTH_TOLERANCE_FACTOR: 0.95,          // 95% width tolerance for overflow detection
+        FONT_REDUCTION_INCREMENT: 0.05,        // 5% font size reduction per step
+        MAX_QUESTION_REDUCTION: 0.25,          // Maximum 25% reduction for questions
+        MAX_BUTTON_REDUCTION: 0.30             // Maximum 30% reduction for buttons
+    },
+    
     nextQuestion: function() {
         // If viewing history, return to present
         if (window.APP.isViewingHistory) {
@@ -318,6 +328,97 @@ window.UI = {
             // and let the existing CSS word-wrapping handle the rest
             mathContainer.style.fontSize = '0.75em';
             
-        }, 100); // Small delay to ensure MathJax has fully rendered
+        }, this._FONT_SIZE_CONSTANTS.MATHJAX_RENDER_DELAY_MS);
+    },
+    
+    /**
+     * Dynamically check and prevent overflow in answer buttons
+     * Ensures all answer text wraps properly and is never clipped or hidden
+     * Applies font size reduction if needed and forces wrapping behavior
+     * 
+     * This function is called after MathJax renders answer buttons in learning mode
+     * to ensure answers of any length display properly without overflow or clipping
+     */
+    checkAnswerButtonOverflow: function() {
+        const constants = this._FONT_SIZE_CONSTANTS;
+        
+        // Small delay to ensure MathJax rendering is complete
+        setTimeout(() => {
+            const buttons = document.querySelectorAll('#mc-options button');
+            
+            buttons.forEach(button => {
+                // Skip the "I don't know" button which is plain text
+                if (button.dataset.dontKnow === 'true') {
+                    return;
+                }
+                
+                // Find MathJax containers or plain text spans in this button
+                // Try MathJax first, then look for any span (more robust than checking inline styles)
+                const mathContainer = button.querySelector('mjx-container');
+                const textSpan = mathContainer ? null : button.querySelector('span');
+                const contentElement = mathContainer || textSpan;
+                
+                if (!contentElement) {
+                    return;
+                }
+                
+                // Reset any previous adjustments
+                if (mathContainer) {
+                    mathContainer.style.fontSize = '';
+                }
+                
+                // Check if content overflows
+                const buttonWidth = button.clientWidth;
+                const contentWidth = contentElement.scrollWidth;
+                
+                // If content fits, no adjustment needed
+                if (contentWidth <= buttonWidth * constants.WIDTH_TOLERANCE_FACTOR) {
+                    return;
+                }
+                
+                // Content is too wide - apply progressive font size reduction
+                // This works in combination with CSS wrapping rules
+                let scaleFactor = 1.0;
+                
+                // Try reducing in increments up to maximum reduction for buttons
+                for (let reduction = constants.FONT_REDUCTION_INCREMENT; 
+                     reduction <= constants.MAX_BUTTON_REDUCTION; 
+                     reduction += constants.FONT_REDUCTION_INCREMENT) {
+                    scaleFactor = 1.0 - reduction;
+                    
+                    if (mathContainer) {
+                        mathContainer.style.fontSize = scaleFactor + 'em';
+                    } else if (textSpan) {
+                        textSpan.style.fontSize = scaleFactor + 'em';
+                    }
+                    
+                    // Force reflow
+                    void contentElement.offsetWidth;
+                    
+                    // Check if it fits now (with tolerance)
+                    if (contentElement.scrollWidth <= buttonWidth * constants.WIDTH_TOLERANCE_FACTOR) {
+                        // Found a size that works!
+                        return;
+                    }
+                }
+                
+                // Even with maximum reduction, ensure wrapping is forced
+                // The CSS rules should handle wrapping, but we set explicit styles as fallback
+                button.style.whiteSpace = 'normal';
+                button.style.wordBreak = 'break-word';
+                button.style.overflowWrap = 'break-word';
+                button.style.height = 'auto';
+                button.style.minHeight = '60px';
+                button.style.maxHeight = 'none';
+                button.style.overflow = 'visible';
+                
+                // Ensure content element also allows wrapping
+                contentElement.style.maxWidth = '100%';
+                contentElement.style.width = '100%';
+                contentElement.style.display = 'inline-block';
+                contentElement.style.wordBreak = 'break-word';
+                contentElement.style.overflowWrap = 'break-word';
+            });
+        }, constants.BUTTON_RENDER_DELAY_MS);
     }
 };
