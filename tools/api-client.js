@@ -42,7 +42,7 @@ Question Text: ${questionMetadata.questionText}`
         const requestBody = {
             model: this.modelName,
             messages: messages,
-            max_tokens: 1000,
+            max_tokens: 2000, // Increased for more complete responses
             temperature: 0.3 // Lower temperature for more consistent validation
         };
         
@@ -66,14 +66,30 @@ Question Text: ${questionMetadata.questionText}`
             const data = await response.json();
             
             // Extract the response text
-            const validationText = data.choices?.[0]?.message?.content || '';
+            // Check both content and reasoning fields (Gemini 3 Pro may use reasoning field)
+            let validationText = data.choices?.[0]?.message?.content || '';
+            
+            // If content is empty but there's reasoning, use that
+            if (!validationText || validationText.trim().length === 0) {
+                const reasoning = data.choices?.[0]?.message?.reasoning;
+                if (reasoning) {
+                    validationText = reasoning;
+                }
+            }
+            
+            // Debug logging (can be removed later)
+            if (!validationText || validationText.trim().length === 0) {
+                console.warn('   ⚠️ Warning: Empty response from API');
+                console.warn('   API Response structure:', JSON.stringify(data, null, 2).substring(0, 500));
+            }
             
             return {
                 success: true,
                 validationText,
                 metadata: {
                     model: data.model,
-                    usage: data.usage
+                    usage: data.usage,
+                    finishReason: data.choices?.[0]?.finish_reason
                 }
             };
         } catch (error) {
@@ -90,27 +106,36 @@ Question Text: ${questionMetadata.questionText}`
      * @returns {object} Parsed result
      */
     parseValidationResponse(validationText) {
-        const text = validationText.trim().toUpperCase();
+        const text = validationText.trim();
+        const upperText = text.toUpperCase();
         
-        // Check for positive indicators
-        const isValid = text.startsWith('OK') || 
-                       text.startsWith('VALID') || 
-                       text.includes('LOOKS GOOD') ||
-                       text.includes('CORRECT');
+        // Check for explicit positive indicators at the start
+        const startsWithValid = upperText.startsWith('OK') || 
+                               upperText.startsWith('VALID') || 
+                               upperText.startsWith('LOOKS GOOD') ||
+                               upperText.startsWith('CORRECT');
         
-        // Check for negative indicators
-        const hasIssues = text.includes('INCORRECT') ||
-                         text.includes('ERROR') ||
-                         text.includes('WRONG') ||
-                         text.includes('ISSUE') ||
-                         text.includes('PROBLEM') ||
-                         text.includes('FIX');
+        // Check for negative indicators that suggest problems
+        // Be more specific - only flag if these words appear in a negative context
+        const hasIncorrect = upperText.includes('INCORRECT');
+        const hasError = upperText.includes(' ERROR') || upperText.startsWith('ERROR');
+        const hasWrong = upperText.includes(' WRONG') || upperText.startsWith('WRONG');
+        const hasFix = (upperText.includes('FIX THIS') || upperText.includes('MUST FIX'));
+        const hasIssue = (upperText.includes(' ISSUE ') || upperText.includes(' ISSUES ')) && 
+                        !upperText.includes('NO ISSUE');
+        const hasProblem = (upperText.includes(' PROBLEM ') || upperText.includes(' PROBLEMS ')) && 
+                          !upperText.includes('NO PROBLEM');
+        
+        const hasProblems = hasIncorrect || hasError || hasWrong || hasFix || hasIssue || hasProblem;
+        
+        // If starts with VALID/OK but mentions actual problems, still consider invalid
+        const isValid = startsWithValid && !hasProblems;
         
         return {
-            isValid: isValid && !hasIssues,
-            hasIssues: hasIssues,
+            isValid: isValid,
+            hasIssues: hasProblems,
             feedback: validationText,
-            needsReview: hasIssues || (!isValid && validationText.length > 100)
+            needsReview: hasProblems || (!isValid && validationText.length > 50)
         };
     }
 }

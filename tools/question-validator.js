@@ -157,10 +157,21 @@ class QuestionValidator {
             // Parse validation response
             const validation = apiClient.parseValidationResponse(apiResponse.validationText);
             
-            console.log(`   ${validation.isValid ? '✅' : '⚠️'} ${validation.isValid ? 'Valid' : 'Has Issues'}`);
+            // Debug: Log parsed result
+            console.log(`   Debug: isValid=${validation.isValid}, hasIssues=${validation.hasIssues}, needsReview=${validation.needsReview}`);
             
-            if (!validation.isValid) {
-                console.log(`   📋 Feedback: ${validation.feedback.substring(0, 100)}...`);
+            if (validation.isValid) {
+                console.log(`   ✅ Valid`);
+            } else {
+                console.log(`   ⚠️ Has Issues`);
+            }
+            
+            // Log feedback snippet (first 150 chars)
+            if (apiResponse.validationText && apiResponse.validationText.length > 0) {
+                const feedbackSnippet = apiResponse.validationText.substring(0, 150);
+                console.log(`   📋 Feedback: ${feedbackSnippet}${apiResponse.validationText.length > 150 ? '...' : ''}`);
+            } else {
+                console.log(`   ⚠️ Warning: Empty feedback received from API`);
             }
             
             // Save issue if needed
