@@ -64,9 +64,10 @@ describe('Calibration "I Know" Button Fix', () => {
         // Should have ended before MAX_ITERATIONS
         expect(iterationCount).toBeLessThan(MAX_ITERATIONS);
         
-        // Should have at least MIN_RESPONSES (6)
+        // Should have at least MIN_RESPONSES (4) for adequate sampling
+        // Note: In practice, reaching cMin >= MAX_LEVEL-1 takes about 5-6 questions
         const historyLength = await page.evaluate(() => window.APP.calibrationHistory.length);
-        expect(historyLength).toBeGreaterThanOrEqual(6);
+        expect(historyLength).toBeGreaterThanOrEqual(4);
         
         console.log(`Calibration ended after ${iterationCount} iterations with ${historyLength} total responses`);
     }, 30000); // 30 second timeout

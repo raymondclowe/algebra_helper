@@ -111,7 +111,7 @@ window.Calibration = {
     // Uses binary search approach to rapidly converge on user's level
     // Ensures calibration completes within MAX_CALIBRATION_QUESTIONS for efficiency
     shouldEndCalibration: function() {
-        const MIN_RESPONSES = MAX_CALIBRATION_QUESTIONS; // Minimum responses = maximum allowed
+        const MIN_RESPONSES = 4; // Minimum responses before considering early termination
         const CONVERGENCE_THRESHOLD = 1.5; // Range must be narrow (within 1.5 levels)
         const CONSISTENCY_WINDOW = 4; // Check last N responses for consistency
         
