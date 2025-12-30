@@ -185,4 +185,52 @@ describe('Improved Calibration Tests', () => {
         // Good pattern with passes and fails - should end
         expect(result).toBe(true);
     });
+
+    test('Calibration always ends by 6 questions maximum', async () => {
+        // Test that calibration cannot go beyond 6 questions regardless of pattern
+        // Simulate ambiguous responses where user is inconsistent
+        const responses = ['pass', 'fail', 'doubt', 'pass', 'doubt', 'fail', 'pass', 'fail', 'doubt', 'pass'];
+        
+        let questionCount = 0;
+        for (let i = 0; i < responses.length; i++) {
+            const mode = await page.evaluate(() => window.APP.mode);
+            if (mode === 'learning' || mode === 'drill') break;
+            
+            await page.evaluate((action) => {
+                window.APP.handleCalibration(action);
+            }, responses[i]);
+            
+            questionCount++;
+            await wait(200);
+        }
+        
+        // Should have ended by question 6 at the latest
+        const mode = await page.evaluate(() => window.APP.mode);
+        const historyLength = await page.evaluate(() => window.APP.calibrationHistory.length);
+        
+        expect(mode === 'learning' || mode === 'drill').toBe(true);
+        expect(historyLength).toBeLessThanOrEqual(6);
+        expect(questionCount).toBeLessThanOrEqual(6);
+    });
+
+    test('Hard maximum enforced at 6 questions in shouldEndCalibration', async () => {
+        // Directly test the hard maximum enforcement
+        const result = await page.evaluate(() => {
+            // Simulate exactly 6 responses
+            window.APP.calibrationHistory = [
+                { level: 5, action: 'pass', timeTaken: 5 },
+                { level: 6, action: 'fail', timeTaken: 10 },
+                { level: 5.5, action: 'doubt', timeTaken: 15 },
+                { level: 5.2, action: 'pass', timeTaken: 7 },
+                { level: 5.3, action: 'doubt', timeTaken: 12 },
+                { level: 5.1, action: 'fail', timeTaken: 9 }
+            ];
+            window.APP.cMin = 4;
+            window.APP.cMax = 7; // Wide range, but should still end at 6 responses
+            return window.APP.shouldEndCalibration();
+        });
+        
+        // At 6 responses (MAX_RESPONSES), should always end
+        expect(result).toBe(true);
+    });
 });
