@@ -98,15 +98,26 @@ class ScreenshotGenerator {
         // Wait for MathJax to load and render
         window.addEventListener('load', () => {
             if (window.MathJax && window.MathJax.typesetPromise) {
+                // Set a timeout in case MathJax fails
+                const timeout = setTimeout(() => {
+                    console.error('MathJax rendering timeout');
+                    document.body.setAttribute('data-mathjax-ready', 'timeout');
+                }, 12000);
+                
                 window.MathJax.typesetPromise()
                     .then(() => {
+                        clearTimeout(timeout);
                         // Mark as ready for screenshot
                         document.body.setAttribute('data-mathjax-ready', 'true');
                     })
                     .catch((err) => {
+                        clearTimeout(timeout);
                         console.error('MathJax error:', err);
                         document.body.setAttribute('data-mathjax-ready', 'error');
                     });
+            } else {
+                // MathJax not loaded, mark as error
+                document.body.setAttribute('data-mathjax-ready', 'error');
             }
         });
     </script>
@@ -129,17 +140,25 @@ class ScreenshotGenerator {
         // Generate HTML
         const html = this.generateQuestionHTML(question, metadata);
         
-        // Load HTML into page
-        await this.page.setContent(html, { waitUntil: 'networkidle0' });
+        // Load HTML into page with base URL
+        await this.page.setContent(html, { waitUntil: 'domcontentloaded' });
         
-        // Wait for MathJax to render
-        await this.page.waitForFunction(
-            () => document.body.getAttribute('data-mathjax-ready') === 'true',
-            { timeout: 15000 }
-        );
+        // Wait for MathJax to render (with timeout)
+        try {
+            await this.page.waitForFunction(
+                () => {
+                    const status = document.body.getAttribute('data-mathjax-ready');
+                    return status === 'true' || status === 'error' || status === 'timeout';
+                },
+                { timeout: 15000 }
+            );
+        } catch (error) {
+            // If timeout, still try to take screenshot
+            console.warn('   ⚠️ MathJax rendering timeout, taking screenshot anyway');
+        }
         
         // Small delay to ensure rendering is complete
-        await this.page.waitForTimeout(500);
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         // Take screenshot
         const screenshot = await this.page.screenshot({

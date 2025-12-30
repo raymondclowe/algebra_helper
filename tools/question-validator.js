@@ -82,12 +82,27 @@ class QuestionValidator {
         const question = await this.page.evaluate((lvl) => {
             // Generate question using the app's generator
             const q = window.Generator.getQuestionForLevel(lvl);
+            
+            // Build options array from displayAnswer and distractors (similar to Learning.setupUI)
+            const options = [
+                q.displayAnswer,
+                q.distractors[0],
+                q.distractors[1],
+                q.distractors[2]
+            ];
+            
+            // Shuffle and track correct index
+            const correctAnswer = q.displayAnswer;
+            const shuffledOptions = options.sort(() => Math.random() - 0.5);
+            const correctIndex = shuffledOptions.indexOf(correctAnswer);
+            
             return {
                 tex: q.tex,
-                options: q.options,
-                correctIndex: q.correctIndex,
+                options: shuffledOptions,
+                correctIndex: correctIndex,
                 explanation: q.explanation || '',
-                displayAnswer: q.displayAnswer
+                displayAnswer: q.displayAnswer,
+                distractors: q.distractors
             };
         }, level);
         
