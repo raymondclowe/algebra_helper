@@ -1,9 +1,9 @@
 # Advanced IB HL AA Question Types - Implementation Summary
 
 ## Overview
-This implementation adds 6 new advanced question types specifically for IB Mathematics HL Analysis and Approaches students, with a focus on proof questions and higher-level mathematical concepts.
+This implementation adds 9 advanced question types specifically for IB Mathematics HL Analysis and Approaches students, with a focus on proof questions, higher-level mathematical concepts, differential equations, probability distributions, and hypothesis testing.
 
-## New Question Types Added
+## New Question Types Added (v3.1 - Complete)
 
 ### 1. Proof by Induction (Level 25-26)
 **File:** `js/question-templates/proofs-induction.js`
@@ -145,6 +145,72 @@ D) u = 1
 - **Level 28-29:** 3D Vectors
 - **Level 29-30:** Complex Numbers (Polar)
 - **Level 30-31:** Advanced Integration
+- **Level 31-32:** Differential Equations
+- **Level 32-33:** Probability Distributions
+- **Level 33-34:** Hypothesis Testing
+
+### 7. Differential Equations (Level 31-32) - NEW
+**File:** `js/question-templates/differential-equations.js`
+
+**Topics Covered:**
+- Separation of variables
+- Direct integration
+- Exponential growth/decay (dy/dx = ky)
+- Initial value problems
+
+**Example:**
+```
+Question: dy/dx = xy
+Instruction: Which method should we use?
+Options:
+A) Separation of variables ✓
+B) Integration by parts
+C) Substitution
+D) Direct integration
+```
+
+### 8. Probability Distributions (Level 32-33) - NEW
+**File:** `js/question-templates/probability-distributions.js`
+
+**Topics Covered:**
+- Binomial distribution B(n, p)
+- Normal distribution N(μ, σ²)
+- Mean and variance
+- Standard normal distribution
+- Standardization (Z-scores)
+
+**Example:**
+```
+Question: X ~ B(10, 0.3)
+Instruction: What is E(X), the expected value?
+Options:
+A) 3 ✓
+B) 10
+C) 0.3
+D) 10.3
+```
+
+### 9. Hypothesis Testing (Level 33-34) - NEW
+**File:** `js/question-templates/hypothesis-testing.js`
+
+**Topics Covered:**
+- Null hypothesis (H₀)
+- Alternative hypothesis (H₁)
+- One-tailed vs two-tailed tests
+- Significance level (α)
+- Type I and Type II errors
+- P-value interpretation
+
+**Example:**
+```
+Question: Reject H₀ when H₀ is true
+Instruction: What type of error is this?
+Options:
+A) Type I error ✓
+B) Type II error
+C) Standard error
+D) Sampling error
+```
 
 ### Generator Updates
 Updated `js/generator.js` to route questions to appropriate templates based on level:
@@ -154,21 +220,27 @@ if (band <= 27) return this.getContradictionProof();
 if (band <= 28) return this.getMatrixAlgebra();
 if (band <= 29) return this.getVectors3D();
 if (band <= 30) return this.getComplexPolar();
-return this.getAdvancedIntegration();
+if (band <= 31) return this.getAdvancedIntegration();
+if (band <= 32) return this.getDifferentialEquations();
+if (band <= 33) return this.getProbabilityDistributions();
+return this.getHypothesisTesting();
 ```
 
 ### Topic Definitions
-Updated `js/topic-definitions.js` to include new topics:
+Updated `js/topic-definitions.js` to include all new topics:
 - "Proof by Induction"
 - "Proof by Contradiction"
 - "Matrix Algebra"
 - "3D Vectors"
 - "Complex Numbers (Polar)"
 - "Advanced Integration"
+- "Differential Equations"
+- "Probability Distributions"
+- "Hypothesis Testing"
 
 ## Testing
 
-### Test Suite: `tests/advanced-hl-topics.test.js`
+### Test Suite 1: `tests/advanced-hl-topics.test.js`
 **20 Tests - All Passing:**
 1. Proof by induction questions generate correctly
 2. Proof by contradiction questions generate correctly
@@ -185,6 +257,22 @@ Updated `js/topic-definitions.js` to include new topics:
 18. 3D vector cross product questions generate correctly
 19. Complex polar questions contain De Moivre theorem
 20. Integration by parts questions are present
+
+### Test Suite 2: `tests/advanced-hl-topics-part2.test.js`
+**15 Tests - All Passing:**
+1. Differential equations questions generate correctly
+2. Probability distributions questions generate correctly
+3. Hypothesis testing questions generate correctly
+4-6. Generator produces questions for levels 32-34
+7. Topic definitions include new topics
+8. New question types have unique distractors
+9. Differential equations contain expected terms
+10. Probability distributions include binomial and normal
+11. Hypothesis testing includes null and alternative hypotheses
+12. Multiple differential equation questions generate with variety
+13. Differential equations questions include dy/dx notation
+14. Probability distributions use correct notation
+15. Hypothesis testing includes Type I and Type II errors
 
 ## Documentation Updates
 
@@ -228,19 +316,18 @@ Rather than requiring students to write complete proofs, questions use a **guide
 - Explanations connect steps to proof logic
 
 ## Statistics
-- **6 new question template files**
-- **200+ unique questions** across 6 advanced topics
-- **6 new difficulty levels** (25-31)
-- **20 comprehensive tests** (100% passing)
-- **~1,200 lines of new code**
+- **9 new question template files** (6 initial + 3 new)
+- **300+ unique questions** across 9 advanced topics
+- **9 new difficulty levels** (25-34)
+- **35 comprehensive tests** (20 + 15, all passing)
+- **~2,000 lines of new code**
 - **Full documentation** with examples and curriculum mapping
 
 ## Future Enhancements
-Topics identified but not yet implemented:
-- Differential equations (first-order, separation of variables)
-- Probability distributions (binomial, normal)
-- Hypothesis testing
+Topics for potential future expansion:
 - Further advanced calculus topics
+- Multivariate analysis
+- Advanced probability theory
 
 ## Alignment with IB HL AA Curriculum
 All new topics directly align with IB Mathematics: Analysis and Approaches HL syllabus:
@@ -248,7 +335,9 @@ All new topics directly align with IB Mathematics: Analysis and Approaches HL sy
 - ✅ Topic 1.4: Matrix operations
 - ✅ Topic 1.5: Complex numbers (polar form, De Moivre)
 - ✅ Topic 4.3: 3D vectors and vector product
-- ✅ Topic 6.4: Advanced integration techniques
+- ✅ Topic 5.5-5.6: Probability distributions, hypothesis testing
+- ✅ Topic 6.4-6.5: Advanced integration, differential equations
 
 ## Usage in App
-Students will encounter these questions as they progress through levels 25-31, with the same adaptive difficulty system that adjusts based on performance. The proof questions integrate seamlessly with the existing spaced repetition and "why" question systems.
+Students will encounter these questions as they progress through levels 25-34, with the same adaptive difficulty system that adjusts based on performance. The proof questions integrate seamlessly with the existing spaced repetition and "why" question systems.
+
