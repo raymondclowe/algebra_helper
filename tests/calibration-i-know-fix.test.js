@@ -144,9 +144,10 @@ describe('Calibration "I Know" Button Fix', () => {
     });
 
     test('Calibration does NOT end when cMin is below MAX_LEVEL - 1', async () => {
-        // Test that we don't end too early
+        // Test that we don't end too early (before reaching max questions)
         const result = await page.evaluate(() => {
             // Simulate state where cMin is at 22 (not yet at threshold)
+            // with only 5 responses (below MAX_CALIBRATION_QUESTIONS)
             window.APP.cMin = 22;
             window.APP.cMax = 24;
             window.APP.calibrationHistory = [
@@ -154,14 +155,13 @@ describe('Calibration "I Know" Button Fix', () => {
                 { level: 21, action: 'pass', timeTaken: 5 },
                 { level: 22.5, action: 'pass', timeTaken: 5 },
                 { level: 23, action: 'pass', timeTaken: 5 },
-                { level: 22.5, action: 'pass', timeTaken: 5 },
-                { level: 22.75, action: 'pass', timeTaken: 5 }
+                { level: 22.5, action: 'pass', timeTaken: 5 }
             ];
             
             return window.APP.shouldEndCalibration();
         });
         
-        // Should return false (calibration should continue)
+        // Should return false (calibration should continue - not at max questions yet)
         expect(result).toBe(false);
     });
 });
