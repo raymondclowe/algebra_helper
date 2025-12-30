@@ -33,7 +33,7 @@ window.QuestionTemplates.Probability = {
                     );
                     
                     return {
-                        tex: `\\text{Bag has ${total} balls, ${favorable} are red. P(red) = ?}`,
+                        tex: `\\text{Bag has ${total} balls,}\\\\[0.5em]\\text{${favorable} are red.}\\\\[0.5em]\\text{P(red) = ?}`,
                         instruction: "Find the probability",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
@@ -61,7 +61,7 @@ window.QuestionTemplates.Probability = {
                     );
                     
                     return {
-                        tex: `\\text{Choosing ${choose} balls from ${total}, where ${black} is black}`,
+                        tex: `\\text{Choosing ${choose} balls from ${total},}\\\\[0.5em]\\text{where ${black} is black}`,
                         instruction: "This is a probability setup question",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
@@ -94,7 +94,7 @@ window.QuestionTemplates.Probability = {
                     );
                     
                     return {
-                        tex: `\\text{If P(success) = } \\frac{${favorable}}{${total}}\\text{, what is P(failure)?}`,
+                        tex: `\\text{If P(success) = } \\frac{${favorable}}{${total}}\\text{,}\\\\[0.5em]\\text{what is P(failure)?}`,
                         instruction: "Find the complementary probability",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
