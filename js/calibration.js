@@ -108,8 +108,10 @@ window.Calibration = {
     },
     
     // Statistical confidence check for calibration completion
+    // Uses binary search approach to rapidly converge on user's level
+    // Ensures calibration completes within MAX_CALIBRATION_QUESTIONS for efficiency
     shouldEndCalibration: function() {
-        const MIN_RESPONSES = 4; // Minimum number of responses before ending
+        const MIN_RESPONSES = 4; // Minimum responses before considering early termination
         const MAX_RESPONSES = 6; // Maximum number of responses - binary search should converge by then
         const CONVERGENCE_THRESHOLD = 2.0; // Range must be narrow (relaxed from 1.5)
         const CONSISTENCY_WINDOW = 3; // Check last N responses for consistency (reduced from 4)
@@ -117,6 +119,12 @@ window.Calibration = {
         // Hard maximum: Binary search should converge rapidly
         // After 6 questions, we have enough information to determine the level
         if (window.APP.calibrationHistory.length >= MAX_RESPONSES) {
+            return true;
+        }
+        
+        // Hard limit: Force calibration to end at maximum question count
+        // This ensures rapid convergence and prevents prolonged questioning
+        if (window.APP.calibrationHistory.length >= MAX_CALIBRATION_QUESTIONS) {
             return true;
         }
         
@@ -134,7 +142,7 @@ window.Calibration = {
             return true;
         }
         
-        // Must have minimum responses
+        // Must have minimum responses (unless hitting edge cases above)
         if (window.APP.calibrationHistory.length < MIN_RESPONSES) {
             return false;
         }

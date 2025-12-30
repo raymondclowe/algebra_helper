@@ -147,9 +147,8 @@ describe('Improved Calibration Tests', () => {
     test('shouldEndCalibration checks for consistency', async () => {
         // Test with insufficient consistency - but now with hard max at 6
         const result = await page.evaluate(() => {
-            // Simulate 6 responses but all doubt
+            // Simulate only 5 responses but all doubt - should not end yet
             window.APP.calibrationHistory = [
-                { level: 5, action: 'doubt', timeTaken: 10 },
                 { level: 5, action: 'doubt', timeTaken: 10 },
                 { level: 5, action: 'doubt', timeTaken: 10 },
                 { level: 5, action: 'doubt', timeTaken: 10 },
