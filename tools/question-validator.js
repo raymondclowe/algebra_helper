@@ -157,9 +157,6 @@ class QuestionValidator {
             // Parse validation response
             const validation = apiClient.parseValidationResponse(apiResponse.validationText);
             
-            // Debug: Log parsed result
-            console.log(`   Debug: isValid=${validation.isValid}, hasIssues=${validation.hasIssues}, needsReview=${validation.needsReview}`);
-            
             if (validation.isValid) {
                 console.log(`   ✅ Valid`);
             } else {

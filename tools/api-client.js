@@ -77,10 +77,9 @@ Question Text: ${questionMetadata.questionText}`
                 }
             }
             
-            // Debug logging (can be removed later)
+            // Warn if response is empty
             if (!validationText || validationText.trim().length === 0) {
                 console.warn('   ⚠️ Warning: Empty response from API');
-                console.warn('   API Response structure:', JSON.stringify(data, null, 2).substring(0, 500));
             }
             
             return {
@@ -109,27 +108,27 @@ Question Text: ${questionMetadata.questionText}`
         const text = validationText.trim();
         const upperText = text.toUpperCase();
         
-        // Check for explicit positive indicators at the start
+        // Check for explicit positive indicators at the start or in a clear verdict section
         const startsWithValid = upperText.startsWith('OK') || 
                                upperText.startsWith('VALID') || 
                                upperText.startsWith('LOOKS GOOD') ||
                                upperText.startsWith('CORRECT');
         
-        // Check for negative indicators that suggest problems
-        // Be more specific - only flag if these words appear in a negative context
-        const hasIncorrect = upperText.includes('INCORRECT');
-        const hasError = upperText.includes(' ERROR') || upperText.startsWith('ERROR');
-        const hasWrong = upperText.includes(' WRONG') || upperText.startsWith('WRONG');
-        const hasFix = (upperText.includes('FIX THIS') || upperText.includes('MUST FIX'));
-        const hasIssue = (upperText.includes(' ISSUE ') || upperText.includes(' ISSUES ')) && 
-                        !upperText.includes('NO ISSUE');
-        const hasProblem = (upperText.includes(' PROBLEM ') || upperText.includes(' PROBLEMS ')) && 
-                          !upperText.includes('NO PROBLEM');
+        // Also check if there's a clear "VALID" verdict after reasoning
+        const hasValidVerdict = /\n\s*VALID[.\s]/.test(upperText) || 
+                               /\n\s*OK[.\s]/.test(upperText);
         
-        const hasProblems = hasIncorrect || hasError || hasWrong || hasFix || hasIssue || hasProblem;
+        // Check for negative indicators that suggest actual problems (not just suggestions)
+        const hasIncorrect = upperText.includes('INCORRECT:') || upperText.includes('IS INCORRECT');
+        const hasError = upperText.includes('ERROR:') || upperText.includes('HAS AN ERROR');
+        const hasWrong = upperText.includes('IS WRONG') || upperText.includes('ANSWER IS WRONG');
+        const hasFix = upperText.includes('MUST FIX') || upperText.includes('NEEDS TO BE FIXED');
+        const hasInvalid = upperText.includes('INVALID') || upperText.includes('NOT VALID');
         
-        // If starts with VALID/OK but mentions actual problems, still consider invalid
-        const isValid = startsWithValid && !hasProblems;
+        const hasProblems = hasIncorrect || hasError || hasWrong || hasFix || hasInvalid;
+        
+        // Consider valid if it starts with VALID/OK or has a clear verdict, and no serious problems
+        const isValid = (startsWithValid || hasValidVerdict) && !hasProblems;
         
         return {
             isValid: isValid,
