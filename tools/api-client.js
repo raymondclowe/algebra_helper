@@ -109,21 +109,22 @@ Question Text: ${questionMetadata.questionText}`
         const upperText = text.toUpperCase();
         
         // Check for explicit positive indicators at the start or in a clear verdict section
-        const startsWithValid = upperText.startsWith('OK') || 
-                               upperText.startsWith('VALID') || 
-                               upperText.startsWith('LOOKS GOOD') ||
-                               upperText.startsWith('CORRECT');
+        // Using word boundaries to avoid false positives (e.g., INVALID matching VALID)
+        const startsWithValid = /^(OK|VALID|LOOKS GOOD|CORRECT)\b/.test(upperText);
         
         // Also check if there's a clear "VALID" verdict after reasoning
-        const hasValidVerdict = /\n\s*VALID[.\s]/.test(upperText) || 
-                               /\n\s*OK[.\s]/.test(upperText);
+        const hasValidVerdict = /\n\s*VALID\b/.test(upperText) || 
+                               /\n\s*OK\b/.test(upperText);
         
         // Check for negative indicators that suggest actual problems (not just suggestions)
-        const hasIncorrect = upperText.includes('INCORRECT:') || upperText.includes('IS INCORRECT');
-        const hasError = upperText.includes('ERROR:') || upperText.includes('HAS AN ERROR');
-        const hasWrong = upperText.includes('IS WRONG') || upperText.includes('ANSWER IS WRONG');
-        const hasFix = upperText.includes('MUST FIX') || upperText.includes('NEEDS TO BE FIXED');
-        const hasInvalid = upperText.includes('INVALID') || upperText.includes('NOT VALID');
+        // Using consistent patterns with word boundaries or specific delimiters
+        const hasIncorrect = /\bINCORRECT\b/.test(upperText) && 
+                           (upperText.includes('INCORRECT:') || upperText.includes('IS INCORRECT'));
+        const hasError = /\bERROR\b/.test(upperText) && 
+                        (upperText.includes('ERROR:') || upperText.includes('HAS AN ERROR'));
+        const hasWrong = /\b(IS WRONG|ANSWER IS WRONG)\b/.test(upperText);
+        const hasFix = /\b(MUST FIX|NEEDS TO BE FIXED)\b/.test(upperText);
+        const hasInvalid = /\bINVALID\b/.test(upperText) && !upperText.includes('NOT INVALID');
         
         const hasProblems = hasIncorrect || hasError || hasWrong || hasFix || hasInvalid;
         
