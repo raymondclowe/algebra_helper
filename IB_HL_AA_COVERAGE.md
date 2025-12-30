@@ -484,6 +484,203 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 
 ---
 
+### Advanced HL Topics (Levels 25-31)
+
+#### Level 25-26: Proof by Induction
+**Topics:**
+- Base case verification
+- Inductive hypothesis
+- Inductive step
+- Sum formulas (natural numbers, odd numbers)
+- Divisibility proofs
+- Geometric series
+
+**Example Problems:**
+- `Prove: 1 + 2 + ... + n = n(n+1)/2. What is the base case?` → 1 = 1(2)/2
+- `Assume formula holds for k. What do we assume?` → 1 + 2 + ... + k = k(k+1)/2
+- `Prove: n³ - n divisible by 3. Show for k+1.` → Factor out 3 from expression
+
+**IB Curriculum:**
+- HL Topic 1.3: Proof by mathematical induction
+- HL Topic: Series and sequences
+- HL Topic: Number theory
+
+---
+
+#### Level 26-27: Proof by Contradiction
+**Topics:**
+- Assume the negation
+- Derive a contradiction
+- Conclude original statement is true
+- Irrationality proofs (√2, √3)
+- Infinitude of primes
+
+**Example Problems:**
+- `Prove √2 is irrational. What do we assume?` → Assume √2 = a/b in lowest terms
+- `From 2b² = a², what can we conclude?` → a is even
+- `Prove infinitely many primes. Consider N = (product of all primes) + 1`
+
+**IB Curriculum:**
+- HL Topic 1.3: Proof techniques
+- HL Topic: Mathematical reasoning
+- HL Topic: Number theory
+
+---
+
+#### Level 27-28: Matrix Algebra
+**Topics:**
+- Matrix addition and subtraction
+- Scalar multiplication
+- Matrix multiplication (2×2)
+- Determinants
+- Matrix inverses
+- Identity matrix
+
+**Example Problems:**
+- `[[1,2],[3,4]] + [[5,6],[7,8]]` → [[6,8],[10,12]]
+- `3·[[1,2],[3,4]]` → [[3,6],[9,12]]
+- `det([[3,2],[1,4]])` → 10
+- `[[2,1],[3,4]]⁻¹` → (1/5)[[4,-1],[-3,2]]
+
+**IB Curriculum:**
+- HL Topic 1.4: Matrix operations
+- HL Topic 1.4: Determinants and inverses
+- HL Topic 1.4: Linear transformations
+
+---
+
+#### Level 28-29: 3D Vectors
+**Topics:**
+- Vector addition in 3D
+- Scalar multiplication
+- Magnitude calculation
+- Dot product (scalar product)
+- Cross product (vector product)
+- Vector equations
+
+**Example Problems:**
+- `(1,2,3) + (4,5,6)` → (5,7,9)
+- `|(3,4,0)|` → 5
+- `(1,2,3) · (4,5,6)` → 32
+- `(1,0,0) × (0,1,0)` → (0,0,1)
+
+**IB Curriculum:**
+- HL Topic 4.3: 3D vectors
+- HL Topic 4.3: Vector product (cross product)
+- HL Topic 4.4: Lines and planes in 3D
+
+---
+
+#### Level 29-30: Complex Numbers (Polar Form)
+**Topics:**
+- Polar form: r·e^(iθ)
+- Modulus and argument
+- Cartesian ↔ Polar conversion
+- De Moivre's theorem
+- Multiplication and division in polar form
+- Euler's formula
+
+**Example Problems:**
+- `1 + i in polar form` → √2·e^(iπ/4)
+- `(2e^(iπ/6))³ using De Moivre` → 8e^(iπ/2)
+- `2e^(iπ/2) in Cartesian form` → 2i
+- `3e^(iπ/3) × 2e^(iπ/6)` → 6e^(iπ/2)
+
+**IB Curriculum:**
+- HL Topic 1.5: Polar form of complex numbers
+- HL Topic 1.5: De Moivre's theorem
+- HL Topic 1.5: Euler's form
+
+---
+
+#### Level 30-31: Advanced Integration
+**Topics:**
+- Integration by substitution
+- Integration by parts
+- Reverse chain rule
+- Trigonometric integrals
+- LIATE rule for parts
+
+**Example Problems:**
+- `∫2x(x² + 1)³ dx, let u = ?` → u = x² + 1
+- `∫x·eˣ dx using parts, choose u = ?` → u = x
+- `∫sin(x)cos(x) dx` → (1/2)sin²(x) + C
+- `∫x·eˣ dx` → eˣ(x - 1) + C
+
+**IB Curriculum:**
+- HL Topic 6.4: Integration by substitution
+- HL Topic 6.4: Integration by parts
+- HL Topic 6.4: Further integration techniques
+
+---
+
+#### Level 31-32: Differential Equations
+**Topics:**
+- First-order differential equations
+- Separation of variables
+- Direct integration
+- Exponential growth/decay (dy/dx = ky)
+- Initial value problems
+
+**Example Problems:**
+- `dy/dx = xy, separate variables` → (1/y) dy = x dx
+- `dy/dx = 3y, general solution` → y = Ae^(3x)
+- `dy/dx = 2x², solve` → y = (2x³)/3 + C
+- `dy/dx = 2y, y(0) = 5` → y = 5e^(2x)
+
+**IB Curriculum:**
+- HL Topic 6.5: First-order differential equations
+- HL Topic 6.5: Separation of variables
+- HL Topic: Exponential models
+
+---
+
+#### Level 32-33: Probability Distributions
+**Topics:**
+- Binomial distribution B(n, p)
+- Normal distribution N(μ, σ²)
+- Mean and variance of distributions
+- Standard normal distribution
+- Standardizing (Z = (X - μ)/σ)
+
+**Example Problems:**
+- `X ~ B(10, 0.3), find E(X)` → 3
+- `X ~ B(20, 0.4), find Var(X)` → 4.8
+- `N(50, 100), standardize X` → Z = (X - 50)/10
+- `Heights N(170, 25). What notation?` → N(170, 25)
+
+**IB Curriculum:**
+- HL Topic 5.5: Binomial distribution
+- HL Topic 5.5: Normal distribution
+- HL Topic 5.5: Mean, variance, standard deviation
+- HL Topic 5.5: Standardization
+
+---
+
+#### Level 33-34: Hypothesis Testing
+**Topics:**
+- Null hypothesis (H₀)
+- Alternative hypothesis (H₁)
+- One-tailed vs two-tailed tests
+- Significance level (α)
+- Type I and Type II errors
+- P-value interpretation
+
+**Example Problems:**
+- `Test if μ differs from 50, what is H₀?` → H₀: μ = 50
+- `Test if μ > 50, what type of test?` → One-tailed (upper)
+- `α = 0.05 means what?` → 5% probability of Type I error
+- `Reject H₀ when H₀ is true` → Type I error
+- `p-value = 0.03, α = 0.05, conclusion?` → Reject H₀
+
+**IB Curriculum:**
+- HL Topic 5.6: Hypothesis testing
+- HL Topic 5.6: Significance levels
+- HL Topic 5.6: Type I and Type II errors
+- HL Topic 5.6: P-values
+
+---
+
 ## Curriculum Alignment Summary
 
 ### IB Math SL Topics Covered:
@@ -502,16 +699,76 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 ✅ HL Topic 6.1: Advanced differentiation rules  
 ✅ HL Topic 6.3: Optimization
 
+### Advanced HL Topics - NEW (Levels 25-34):
+✅ **HL Proof by Induction** (Level 25-26)
+  - Sum of natural numbers (1 + 2 + ... + n = n(n+1)/2)
+  - Sum of odd numbers (1 + 3 + ... + (2n-1) = n²)
+  - Divisibility proofs (n³ - n divisible by 3)
+  - Geometric series formula
+  - Base case, inductive hypothesis, inductive step practice
+
+✅ **HL Proof by Contradiction** (Level 26-27)
+  - Irrationality of √2
+  - Irrationality of √3
+  - Infinitude of primes (Euclid's theorem)
+  - Step-by-step proof construction with fill-in-the-blank format
+
+✅ **HL Matrix Algebra** (Level 27-28)
+  - 2×2 matrix addition and subtraction
+  - Scalar multiplication
+  - Matrix multiplication
+  - Determinants
+  - Matrix inverses
+  - Identity matrix properties
+
+✅ **HL 3D Vectors** (Level 28-29)
+  - Vector addition in 3D
+  - Scalar multiplication
+  - Magnitude calculation
+  - Dot product
+  - Cross product
+  - Applications to lines and planes
+
+✅ **HL Complex Numbers - Polar Form** (Level 29-30)
+  - Cartesian to polar conversion (r·e^(iθ))
+  - Polar to Cartesian conversion
+  - De Moivre's theorem
+  - Multiplication in polar form
+  - Division in polar form
+  - Euler's formula applications
+
+✅ **HL Advanced Integration** (Level 30-31)
+  - Integration by substitution
+  - Integration by parts (∫u dv = uv - ∫v du)
+  - Reverse chain rule
+  - Trigonometric substitution
+  - Step-by-step method identification
+
+✅ **HL Differential Equations** (Level 31-32)
+  - First-order differential equations
+  - Separation of variables
+  - Exponential growth/decay (dy/dx = ky)
+  - Direct integration
+  - Initial value problems
+
+✅ **HL Probability Distributions** (Level 32-33)
+  - Binomial distribution B(n, p)
+  - Normal distribution N(μ, σ²)
+  - Mean and variance calculations
+  - Standard normal distribution
+  - Standardization (Z-scores)
+
+✅ **HL Hypothesis Testing** (Level 33-34)
+  - Null and alternative hypotheses
+  - One-tailed vs two-tailed tests
+  - Significance level (α)
+  - Type I and Type II errors
+  - P-value interpretation
+
 ### Topics Not Yet Covered (Future Enhancement):
-- Matrices and linear algebra
-- 3D vectors and cross product
-- Polar and parametric forms (complex numbers)
-- Integration by substitution/parts
-- Differential equations
-- Proof by induction
-- Probability distributions (binomial, normal)
-- Hypothesis testing
 - Further calculus topics
+- Advanced probability theory
+- Multivariate analysis
 
 ---
 
@@ -560,15 +817,43 @@ This tool is designed for **procedural fluency** and **conceptual understanding*
 - Formal instruction and structured learning
 - Collaborative problem-solving with peers
 - Real-world application projects
-- Extended response or proof-writing
+- Extended response or full proof-writing (partial proof practice is included)
 - Graphing and visualization skills (not yet implemented)
 - Calculator-heavy computational problems
+
+**NEW: Proof Practice Format**
+The proof questions use a **fill-in-the-missing-step** format with multiple-choice options. This helps students:
+- Understand the logical structure of mathematical proofs
+- Practice identifying key steps in proof construction
+- Build confidence before writing complete proofs
+- Recognize common proof techniques and patterns
 
 ---
 
 ## Version History
 
-**v2.0 (Current)** - Comprehensive IB Math HL AA Coverage
+**v3.1 (Current)** - Complete IB Math HL AA Advanced Topics
+- Expanded from 31 to 34+ levels
+- Added 3 more advanced HL topic areas:
+  - Differential Equations (first-order, separation of variables)
+  - Probability Distributions (binomial, normal, standardization)
+  - Hypothesis Testing (null/alternative hypotheses, Type I/II errors)
+- 300+ total advanced questions
+- Comprehensive coverage of all IB HL AA exam topics
+
+**v3.0** - Advanced IB Math HL AA with Proof Questions
+- Expanded from 25 to 31+ levels
+- Added 6 new advanced HL topic areas:
+  - Proof by Induction
+  - Proof by Contradiction
+  - Matrix Algebra
+  - 3D Vectors
+  - Complex Numbers (Polar Form)
+  - Advanced Integration
+- 200+ new proof and advanced topic questions
+- Fill-in-the-blank proof format for exam preparation
+
+**v2.0** - Comprehensive IB Math HL AA Coverage
 - Expanded from 12 to 25+ levels
 - Added 13 new topic areas
 - 1000+ unique problem variations
