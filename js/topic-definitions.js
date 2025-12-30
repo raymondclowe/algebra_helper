@@ -33,7 +33,14 @@ window.TopicDefinitions = {
         if (band <= 22) return "Statistics";
         if (band <= 23) return "Basic Probability";
         if (band <= 24) return "Advanced Probability";
-        return "Integration & Series";
+        if (band <= 25) return "Integration & Series";
+        // Advanced HL Topics
+        if (band <= 26) return "Proof by Induction";
+        if (band <= 27) return "Proof by Contradiction";
+        if (band <= 28) return "Matrix Algebra";
+        if (band <= 29) return "3D Vectors";
+        if (band <= 30) return "Complex Numbers (Polar)";
+        return "Advanced Integration";
     },
     
     // Get all available topics (in order)
@@ -63,7 +70,13 @@ window.TopicDefinitions = {
             "Statistics",
             "Basic Probability",
             "Advanced Probability",
-            "Integration & Series"
+            "Integration & Series",
+            "Proof by Induction",
+            "Proof by Contradiction",
+            "Matrix Algebra",
+            "3D Vectors",
+            "Complex Numbers (Polar)",
+            "Advanced Integration"
         ];
     }
 };

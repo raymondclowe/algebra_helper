@@ -211,7 +211,14 @@ window.Generator = {
         if (band <= 22) return this.getStatistics();
         if (band <= 23) return this.getProbability();
         if (band <= 24) return this.getAdvancedProbability();
-        return this.getCalculus();
+        if (band <= 25) return this.getCalculus();
+        // Advanced HL Topics
+        if (band <= 26) return this.getInductionProof();
+        if (band <= 27) return this.getContradictionProof();
+        if (band <= 28) return this.getMatrixAlgebra();
+        if (band <= 29) return this.getVectors3D();
+        if (band <= 30) return this.getComplexPolar();
+        return this.getAdvancedIntegration();
     },
     
     // Delegate to question template modules
@@ -241,5 +248,13 @@ window.Generator = {
     getAdvancedCalculus: function() { return window.QuestionTemplates.AdvancedCalculus.getAdvancedCalculus(); },
     getStatistics: function() { return window.QuestionTemplates.Statistics.getStatistics(); },
     getAdvancedProbability: function() { return window.QuestionTemplates.AdvancedProbability.getAdvancedProbability(); },
-    getWhyQuestion: function(level) { return window.QuestionTemplates.WhyQuestions.getWhyQuestion(level); }
+    getWhyQuestion: function(level) { return window.QuestionTemplates.WhyQuestions.getWhyQuestion(level); },
+    
+    // Advanced HL Topics
+    getInductionProof: function() { return window.QuestionTemplates.ProofsInduction.getInductionProofQuestion(); },
+    getContradictionProof: function() { return window.QuestionTemplates.ProofsContradiction.getContradictionProofQuestion(); },
+    getMatrixAlgebra: function() { return window.QuestionTemplates.MatrixAlgebra.getMatrixQuestion(); },
+    getVectors3D: function() { return window.QuestionTemplates.Vectors3D.get3DVectorQuestion(); },
+    getComplexPolar: function() { return window.QuestionTemplates.ComplexPolar.getComplexPolarQuestion(); },
+    getAdvancedIntegration: function() { return window.QuestionTemplates.AdvancedIntegration.getAdvancedIntegrationQuestion(); }
 };
