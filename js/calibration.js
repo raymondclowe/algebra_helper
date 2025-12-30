@@ -108,10 +108,18 @@ window.Calibration = {
     },
     
     // Statistical confidence check for calibration completion
+    // Uses binary search approach to rapidly converge on user's level
+    // Ensures calibration completes within MAX_CALIBRATION_QUESTIONS for efficiency
     shouldEndCalibration: function() {
-        const MIN_RESPONSES = 6; // Minimum number of responses before ending
-        const CONVERGENCE_THRESHOLD = 1.5; // Range must be narrow
+        const MIN_RESPONSES = MAX_CALIBRATION_QUESTIONS; // Minimum responses = maximum allowed
+        const CONVERGENCE_THRESHOLD = 1.5; // Range must be narrow (within 1.5 levels)
         const CONSISTENCY_WINDOW = 4; // Check last N responses for consistency
+        
+        // Hard limit: Force calibration to end at maximum question count
+        // This ensures rapid convergence and prevents prolonged questioning
+        if (window.APP.calibrationHistory.length >= MAX_CALIBRATION_QUESTIONS) {
+            return true;
+        }
         
         // Early termination: If both cMin and cMax indicate level 1 or below
         // This handles the case where user doesn't know anything
@@ -127,7 +135,7 @@ window.Calibration = {
             return true;
         }
         
-        // Must have minimum responses
+        // Must have minimum responses (unless hitting edge cases above)
         if (window.APP.calibrationHistory.length < MIN_RESPONSES) {
             return false;
         }

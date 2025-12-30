@@ -148,11 +148,10 @@ describe('Improved Calibration Tests', () => {
     });
 
     test('shouldEndCalibration checks for consistency', async () => {
-        // Test with insufficient consistency
+        // Test with insufficient consistency - fewer than 6 responses
         const result = await page.evaluate(() => {
-            // Simulate 6 responses but all doubt
+            // Simulate only 5 responses but all doubt - should not end yet
             window.APP.calibrationHistory = [
-                { level: 5, action: 'doubt', timeTaken: 10 },
                 { level: 5, action: 'doubt', timeTaken: 10 },
                 { level: 5, action: 'doubt', timeTaken: 10 },
                 { level: 5, action: 'doubt', timeTaken: 10 },
@@ -164,7 +163,7 @@ describe('Improved Calibration Tests', () => {
             return window.APP.shouldEndCalibration();
         });
         
-        // Too much doubt - should not end
+        // Too much doubt AND not at max questions yet - should not end
         expect(result).toBe(false);
     });
 
@@ -187,5 +186,49 @@ describe('Improved Calibration Tests', () => {
         
         // Good pattern with passes and fails - should end
         expect(result).toBe(true);
+    });
+
+    test('Calibration ends after exactly MAX_CALIBRATION_QUESTIONS (6) regardless of consistency', async () => {
+        // Simulate 6 responses with poor consistency (all doubt) - should still end
+        const result = await page.evaluate(() => {
+            // Set all responses to doubt, which would normally prevent ending
+            window.APP.calibrationHistory = [
+                { level: 5, action: 'doubt', timeTaken: 10 },
+                { level: 5, action: 'doubt', timeTaken: 10 },
+                { level: 5, action: 'doubt', timeTaken: 10 },
+                { level: 5, action: 'doubt', timeTaken: 10 },
+                { level: 5, action: 'doubt', timeTaken: 10 },
+                { level: 5, action: 'doubt', timeTaken: 10 }
+            ];
+            window.APP.cMin = 4;
+            window.APP.cMax = 10; // Wide range, not converged
+            return window.APP.shouldEndCalibration();
+        });
+        
+        // Should end due to reaching maximum questions, even with poor consistency
+        expect(result).toBe(true);
+    });
+
+    test('Calibration never exceeds 6 questions in practice', async () => {
+        // Simulate a difficult-to-calibrate user (inconsistent responses)
+        const responses = ['doubt', 'doubt', 'doubt', 'doubt', 'doubt', 'doubt', 'doubt', 'doubt'];
+        
+        for (let i = 0; i < responses.length; i++) {
+            const mode = await page.evaluate(() => window.APP.mode);
+            if (mode === 'drill' || mode === 'learning') break;
+            
+            await page.evaluate((action) => {
+                window.APP.handleCalibration(action);
+            }, responses[i]);
+            
+            await wait(200);
+        }
+        
+        // Should have ended after 6 questions
+        const mode = await page.evaluate(() => window.APP.mode);
+        const historyLength = await page.evaluate(() => window.APP.calibrationHistory.length);
+        
+        expect(mode === 'learning' || mode === 'drill').toBe(true);
+        expect(historyLength).toBeLessThanOrEqual(6);
     });
 });
