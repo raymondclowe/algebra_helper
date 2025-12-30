@@ -27,6 +27,15 @@ window.Learning = {
             btn.dataset.answer = opt.val; // Store the answer value for tracking
             btn.onclick = () => this.handleAnswer(btn, opt.correct, opt.dontKnow, opt.val);
             
+            // Add inline styles to ensure text wrapping and prevent clipping
+            btn.style.whiteSpace = 'normal';
+            btn.style.wordBreak = 'break-word';
+            btn.style.overflowWrap = 'break-word';
+            btn.style.height = 'auto';
+            btn.style.minHeight = '60px';
+            btn.style.maxHeight = 'none';
+            btn.style.overflow = 'visible';
+            
             // Use plain text for "I don't know" with "(no penalty)" indicator, LaTeX for others
             if (opt.dontKnow) {
                 btn.innerHTML = `<div class="flex flex-col items-center">
@@ -53,10 +62,28 @@ window.Learning = {
             container.appendChild(btn);
         });
         MathJax.typesetPromise([container]).then(() => {
-            // After MathJax renders, check for overflow and prevent clipping
-            if (window.UI && window.UI.checkAnswerButtonOverflow) {
-                window.UI.checkAnswerButtonOverflow();
-            }
+            // Add small delay to ensure MathJax has fully rendered
+            setTimeout(() => {
+                // Add inline styles to MathJax containers to ensure proper wrapping
+                const buttons = container.querySelectorAll('button');
+                buttons.forEach(button => {
+                    const mathContainers = button.querySelectorAll('mjx-container');
+                    mathContainers.forEach(mjxContainer => {
+                        mjxContainer.style.fontSize = '0.7em';
+                        mjxContainer.style.maxWidth = '100%';
+                        mjxContainer.style.width = '100%';
+                        mjxContainer.style.display = 'inline-block';
+                        mjxContainer.style.wordBreak = 'break-word';
+                        mjxContainer.style.overflowWrap = 'break-word';
+                        mjxContainer.style.overflow = 'visible';
+                    });
+                });
+                
+                // After MathJax renders, check for overflow and prevent clipping
+                if (window.UI && window.UI.checkAnswerButtonOverflow) {
+                    window.UI.checkAnswerButtonOverflow();
+                }
+            }, 100);
         });
     },
 
