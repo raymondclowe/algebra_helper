@@ -2,6 +2,16 @@
 window.UI = {
     _updatingButtons: false, // Flag to prevent concurrent button updates
     
+    // Constants for dynamic font sizing and overflow detection
+    _FONT_SIZE_CONSTANTS: {
+        MATHJAX_RENDER_DELAY_MS: 100,          // Delay for MathJax question rendering
+        BUTTON_RENDER_DELAY_MS: 150,           // Delay for MathJax button rendering
+        WIDTH_TOLERANCE_FACTOR: 0.95,          // 95% width tolerance for overflow detection
+        FONT_REDUCTION_INCREMENT: 0.05,        // 5% font size reduction per step
+        MAX_QUESTION_REDUCTION: 0.25,          // Maximum 25% reduction for questions
+        MAX_BUTTON_REDUCTION: 0.30             // Maximum 30% reduction for buttons
+    },
+    
     nextQuestion: function() {
         // If viewing history, return to present
         if (window.APP.isViewingHistory) {
@@ -318,7 +328,7 @@ window.UI = {
             // and let the existing CSS word-wrapping handle the rest
             mathContainer.style.fontSize = '0.75em';
             
-        }, 100); // Small delay to ensure MathJax has fully rendered
+        }, this._FONT_SIZE_CONSTANTS.MATHJAX_RENDER_DELAY_MS);
     },
     
     /**
@@ -330,6 +340,8 @@ window.UI = {
      * to ensure answers of any length display properly without overflow or clipping
      */
     checkAnswerButtonOverflow: function() {
+        const constants = this._FONT_SIZE_CONSTANTS;
+        
         // Small delay to ensure MathJax rendering is complete
         setTimeout(() => {
             const buttons = document.querySelectorAll('#mc-options button');
@@ -341,8 +353,9 @@ window.UI = {
                 }
                 
                 // Find MathJax containers or plain text spans in this button
+                // Try MathJax first, then look for any span (more robust than checking inline styles)
                 const mathContainer = button.querySelector('mjx-container');
-                const textSpan = button.querySelector('span[style*="font-style"]');
+                const textSpan = mathContainer ? null : button.querySelector('span');
                 const contentElement = mathContainer || textSpan;
                 
                 if (!contentElement) {
@@ -359,7 +372,7 @@ window.UI = {
                 const contentWidth = contentElement.scrollWidth;
                 
                 // If content fits, no adjustment needed
-                if (contentWidth <= buttonWidth * 0.95) { // 95% to allow some margin
+                if (contentWidth <= buttonWidth * constants.WIDTH_TOLERANCE_FACTOR) {
                     return;
                 }
                 
@@ -367,8 +380,10 @@ window.UI = {
                 // This works in combination with CSS wrapping rules
                 let scaleFactor = 1.0;
                 
-                // Try reducing in 5% increments up to 30% total for buttons
-                for (let reduction = 0.05; reduction <= 0.30; reduction += 0.05) {
+                // Try reducing in increments up to maximum reduction for buttons
+                for (let reduction = constants.FONT_REDUCTION_INCREMENT; 
+                     reduction <= constants.MAX_BUTTON_REDUCTION; 
+                     reduction += constants.FONT_REDUCTION_INCREMENT) {
                     scaleFactor = 1.0 - reduction;
                     
                     if (mathContainer) {
@@ -380,15 +395,15 @@ window.UI = {
                     // Force reflow
                     void contentElement.offsetWidth;
                     
-                    // Check if it fits now (with some tolerance)
-                    if (contentElement.scrollWidth <= buttonWidth * 0.95) {
+                    // Check if it fits now (with tolerance)
+                    if (contentElement.scrollWidth <= buttonWidth * constants.WIDTH_TOLERANCE_FACTOR) {
                         // Found a size that works!
                         return;
                     }
                 }
                 
-                // Even with 30% reduction, ensure wrapping is forced
-                // The CSS rules should handle wrapping, but we set explicit styles
+                // Even with maximum reduction, ensure wrapping is forced
+                // The CSS rules should handle wrapping, but we set explicit styles as fallback
                 button.style.whiteSpace = 'normal';
                 button.style.wordBreak = 'break-word';
                 button.style.overflowWrap = 'break-word';
@@ -404,6 +419,6 @@ window.UI = {
                 contentElement.style.wordBreak = 'break-word';
                 contentElement.style.overflowWrap = 'break-word';
             });
-        }, 150); // 150ms delay to ensure MathJax is fully rendered
+        }, constants.BUTTON_RENDER_DELAY_MS);
     }
 };
