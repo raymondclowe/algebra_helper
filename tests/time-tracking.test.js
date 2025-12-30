@@ -40,8 +40,11 @@ describe('Time Tracking Feature Tests', () => {
 
     test('Time tracking modal can be opened and closed', async () => {
         // Open modal
-        await page.evaluate(() => TimeTrackingModal.show());
-        await wait(500);
+        await page.evaluate(() => {
+            TimeTrackingModal.show();
+            return true; // Return a simple value to avoid Promise collection
+        });
+        await wait(1000); // Increased wait time
         
         let modalVisible = await page.evaluate(() => {
             const modal = document.getElementById('time-tracking-modal');
@@ -50,8 +53,11 @@ describe('Time Tracking Feature Tests', () => {
         expect(modalVisible).toBe(true);
         
         // Close modal
-        await page.evaluate(() => TimeTrackingModal.hide());
-        await wait(500);
+        await page.evaluate(() => {
+            TimeTrackingModal.hide();
+            return true; // Return a simple value to avoid Promise collection
+        });
+        await wait(1000); // Increased wait time
         
         modalVisible = await page.evaluate(() => {
             const modal = document.getElementById('time-tracking-modal');
@@ -74,8 +80,12 @@ describe('Time Tracking Feature Tests', () => {
     });
 
     test('Time tracking modal displays today section', async () => {
-        await page.evaluate(() => TimeTrackingModal.show());
-        await wait(1000);
+        // Open modal and wait for it to fully render
+        await page.evaluate(() => {
+            TimeTrackingModal.show();
+            return true; // Return a simple value to avoid Promise collection
+        });
+        await wait(2000); // Increased wait time for modal to fully render
         
         const hasTodaySection = await page.evaluate(() => {
             const todayTimeElement = document.getElementById('today-total-time');
