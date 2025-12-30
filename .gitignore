@@ -50,3 +50,10 @@ __pycache__/
 *.pyd
 .Python
 
+# Environment variables
+.env
+
+# Validation output
+validation-output/
+validation-issues/
+
