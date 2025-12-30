@@ -47,7 +47,13 @@ An intelligent, adaptive math practice tool that helps students master mathemati
   - **Level 21-22**: Statistics (mean, median, mode, range)
   - **Level 22-23**: Probability (simple, complementary, combinations)
   - **Level 23-24**: Advanced probability (conditional, independence, expected value)
-  - **Level 24+**: Integration & series (power rule, geometric series)
+  - **Level 24-25**: Integration & series (power rule, geometric series)
+  - **Level 25-26**: Proof by induction (sequences, series, divisibility)
+  - **Level 26-27**: Proof by contradiction (irrationality, infinite primes)
+  - **Level 27-28**: Matrix algebra (operations, determinants, inverses)
+  - **Level 28-29**: 3D vectors (cross product, vector equations)
+  - **Level 29-30**: Complex numbers polar form (De Moivre's theorem, conversions)
+  - **Level 30+**: Advanced integration (substitution, integration by parts)
 
 ### How to Use
 
