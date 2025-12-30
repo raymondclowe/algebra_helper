@@ -9,6 +9,13 @@ const CALIBRATION_TIMEOUT_MS = 15000; // 15 seconds
 // ============================================================================
 // Calibration Logic
 // ============================================================================
+// The calibration system uses binary search to quickly find a user's skill level.
+// - Starts with level range [1, 24] (MIN_LEVEL to MAX_LEVEL)
+// - Each response narrows the range by adjusting cMin (lower bound) or cMax (upper bound)
+// - Next level is always the midpoint: (cMin + cMax) / 2
+// - Converges in 4-6 questions maximum (log2(24) ≈ 4.6 theoretical minimum)
+// - Hard maximum of 6 questions ensures rapid convergence
+// ============================================================================
 window.Calibration = {
     timeoutId: null,
     timeoutDuration: CALIBRATION_TIMEOUT_MS,
@@ -108,6 +115,18 @@ window.Calibration = {
     },
     
     // Statistical confidence check for calibration completion
+    // 
+    // This function determines when to end the calibration phase based on:
+    // 1. Hard maximum of 6 questions - ensures rapid convergence (CRITICAL for UX)
+    // 2. Early termination at extremes (user knows nothing or everything)
+    // 3. Convergence of the binary search range
+    // 4. Consistency in recent responses (mixed pass/fail signals)
+    //
+    // Changes from previous version:
+    // - Reduced MIN_RESPONSES from 6 to 4 (allow earlier termination)
+    // - Added MAX_RESPONSES = 6 (hard limit for rapid convergence)
+    // - Relaxed CONVERGENCE_THRESHOLD from 1.5 to 2.0 (less strict)
+    // - Reduced CONSISTENCY_WINDOW from 4 to 3 (smaller sample size)
     shouldEndCalibration: function() {
         const MIN_RESPONSES = 4; // Minimum number of responses before ending
         const MAX_RESPONSES = 6; // Maximum number of responses - binary search should converge by then
@@ -116,6 +135,7 @@ window.Calibration = {
         
         // Hard maximum: Binary search should converge rapidly
         // After 6 questions, we have enough information to determine the level
+        // This ensures users don't spend too long in calibration phase
         if (window.APP.calibrationHistory.length >= MAX_RESPONSES) {
             return true;
         }
