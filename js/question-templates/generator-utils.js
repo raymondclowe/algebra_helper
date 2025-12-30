@@ -9,15 +9,39 @@ window.GeneratorUtils = {
     FALLBACK_DISTRACTOR_MAX_COEFFICIENT: 20, // Max coefficient for fallback distractors
     
     // Helper function to convert function notation to unicode mathematical italic characters
+    // and LaTeX-style superscripts to Unicode superscript characters
     // U+1D453 = 𝑓 (Mathematical Italic Small F)
     // U+1D454 = 𝑔 (Mathematical Italic Small G)
     toUnicodeFunction: function(str) {
-        return str
-            .replace(/f\(/g, '𝑓(')  // f( -> 𝑓(
-            .replace(/f\^/g, '𝑓^')  // f^ -> 𝑓^ (for inverse notation)
-            .replace(/f'/g, "𝑓'")  // f' -> 𝑓' (for derivative notation)
-            .replace(/g\(/g, '𝑔(')  // g( -> 𝑔(
-            .replace(/g'/g, "𝑔'"); // g' -> 𝑔' (for derivative notation)
+        // Map of superscript characters
+        const superscripts = {
+            '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴',
+            '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹',
+            '-': '⁻', '+': '⁺', '=': '⁼', '(': '⁽', ')': '⁾'
+        };
+        
+        // First, replace function names with Unicode mathematical italic characters
+        // Use word boundaries to avoid replacing 'f' in words like 'for' or 'of'
+        let result = str
+            .replace(/\bf\(/g, '𝑓(')     // f( -> 𝑓(
+            .replace(/\bf\^/g, '𝑓^')     // f^ -> 𝑓^ (before superscript conversion)
+            .replace(/\bf''/g, "𝑓''")   // f'' -> 𝑓'' (for second derivative notation)
+            .replace(/\bf'/g, "𝑓'")     // f' -> 𝑓' (for derivative notation)
+            .replace(/\bg\(/g, '𝑔(')     // g( -> 𝑔(
+            .replace(/\bg\^/g, '𝑔^')     // g^ -> 𝑔^ (before superscript conversion)
+            .replace(/\bg''/g, "𝑔''")   // g'' -> 𝑔'' (for second derivative notation)
+            .replace(/\bg'/g, "𝑔'");    // g' -> 𝑔' (for derivative notation)
+        
+        // Convert LaTeX-style superscripts: ^{...} or ^x to Unicode superscripts
+        // Handle both ^{content} and ^x patterns
+        result = result.replace(/\^{([^}]+)}/g, (match, content) => {
+            return content.split('').map(char => superscripts[char] || char).join('');
+        });
+        result = result.replace(/\^([0-9\-\+])/g, (match, char) => {
+            return superscripts[char] || match;
+        });
+        
+        return result;
     },
     
     // Math helper functions for fractions
