@@ -161,7 +161,6 @@ describe('Button Text Wrapping Tests', () => {
             
             containers.forEach(container => {
                 styles.push({
-                    fontSize: container.style.fontSize,
                     maxWidth: container.style.maxWidth,
                     width: container.style.width,
                     display: container.style.display,
@@ -176,8 +175,8 @@ describe('Button Text Wrapping Tests', () => {
         
         expect(mjxStyles.length).toBeGreaterThan(0);
         
+        // Verify wrapping-related styles (fontSize is handled dynamically by checkAnswerButtonOverflow)
         mjxStyles.forEach(style => {
-            expect(style.fontSize).toBe('0.7em');
             expect(style.maxWidth).toBe('100%');
             expect(style.width).toBe('100%');
             expect(style.display).toBe('inline-block');

@@ -65,11 +65,12 @@ window.Learning = {
             // Add small delay to ensure MathJax has fully rendered
             setTimeout(() => {
                 // Add inline styles to MathJax containers to ensure proper wrapping
+                // Note: fontSize is handled dynamically by UI.checkAnswerButtonOverflow
                 const buttons = container.querySelectorAll('button');
                 buttons.forEach(button => {
                     const mathContainers = button.querySelectorAll('mjx-container');
                     mathContainers.forEach(mjxContainer => {
-                        mjxContainer.style.fontSize = '0.7em';
+                        // Set wrapping and overflow styles to prevent clipping
                         mjxContainer.style.maxWidth = '100%';
                         mjxContainer.style.width = '100%';
                         mjxContainer.style.display = 'inline-block';
@@ -80,6 +81,7 @@ window.Learning = {
                 });
                 
                 // After MathJax renders, check for overflow and prevent clipping
+                // This function will dynamically adjust fontSize if needed
                 if (window.UI && window.UI.checkAnswerButtonOverflow) {
                     window.UI.checkAnswerButtonOverflow();
                 }
