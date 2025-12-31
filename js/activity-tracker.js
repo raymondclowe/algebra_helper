@@ -161,6 +161,7 @@ window.ActivityTracker = {
             }
             
             this.startTime = now; // Reset start time to now
+            this.lastDailySaveTime = now; // Reset daily save time to prevent counting away time
         }
     },
     
