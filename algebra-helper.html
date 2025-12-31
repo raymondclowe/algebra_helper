@@ -94,6 +94,20 @@
                 <p class="text-yellow-400 font-bold">⏱️ Auto-expires in 10 minutes</p>
                 <p class="text-xs text-gray-400 mt-4">Scores and progress in debug mode should not be used for assessment.</p>
             </div>
+            <div class="mb-4">
+                <label for="debug-level-input" class="block text-gray-300 text-sm mb-2">
+                    <strong>Optional:</strong> Start at specific level (1-34)
+                </label>
+                <input 
+                    type="number" 
+                    id="debug-level-input" 
+                    min="1" 
+                    max="34" 
+                    placeholder="Leave empty to keep current level" 
+                    class="w-full px-4 py-2 bg-gray-700 border-2 border-gray-600 rounded-lg text-white focus:outline-none focus:border-yellow-500 transition-colors"
+                >
+                <p class="text-xs text-gray-400 mt-1">Allows debugging higher levels without advancing through all previous levels</p>
+            </div>
             <div class="flex gap-3">
                 <button onclick="DebugCheatCode.cancelDebugMode()" class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white font-bold rounded">
                     Cancel

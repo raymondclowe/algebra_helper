@@ -129,6 +129,66 @@ window.DebugCheatCode = {
     confirmDebugMode: function() {
         this.debugModeActive = true;
         window.DEBUG_MODE = true;
+        
+        // Read and validate the level input
+        const levelInput = document.getElementById('debug-level-input');
+        const levelValue = levelInput ? levelInput.value : '';
+        
+        if (levelValue && levelValue.trim() !== '') {
+            const targetLevel = parseInt(levelValue, 10);
+            
+            // Validate level is within bounds (1 to MAX_LEVEL from constants.js)
+            const MAX_LEVEL = window.MAX_LEVEL || 34;
+            const MIN_LEVEL = window.MIN_LEVEL || 1;
+            
+            if (!isNaN(targetLevel) && targetLevel >= MIN_LEVEL && targetLevel <= MAX_LEVEL) {
+                // Set the user's level and switch to learning mode (skip calibration)
+                if (window.APP) {
+                    window.APP.level = targetLevel;
+                    
+                    // If in calibration mode, switch to learning mode to skip calibration
+                    if (window.APP.mode === 'calibration') {
+                        window.APP.mode = 'learning';
+                        // Set calibration range for consistency
+                        window.APP.cMin = targetLevel;
+                        window.APP.cMax = targetLevel;
+                        
+                        // Clear any calibration timeout
+                        if (window.Calibration && window.Calibration.clearTimeout) {
+                            window.Calibration.clearTimeout();
+                        }
+                        
+                        // Update mode badge
+                        const modeBadge = document.getElementById('mode-badge');
+                        if (modeBadge) {
+                            modeBadge.innerText = "Learning Phase";
+                            modeBadge.className = "px-3 py-1 bg-purple-900 text-purple-200 text-xs font-bold uppercase rounded-full tracking-wide";
+                        }
+                        
+                        // Hide calibration controls and show learning controls
+                        const calibrationControls = document.getElementById('controls-calibration');
+                        const learningControls = document.getElementById('controls-learning');
+                        if (calibrationControls) calibrationControls.classList.add('hidden');
+                        if (learningControls) learningControls.classList.remove('hidden');
+                        
+                        // Generate a new question at the target level
+                        if (window.UI && window.UI.nextQuestion) {
+                            window.UI.nextQuestion();
+                        }
+                    }
+                    
+                    console.log(`🐛 Debug Mode: Level set to ${targetLevel}`);
+                }
+            } else {
+                console.warn(`Invalid level input: ${levelValue}. Must be between ${MIN_LEVEL} and ${MAX_LEVEL}.`);
+            }
+        }
+        
+        // Clear the input for next time
+        if (levelInput) {
+            levelInput.value = '';
+        }
+        
         document.getElementById('debug-warning-modal').classList.add('hidden');
         
         // Set timeout using configured duration
