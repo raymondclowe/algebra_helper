@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:36:24.966Z",
+  "level": 28,
+  "topic": "Matrix Algebra",
+  "questionType": 4,
+  "metadata": {
+    "level": 28,
+    "topic": "Matrix Algebra",
+    "questionType": 4,
+    "questionText": "\\text{Prove } \\sqrt{3} \\text{ is irrational}",
+    "instruction": "What do we assume to start a proof by contradiction?",
+    "correctAnswer": "\\text{Assume } \\sqrt{3} = \\frac{p}{q} \\text{ in lowest terms}",
+    "distractors": [
+      "\\text{Assume } \\sqrt{3} \\text{ is irrational}",
+      "\\text{Assume } \\sqrt{3} \\text{ is an integer}",
+      "\\text{Assume } p \\text{ and } q \\text{ are both divisible by 3}"
+    ],
+    "allOptions": [
+      "Assume } p \\text{ and } q \\text{ are both divisible by 3",
+      "Assume } \\sqrt{3} \\text{ is irrational",
+      "Assume } \\sqrt{3} = \\frac{p}{q} \\text{ in lowest terms",
+      "Assume } \\sqrt{3} \\text{ is an integer",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "To prove by contradiction, we assume √3 IS rational: √3 = p/q where p and q are coprime (lowest terms)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "The question has **ISSUES** and requires correction.\n\nHere is a detailed breakdown of the problems:\n\n**1. LaTeX Formatting / Syntax Errors**\n*   **Issue:** There is a stray closing curly brace `}` visible in every single option immediately after the word \"Assume\".\n    *   *Example:* \"Assume **}** $\\sqrt{3} = \\frac{p}{",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:35:57.198Z",
+  "level": 28,
+  "topic": "Matrix Algebra",
+  "questionType": 3,
+  "metadata": {
+    "level": 28,
+    "topic": "Matrix Algebra",
+    "questionType": 3,
+    "questionText": "\\begin{pmatrix} 2 & 1 \\\\ 4 & 2 \\end{pmatrix} \\begin{pmatrix} 2 & 3 \\\\ 3 & 2 \\end{pmatrix}",
+    "instruction": "Calculate the matrix product",
+    "correctAnswer": "\\begin{pmatrix} 7 & 8 \\\\ 14 & 16 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 4 & 3 \\\\ 12 & 4 \\end{pmatrix}",
+      "\\begin{pmatrix} 8 & 8 \\\\ 14 & 16 \\end{pmatrix}",
+      "\\begin{pmatrix} 4 & 4 \\\\ 7 & 4 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "(781416)",
+      "(43124)",
+      "(881416)",
+      "(4474)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Matrix multiplication: top-left = 2×2 + 1×3 = 7. Top-right = 2×3 + 1×2 = 8. Similarly for bottom row."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically correct and appropriate for the topic of Matrix Algebra.\n\n**Verification:**\n1.  **Calculation:**\n    *   Row 1, Col 1: $(2 \\times 2) + (1 \\times 3) = 4 + 3 = 7$\n    *   Row 1, Col 2: $(2 \\times 3) + (1 \\times 2) = 6 + 2 = 8$\n    *   Row 2, Col 1: $(4 \\times 2) + (2 \\times 3) = 8 + 6 = 14$\n    *   Row 2, Col 2: $(4 \\times 3) + (2 \\times 2) = 12 + 4 = 16$\n    *   Resulting Matrix: $\\begin{pmatrix} 7 & 8 \\\\ 14 & 16 \\end{pmatrix}$\n\n2.  **Options:**\n    *   The option marked as correct (top-left) matches the calculated result exactly.\n    *   The top-right distractor $\\begin{pmatrix} 4 & 3 \\\\ 12 & 4 \\end{pmatrix}$ represents element-wise multiplication, which is a common student misconception (a good distractor).\n\n3.  **Difficulty:** The use of small integers allows for quick mental calculation, fitting the 30-60 second timeframe.",
+    "error": null
+  }
+}

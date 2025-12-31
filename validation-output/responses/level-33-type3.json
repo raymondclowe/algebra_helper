@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:45:30.303Z",
+  "level": 33,
+  "topic": "Probability Distributions",
+  "questionType": 3,
+  "metadata": {
+    "level": 33,
+    "topic": "Probability Distributions",
+    "questionType": 3,
+    "questionText": "X \\sim B(13, 0.25)",
+    "instruction": "What is Var(X)?",
+    "correctAnswer": "2.4375",
+    "distractors": [
+      "3.25",
+      "9.75",
+      "0.1875"
+    ],
+    "allOptions": [
+      "9.75",
+      "2.4375",
+      "3.25",
+      "0.1875",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For binomial B(n, p), variance is Var(X) = np(1-p) = 13 × 0.25 × 0.75 = 2.4375."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Verification:**\nThe question asks for the variance of a binomial distribution $X \\sim B(n, p)$ with $n=13$ and $p=0.25$.\nThe formula for variance is $\\text{Var}(X) = n \\cdot p \\cdot (1-p)$.\nCalculation: $13 \\cdot 0.25 \\cdot (1 - 0.",
+    "error": null
+  }
+}

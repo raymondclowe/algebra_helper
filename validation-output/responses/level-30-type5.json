@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:41:19.685Z",
+  "level": 30,
+  "topic": "Complex Numbers (Polar)",
+  "questionType": 5,
+  "metadata": {
+    "level": 30,
+    "topic": "Complex Numbers (Polar)",
+    "questionType": 5,
+    "questionText": "5\\begin{pmatrix} 4 \\\\ 4 \\\\ 5 \\end{pmatrix}",
+    "instruction": "Multiply the vector by the scalar",
+    "correctAnswer": "\\begin{pmatrix} 20 \\\\ 20 \\\\ 25 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 9 \\\\ 9 \\\\ 10 \\end{pmatrix}",
+      "\\begin{pmatrix} 21 \\\\ 20 \\\\ 25 \\end{pmatrix}",
+      "\\begin{pmatrix} 4 \\\\ 4 \\\\ 5 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "⎛⎜\n⎜\n⎜⎝9910⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝202025⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝212025⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝445⎞⎟\n⎟\n⎟⎠",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiply each component by 5: (5×4, 5×4, 5×5) = (20, 20, 25)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUE: TOPIC MISMATCH**\n\nWhile",
+    "error": null
+  }
+}

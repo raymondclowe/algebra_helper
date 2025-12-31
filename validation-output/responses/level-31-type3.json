@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:42:21.662Z",
+  "level": 31,
+  "topic": "Advanced Integration",
+  "questionType": 3,
+  "metadata": {
+    "level": 31,
+    "topic": "Advanced Integration",
+    "questionType": 3,
+    "questionText": "\\int \\sin(x) \\cos(x) \\, dx",
+    "instruction": "What substitution should we use?",
+    "correctAnswer": "u = \\sin(x)",
+    "distractors": [
+      "u = \\cos(x)",
+      "u = \\sin(x)\\cos(x)",
+      "u = x"
+    ],
+    "allOptions": [
+      "𝑢 =sin⁡(𝑥)",
+      "𝑢 =cos⁡(𝑥)",
+      "u = x",
+      "𝑢 =sin⁡(𝑥)⁢cos⁡(𝑥)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For ∫sin(x)cos(x) dx, let u = sin(x). Then du = cos(x) dx, giving us ∫u du. (Note: u = cos(x) also works!)"
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUE: Multiple Correct Answers**\n\nThe question is mathematically ambiguous because there are two equally valid standard substitutions for the integral $\\int \\sin(x) \\cos(x) \\, dx$, both of which are presented as options.\n\n**Detailed Explanation:**\n1.  **Option A ($u = \\sin(x)$)** is valid:\n    *   $du = \\cos(x) \\, dx$\n    *   The integral becomes $\\int u \\, du$.\n\n2.  **Option B ($u = \\cos(x)$)** is **ALSO valid**:\n    *   $du = -\\sin(x) \\, dx \\implies -du = \\sin(x) \\, dx$\n    *   The integral becomes $\\int -u \\, du$.\n\nSince both substitutions are standard, efficient, and correct, it is unfair and confusing to list $u = \\cos(x)$ as a distractor (incorrect answer). A student selecting this option would be mathematically correct but penalized by the system.\n\n**Suggested Fix:**\nChange the distractor **Option B** ($u = \\cos(x)$) to a clearly incorrect substitution to remove ambiguity.\n*   **Example replacements:** $u = \\tan(x)$, $u = x^2$, or $u = \\sin(x) + x$.",
+    "error": null
+  }
+}

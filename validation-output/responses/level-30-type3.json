@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:40:30.109Z",
+  "level": 30,
+  "topic": "Complex Numbers (Polar)",
+  "questionType": 3,
+  "metadata": {
+    "level": 30,
+    "topic": "Complex Numbers (Polar)",
+    "questionType": 3,
+    "questionText": "5e^{i\\pi}",
+    "instruction": "Convert to Cartesian form a + bi",
+    "correctAnswer": "-5",
+    "distractors": [
+      "5 + 5i",
+      "-4 + 0i",
+      "-5i"
+    ],
+    "allOptions": [
+      "5 + 5i",
+      "-4 + 0i",
+      "-5",
+      "-5i",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Using Euler's formula: z = r·e^(iθ) = r(cos θ + i·sin θ). Here: 5(cos(\\pi) + i·sin(\\pi)) = 5(-1 + i·0) = -5."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Minor Note:**\nThe screen header in the top-left corner reads \"Integration & Series\", but the question topic is clearly **Complex Numbers**. You may want to check the categorization or tagging for this question to ensure it appears in the correct section of the app.\n\nMathematically, the question and the correct answer ($-5$) are accurate ($e^{i\\pi} = -1$, so $5e^{i\\pi} = -5$).",
+    "error": null
+  }
+}

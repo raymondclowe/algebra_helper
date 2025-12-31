@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:47:45.724Z",
+  "level": 34,
+  "topic": "Hypothesis Testing",
+  "questionType": 4,
+  "metadata": {
+    "level": 34,
+    "topic": "Hypothesis Testing",
+    "questionType": 4,
+    "questionText": "\\text{Significance level } \\alpha = 0.01",
+    "instruction": "What does this mean?",
+    "correctAnswer": "1\\% \\text{ probability of Type I error}",
+    "distractors": [
+      "1\\% \\text{ confidence level}",
+      "1\\% \\text{ probability of Type II error}",
+      "1\\% \\text{ power of the test}"
+    ],
+    "allOptions": [
+      "1% power of the test",
+      "1% confidence level",
+      "1% probability of Type I error",
+      "1% probability of Type II error",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Significance level α = 0.01 means 1% probability of Type I error (rejecting true H₀). Confidence level = 1 - α = 99%."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the IB Math curriculum (Statistics/Hypothesis Testing).\n\n*   **Concept:** The significance level $\\alpha$ is defined as the probability of rejecting the null hypothesis when it is true, which is the definition of a **Type I error**.\n*   **Calculation:** $0.01$ is equal to $1\\%$.\n*   **Answer:** Therefore, \"1% probability of Type I error\" is the correct interpretation.\n*   **Distractors:** The distractors (Power, Confidence Level, Type II error) are well-chosen common misconceptions. For instance, the confidence level would be $1 - \\alpha = 99\\%$, not $1\\%$.",
+    "error": null
+  }
+}

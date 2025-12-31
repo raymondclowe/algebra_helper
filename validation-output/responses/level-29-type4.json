@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:38:34.526Z",
+  "level": 29,
+  "topic": "3D Vectors",
+  "questionType": 4,
+  "metadata": {
+    "level": 29,
+    "topic": "3D Vectors",
+    "questionType": 4,
+    "questionText": "\\begin{pmatrix} 4 \\\\ 3 \\\\ 3 \\end{pmatrix} \\times \\begin{pmatrix} 3 \\\\ 3 \\\\ 2 \\end{pmatrix}",
+    "instruction": "Calculate the cross product",
+    "correctAnswer": "\\begin{pmatrix} -3 \\\\ 1 \\\\ 3 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 3 \\\\ -1 \\\\ -3 \\end{pmatrix}",
+      "\\begin{pmatrix} -2 \\\\ 1 \\\\ 3 \\end{pmatrix}",
+      "\\begin{pmatrix} 12 \\\\ 9 \\\\ 6 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "⎛⎜\n⎜\n⎜⎝−313⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝3−1−3⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝−213⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝1296⎞⎟\n⎟\n⎟⎠",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Cross product uses determinant formula: i-component = 3×2 - 3×3 = -3, j-component = 3×3 - 4×2 = 1, k-component = 4×3 - 3×3 = 3."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n*   **Mathematical Accuracy:** The calculation is correct.\n    *   $x = (3)(2) - (3)(3) = 6 - 9 = -3$\n    *   $y = (3)(3) - (4)(2) = 9 - 8 = 1$\n    *   $z = (4)(3) - (3)(3) = 12 - 9 = 3$\n    *   Result vector: $\\begin{pmatrix} -3 \\\\ 1 \\\\ 3 \\end{pmatrix}$.\n*   **Correct Answer:** The option marked with the yellow dashed line matches the calculated result.\n*   **Distractors:**\n    *   $\\begin{pmatrix} 3 \\\\ -1 \\\\ -3 \\end{pmatrix}$ corresponds to $\\mathbf{b} \\times \\mathbf{a}$ (order error).\n    *   $\\begin{pmatrix} 12 \\\\ 9 \\\\ 6 \\end{pmatrix}$ corresponds to component-wise multiplication (common misconception).\n    *   The third distractor is a plausible arithmetic error.\n*   **Level/Timing:** The integers are small, making it solvable within the 30-60 second timeframe for an IB student.",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:43:06.993Z",
+  "level": 32,
+  "topic": "Differential Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 32,
+    "topic": "Differential Equations",
+    "questionType": 1,
+    "questionText": "\\int \\frac{1}{y} dy = \\int x \\, dx",
+    "instruction": "What is the general solution?",
+    "correctAnswer": "\\ln|y| = \\frac{x^2}{2} + C",
+    "distractors": [
+      "\\ln|y| = x^2 + C",
+      "y = \\frac{x^2}{2} + C",
+      "\\frac{1}{y} = \\frac{x^2}{2} + C"
+    ],
+    "allOptions": [
+      "1𝑦 =𝑥22 +𝐶",
+      "ln⁡|𝑦| =𝑥22 +𝐶",
+      "ln⁡|𝑦| =𝑥2 +𝐶",
+      "𝑦 =𝑥22 +𝐶",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Integrating both sides: ∫(1/y) dy = ln|y| and ∫x dx = x²/2. So ln|y| = x²/2 + C."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": null,
+    "error": null
+  }
+}

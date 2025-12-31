@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:35:36.864Z",
+  "level": 28,
+  "topic": "Matrix Algebra",
+  "questionType": 2,
+  "metadata": {
+    "level": 28,
+    "topic": "Matrix Algebra",
+    "questionType": 2,
+    "questionText": "3 \\begin{pmatrix} 3 & 3 \\\\ 3 & 1 \\end{pmatrix}",
+    "instruction": "Multiply the matrix by the scalar",
+    "correctAnswer": "\\begin{pmatrix} 9 & 9 \\\\ 9 & 3 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 6 & 6 \\\\ 6 & 4 \\end{pmatrix}",
+      "\\begin{pmatrix} 10 & 9 \\\\ 9 & 3 \\end{pmatrix}",
+      "\\begin{pmatrix} 3 & 3 \\\\ 3 & 1 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "(9993)",
+      "(10993)",
+      "(3331)",
+      "(6664)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiply each element by 3: (3×3, 3×3; 3×3, 3×1) = (9, 9; 9, 3)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the topic.\n\n*   **Mathematical Accuracy:** The operation is scalar multiplication: $3 \\times \\begin{pmatrix} 3 & 3 \\\\ 3 & 1 \\end{pmatrix} = \\begin{pmatrix} 3\\cdot3 & 3\\cdot3 \\\\ 3\\cdot3 & 3\\cdot1 \\end{pmatrix} = \\begin{pmatrix} 9 & 9 \\\\ 9 & 3 \\end{pmatrix}$. The selected answer matches this result.\n*   **Clarity:** The instruction \"MULTIPLY THE MATRIX BY THE SCALAR\" is unambiguous.\n*   **Distractors:**\n    *   The bottom-right option $\\begin{pmatrix} 6 & 6 \\\\ 6 & 4 \\end{pmatrix}$ is a good distractor, representing the common error of adding the scalar to the elements instead of multiplying ($3+3=6$, $1+3=4$).\n    *   The bottom-left option is the original matrix (multiplied by 1), checking if the student understands the operation changes values.",
+    "error": null
+  }
+}

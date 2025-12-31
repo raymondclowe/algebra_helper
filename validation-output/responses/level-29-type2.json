@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:37:48.281Z",
+  "level": 29,
+  "topic": "3D Vectors",
+  "questionType": 2,
+  "metadata": {
+    "level": 29,
+    "topic": "3D Vectors",
+    "questionType": 2,
+    "questionText": "\\left|\\begin{pmatrix} 4 \\\\ 3 \\\\ 1 \\end{pmatrix}\\right|",
+    "instruction": "Calculate the magnitude of the vector",
+    "correctAnswer": "\\sqrt{26}",
+    "distractors": [
+      "\\sqrt{27}",
+      "8",
+      "\\sqrt{12}"
+    ],
+    "allOptions": [
+      "√26",
+      "√27",
+      "8",
+      "√12",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Magnitude = √(4² + 3² + 1²) = √(16 + 9 + 1) = √26."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically correct and appropriate for the topic of 3D Vectors.\n\n*   **Calculation:** The magnitude of the vector $\\begin{pmatrix} 4 \\\\ 3 \\\\ 1 \\end{pmatrix}$ is calculated as $\\sqrt{4^2 + 3^2 + 1^2} = \\sqrt{16 + 9 + 1} = \\sqrt{26}$.\n*   **Correct Answer:** The option $\\sqrt{26}$ is correctly identified.\n*   **Distractors:**\n    *   $8$: Represents the common error of simply summing the components ($4+3+1$).\n    *   $\\sqrt{12}$: Represents the error of multiplying components inside the root ($4 \\times 3 \\times 1$) or summing them inside the root incorrectly.\n    *   $\\sqrt{27}$: A plausible close value or arithmetic error.\n*   **Notation:** The vertical bars around the column vector are standard notation for magnitude.\n*   **Time:** Solvable within 30 seconds.",
+    "error": null
+  }
+}

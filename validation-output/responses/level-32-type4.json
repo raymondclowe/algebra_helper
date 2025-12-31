@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:44:17.145Z",
+  "level": 32,
+  "topic": "Differential Equations",
+  "questionType": 4,
+  "metadata": {
+    "level": 32,
+    "topic": "Differential Equations",
+    "questionType": 4,
+    "questionText": "\\frac{dy}{dx} = 4y, \\quad y(0) = 1",
+    "instruction": "What is the particular solution?",
+    "correctAnswer": "y = 1e^{4x}",
+    "distractors": [
+      "y = 4e^{1x}",
+      "y = e^{4x}",
+      "y = 1e^{x}"
+    ],
+    "allOptions": [
+      "𝑦 =1⁢𝑒𝑥",
+      "𝑦 =4⁢𝑒1⁢𝑥",
+      "𝑦 =𝑒4⁢𝑥",
+      "𝑦 =1⁢𝑒4⁢𝑥",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "General solution: y = Ae^(4x). Using y(0) = 1: 1 = Ae^0 = A. So A = 1, giving y = 1e^(4x)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUES FOUND**\n\nThe question is mathematically valid in its prompt, but the set of multiple-choice answers is **flawed** because it contains **two correct answers**.\n\n**Detailed Explanation:**\n1.  **Mathematical Derivation:**\n    *   The differential equation is $\\frac{dy}{dx} = 4y$.\n    *   The general solution is $y = Ce^{4x}$.\n    *   Applying the initial condition $y(0) = 1$: $1 = Ce^{4(0)} \\rightarrow C = 1$.\n    *   The particular solution is $y = 1e^{4x}$, which simplifies to **$y = e^{4x}$**.\n\n2.  **The Conflict:**\n    *   **Option 3 (Bottom Left):** $y = e^{4x}$\n    *   **Option 4 (Bottom Right, marked correct):** $y = 1e^{4x}$\n    *   Mathematically, $1 \\cdot e^{4x}$ is identical to $e^{4x}$. Therefore, both Option 3 and Option 4 are the correct answer.\n    *   In a multiple-choice format, there must be only one unique correct option. A student who selects the simplified form (Option 3) would be mathematically correct but likely penalized by the system.\n\n**Suggestions to Fix:**\n*   **Preferred Fix:** Use the standard simplified notation for the correct answer ($y = e^{4x}$) and change the other option to a distinct incorrect distractor (e.g., $y = e^{x+4}$ or $y = \\frac{1}{4}e^{4x}$).\n*   **Alternative Fix:** If you explicitly want to test the structure $y = Ae^{kx}$ where $A=1$, keep $y = 1e^{4x}$ as the correct answer but change the bottom-left option to something incorrect, such as $y = e^{-4x}$.",
+    "error": null
+  }
+}

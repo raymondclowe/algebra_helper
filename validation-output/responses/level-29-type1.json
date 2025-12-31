@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:37:30.776Z",
+  "level": 29,
+  "topic": "3D Vectors",
+  "questionType": 1,
+  "metadata": {
+    "level": 29,
+    "topic": "3D Vectors",
+    "questionType": 1,
+    "questionText": "\\begin{pmatrix} 4 \\\\ 6 \\\\ 5 \\end{pmatrix} + \\begin{pmatrix} 4 \\\\ 7 \\\\ 1 \\end{pmatrix}",
+    "instruction": "Calculate the vector sum",
+    "correctAnswer": "\\begin{pmatrix} 8 \\\\ 13 \\\\ 6 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 9 \\\\ 13 \\\\ 6 \\end{pmatrix}",
+      "\\begin{pmatrix} 8 \\\\ 14 \\\\ 6 \\end{pmatrix}",
+      "\\begin{pmatrix} 16 \\\\ 42 \\\\ 5 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "⎛⎜\n⎜\n⎜⎝9136⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝16425⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝8146⎞⎟\n⎟\n⎟⎠",
+      "⎛⎜\n⎜\n⎜⎝8136⎞⎟\n⎟\n⎟⎠",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add corresponding components: (4+4, 6+7, 5+1) = (8, 13, 6)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the context.\n\n**Verification:**\n- **Calculation:** Vector addition is performed component-wise:\n  $$x: 4 + 4 = 8$$\n  $$y: 6 + 7 = 13$$\n  $$z: 5 + 1 = 6$$\n- **Result:** $\\begin{pmatrix} 8 \\\\ 13 \\\\ 6 \\end{pmatrix}$ matches the selected correct answer (bottom right).\n- **Distractors:** The distractors are plausible:\n  - Top Right $\\begin{pmatrix} 16 \\\\ 42 \\\\ 5 \\end{pmatrix}$ tests if a student multiplies instead of adds.\n  - Bottom Left $\\begin{pmatrix} 8 \\\\ 14 \\\\ 6 \\end{pmatrix}$ tests for a simple arithmetic error ($6+7 \\neq 14$).\n- **Notation:** Standard column vector notation is used correctly.",
+    "error": null
+  }
+}
