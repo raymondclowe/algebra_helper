@@ -11,7 +11,7 @@ window.QuestionTemplates.Statistics = {
                     // Mean
                     const data = [utils.rInt(10, 20), utils.rInt(15, 25), utils.rInt(20, 30), utils.rInt(10, 25)];
                     const sum = data.reduce((a, b) => a + b, 0);
-                    const mean = sum / data.length;
+                    const mean = utils.roundToClean(sum / data.length);
                     const correctAnswer = `${mean}`;
                     const candidateDistractors = [
                         `${Math.max(...data)}`,
@@ -40,7 +40,7 @@ window.QuestionTemplates.Statistics = {
                     const candidateDistractors = [
                         `${data[0]}`,
                         `${data[data.length - 1]}`,
-                        `${(data[0] + data[data.length - 1]) / 2}`
+                        `${utils.roundToClean((data[0] + data[data.length - 1]) / 2)}`
                     ];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,

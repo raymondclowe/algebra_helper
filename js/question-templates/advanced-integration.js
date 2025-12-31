@@ -166,7 +166,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             const n = utils.rInt(2, 4);
             
             const coefficient = a * (n + 1);
-            const result = coefficient / (n + 1);
+            const result = utils.roundToClean(coefficient / (n + 1));
             
             return {
                 tex: `\\int ${coefficient}x(x^2 + 1)^${n} \\, dx`,

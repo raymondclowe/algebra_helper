@@ -53,7 +53,7 @@ window.QuestionTemplates.Functions = {
                     const m = utils.rInt(2, 5);
                     const c = utils.rInt(1, 8);
                     const result = utils.rInt(10, 30);
-                    const x = (result + c) / m;
+                    const x = utils.roundToClean((result + c) / m);
                     // Ensure integer result
                     if (x !== Math.floor(x)) {
                         // Recalculate with values that work

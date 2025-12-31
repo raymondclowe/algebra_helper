@@ -37,7 +37,7 @@ window.QuestionTemplates.DecimalsPercentages = {
                 } else if (questionType === 2) {
                     // Converting decimal to percentage
                     const decimal = utils.rInt(1, 9) / 10;
-                    const percentage = decimal * 100;
+                    const percentage = utils.roundToClean(decimal * 100);
                     const correctAnswer = `${percentage}\\%`;
                     const candidateDistractors = [`${decimal}\\%`, `${percentage / 10}\\%`, `${percentage * 10}\\%`];
                     const distractors = utils.ensureUniqueDistractors(
@@ -58,7 +58,7 @@ window.QuestionTemplates.DecimalsPercentages = {
                     // Finding percentage of a number
                     const percent = [10, 20, 25, 50, 75][utils.rInt(0, 4)];
                     const number = utils.rInt(20, 100);
-                    const result = (percent / 100) * number;
+                    const result = utils.roundToClean((percent / 100) * number);
                     const correctAnswer = `${result}`;
                     const candidateDistractors = [`${result + 10}`, `${result - 5}`, `${number - result}`];
                     const distractors = utils.ensureUniqueDistractors(

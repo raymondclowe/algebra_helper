@@ -57,7 +57,7 @@ window.QuestionTemplates.SequencesSeries = {
                     const d = utils.rInt(1, 4);
                     const n = utils.rInt(5, 10);
                     const l = a + (n - 1) * d;
-                    const sum = (n * (a + l)) / 2;
+                    const sum = utils.roundToClean((n * (a + l)) / 2);
                     const correctAnswer = `${sum}`;
                     const candidateDistractors = [`${n * a}`, `${sum + n}`, `${a + l}`];
                     const distractors = utils.ensureUniqueDistractors(
@@ -77,7 +77,7 @@ window.QuestionTemplates.SequencesSeries = {
                 } else if (questionType === 4) {
                     // Sigma notation
                     const n = utils.rInt(3, 6);
-                    const sum = (n * (n + 1)) / 2;
+                    const sum = utils.roundToClean((n * (n + 1)) / 2);
                     const correctAnswer = `${sum}`;
                     const candidateDistractors = [`${n * n}`, `${n + 1}`, `${sum + n}`];
                     const distractors = utils.ensureUniqueDistractors(
@@ -110,7 +110,7 @@ window.QuestionTemplates.SequencesSeries = {
                         return result;
                     }
                     
-                    const coeff = factorial(n) / (factorial(r) * factorial(n - r));
+                    const coeff = utils.roundToClean(factorial(n) / (factorial(r) * factorial(n - r)));
                     const correctAnswer = `${coeff}`;
                     const candidateDistractors = [
                         `${n * r}`,
