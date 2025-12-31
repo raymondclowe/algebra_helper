@@ -328,5 +328,61 @@ window.GeneratorUtils = {
             if (Math.abs(val1 - val2) > this.EQUIVALENCE_TOLERANCE) return false;
         }
         return true;
+    },
+    
+    /**
+     * Simplify answer text for display by converting from LaTeX to plain HTML when appropriate.
+     * This function handles:
+     * 1. Pure \text{...} content - extracts to plain text
+     * 2. Mixed LaTeX like \text{To isolate } x \text{ by...} - converts to plain HTML with <i>x</i>
+     * 3. Mathematical LaTeX - leaves unchanged for MathJax rendering
+     * 
+     * @param {string} answer - The answer string (may be LaTeX or plain text)
+     * @returns {string} Simplified answer suitable for display
+     */
+    simplifyAnswerForDisplay: function(answer) {
+        if (!answer) return answer;
+        
+        // Check if answer is purely \text{...} - extract plain text
+        // Use non-greedy match and ensure no nested \text commands
+        const pureTextMatch = answer.match(/^\\text\{(.+?)\}$/) && !answer.includes('} ');
+        if (pureTextMatch && !answer.includes('\\text{', 6)) {
+            return answer.match(/^\\text\{(.+?)\}$/)[1];
+        }
+        
+        // Check for mixed LaTeX pattern: \text{...} with math variables interspersed
+        // Pattern: \text{...} [math] \text{...} etc.
+        // Common in why-questions like: \text{To isolate } x \text{ by canceling out the coefficient}
+        if (answer.includes('\\text{')) {
+            // Parse mixed LaTeX and convert to plain HTML
+            let result = answer;
+            
+            // Replace ALL occurrences of \text{...} with just the content
+            // Use global replace to handle all \text{} blocks
+            result = result.replace(/\\text\{([^}]*)\}/g, '$1');
+            
+            // Clean up any remaining backslashes followed by spaces
+            result = result.replace(/\\\s+/g, ' ');
+            
+            // Replace common single-letter variables with italic HTML
+            // Use word boundaries to only replace standalone variables
+            result = result.replace(/\b([a-z])\b/gi, '<i>$1</i>');
+            
+            // Clean up multiple spaces
+            result = result.replace(/\s+/g, ' ').trim();
+            
+            return result;
+        }
+        
+        // Check if answer needs LaTeX rendering (has complex math notation)
+        const needsLatex = /\\frac|\\sqrt|\\cdot|\\times|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(answer);
+        
+        if (!needsLatex) {
+            // No LaTeX needed - return as plain text
+            return answer;
+        }
+        
+        // Has complex math - leave unchanged for MathJax
+        return answer;
     }
 };
