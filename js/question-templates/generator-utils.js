@@ -9,10 +9,29 @@ window.GeneratorUtils = {
     FALLBACK_DISTRACTOR_MAX_COEFFICIENT: 20, // Max coefficient for fallback distractors
     
     // Helper function to convert function notation to unicode mathematical italic characters
-    // and LaTeX-style superscripts to Unicode superscript characters
+    // For LaTeX/MathJax content (tex, explanation) - preserves superscript notation
     // U+1D453 = 𝑓 (Mathematical Italic Small F)
     // U+1D454 = 𝑔 (Mathematical Italic Small G)
     toUnicodeFunction: function(str) {
+        // First, replace function names with Unicode mathematical italic characters
+        // Use word boundaries to avoid replacing 'f' in words like 'for' or 'of'
+        let result = str
+            .replace(/\bf\(/g, '𝑓(')     // f( -> 𝑓(
+            .replace(/\bf\^/g, '𝑓^')     // f^ -> 𝑓^ (preserve ^ for LaTeX)
+            .replace(/\bf''/g, "𝑓''")   // f'' -> 𝑓'' (for second derivative notation)
+            .replace(/\bf'/g, "𝑓'")     // f' -> 𝑓' (for derivative notation)
+            .replace(/\bg\(/g, '𝑔(')     // g( -> 𝑔(
+            .replace(/\bg\^/g, '𝑔^')     // g^ -> 𝑔^ (preserve ^ for LaTeX)
+            .replace(/\bg''/g, "𝑔''")   // g'' -> 𝑔'' (for second derivative notation)
+            .replace(/\bg'/g, "𝑔'");    // g' -> 𝑔' (for derivative notation)
+        
+        return result;
+    },
+    
+    // Helper function for plain text instructions (not LaTeX)
+    // Converts function notation AND LaTeX-style superscripts to Unicode
+    // For instruction field - converts superscripts for display
+    toUnicodePlainText: function(str) {
         // Map of superscript characters
         const superscripts = {
             '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴',
@@ -21,7 +40,6 @@ window.GeneratorUtils = {
         };
         
         // First, replace function names with Unicode mathematical italic characters
-        // Use word boundaries to avoid replacing 'f' in words like 'for' or 'of'
         let result = str
             .replace(/\bf\(/g, '𝑓(')     // f( -> 𝑓(
             .replace(/\bf\^/g, '𝑓^')     // f^ -> 𝑓^ (before superscript conversion)

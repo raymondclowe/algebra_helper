@@ -47,7 +47,7 @@ window.QuestionTemplates.Quadratics = {
                 
                 return {
                     tex: utils.toUnicodeFunction(`f(x) = ${a}x^2`),
-                    instruction: utils.toUnicodeFunction("Find f^{-1}(x) for x ≥ 0"),
+                    instruction: utils.toUnicodePlainText("Find f^{-1}(x) for x ≥ 0"),
                     displayAnswer: correctAnswer,
                     distractors: wrongAnswers,
                     explanation: utils.toUnicodeFunction(`To find the inverse function, we swap x and y, then solve for y. Start with y = ${a}x^2, swap to get x = ${a}y^2, then divide both sides by ${a} to get y^2 = x/${a}. Finally, take the square root of both sides: y = $\\sqrt{x/${a}}$. We take the positive root because x ≥ 0. The inverse "undoes" what the original function does.`),

@@ -69,8 +69,8 @@ describe('Inverse Quadratic Function Tests', () => {
         });
 
         expect(question).toBeDefined();
-        expect(question.tex).toMatch(/𝑓\(x\) = \d+x²/);
-        expect(question.instruction).toContain('𝑓⁻¹(x)');
+        expect(question.tex).toMatch(/𝑓\(x\) = \d+x\^2/); // tex uses LaTeX notation ^2
+        expect(question.instruction).toContain('𝑓⁻¹(x)'); // instruction uses Unicode ⁻¹
         expect(question.displayAnswer).toBeDefined();
         expect(question.displayAnswer).toMatch(/y = /);
         expect(Array.isArray(question.distractors)).toBe(true);

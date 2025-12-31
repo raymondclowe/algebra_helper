@@ -204,7 +204,7 @@ window.QuestionTemplates.ProofsInduction = {
             } else {
                 return {
                     tex: `\\text{Assume: } 1+${r}+\\cdots+${r}^k = \\frac{${r}^{k+1}-1}{${r}-1}. \\text{ Add } ${r}^{k+1}`,
-                    instruction: utils.toUnicodeFunction(`What is the result after adding ${r}^{k+1}?`),
+                    instruction: utils.toUnicodePlainText(`What is the result after adding ${r}^{k+1}?`),
                     displayAnswer: `\\frac{${r}^{k+2} - 1}{${r} - 1}`,
                     distractors: utils.ensureUniqueDistractors(
                         `\\frac{${r}^{k+2} - 1}{${r} - 1}`,

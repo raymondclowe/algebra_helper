@@ -24,7 +24,7 @@ window.QuestionTemplates.ComplexPolar = {
             
             return {
                 tex: `${choice.x} + ${choice.y === 1 ? '' : choice.y}i`,
-                instruction: utils.toUnicodeFunction("Express in polar form r·e^(iθ)"),
+                instruction: utils.toUnicodePlainText("Express in polar form r·e^(iθ)"),
                 displayAnswer: correctAnswer,
                 distractors: utils.ensureUniqueDistractors(
                     correctAnswer,
