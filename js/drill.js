@@ -85,6 +85,11 @@ window.Learning = {
                 if (window.UI && window.UI.checkAnswerButtonOverflow) {
                     window.UI.checkAnswerButtonOverflow();
                 }
+                
+                // Check if scroll indicator should be shown
+                if (window.UI && window.UI.checkScrollIndicator) {
+                    window.UI.checkScrollIndicator();
+                }
             }, 100);
         });
     },

@@ -26,6 +26,9 @@ window.APP.init = async function() {
         // Initialize help modal
         window.HelpModal.init();
         
+        // Initialize scroll indicator behavior
+        window.UI.initScrollIndicator();
+        
         // Start first question
         window.UI.nextQuestion();
         

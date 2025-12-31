@@ -1,6 +1,55 @@
 // UI Management Functions
 window.UI = {
     _updatingButtons: false, // Flag to prevent concurrent button updates
+    _scrollIndicatorTimeout: null, // Timeout for auto-hiding scroll indicator
+    
+    // Initialize scroll indicator behavior
+    initScrollIndicator: function() {
+        const indicator = document.getElementById('scroll-indicator');
+        if (!indicator) return;
+        
+        // Hide indicator when user scrolls
+        window.addEventListener('scroll', () => {
+            indicator.classList.remove('visible');
+            if (this._scrollIndicatorTimeout) {
+                clearTimeout(this._scrollIndicatorTimeout);
+                this._scrollIndicatorTimeout = null;
+            }
+        }, { passive: true });
+        
+        // Hide indicator on any touch/click
+        document.addEventListener('touchstart', () => {
+            indicator.classList.remove('visible');
+        }, { passive: true });
+    },
+    
+    // Check if answers are below fold and show scroll indicator
+    checkScrollIndicator: function() {
+        const indicator = document.getElementById('scroll-indicator');
+        const mcOptions = document.getElementById('mc-options');
+        if (!indicator || !mcOptions) return;
+        
+        // Small delay to let layout settle
+        setTimeout(() => {
+            const viewportHeight = window.innerHeight;
+            const optionsRect = mcOptions.getBoundingClientRect();
+            
+            // If the top of mc-options is below viewport, show indicator
+            if (optionsRect.top > viewportHeight - 50) {
+                indicator.classList.add('visible');
+                
+                // Auto-hide after 3 seconds
+                if (this._scrollIndicatorTimeout) {
+                    clearTimeout(this._scrollIndicatorTimeout);
+                }
+                this._scrollIndicatorTimeout = setTimeout(() => {
+                    indicator.classList.remove('visible');
+                }, 3000);
+            } else {
+                indicator.classList.remove('visible');
+            }
+        }, 300);
+    },
     
     // Constants for dynamic font sizing and overflow detection
     _FONT_SIZE_CONSTANTS: {
@@ -188,11 +237,11 @@ window.UI = {
         if (!button) return;
         
         if (enabled) {
-            button.classList.remove('opacity-30', 'cursor-not-allowed');
-            button.classList.add('hover:bg-gray-700', 'cursor-pointer');
+            button.classList.remove('opacity-20', 'cursor-not-allowed');
+            button.classList.add('opacity-40', 'hover:opacity-70', 'cursor-pointer');
         } else {
-            button.classList.add('opacity-30', 'cursor-not-allowed');
-            button.classList.remove('hover:bg-gray-700', 'cursor-pointer');
+            button.classList.add('opacity-20', 'cursor-not-allowed');
+            button.classList.remove('opacity-40', 'hover:opacity-70', 'cursor-pointer');
         }
     },
     

@@ -276,6 +276,12 @@
             </div>
         </div>
         
+        <!-- Scroll Indicator (shows when answers are below fold) -->
+        <div id="scroll-indicator" class="scroll-indicator">
+            <div class="chevron"></div>
+            <span class="hint-text">scroll</span>
+        </div>
+        
         <!-- Mobile Help/FAQ Button (Floating) -->
         <button id="mobile-help-btn" onclick="HelpModal.show()" class="fixed bottom-4 right-4 w-14 h-14 bg-gradient-to-br from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white rounded-full shadow-lg flex items-center justify-center z-40 md:hidden transition-all" title="Help & Tips" aria-label="Help and Tips">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -288,14 +294,14 @@
             <div id="calc-indicator" class="absolute top-4 right-4 opacity-50"></div>
             
             <!-- History Navigation Arrows -->
-            <div class="absolute left-4 top-1/2 transform -translate-y-1/2 flex gap-2">
-                <button id="history-nav-left" onclick="UI.navigateHistory(1)" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center opacity-30 cursor-not-allowed" title="View older question">
-                    <span class="text-xl">←</span>
+            <div class="absolute left-1 top-1/2 transform -translate-y-1/2 flex gap-2">
+                <button id="history-nav-left" onclick="UI.navigateHistory(1)" class="w-8 h-8 bg-transparent hover:bg-gray-700/50 rounded-full flex items-center justify-center opacity-20 cursor-not-allowed transition-opacity duration-200" title="View older question">
+                    <span class="text-base text-gray-400">←</span>
                 </button>
             </div>
-            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex gap-2">
-                <button id="history-nav-right" onclick="UI.navigateHistory(-1)" class="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center opacity-30 cursor-not-allowed" title="View newer question / Return to present">
-                    <span class="text-xl">→</span>
+            <div class="absolute right-1 top-1/2 transform -translate-y-1/2 flex gap-2">
+                <button id="history-nav-right" onclick="UI.navigateHistory(-1)" class="w-8 h-8 bg-transparent hover:bg-gray-700/50 rounded-full flex items-center justify-center opacity-20 cursor-not-allowed transition-opacity duration-200" title="View newer question / Return to present">
+                    <span class="text-base text-gray-400">→</span>
                 </button>
             </div>
 
