@@ -285,10 +285,10 @@ window.ActivityTracker = {
             const timeSinceLastActivity = now - this.lastActivityTime;
             
             // Only count time up to INACTIVITY_TIMEOUT_MS after last activity
-            // If user hasn't interacted in more than 1 minute, they're considered away
+            // If user hasn't interacted in more than INACTIVITY_TIMEOUT_MS, they're considered away
             let endTime = now;
             if (timeSinceLastActivity > INACTIVITY_TIMEOUT_MS) {
-                // User is inactive - only count up to 1 minute after last activity
+                // User is inactive - only count up to INACTIVITY_TIMEOUT_MS after last activity
                 endTime = this.lastActivityTime + INACTIVITY_TIMEOUT_MS;
             }
             
