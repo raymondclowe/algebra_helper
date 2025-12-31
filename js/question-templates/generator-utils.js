@@ -26,6 +26,48 @@ window.GeneratorUtils = {
         return this.rInt(min, max);
     },
     
+    /**
+     * Format a coefficient for display in an algebraic expression
+     * @param {number} n - The coefficient value
+     * @param {boolean} isFirst - Whether this is the first term (no leading +)
+     * @returns {string} Formatted coefficient string
+     * Examples: 
+     *   formatCoeff(1, true) => "" (for 1x as first term)
+     *   formatCoeff(1, false) => " + " (for + x as later term)
+     *   formatCoeff(-1, true) => "-" (for -x as first term)
+     *   formatCoeff(-1, false) => " - " (for - x as later term)
+     *   formatCoeff(3, true) => "3" (for 3x as first term)
+     *   formatCoeff(3, false) => " + 3" (for + 3x as later term)
+     *   formatCoeff(-3, false) => " - 3" (for - 3x as later term)
+     */
+    formatCoeff: function(n, isFirst = true) {
+        if (isFirst) {
+            if (n === 1) return '';
+            if (n === -1) return '-';
+            return String(n);
+        } else {
+            if (n === 1) return ' + ';
+            if (n === -1) return ' - ';
+            if (n > 0) return ` + ${n}`;
+            return ` - ${Math.abs(n)}`;
+        }
+    },
+    
+    /**
+     * Format a constant term with proper sign handling
+     * @param {number} n - The constant value  
+     * @param {boolean} isFirst - Whether this is the first term
+     * @returns {string} Formatted constant string
+     */
+    formatConstant: function(n, isFirst = false) {
+        if (isFirst) {
+            return String(n);
+        } else {
+            if (n >= 0) return ` + ${n}`;
+            return ` - ${Math.abs(n)}`;
+        }
+    },
+    
     // Constants for expression evaluation
     EQUIVALENCE_TOLERANCE: 0.0001,
     EQUIVALENCE_TEST_VALUES: [1, 2, 4, 9, 16],

@@ -98,11 +98,11 @@ window.QuestionTemplates.BasicEquations = {
     // Level 19-20: Basic differentiation
     lvl5: function() {
         const utils = window.GeneratorUtils;
-        // Randomly choose between differentiation and inverse function questions
-        const questionType = utils.getQuestionType(1, 2);
+        // Generate differentiation questions only - inverse functions moved to appropriate topic
+        const questionType = utils.getQuestionType(1, 3);
         
         if (questionType === 1) {
-            // Original differentiation question
+            // Basic power rule: d/dx[ax^n]
             const a = utils.rInt(2,5), n = utils.rInt(2,4);
             const correctAnswer = `${a*n}x^{${n-1}}`;
             const candidateDistractors = [`${a*n}x^{${n}}`, `${a}x^{${n-1}}`, `${n}x^{${a}}`];
@@ -123,9 +123,63 @@ window.QuestionTemplates.BasicEquations = {
                 explanation: utils.toUnicodeFunction(`Use the power rule for differentiation: multiply the coefficient by the exponent, then reduce the exponent by 1. So ${a}x^${n} becomes ${a} × ${n} × x^${n-1} = ${a*n}x^${n-1}. The derivative tells us the rate of change of the function.`), 
                 calc:false 
             };
+        } else if (questionType === 2) {
+            // Sum rule: d/dx[ax^n + bx^m]
+            const a = utils.rInt(2, 4), n = utils.rInt(2, 3);
+            const b = utils.rInt(2, 5), m = utils.rInt(3, 4);
+            const term1 = `${a*n}x^{${n-1}}`;
+            const term2 = `${b*m}x^{${m-1}}`;
+            const correctAnswer = `${term1} + ${term2}`;
+            const candidateDistractors = [
+                `${a}x^{${n-1}} + ${b}x^{${m-1}}`,
+                `${a*n + b*m}x^{${n+m-2}}`,
+                `${a*n}x^{${n}} + ${b*m}x^{${m}}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const c1 = utils.rInt(2, 15);
+                    const c2 = utils.rInt(2, 15);
+                    const e1 = utils.rInt(1, 4);
+                    const e2 = utils.rInt(1, 4);
+                    return `${c1}x^{${e1}} + ${c2}x^{${e2}}`;
+                }
+            );
+            return {
+                tex: utils.toUnicodeFunction(`f(x) = ${a}x^{${n}} + ${b}x^{${m}}`),
+                instruction: utils.toUnicodeFunction("Find f'(x)"),
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: utils.toUnicodeFunction(`Differentiate each term separately using the power rule. For ${a}x^${n}: ${a}×${n}x^${n-1} = ${a*n}x^${n-1}. For ${b}x^${m}: ${b}×${m}x^${m-1} = ${b*m}x^${m-1}.`),
+                calc: false
+            };
         } else {
-            // Inverse function question for quadratic functions
-            return window.QuestionTemplates.Quadratics.getInverseQuadraticQuestion();
+            // Constant multiple rule with negative exponent
+            const a = utils.rInt(2, 6);
+            const correctAnswer = `-${a}x^{-2}`;
+            const candidateDistractors = [
+                `${a}x^{-2}`,
+                `-${a}x^{-1}`,
+                `\\frac{${a}}{x}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const c = utils.rInt(2, 10);
+                    const e = utils.rInt(-3, -1);
+                    return `${c}x^{${e}}`;
+                }
+            );
+            return {
+                tex: utils.toUnicodeFunction(`f(x) = \\frac{${a}}{x}`),
+                instruction: utils.toUnicodeFunction("Find f'(x)"),
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: utils.toUnicodeFunction(`Rewrite as f(x) = ${a}x^{-1}. Using power rule: f'(x) = ${a} × (-1) × x^{-2} = -${a}x^{-2} = -${a}/x².`),
+                calc: false
+            };
         }
     }
 };

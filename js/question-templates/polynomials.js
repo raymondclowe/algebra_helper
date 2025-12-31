@@ -8,10 +8,10 @@ window.QuestionTemplates.Polynomials = {
         const questionType = utils.getQuestionType(1, 3);
                 
                 if (questionType === 1) {
-                    // Polynomial addition
+                    // Polynomial addition - avoid coefficient of 1 showing as "1x"
                     const a1 = utils.rInt(2, 5);
                     const b1 = utils.rInt(1, 8);
-                    const a2 = utils.rInt(1, 4);
+                    const a2 = utils.rInt(2, 4);  // Changed min from 1 to 2 to avoid 1x
                     const b2 = utils.rInt(1, 7);
                     const sumA = a1 + a2;
                     const sumB = b1 + b2;
@@ -36,6 +36,7 @@ window.QuestionTemplates.Polynomials = {
                     const a = utils.rInt(1, 5);
                     const b = utils.rInt(1, 6);
                     const c = -a * b; // Make (x - a) a factor
+                    const middleCoeff = b - a;
                     const correctAnswer = `\\text{Yes}`;
                     const candidateDistractors = [`\\text{No}`, `\\text{Only if x > 0}`, `\\text{Cannot determine}`];
                     const distractors = utils.ensureUniqueDistractors(
@@ -47,8 +48,12 @@ window.QuestionTemplates.Polynomials = {
                         }
                     );
                     
+                    // Format: x^2 + bx + c with proper sign handling
+                    const middleTerm = middleCoeff === 0 ? '' : (middleCoeff === 1 ? ' + x' : (middleCoeff === -1 ? ' - x' : utils.formatConstant(middleCoeff) + 'x'));
+                    const constTerm = utils.formatConstant(c);
+                    
                     return {
-                        tex: utils.toUnicodeFunction(`f(x) = x^2 + ${b - a}x + ${c}`),
+                        tex: utils.toUnicodeFunction(`f(x) = x^2${middleTerm}${constTerm}`),
                         instruction: `\\text{Is } (x - ${a}) \\text{ a factor?}`,
                         displayAnswer: correctAnswer,
                         distractors: distractors,

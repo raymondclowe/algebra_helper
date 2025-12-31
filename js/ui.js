@@ -81,8 +81,16 @@ window.UI = {
         window.APP.currentQ = window.Generator.getQuestion(window.APP.level);
         window.APP.startTime = Date.now();
 
-        // Render
-        document.getElementById('instruction-text').innerText = window.APP.currentQ.instruction;
+        // Render instruction - check if it contains LaTeX commands
+        const instrDiv = document.getElementById('instruction-text');
+        const instruction = window.APP.currentQ.instruction;
+        // If instruction contains LaTeX commands (\text, \frac, etc.), render with MathJax
+        if (instruction.includes('\\')) {
+            instrDiv.innerHTML = `\\( ${instruction} \\)`;
+        } else {
+            // Plain text instruction - use uppercase styling for consistency
+            instrDiv.innerHTML = instruction.toUpperCase();
+        }
         const qDiv = document.getElementById('question-math');
         
         // Process LaTeX to improve line breaks and spacing
@@ -101,7 +109,7 @@ window.UI = {
             qDiv.innerHTML = `\\[ ${processedTex} \\]`;
         }
         
-        MathJax.typesetPromise([qDiv]).then(() => {
+        MathJax.typesetPromise([instrDiv, qDiv]).then(() => {
             // Adjust font size if question is too big for mobile
             this.adjustQuestionFontSize(qDiv);
         });
