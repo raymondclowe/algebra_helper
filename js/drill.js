@@ -65,7 +65,8 @@ window.Learning = {
                         // Replace unicode math symbols if present
                         const textContent = opt.val
                             .replace(/𝑓/g, '<span style="font-style: italic;">f</span>')
-                            .replace(/𝑔/g, '<span style="font-style: italic;">g</span>');
+                            .replace(/𝑔/g, '<span style="font-style: italic;">g</span>')
+                            .replace(/𝑥/g, '<span style="font-style: italic;">x</span>');
                         btn.innerHTML = `<span style="font-style: normal; word-spacing: 0.15em;">${textContent}</span>`;
                     }
                 }
