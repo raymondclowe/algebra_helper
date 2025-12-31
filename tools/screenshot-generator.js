@@ -71,11 +71,40 @@ class ScreenshotGenerator {
             { timeout: 15000 }
         );
         
+        // Skip the Welcome dialog and set up learning mode to see the full question UI
+        await this.page.evaluate((testLevel) => {
+            // Close the welcome modal if present
+            const welcomeModal = document.getElementById('name-modal');
+            if (welcomeModal) {
+                welcomeModal.style.display = 'none';
+            }
+            
+            // Set app to learning mode (skip calibration)
+            window.APP.mode = 'learning';
+            window.APP.level = testLevel;
+            window.APP.userName = 'Validator';
+            
+            // Hide calibration-specific elements
+            const calibrationElements = document.querySelectorAll('.calibration-only, #timeout-bar-container');
+            calibrationElements.forEach(el => el.style.display = 'none');
+            
+            // Show learning mode elements
+            const learningElements = document.querySelectorAll('.learning-only, #mc-options');
+            learningElements.forEach(el => el.style.display = '');
+            
+            // Trigger a new question to get the UI in the right state
+            if (window.UI && window.UI.nextQuestion) {
+                window.UI.nextQuestion();
+            }
+        }, level);
+        
         // Wait for the question to be generated and rendered
         await this.page.waitForFunction(
             () => {
                 const questionMath = document.getElementById('question-math');
-                return questionMath && questionMath.textContent.trim().length > 0;
+                const mcOptions = document.getElementById('mc-options');
+                return questionMath && questionMath.textContent.trim().length > 0 && 
+                       mcOptions && mcOptions.children.length > 0;
             },
             { timeout: 10000 }
         );
