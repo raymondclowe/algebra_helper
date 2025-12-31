@@ -1,3 +1,17 @@
+# Automated Question Validation (Gemini 3 Pro via OpenRouter)
+
+### Comprehensive Validation System
+
+The validation tool now tests **all question types** for every level (1-34) using the actual app UI. It uses Puppeteer to launch the app with special URL parameters:
+
+- `?testLevel=N` — Forces the app to generate a question at level N
+- `?testType=M` — Forces the app to generate question type M within that level
+
+This ensures every pathway in the question generator is tested, not just random samples.
+
+**Screenshots** are captured from the real app, with full MathJax rendering, for each question type. **AI responses** from Gemini 3 Pro (via OpenRouter) are saved for every question for manual cross-checking.
+
+See [tools/README.md](tools/README.md) for full details.
 # Algebra Helper - Interactive Math Trainer
 
 🚀 **[Launch the App Now!](https://raymondclowe.github.io/algebra_helper/algebra-helper.html)**

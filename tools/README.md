@@ -4,12 +4,13 @@ Automated cross-checking tool for all types of algebra helper questions using Ge
 
 ## Overview
 
-This tool validates the correctness and quality of automatically generated mathematics questions by:
-1. Generating questions from all difficulty levels (1-25+)
-2. Creating visual screenshots of each question
-3. Sending screenshots to Gemini 3 Pro for AI-powered validation
-4. Parsing feedback and generating issue reports for problems found
-5. Creating a comprehensive summary report
+This tool validates the correctness and quality of **all automatically generated mathematics questions** by:
+1. Generating every question type for all 34 difficulty levels (1-34, including HL topics)
+2. Creating screenshots of each question using the actual app UI (with full MathJax rendering)
+3. Sending each screenshot to Gemini 3 Pro for AI-powered validation (via OpenRouter)
+4. Saving the full AI response for every question for manual cross-checking
+5. Parsing feedback and generating issue reports for problems found
+6. Creating a comprehensive summary report
 
 ## Requirements
 
@@ -52,27 +53,32 @@ npm run validate-questions
 ```
 
 This will:
-- Test all 25 difficulty levels
-- Generate 2 questions per level (50 total questions)
-- Create screenshots for each question
-- Send each to Gemini 3 Pro for validation
+- Test **all 34 difficulty levels** (including HL topics)
+- Test **every question type** for each level (not just random samples)
+- Create screenshots for each question type using the real app UI (with MathJax)
+- Send each screenshot to Gemini 3 Pro for validation
+- Save the full AI response for every question to `validation-output/responses/`
 - Generate issue files for any problems found
 - Create a summary report
 
 ### Output
 
-The tool creates three types of output:
+The tool creates these types of output:
 
-1. **Screenshots** - `validation-output/screenshots/`
-   - PNG images of each generated question
-   - Format: `level-{N}-q{N}.png`
+1. **Screenshots** — `validation-output/screenshots/`
+   - PNG images of each generated question type
+   - Format: `level-{N}-type{M}.png`
 
-2. **Issue Files** - `validation-issues/`
+2. **AI Responses** — `validation-output/responses/`
+   - Full Gemini 3 Pro response for every question type (JSON)
+   - Format: `level-{N}-type{M}.json`
+
+3. **Issue Files** — `validation-issues/`
    - Markdown files for each question that failed validation
    - Contains full context and AI feedback
    - Ready to be converted to GitHub issues
 
-3. **Summary Report** - `validation-output/`
+4. **Summary Report** — `validation-output/`
    - Overall validation results
    - Statistics by level
    - Recommendations for fixes
@@ -81,9 +87,8 @@ The tool creates three types of output:
 
 Edit `tools/config.js` to customize:
 
-- `questionsPerLevel` - Number of questions to generate per level (default: 2)
-- `levelsToTest` - Which difficulty levels to test (default: all 25)
-- `validationPrompt` - Prompt sent to Gemini 3 Pro
+- `levelsToTest` — List of all 34 levels and their question type counts
+- `validationPrompt` — Prompt sent to Gemini 3 Pro
 
 ## Technical Details
 
@@ -99,15 +104,15 @@ Edit `tools/config.js` to customize:
 
 ```
 question-validator.js     - Main orchestration script
-├── config.js            - Configuration management
-├── api-client.js        - OpenRouter API integration
-├── screenshot-generator.js - Puppeteer-based screenshot capture
-└── issue-generator.js   - GitHub issue file generation
+├── config.js             - Configuration management (all 34 levels, question type counts)
+├── api-client.js         - OpenRouter API integration
+├── screenshot-generator.js - Puppeteer-based screenshot capture (uses live app with URL params)
+└── issue-generator.js    - GitHub issue file generation
 ```
 
 ### Question Types Validated
 
-The tool exercises all question types across 25+ difficulty levels:
+The tool exercises **all question types** across 34 difficulty levels:
 
 - **Level 1:** Basic Arithmetic
 - **Level 2:** Powers and Roots
@@ -133,7 +138,8 @@ The tool exercises all question types across 25+ difficulty levels:
 - **Level 22:** Statistics
 - **Level 23:** Basic Probability
 - **Level 24:** Advanced Probability
-- **Level 25+:** Integration & Series
+- **Level 25:** Integration & Series
+- **Level 26-34:** Advanced HL AA topics (Proof, Matrices, 3D Vectors, Complex Polar, Advanced Integration, Differential Equations, Probability Distributions, Hypothesis Testing)
 
 ### Validation Criteria
 
@@ -144,6 +150,7 @@ Gemini 3 Pro checks each question for:
 4. Correct answer is actually correct
 5. Distractors are genuinely incorrect but plausible
 6. Notation is clear and standard
+7. **Correct topic and question type labeling**
 
 ### Response Format
 
@@ -193,6 +200,7 @@ If screenshots fail to generate:
 - Verify Puppeteer is installed: `npm list puppeteer`
 - Check that `algebra-helper.html` exists in the project root
 - Ensure MathJax CDN is accessible
+- **Check that the app is not stuck in calibration or welcome mode (the tool now skips these automatically)**
 
 ## Cost Estimation
 
