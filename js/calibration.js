@@ -89,7 +89,7 @@ window.Calibration = {
             // Special case: if cMin is near MAX_LEVEL, start at MAX_LEVEL (user knows everything)
             if (window.APP.cMax <= MIN_LEVEL) {
                 window.APP.level = MIN_LEVEL;
-            } else if (window.APP.cMin >= MAX_LEVEL - 1) {
+            } else if (window.APP.cMin >= MAX_LEVEL - 2) {
                 // User demonstrated knowledge at top levels - place them at MAX_LEVEL
                 window.APP.level = MAX_LEVEL;
             } else {
