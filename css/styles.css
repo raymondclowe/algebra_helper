@@ -777,6 +777,21 @@ Removed, not necessary in MathJax 4
     hyphens: auto;
 }
 
+/* Plain text answers extracted from \text{} - ensure proper wrapping */
+#mc-options button .plain-text-answer {
+    display: inline-block !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+    padding: 0.25rem 0 !important;
+}
+
 /* Mobile-specific MathJax improvements */
 @media (max-width: 768px) {
     /* Reduce MathJax font size on mobile for better wrapping */
