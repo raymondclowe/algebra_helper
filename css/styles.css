@@ -616,7 +616,6 @@ input[type="checkbox"] {
     font-style: normal !important;
     /* Ensure proper vertical alignment to prevent clipping */
     vertical-align: baseline !important;
-    line-height: 1.4 !important;
 }
 
 #mc-options button .MathJax * {
