@@ -264,12 +264,12 @@ describe('Cross-Session Time Tracking Tests', () => {
     test('Constants are properly exported to window scope', async () => {
         const windowConstants = await page.evaluate(() => {
             return {
-                dailySaveInterval: window.DAILY_SAVE_INTERVAL_MS,
-                inactivityTimeout: window.INACTIVITY_TIMEOUT_MS,
-                awayQuickCheck: window.AWAY_SESSION_QUICK_CHECK_THRESHOLD,
-                awayBriefDistraction: window.AWAY_SESSION_BRIEF_DISTRACTION_THRESHOLD,
-                awayShortBreak: window.AWAY_SESSION_SHORT_BREAK_THRESHOLD,
-                maxAwaySessions: window.MAX_AWAY_SESSIONS
+                dailySaveInterval: typeof DAILY_SAVE_INTERVAL_MS !== 'undefined' ? DAILY_SAVE_INTERVAL_MS : window.DAILY_SAVE_INTERVAL_MS,
+                inactivityTimeout: typeof INACTIVITY_TIMEOUT_MS !== 'undefined' ? INACTIVITY_TIMEOUT_MS : window.INACTIVITY_TIMEOUT_MS,
+                awayQuickCheck: typeof AWAY_SESSION_QUICK_CHECK_THRESHOLD !== 'undefined' ? AWAY_SESSION_QUICK_CHECK_THRESHOLD : window.AWAY_SESSION_QUICK_CHECK_THRESHOLD,
+                awayBriefDistraction: typeof AWAY_SESSION_BRIEF_DISTRACTION_THRESHOLD !== 'undefined' ? AWAY_SESSION_BRIEF_DISTRACTION_THRESHOLD : window.AWAY_SESSION_BRIEF_DISTRACTION_THRESHOLD,
+                awayShortBreak: typeof AWAY_SESSION_SHORT_BREAK_THRESHOLD !== 'undefined' ? AWAY_SESSION_SHORT_BREAK_THRESHOLD : window.AWAY_SESSION_SHORT_BREAK_THRESHOLD,
+                maxAwaySessions: typeof MAX_AWAY_SESSIONS !== 'undefined' ? MAX_AWAY_SESSIONS : window.MAX_AWAY_SESSIONS
             };
         });
         
