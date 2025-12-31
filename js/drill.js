@@ -43,27 +43,27 @@ window.Learning = {
                     <span class="text-xs text-gray-500 mt-1">(no penalty)</span>
                 </div>`;
             } else {
-                // Check if the answer is purely \text{...} - extract plain text for better wrapping
-                // MathJax's \text{} renders as CHTML which doesn't respect CSS text wrapping
-                const textOnlyMatch = opt.val.match(/^\\text\{(.+)\}$/);
+                // Use the simplifyAnswerForDisplay helper to intelligently convert LaTeX to HTML when appropriate
+                const utils = window.GeneratorUtils;
+                const simplifiedAnswer = utils.simplifyAnswerForDisplay(opt.val);
                 
-                if (textOnlyMatch) {
-                    // Extract the plain text content from \text{...} and render as HTML
-                    // This allows proper CSS text wrapping on narrow screens
-                    const plainText = textOnlyMatch[1];
-                    btn.innerHTML = `<span class="plain-text-answer" style="font-family: 'Times New Roman', Times, serif; font-style: normal; word-spacing: 0.1em;">${plainText}</span>`;
+                // Check if the simplified answer is different from original (i.e., was simplified to plain HTML)
+                // We check for absence of backslash-based LaTeX commands, not just any backslash
+                const wasSimplified = simplifiedAnswer !== opt.val && !simplifiedAnswer.includes('\\text') && !simplifiedAnswer.includes('\\frac');
+                
+                if (wasSimplified) {
+                    // Simplified to plain HTML - render directly with proper styling
+                    btn.innerHTML = `<span class="plain-text-answer" style="font-family: 'Times New Roman', Times, serif; font-style: normal; word-spacing: 0.1em;">${simplifiedAnswer}</span>`;
                 } else {
-                    // Smart rendering: Use plain text with unicode for simple text answers,
-                    // LaTeX only for mathematical expressions
-                    const needsLatex = /[\^_{}\\]|frac|sqrt|cdot|times|pm|leq|geq|sum|int|lim|log|sin|cos|tan|alpha|beta|gamma|delta|theta|pi/.test(opt.val);
+                    // Still contains LaTeX - check if it needs MathJax rendering
+                    const needsLatex = /\\frac|\\sqrt|\\cdot|\\times|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(simplifiedAnswer);
                     
                     if (needsLatex) {
                         // Render as LaTeX math for complex expressions
-                        btn.innerHTML = `\\( ${opt.val} \\)`;
+                        btn.innerHTML = `\\( ${simplifiedAnswer} \\)`;
                     } else {
-                        // Render as plain text with proper spacing and non-italic font
-                        // Replace unicode math symbols if present
-                        const textContent = opt.val
+                        // Plain text - render with proper spacing
+                        const textContent = simplifiedAnswer
                             .replace(/𝑓/g, '<span style="font-style: italic;">f</span>')
                             .replace(/𝑔/g, '<span style="font-style: italic;">g</span>')
                             .replace(/𝑥/g, '<span style="font-style: italic;">x</span>');
