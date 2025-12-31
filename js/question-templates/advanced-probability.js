@@ -24,7 +24,7 @@ window.QuestionTemplates.AdvancedProbability = {
                     const distractors = utils.ensureUniqueDistractorsFractionAware(
                         correctAnswer,
                         candidateDistractors,
-                        () => utils.roundToClean(Math.random() * 0.9 + 0.1, 2).toString()
+                        () => `${utils.roundToClean(Math.random() * 0.9 + 0.1, 2)}`
                     );
                     
                     return {
@@ -52,7 +52,7 @@ window.QuestionTemplates.AdvancedProbability = {
                     const distractors = utils.ensureUniqueDistractorsFractionAware(
                         correctAnswer,
                         candidateDistractors,
-                        () => utils.roundToClean(Math.random() * 0.9 + 0.1, 2).toString()
+                        () => `${utils.roundToClean(Math.random() * 0.9 + 0.1, 2)}`
                     );
                     
                     return {
