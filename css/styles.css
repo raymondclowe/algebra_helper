@@ -814,7 +814,7 @@ Removed, not necessary in MathJax 4
     }
     
     #mc-options mjx-container {
-        font-size: 0.8em !important; /* Reduced from 0.85em for better fit */
+        font-size: 1em !important; /* Increased to 1em for better readability */
     }
     
     /* Add spacing between wrapped lines */
@@ -854,7 +854,7 @@ Removed, not necessary in MathJax 4
     }
     
     #mc-options mjx-container {
-        font-size: 0.7em !important;
+        font-size: 1em !important;
     }
 }
 
@@ -915,12 +915,12 @@ Removed, not necessary in MathJax 4
 
 /* Scale down button text for very long answers */
 #mc-options button mjx-container {
-    font-size: 0.95em !important;
+    font-size: 1em !important;
 }
 
-/* For very long button text, scale down more */
+/* For very long button text, scale down slightly */
 #mc-options button:has(mjx-container mjx-math[style*="width"]) mjx-container {
-    font-size: 0.85em !important;
+    font-size: 0.95em !important;
 }
 
 /* Container-level overflow prevention for answer grid */
