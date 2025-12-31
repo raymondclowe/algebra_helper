@@ -333,8 +333,8 @@ window.UI = {
             // Reset any previous font size adjustment
             mathContainer.style.fontSize = '';
             
-            // Only apply on mobile/tablet viewports
-            if (window.innerWidth > 768) {
+            // Apply on mobile/tablet viewports up to 1024px (was 768px)
+            if (window.innerWidth > 1024) {
                 return;
             }
             
@@ -351,12 +351,13 @@ window.UI = {
             // Calculate overflow percentage
             const overflowRatio = contentWidth / containerWidth;
             
-            // Reduce font size progressively, up to 25% reduction (0.75 scale)
-            // Start with current effective font size (0.85em on mobile from CSS)
+            // Reduce font size progressively
+            // More aggressive reduction for smaller screens
+            const maxReduction = window.innerWidth <= 480 ? 0.40 : 0.35; // Up to 40% on small phones, 35% otherwise
             let scaleFactor = 1.0;
             
-            // Try reducing in 5% increments up to 25% total
-            for (let reduction = 0.05; reduction <= 0.25; reduction += 0.05) {
+            // Try reducing in 5% increments
+            for (let reduction = 0.05; reduction <= maxReduction; reduction += 0.05) {
                 scaleFactor = 1.0 - reduction;
                 const newSize = scaleFactor;
                 
@@ -373,9 +374,10 @@ window.UI = {
                 }
             }
             
-            // If even 25% reduction doesn't work, keep the 25% reduction
-            // and let the existing CSS word-wrapping handle the rest
-            mathContainer.style.fontSize = '0.75em';
+            // If maximum reduction doesn't work, apply minimum size
+            // and horizontal scroll will handle the rest (CSS sets overflow-x: auto)
+            const minSize = window.innerWidth <= 480 ? '0.60em' : '0.65em';
+            mathContainer.style.fontSize = minSize;
             
         }, this._FONT_SIZE_CONSTANTS.MATHJAX_RENDER_DELAY_MS);
     },
