@@ -362,4 +362,170 @@ describe('Tab Visibility Time Tracking Tests', () => {
         const hasAwayLog = consoleLogs.some(log => log.includes('User was away for'));
         expect(hasAwayLog).toBe(true);
     });
+
+    test('Away time is not counted in daily stats', async () => {
+        // Clear daily stats
+        await page.evaluate(() => {
+            localStorage.removeItem('algebraHelperDailyStats');
+            ActivityTracker.reset();
+            ActivityTracker.lastDailySaveTime = Date.now();
+        });
+        
+        // Be active for 2 seconds
+        await wait(2000);
+        
+        // Save daily time while active
+        await page.evaluate(() => {
+            ActivityTracker.saveDailyTime();
+        });
+        
+        const activeMinutes = await page.evaluate(() => {
+            const stats = StorageManager.getDailyStats();
+            return stats.minutesSpent;
+        });
+        
+        // Should have tracked approximately 2 seconds (0.033 minutes)
+        expect(activeMinutes).toBeGreaterThan(0.02);
+        expect(activeMinutes).toBeLessThan(0.05);
+        
+        // Pause (simulate going away)
+        await page.evaluate(() => {
+            ActivityTracker.pause();
+        });
+        
+        // Wait 5 seconds while away
+        await wait(5000);
+        
+        // Try to save daily time while paused (should not add time)
+        await page.evaluate(() => {
+            ActivityTracker.saveDailyTime();
+        });
+        
+        const minutesAfterPause = await page.evaluate(() => {
+            const stats = StorageManager.getDailyStats();
+            return stats.minutesSpent;
+        });
+        
+        // Should be the same as before (no additional time added during pause)
+        expect(minutesAfterPause).toBeCloseTo(activeMinutes, 2);
+        
+        // Resume
+        await page.evaluate(() => {
+            ActivityTracker.resume();
+        });
+        
+        // Wait 2 seconds after resume
+        await wait(2000);
+        
+        // Save daily time after resume
+        await page.evaluate(() => {
+            ActivityTracker.saveDailyTime();
+        });
+        
+        const minutesAfterResume = await page.evaluate(() => {
+            const stats = StorageManager.getDailyStats();
+            return stats.minutesSpent;
+        });
+        
+        // Should have added approximately 2 more seconds (0.033 minutes)
+        // but NOT the 5 seconds of away time
+        const addedMinutes = minutesAfterResume - minutesAfterPause;
+        expect(addedMinutes).toBeGreaterThan(0.02);
+        expect(addedMinutes).toBeLessThan(0.05);
+        
+        // Total should be around 4 seconds (0.067 minutes), not 9 seconds
+        expect(minutesAfterResume).toBeLessThan(0.1);
+    });
+
+    test('lastDailySaveTime is reset when resuming from pause', async () => {
+        await page.evaluate(() => {
+            ActivityTracker.reset();
+            ActivityTracker.lastDailySaveTime = Date.now() - 10000; // 10 seconds ago
+        });
+        
+        const initialSaveTime = await page.evaluate(() => {
+            return ActivityTracker.lastDailySaveTime;
+        });
+        
+        // Pause
+        await page.evaluate(() => {
+            ActivityTracker.pause();
+        });
+        
+        await wait(2000); // Wait while paused
+        
+        // Resume
+        const resumeTime = await page.evaluate(() => {
+            const now = Date.now();
+            ActivityTracker.resume();
+            return now;
+        });
+        
+        await wait(100);
+        
+        const saveTimeAfterResume = await page.evaluate(() => {
+            return ActivityTracker.lastDailySaveTime;
+        });
+        
+        // lastDailySaveTime should have been reset to current time when resuming
+        expect(saveTimeAfterResume).toBeGreaterThan(initialSaveTime);
+        expect(saveTimeAfterResume).toBeGreaterThanOrEqual(resumeTime - 100); // Allow 100ms margin
+    });
+
+    test('Inactive time beyond 1 minute is not counted in daily stats', async () => {
+        // Clear daily stats and setup
+        const initialTime = await page.evaluate(() => {
+            localStorage.removeItem('algebraHelperDailyStats');
+            ActivityTracker.reset();
+            const now = Date.now();
+            return now;
+        });
+        
+        // Wait a bit to accumulate some time
+        await wait(2000);
+        
+        // Save daily time (should add ~2 seconds)
+        await page.evaluate(() => {
+            ActivityTracker.saveDailyTime();
+        });
+        
+        const minutesAfterFirstSave = await page.evaluate(() => {
+            const stats = StorageManager.getDailyStats();
+            return stats.minutesSpent;
+        });
+        
+        // Should have tracked approximately 2 seconds (~0.033 minutes)
+        expect(minutesAfterFirstSave).toBeGreaterThan(0.02);
+        expect(minutesAfterFirstSave).toBeLessThan(0.1);
+        
+        // Now simulate user being inactive for 90 seconds (1.5 minutes) from NOW
+        // Set lastActivityTime to 90 seconds before current time
+        // Set lastDailySaveTime to 90 seconds before current time
+        const result = await page.evaluate(() => {
+            const now = Date.now();
+            ActivityTracker.lastActivityTime = now - 90000; // 90 seconds ago
+            ActivityTracker.lastDailySaveTime = now - 90000; // 90 seconds ago
+            
+            // Now call saveDailyTime - it should only count 60 seconds (1 minute)
+            ActivityTracker.saveDailyTime();
+            
+            const stats = StorageManager.getDailyStats();
+            return {
+                minutesSpent: stats.minutesSpent,
+                lastActivityTime: ActivityTracker.lastActivityTime,
+                lastDailySaveTime: ActivityTracker.lastDailySaveTime,
+                now: now
+            };
+        });
+        
+        // Should have added 1 minute (not 1.5 minutes)
+        const addedMinutes = result.minutesSpent - minutesAfterFirstSave;
+        
+        // The key test: added time should be close to 1 minute (not 1.5 minutes)
+        expect(addedMinutes).toBeGreaterThan(0.95); // Should be close to 1 minute
+        expect(addedMinutes).toBeLessThanOrEqual(1.05); // 1 minute + small margin
+        
+        // Total should not exceed the first save + 1 minute
+        expect(result.minutesSpent).toBeLessThan(minutesAfterFirstSave + 1.1);
+    });
 });
