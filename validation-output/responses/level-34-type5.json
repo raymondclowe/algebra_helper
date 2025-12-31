@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:48:00.958Z",
+  "level": 34,
+  "topic": "Hypothesis Testing",
+  "questionType": 5,
+  "metadata": {
+    "level": 34,
+    "topic": "Hypothesis Testing",
+    "questionType": 5,
+    "questionText": "\\text{Fail to reject } H_0 \\text{ when } H_0 \\text{ is false}",
+    "instruction": "What type of error is this?",
+    "correctAnswer": "Type II error",
+    "distractors": [
+      "Type I error",
+      "Standard error",
+      "Sampling error"
+    ],
+    "allOptions": [
+      "Type I error",
+      "𝑆⁢𝑡⁢𝑎⁢𝑛⁢𝑑⁢𝑎⁢𝑟⁢𝑑⁢𝑒⁢𝑟⁢𝑟⁢𝑜⁢𝑟",
+      "Type II error",
+      "Sampling error",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Type II error: failing to reject H₀ when it's actually false (false negative). Probability = β."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the IB Math curriculum.\n\n*   **Correctness:** \"Failing to reject the null hypothesis ($H_0$) when it is false\" is the standard definition of a **Type II error**.\n*   **Answer Key:** The highlighted answer (Type II error) is correct.\n*   **Distractors:** \"Type I error\" is the most common confusion point, making it a good distractor. \"Standard error\" and \"Sampling error\" are related statistical terms but incorrect in this context, serving as valid distractors.\n*   **Clarity:** The wording is precise and uses standard statistical terminology.",
+    "error": null
+  }
+}

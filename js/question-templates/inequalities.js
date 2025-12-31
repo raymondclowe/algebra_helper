@@ -34,9 +34,10 @@ window.QuestionTemplates.Inequalities = {
                     };
                 } else if (questionType === 2) {
                     // Inequality with negative coefficient: -ax > b
+                    // Ensure b is divisible by a for integer result
                     const a = utils.rInt(2, 6);
-                    const b = utils.rInt(-20, -5);
-                    const x = Math.ceil(b / (-a));
+                    const x = utils.rInt(2, 6);  // Pick answer first
+                    const b = -a * x;  // b = -ax so -ax > b gives x < correct answer
                     const correctAnswer = `x < ${x}`;
                     const candidateDistractors = [`x > ${x}`, `x = ${x}`, `x < ${-x}`];
                     const distractors = utils.ensureUniqueDistractors(
@@ -59,10 +60,11 @@ window.QuestionTemplates.Inequalities = {
                     };
                 } else {
                     // Two-step inequality: ax + b < c
+                    // Ensure (c - b) is divisible by a for integer result
                     const a = utils.rInt(2, 8);
                     const b = utils.rInt(1, 10);
-                    const c = utils.rInt(b + 10, 50);
-                    const x = Math.floor((c - b) / a);
+                    const x = utils.rInt(2, 8);  // Pick answer first
+                    const c = a * x + b;  // c - b = ax, so x < correct answer
                     const correctAnswer = `x < ${x}`;
                     const candidateDistractors = [`x > ${x}`, `x < ${x + 1}`, `x \\leq ${x}`];
                     const distractors = utils.ensureUniqueDistractors(

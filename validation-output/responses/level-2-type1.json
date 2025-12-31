@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:31:17.332Z",
+  "level": 2,
+  "topic": "Powers and Roots",
+  "questionType": 1,
+  "metadata": {
+    "level": 2,
+    "topic": "Powers and Roots",
+    "questionType": 1,
+    "questionText": "\\text{What is } 4^2?",
+    "instruction": "Calculate the square",
+    "correctAnswer": "16",
+    "distractors": [
+      "8",
+      "20",
+      "12"
+    ],
+    "allOptions": [
+      "12",
+      "16",
+      "8",
+      "20",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "4^2 = 4 × 4 = 16. Squaring means multiplying a number by itself."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the difficulty level. The correct answer (16) is accurate, and the distractors (especially 8, which addresses the common error of multiplying base by exponent) are well-chosen.",
+    "error": null
+  }
+}

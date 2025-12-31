@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:32:34.074Z",
+  "level": 2,
+  "topic": "Powers and Roots",
+  "questionType": 6,
+  "metadata": {
+    "level": 2,
+    "topic": "Powers and Roots",
+    "questionType": 6,
+    "questionText": "7^4",
+    "instruction": "Calculate",
+    "correctAnswer": "2401",
+    "distractors": [
+      "28",
+      "2408",
+      "2394"
+    ],
+    "allOptions": [
+      "2401",
+      "28",
+      "2394",
+      "2408",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "7^4 means multiply 7 by itself 4 times: 7 × 7 × 7 × 7 = 2401."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Accuracy:** The calculation $7^4 = 7 \\times 7 \\times 7 \\times 7 = 2401$ is correct.\n- **Correct Answer:** The selected option (2401) is the correct answer.\n- **Distractors:**\n  - **28:** Represents the common error of multiplying the base by the exponent ($7 \\times 4$).\n  - **2394 & 2408:** These are close values ($\\pm 7$ from the correct answer), serving to test calculation precision.\n- **Difficulty:** Appropriate for Level 2. It requires multi-step multiplication ($49 \\times 49$ or $343 \\times 7$) without a calculator, which fits the 30-60 second timeframe for a student with good arithmetic skills.\n- **Clarity:** The notation and instruction are unambiguous.",
+    "error": null
+  }
+}

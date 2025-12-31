@@ -206,16 +206,18 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Polynomial addition and subtraction
 - Factor theorem
 - Remainder theorem
-- Polynomial division concepts
+- Polynomial division (long division)
 
 **Example Problems:**
 - `(3x + 5) + (2x + 7) = ?` → 5x + 12
 - `Is (x - 2) a factor of x² - 3x + 2?` → Yes (f(2) = 0)
 - `Find remainder when x² + 3x + 5 is divided by (x - 2)` → f(2) = 15
+- `Divide (x² + 2x - 18) by (x - 4)` → quotient: x + 6, remainder: 6
 
 **IB Curriculum:**
 - HL Topic 2.5: The factor and remainder theorems
 - HL Topic: Polynomial functions and equations
+- HL Topic: Polynomial division
 
 ---
 
@@ -247,17 +249,20 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Geometric sequences (nth term)
 - Sum of arithmetic series
 - Sigma notation
+- Binomial theorem (binomial coefficients)
 
 **Example Problems:**
 - `Arithmetic: a₁ = 3, d = 4, find a₈` → 31
 - `Geometric: a₁ = 2, r = 3, find a₅` → 162
 - `Sum: S₁₀ for a₁ = 2, d = 3` → 155
 - `Σ(k=1 to 5) k = ?` → 15
+- `In (a + b)⁵, find coefficient of a⁴b¹` → C(5,4) = 5
 
 **IB Curriculum:**
 - SL/HL Topic 1.2: Arithmetic sequences and series
 - SL/HL Topic 1.2: Geometric sequences and series
 - SL/HL Topic 1.2: Sigma notation
+- HL Topic 1.3: Binomial theorem
 
 ---
 
@@ -412,16 +417,19 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Integration (power rule)
 - Constant of integration
 - Infinite geometric series
+- Partial fractions decomposition
 
 **Example Problems:**
 - `∫x³ dx = ?` → x⁴/4 + C
 - `∫5x² dx = ?` → 5x³/3 + C
 - `Σ(n=0 to ∞) (0.5)ⁿ = ?` → 2
+- `Express (6x - 41)/((x - 1)(x - 8)) as partial fractions` → 5/(x - 1) + 1/(x - 8)
 
 **IB Curriculum:**
 - SL/HL Topic 6.3: Indefinite integration
 - SL/HL Topic 6.3: Definite integrals
 - SL/HL Topic 1.2: Infinite geometric series
+- HL Topic 2.6: Partial fractions
 
 ---
 

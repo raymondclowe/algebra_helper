@@ -168,7 +168,7 @@ window.Generator = {
         
         // Try adjacent levels
         const adjacentLevels = [
-            Math.min(level + 1, 25),
+            Math.min(level + 1, MAX_LEVEL),
             Math.max(level - 1, 1)
         ];
         

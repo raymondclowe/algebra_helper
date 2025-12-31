@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:58:52.147Z",
+  "level": 18,
+  "topic": "Vectors",
+  "questionType": 2,
+  "metadata": {
+    "level": 18,
+    "topic": "Vectors",
+    "questionType": 2,
+    "questionText": "\\sin(2\\theta)",
+    "instruction": "Express in terms of sinθ and cosθ",
+    "correctAnswer": "2\\sin\\theta\\cos\\theta",
+    "distractors": [
+      "\\sin^2\\theta",
+      "2\\sin\\theta",
+      "\\sin\\theta + \\cos\\theta"
+    ],
+    "allOptions": [
+      "sin2⁡𝜃",
+      "2⁢sin⁡𝜃⁢cos⁡𝜃",
+      "sin⁡𝜃 +cos⁡𝜃",
+      "2⁢sin⁡𝜃",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Double angle formula: sin(2θ) = 2sinθcosθ. This comes from the sum formula sin(A+B)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUE FOUND**\n\n**1. Incorrect Topic Classification (Major Issue):**\n*   **The Problem:** The topic label in the top-left corner is **\"Vectors\"**, but the question is purely about **Trigonometry**.\n*   **Explanation:** The question asks for the double-angle identity for sine ($\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta$). This is a standard trigonometric identity. While trigonometry is used *within* vector problems (e.g., dot products, cross products, direction angles), this specific question is a direct test of a trigonometric formula and contains no vector notation, concepts, or context.\n*   **Fix:** Change the topic category to **\"Trigonometry\"** or **\"Trigonometric Identities\"**.\n\n**2. Mathematical Content (Valid):**\n*   The math itself is correct. The expansion of $\\sin(2\\theta)$ is indeed $2\\sin\\theta\\cos\\theta$.\n*   The distractors are appropriate for this level, targeting common misconceptions (e.g., linearity errors like $2\\sin\\theta$).\n\n**Summary:** The question content is mathematically sound, but it is miscategorized in the \"Vectors\" section, which would confuse a student studying that specific topic.",
+    "error": null
+  }
+}

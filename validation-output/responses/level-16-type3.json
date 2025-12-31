@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:56:37.185Z",
+  "level": 16,
+  "topic": "Basic Trigonometry",
+  "questionType": 3,
+  "metadata": {
+    "level": 16,
+    "topic": "Basic Trigonometry",
+    "questionType": 3,
+    "questionText": "\\tan(60°)",
+    "instruction": "Calculate (use exact values)",
+    "correctAnswer": "\\sqrt{3}",
+    "distractors": [
+      "\\frac{\\sqrt{3}}{2}",
+      "\\frac{1}{2}",
+      "1.3333333333333333"
+    ],
+    "allOptions": [
+      "12",
+      "1.3333333333333333",
+      "√32",
+      "√3",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "tan(60°) = \\sqrt{3}. Remember: tan(θ) = sin(θ)/cos(θ)."
+  },
+  "apiResponse": {
+    "success": false,
+    "validationText": null,
+    "error": "terminated"
+  }
+}

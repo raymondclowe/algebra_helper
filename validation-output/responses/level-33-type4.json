@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:45:50.127Z",
+  "level": 33,
+  "topic": "Probability Distributions",
+  "questionType": 4,
+  "metadata": {
+    "level": 33,
+    "topic": "Probability Distributions",
+    "questionType": 4,
+    "questionText": "\\text{Heights are normally distributed with mean 70 cm, SD 15 cm}",
+    "instruction": "What notation represents this distribution?",
+    "correctAnswer": "N(70, 15^2)",
+    "distractors": [
+      "N(70, 15)",
+      "B(70, 15)",
+      "N(15, 70)"
+    ],
+    "allOptions": [
+      "N(70, 15)",
+      "N(15, 70)",
+      "𝑁⁡(70,152)",
+      "B(70, 15)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Normal distribution notation is N(μ, σ²) where μ is mean and σ² is variance. So N(70, 15²). Note: variance, not standard deviation!"
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically correct and aligns perfectly with the IB Math curriculum standards.\n\n**Reasoning:**\n1.  **Curriculum Alignment:** In IB Mathematics, the notation for a normal distribution is defined as $X \\sim N(\\mu, \\sigma^2)$, where the second parameter is the **variance**, not the standard deviation.\n2.  **Correct Answer:** Given a mean ($\\mu$) of 70 and a standard deviation ($\\sigma$) of 15, the variance is $15^2$. Therefore, the notation $N(70, 15^2)$ is the correct representation.\n3.  **Distractors:**\n    *   $N(70, 15)$ is a strong distractor for students who mistakenly think the second parameter is the standard deviation ($\\sigma$) rather than variance ($\\sigma^2$).\n    *   $N(15, 70)$ tests for swapping parameters.\n    *   $B(70, 15)$ tests for confusing Normal and Binomial distribution notations.\n4.  **Clarity:** The wording is precise and the notation used in the options is standard.",
+    "error": null
+  }
+}

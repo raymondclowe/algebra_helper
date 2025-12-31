@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:34:52.636Z",
+  "level": 4,
+  "topic": "Fractions",
+  "questionType": 2,
+  "metadata": {
+    "level": 4,
+    "topic": "Fractions",
+    "questionType": 2,
+    "questionText": "\\frac{8}{5} \\times \\frac{7}{3}",
+    "instruction": "Multiply and simplify",
+    "correctAnswer": "\\frac{56}{15}",
+    "distractors": [
+      "\\frac{56}{8}",
+      "\\frac{15}{15}",
+      "\\frac{36}{12}"
+    ],
+    "allOptions": [
+      "1515",
+      "3612",
+      "5615",
+      "568",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiply numerators: 8 × 7 = 56. Multiply denominators: 5 × 3 = 15. Simplify: 56/15."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically correct and appropriate for the difficulty level.\n\n*   **Calculation:** $\\frac{8}{5} \\times \\frac{7}{3} = \\frac{8 \\times 7}{5 \\times 3} = \\frac{56}{15}$. The fraction cannot be simplified further as 56 and 15 share no common factors other than 1.\n*   **Correct Answer:** The option $\\frac{56}{15}$ is correctly identified.\n*   **Distractors:** The distractors are plausible. For example, $\\frac{56}{8}$ tests the common error of multiplying numerators but adding denominators ($5+3=8$). $\\frac{15}{15}$ tests the error of adding numerators ($8+7=15$) while multiplying denominators.",
+    "error": null
+  }
+}

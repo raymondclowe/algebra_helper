@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:48:33.775Z",
+  "level": 10,
+  "topic": "Factorising Quadratics",
+  "questionType": 2,
+  "metadata": {
+    "level": 10,
+    "topic": "Factorising Quadratics",
+    "questionType": 2,
+    "questionText": "x^2 + 10x + 24",
+    "instruction": "Factorise",
+    "correctAnswer": "(x+4)(x+6)",
+    "distractors": [
+      "(x+10)(x+24)",
+      "x(x+10)",
+      "(x-4)(x-6)"
+    ],
+    "allOptions": [
+      "(x-4)(x-6)",
+      "(x+4)(x+6)",
+      "(x+10)(x+24)",
+      "x(x+10)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "We need two numbers that multiply to 24 (the constant term) and add to 10 (the coefficient of x). These numbers are 4 and 6 because 4 × 6 = 24 and 4 + 6 = 10. So the answer is (x+4)(x+6). Check by expanding: you should get back to the original expression."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": null,
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:01:04.908Z",
+  "level": 20,
+  "topic": "Basic Differentiation",
+  "questionType": 1,
+  "metadata": {
+    "level": 20,
+    "topic": "Basic Differentiation",
+    "questionType": 1,
+    "questionText": "𝑓(x) = 5x^{3}",
+    "instruction": "Find 𝑓'(x)",
+    "correctAnswer": "15x^{2}",
+    "distractors": [
+      "15x^{3}",
+      "5x^{2}",
+      "3x^{5}"
+    ],
+    "allOptions": [
+      "3⁢𝑥5",
+      "15⁢𝑥3",
+      "15⁢𝑥2",
+      "5⁢𝑥2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Use the power rule for differentiation: multiply the coefficient by the exponent, then reduce the exponent by 1. So 5x^3 becomes 5 × 3 × x^2 = 15x^2. The derivative tells us the rate of change of the function."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Question:** Find the derivative of $f(x) = 5x^3$.\n- **Correct Solution:** Using the power rule $\\frac{d}{dx}(ax^n) = anx^{n-1}$, we get $f'(x) = 5 \\cdot 3x^{3-1} = 15x^2$.\n- **Options:**\n  - The marked correct answer ($15x^2$) is mathematically correct.\n  - The distractors represent common student errors:\n    - $15x^3$: Forgetting to decrement the exponent.\n    - $5x^2$: Forgetting to multiply the coefficient by the exponent.\n    - $3x^5$: Swapping the coefficient and exponent.\n- **Presentation:** The notation is standard and clear. The difficulty is appropriate for \"Basic Calculus\".",
+    "error": null
+  }
+}

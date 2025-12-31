@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:48:57.216Z",
+  "level": 11,
+  "topic": "Quadratic Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 11,
+    "topic": "Quadratic Equations",
+    "questionType": 1,
+    "questionText": "x^2 -5x + 6 = 0",
+    "instruction": "Solve for x (give smaller solution)",
+    "correctAnswer": "x = 2",
+    "distractors": [
+      "x = 3",
+      "x = -2",
+      "x = 5"
+    ],
+    "allOptions": [
+      "x = -2",
+      "x = 3",
+      "x = 2",
+      "x = 5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "This factors as (x - 2)(x - 3) = 0. Solutions are x = 2 and x = 3. The smaller solution is 2."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n1.  **Mathematical Correctness:** The quadratic equation is $x^2 - 5x + 6 = 0$. Factoring this gives $(x - 2)(x - 3) = 0$, resulting in two solutions: $x = 2$ and $x = 3$.\n2.  **Instruction Compliance:** The prompt explicitly asks for the \"SMALLER SOLUTION\". Comparing the two roots ($2$ and $3$), $2$ is the smaller value.\n3.  **Answer Verification:** The option marked as correct is $x = 2$, which is accurate.\n4.  **Distractors:**\n    *   $x = 3$: This is the other valid root, catching students who miss the \"smaller solution\" instruction.\n    *   $x = -2$: Catches sign errors in factoring (e.g., $(x+2)(x-3)$).\n    *   $x = 5$: Plausible guess based on the coefficient of the $x$ term.\n\n**Note on Difficulty:** For an IB Math curriculum (Level 11/Grade 11), this is a fundamental skill (GCSE/IGCSE level) and serves as a basic fluency check or warm-up question. It is solvable well within the 30-60 second timeframe.",
+    "error": null
+  }
+}

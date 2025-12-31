@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:45:06.447Z",
+  "level": 6,
+  "topic": "Simple Linear Equations",
+  "questionType": 2,
+  "metadata": {
+    "level": 6,
+    "topic": "Simple Linear Equations",
+    "questionType": 2,
+    "questionText": "6x = 24",
+    "instruction": "Solve for x",
+    "correctAnswer": "x=4",
+    "distractors": [
+      "x=5",
+      "x=6",
+      "x=3"
+    ],
+    "allOptions": [
+      "x=4",
+      "x=6",
+      "x=5",
+      "x=3",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "To isolate x, we need to undo the multiplication by 6. We divide both sides by 6 to keep the equation balanced: 6x ÷ 6 = 24 ÷ 6, which gives x = 4."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, unambiguous, and the provided solution ($x=4$) is accurate. The distractors are distinct and incorrect. Assuming \"Level 6\" refers to Grade 6 (MYP Year 1) curriculum where one-step equations are introduced, the difficulty is appropriate.",
+    "error": null
+  }
+}

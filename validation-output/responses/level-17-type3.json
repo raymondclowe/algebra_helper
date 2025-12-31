@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:57:37.271Z",
+  "level": 17,
+  "topic": "Advanced Trigonometry",
+  "questionType": 3,
+  "metadata": {
+    "level": 17,
+    "topic": "Advanced Trigonometry",
+    "questionType": 3,
+    "questionText": "45°",
+    "instruction": "Convert to radians",
+    "correctAnswer": "\\frac{\\pi}{4}",
+    "distractors": [
+      "45\\pi",
+      "\\frac{45}{180}",
+      "\\frac{\\pi}{45}"
+    ],
+    "allOptions": [
+      "45180",
+      "𝜋4",
+      "45⁢𝜋",
+      "𝜋45",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "To convert degrees to radians: multiply by π/180. 45° × (π/180°) = \\frac{\\pi}{4}."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**VALID**\n\n**Note:**\nWhile the mathematics is perfectly correct, the topic label \"**Advanced Trigonometry**\" is slightly misleading for this specific question. Converting $45^\\circ$ to radians is a foundational skill usually covered in \"Introductory Trigonometry\" or \"Unit Circle Basics\". However, as a calibration question (indicated by the \"CALIBRATION\" tag at the top), checking basic competency is appropriate.",
+    "error": null
+  }
+}

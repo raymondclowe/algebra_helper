@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:35:18.120Z",
+  "level": 28,
+  "topic": "Matrix Algebra",
+  "questionType": 1,
+  "metadata": {
+    "level": 28,
+    "topic": "Matrix Algebra",
+    "questionType": 1,
+    "questionText": "\\begin{pmatrix} 2 & 1 \\\\ 6 & 8 \\end{pmatrix} + \\begin{pmatrix} 6 & 2 \\\\ 5 & 6 \\end{pmatrix}",
+    "instruction": "Calculate the sum of these matrices",
+    "correctAnswer": "\\begin{pmatrix} 8 & 3 \\\\ 11 & 14 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 12 & 2 \\\\ 30 & 48 \\end{pmatrix}",
+      "\\begin{pmatrix} 9 & 3 \\\\ 11 & 14 \\end{pmatrix}",
+      "\\begin{pmatrix} 8 & 4 \\\\ 11 & 14 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "(841114)",
+      "(1223048)",
+      "(831114)",
+      "(931114)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add corresponding elements: (2+6, 1+2; 6+5, 8+6) = (8, 3; 11, 14)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the topic.\n\n**Verification:**\nMatrix addition is performed element-wise:\n- Top-left: $2 + 6 = 8$\n- Top-right: $1 + 2 = 3$\n- Bottom-left: $6 + 5 = 11$\n- Bottom-right: $8 + 6 = 14$\n\nThe resulting matrix is $\\begin{pmatrix} 8 & 3 \\\\ 11 & 14 \\end{pmatrix}$, which matches the option marked as correct (highlighted with the yellow dashed line).\n\n**Notes on Distractors:**\n- The top-right option ($\\begin{pmatrix} 12 & 2 \\\\ 30 & 48 \\end{pmatrix}$) is a good distractor as it represents element-wise multiplication, a common student error.\n- The other options represent minor arithmetic errors, which are also appropriate distractors.",
+    "error": null
+  }
+}

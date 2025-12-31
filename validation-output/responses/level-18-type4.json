@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:59:30.726Z",
+  "level": 18,
+  "topic": "Vectors",
+  "questionType": 4,
+  "metadata": {
+    "level": 18,
+    "topic": "Vectors",
+    "questionType": 4,
+    "questionText": "\\begin{pmatrix} 2 \\\\ 2 \\end{pmatrix} \\cdot \\begin{pmatrix} 5 \\\\ 5 \\end{pmatrix}",
+    "instruction": "Calculate the dot product",
+    "correctAnswer": "20",
+    "distractors": [
+      "7",
+      "10",
+      "22"
+    ],
+    "allOptions": [
+      "22",
+      "7",
+      "10",
+      "20",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Dot product = (2)(5) + (2)(5) = 10 + 10 = 20."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and uses standard notation.\n\n**Analysis:**\n*   **Calculation:** The dot product is calculated as $(2 \\times 5) + (2 \\times 5) = 10 + 10 = 20$.\n*   **Answer:** The marked correct answer (20) is correct.\n*   **Distractors:**\n    *   **10:** Plausible for students who multiply components but forget to add them.\n    *   **7:** Plausible for students confusing multiplication with addition ($2+5$).\n    *   **22:** A random incorrect value.\n*   **Time:** Solvable well within the 30-60 second limit.",
+    "error": null
+  }
+}

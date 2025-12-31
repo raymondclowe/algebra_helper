@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:47:29.255Z",
+  "level": 34,
+  "topic": "Hypothesis Testing",
+  "questionType": 3,
+  "metadata": {
+    "level": 34,
+    "topic": "Hypothesis Testing",
+    "questionType": 3,
+    "questionText": "\\text{Test: \"Is mean height greater than 170 cm?\"}",
+    "instruction": "What type of test is this?",
+    "correctAnswer": "One-tailed (upper tail)",
+    "distractors": [
+      "Two-tailed",
+      "One-tailed (lower tail)",
+      "Non-parametric"
+    ],
+    "allOptions": [
+      "Non-parametric",
+      "Two-tailed",
+      "One-tailed (upper tail)",
+      "One-tailed (lower tail)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "\"Greater than\" indicates a one-tailed test in the upper tail. H₀: μ = 170, H₁: μ > 170."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the topic of Hypothesis Testing.\n\n**Reasoning:**\n- The alternative hypothesis for \"Is mean height greater than 170 cm?\" corresponds to $H_1: \\mu > 170$.\n- A \"greater than\" inequality in the alternative hypothesis places the critical region in the right side of the distribution curve.\n- This is correctly identified as a **One-tailed (upper tail)** test.\n- The distractors (Two-tailed, Lower tail) represent the other possible directional configurations, making them good incorrect options. \"Non-parametric\" is a different category of test but clearly incorrect as the primary descriptor for the directionality shown.",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:43:04.642Z",
+  "level": 5,
+  "topic": "Decimals & Percentages",
+  "questionType": 1,
+  "metadata": {
+    "level": 5,
+    "topic": "Decimals & Percentages",
+    "questionType": 1,
+    "questionText": "\\frac{4}{8} + \\frac{2}{8}",
+    "instruction": "Simplify the result",
+    "correctAnswer": "\\frac{3}{4}",
+    "distractors": [
+      "\\frac{6}{8}",
+      "\\frac{6}{16}",
+      "\\frac{4}{4}"
+    ],
+    "allOptions": [
+      "44",
+      "68",
+      "616",
+      "34",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add the numerators: 4 + 2 = 6. Keep the denominator: 8. Then simplify 6/8 = 3/4."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": null,
+    "error": null
+  }
+}

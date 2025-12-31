@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:32:49.469Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 1,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 1,
+    "questionText": "\\text{What is } 6^2?",
+    "instruction": "Calculate the square",
+    "correctAnswer": "36",
+    "distractors": [
+      "12",
+      "42",
+      "30"
+    ],
+    "allOptions": [
+      "12",
+      "30",
+      "36",
+      "42",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "6^2 = 6 × 6 = 36. Squaring means multiplying a number by itself."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and unambiguous.\n- **Calculation:** $6^2 = 6 \\times 6 = 36$.\n- **Correct Answer:** The option \"36\" is correctly identified.\n- **Distractors:** \"12\" is a good distractor (common error of doing $6 \\times 2$), and \"30\" and \"42\" are plausible nearby multiples of 6.",
+    "error": null
+  }
+}

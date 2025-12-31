@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:33:06.419Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 2,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 2,
+    "questionText": "12 \\times 12",
+    "instruction": "Calculate",
+    "correctAnswer": "144",
+    "distractors": [
+      "154",
+      "134",
+      "24"
+    ],
+    "allOptions": [
+      "154",
+      "144",
+      "134",
+      "24",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "12 × 12 = 144. Break it down: (10 × 12) + (2 × 12) = 120 + 24 = 144."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct.\n- **Calculation:** $12 \\times 12 = 144$.\n- **Correct Answer:** The option marked as correct (144) is accurate.\n- **Distractors:** The distractors are plausible. Specifically, \"24\" tests for the common mistake of adding instead of multiplying ($12 + 12$), which is good design.\n- **Clarity:** The notation and wording are clear.",
+    "error": null
+  }
+}

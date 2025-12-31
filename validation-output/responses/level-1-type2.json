@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:38:33.570Z",
+  "level": 1,
+  "topic": "Basic Arithmetic",
+  "questionType": 2,
+  "metadata": {
+    "level": 1,
+    "topic": "Basic Arithmetic",
+    "questionType": 2,
+    "questionText": "11 - 8",
+    "instruction": "Calculate",
+    "correctAnswer": "3",
+    "distractors": [
+      "4",
+      "2",
+      "19"
+    ],
+    "allOptions": [
+      "19",
+      "2",
+      "3",
+      "4",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Subtracting 8 from 11 gives 3. You can verify by adding: 3 + 8 = 11."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n\n*   **Calculation:** $11 - 8 = 3$.\n*   **Answer:** The selected option (3) is correct.\n*   **Distractors:** The incorrect options (19, 2, 4) are plausible errors (e.g., adding instead of subtracting, or off-by-one errors).",
+    "error": null
+  }
+}

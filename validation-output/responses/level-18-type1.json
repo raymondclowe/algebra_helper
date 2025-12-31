@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:58:23.708Z",
+  "level": 18,
+  "topic": "Vectors",
+  "questionType": 1,
+  "metadata": {
+    "level": 18,
+    "topic": "Vectors",
+    "questionType": 1,
+    "questionText": "\\begin{pmatrix} 6 \\\\ 4 \\end{pmatrix} + \\begin{pmatrix} 5 \\\\ 2 \\end{pmatrix}",
+    "instruction": "Add the vectors",
+    "correctAnswer": "\\begin{pmatrix} 11 \\\\ 6 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 30 \\\\ 8 \\end{pmatrix}",
+      "\\begin{pmatrix} 11 \\\\ 4 \\end{pmatrix}",
+      "\\begin{pmatrix} 6 \\\\ 6 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "(114)",
+      "(66)",
+      "(308)",
+      "(116)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add corresponding components: (6 + 5, 4 + 2) = (11, 6)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for an introductory lesson on vectors within the IB curriculum.\n\n*   **Calculation:** $\\begin{pmatrix} 6 \\\\ 4 \\end{pmatrix} + \\begin{pmatrix} 5 \\\\ 2 \\end{pmatrix} = \\begin{pmatrix} 6+5 \\\\ 4+2 \\end{pmatrix} = \\begin{pmatrix} 11 \\\\ 6 \\end{pmatrix}$.\n*   **Correct Answer:** The option $\\begin{pmatrix} 11 \\\\ 6 \\end{pmatrix}$ is correctly marked.\n*   **Distractors:** The distractors are plausible errors:\n    *   $\\begin{pmatrix} 30 \\\\ 8 \\end{pmatrix}$ checks for confusion with multiplication ($6 \\times 5$, $4 \\times 2$).\n    *   $\\begin{pmatrix} 11 \\\\ 4 \\end{pmatrix}$ and $\\begin{pmatrix} 6 \\\\ 6 \\end{pmatrix}$ check for partial addition errors.\n*   **Notation:** Standard column vector notation is used correctly.",
+    "error": null
+  }
+}

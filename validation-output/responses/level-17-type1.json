@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:56:54.301Z",
+  "level": 17,
+  "topic": "Advanced Trigonometry",
+  "questionType": 1,
+  "metadata": {
+    "level": 17,
+    "topic": "Advanced Trigonometry",
+    "questionType": 1,
+    "questionText": "\\sin^2\\theta + \\cos^2\\theta",
+    "instruction": "Simplify using trig identity",
+    "correctAnswer": "1",
+    "distractors": [
+      "\\sin\\theta",
+      "\\cos\\theta",
+      "2"
+    ],
+    "allOptions": [
+      "2",
+      "1",
+      "cos⁡𝜃",
+      "sin⁡𝜃",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Fundamental identity: sin²θ + cos²θ = 1 for all θ. This is derived from the Pythagorean theorem on the unit circle."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct. The Pythagorean identity $\\sin^2\\theta + \\cos^2\\theta = 1$ is a fundamental concept in trigonometry. The correct answer is identified properly, and the distractors are distinct. The notation is clear.",
+    "error": null
+  }
+}

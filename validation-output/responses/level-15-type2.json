@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:55:02.495Z",
+  "level": 15,
+  "topic": "Functions",
+  "questionType": 2,
+  "metadata": {
+    "level": 15,
+    "topic": "Functions",
+    "questionType": 2,
+    "questionText": "𝑓(x) = 2x \\\\[0.5em] 𝑔(x) = x + 3 \\\\[0.5em] 𝑓(𝑔(3)) = ?",
+    "instruction": "Evaluate the composite function",
+    "correctAnswer": "12",
+    "distractors": [
+      "14",
+      "6",
+      "9"
+    ],
+    "allOptions": [
+      "6",
+      "9",
+      "14",
+      "12",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "First find 𝑔(3) = 3 + 3 = 6. Then find 𝑓(6) = 2(6) = 12. Work from the inside out."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n1.  **Mathematical Correctness:**\n    *   **Step 1:** Evaluate the inner function $g(3)$.\n        $$g(x) = x + 3 \\rightarrow g(3) = 3 + 3 = 6$$\n    *   **Step 2:** Evaluate the outer function $f$ using the result from Step 1.\n        $$f(x) = 2x \\rightarrow f(6) = 2(6) = 12$$\n    *   The correct answer is **12**. The highlighted option matches this result.\n\n2.  **Distractors:**\n    *   **6:** This is the value of $g(3)$, catching students who stop halfway.\n    *   **9:** This is the value of $g(f(3))$ ($2(3)=6 \\rightarrow 6+3=9$), catching students who perform the composition in the wrong order.\n    *   **14:** This would be the answer if the input was 4 ($f(g(4)) = 14$), serving as a plausible nearby integer.\n\n3.  **Clarity & Level:**\n    *   The notation is standard and unambiguous.\n    *   The difficulty is appropriate for a basic check on understanding composite functions.\n    *   It is easily solvable within the 30-60 second timeframe.",
+    "error": null
+  }
+}

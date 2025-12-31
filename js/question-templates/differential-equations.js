@@ -80,9 +80,9 @@ window.QuestionTemplates.DifferentialEquations = {
                     distractors: utils.ensureUniqueDistractors(
                         "Exponential growth/decay",
                         [
-                            "Linear differential equation",
+                            "Polynomial growth",
                             "Quadratic differential equation",
-                            "Separable but not exponential"
+                            "Logarithmic decay"
                         ],
                         () => {
                             const types = ["Homogeneous", "Exact", "Bernoulli"];

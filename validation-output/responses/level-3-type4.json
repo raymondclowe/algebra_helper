@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:33:43.718Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 4,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 4,
+    "questionText": "8 \\times 1000",
+    "instruction": "Calculate",
+    "correctAnswer": "8000",
+    "distractors": [
+      "9000",
+      "1008",
+      "800"
+    ],
+    "allOptions": [
+      "800",
+      "1008",
+      "8000",
+      "9000",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiplying by 1000 is like adding 3 zeros: 8 × 1000 = 8000."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": null,
+    "error": null
+  }
+}

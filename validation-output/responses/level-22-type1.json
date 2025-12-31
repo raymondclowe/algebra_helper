@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:03:22.078Z",
+  "level": 22,
+  "topic": "Statistics",
+  "questionType": 1,
+  "metadata": {
+    "level": 22,
+    "topic": "Statistics",
+    "questionType": 1,
+    "questionText": "\\text{Data: } 20, 24, 23, 11",
+    "instruction": "Find the mean",
+    "correctAnswer": "19.5",
+    "distractors": [
+      "24",
+      "23",
+      "20.5"
+    ],
+    "allOptions": [
+      "24",
+      "23",
+      "19.5",
+      "20.5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Mean = sum/count = (20 + 24 + 23 + 11)/4 = 78/4 = 19.5."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The mean is calculated as $\\frac{20 + 24 + 23 + 11}{4} = \\frac{78}{4} = 19.5$. The indicated correct answer ($19.5$) is accurate.\n- **Clarity:** The instruction \"FIND THE MEAN\" and the data set are presented clearly.\n- **Difficulty:** Adding four two-digit numbers and dividing by 4 is appropriate for a \"No Calc\" environment and fits the 30-60 second timeframe.\n- **Distractors:** The distractors ($23$, $24$, $20.5$) are plausible values that a student might guess or arrive at through calculation errors.",
+    "error": null
+  }
+}

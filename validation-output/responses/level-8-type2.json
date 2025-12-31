@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:46:37.346Z",
+  "level": 8,
+  "topic": "Inequalities",
+  "questionType": 2,
+  "metadata": {
+    "level": 8,
+    "topic": "Inequalities",
+    "questionType": 2,
+    "questionText": "-5x > -12",
+    "instruction": "Solve for x",
+    "correctAnswer": "x < 3",
+    "distractors": [
+      "x > 3",
+      "x = 3",
+      "x < -3"
+    ],
+    "allOptions": [
+      "x < 3",
+      "x > 3",
+      "x < -3",
+      "x = 3",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide both sides by -5: x < -12/(-5) = 3. IMPORTANT: Flip the inequality sign when dividing by a negative number."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "This question is **INCORRECT**.\n\n**Issue:**\nThere is a mismatch between the inequality presented in the question and the provided answer options. The correct mathematical solution is not listed among the choices.\n\n**Detailed Explanation:**\n1.  **Solving the displayed question:**\n    *   Inequality: $-5x > -12$\n    *   Divide both sides by $-5$ (remembering to flip the inequality sign because we are dividing by a negative number).\n    *   $x < \\frac{-12}{-5}$\n    *   **Correct Solution:** $x < 2.4$ (or $x < \\frac{12}{5}$)\n\n2.  **Analyzing the \"Correct\" Option ($x < 3$):**\n    *   The option $x < 3$ includes values like $2.5$, $2.6$, etc.\n    *   If we test $x = 2.5$ in the original inequality: $-5(2.5) = -12.5$.\n    *   $-12.5$ is **not** greater than $-12$. Therefore, $x < 3$ is an incorrect solution set.\n\n**Likely Cause:**\nIt appears the question generator intended to use numbers that result in an integer solution but failed to do so. It seems the intended question was likely **$-5x > -15$**, which would result in the solution $x < 3$.\n\n**Suggestion to Fix:**\nChange the question text to:\n**$-5x > -15$**\n\nThis will make the solution $x < 3$, matching the currently marked correct option.",
+    "error": null
+  }
+}

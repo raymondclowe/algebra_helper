@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:42:06.617Z",
+  "level": 4,
+  "topic": "Fractions",
+  "questionType": 3,
+  "metadata": {
+    "level": 4,
+    "topic": "Fractions",
+    "questionType": 3,
+    "questionText": "\\frac{3}{2} \\div \\frac{5}{4}",
+    "instruction": "Divide and simplify",
+    "correctAnswer": "\\frac{6}{5}",
+    "distractors": [
+      "\\frac{15}{8}",
+      "\\frac{12}{10}",
+      "\\frac{3}{10}"
+    ],
+    "allOptions": [
+      "65",
+      "1210",
+      "310",
+      "158",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Dividing by a fraction means multiplying by its reciprocal: (3/2) × (4/5) = 12/10 = 6/5."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The operation is $\\frac{3}{2} \\div \\frac{5}{4}$. To solve, multiply by the reciprocal: $\\frac{3}{2} \\times \\frac{4}{5} = \\frac{12}{10}$. Simplifying this fraction gives $\\frac{6}{5}$. The marked correct answer is $\\frac{6}{5}$, which is correct.\n- **Instructions:** The prompt explicitly asks to \"DIVIDE AND SIMPLIFY\".\n- **Distractors:**\n  - $\\frac{12}{10}$: This is the correct value but unsimplified. This is an excellent distractor to test if the student followed the \"simplify\" instruction.\n  - $\\frac{15}{8}$: This is the result of multiplying instead of dividing ($\\frac{3}{2} \\times \\frac{5}{4}$), a common student error.\n  - $\\frac{3}{10}$: A plausible incorrect value.\n- **Presentation:** The LaTeX rendering is clear and standard. The difficulty level (4) is appropriate for fraction division involving simplification.",
+    "error": null
+  }
+}
