@@ -1,24 +1,75 @@
 // Service Worker for Algebra Helper PWA
-const CACHE_NAME = 'algebra-helper-v1.0.1';
+const CACHE_NAME = 'algebra-helper-v1.0.2-offline';
 const urlsToCache = [
-  '/algebra_helper/algebra-helper.html',
-  '/algebra_helper/index.html',
-  '/algebra_helper/css/styles.css',
-  '/algebra_helper/js/main.js',
-  '/algebra_helper/js/ui.js',
-  '/algebra_helper/js/generator.js',
-  '/algebra_helper/js/state.js',
-  '/algebra_helper/js/drill.js',
-  '/algebra_helper/js/calibration.js',
-  '/algebra_helper/js/constants.js',
-  '/algebra_helper/js/storage-manager.js',
-  '/algebra_helper/js/stats-modal.js',
-  '/algebra_helper/js/activity-tracker.js',
-  '/algebra_helper/js/gamification.js',
-  '/algebra_helper/js/debug-mode.js',
-  '/algebra_helper/manifest.json',
-  '/algebra_helper/icons/icon-192x192.png',
-  '/algebra_helper/icons/icon-512x512.png'
+  // HTML files
+  './algebra-helper.html',
+  './index.html',
+  
+  // CSS files
+  './css/styles.css',
+  './css/tailwind.css',
+  
+  // Core JS files
+  './js/activity-tracker.js',
+  './js/calibration.js',
+  './js/constants.js',
+  './js/debug-mode.js',
+  './js/display-modes.js',
+  './js/drill.js',
+  './js/explanation-modal.js',
+  './js/fixing-habits-questions.js',
+  './js/gamification.js',
+  './js/generator.js',
+  './js/help-modal.js',
+  './js/main.js',
+  './js/name-modal.js',
+  './js/settings-modal.js',
+  './js/state.js',
+  './js/stats-modal.js',
+  './js/storage-manager.js',
+  './js/time-tracking-modal.js',
+  './js/topic-definitions.js',
+  './js/ui.js',
+  './js/worksheet-generator.js',
+  
+  // Question template files
+  './js/question-templates/advanced-calculus.js',
+  './js/question-templates/advanced-integration.js',
+  './js/question-templates/advanced-probability.js',
+  './js/question-templates/advanced-trig.js',
+  './js/question-templates/basic-arithmetic.js',
+  './js/question-templates/basic-equations.js',
+  './js/question-templates/calculus.js',
+  './js/question-templates/complex-numbers.js',
+  './js/question-templates/complex-polar.js',
+  './js/question-templates/decimals-percentages.js',
+  './js/question-templates/differential-equations.js',
+  './js/question-templates/exponentials-logs.js',
+  './js/question-templates/fractions.js',
+  './js/question-templates/functions.js',
+  './js/question-templates/generator-utils.js',
+  './js/question-templates/hypothesis-testing.js',
+  './js/question-templates/inequalities.js',
+  './js/question-templates/matrix-algebra.js',
+  './js/question-templates/multiplication-tables.js',
+  './js/question-templates/polynomials.js',
+  './js/question-templates/probability-distributions.js',
+  './js/question-templates/probability.js',
+  './js/question-templates/proofs-contradiction.js',
+  './js/question-templates/proofs-induction.js',
+  './js/question-templates/quadratics.js',
+  './js/question-templates/sequences-series.js',
+  './js/question-templates/squares-roots.js',
+  './js/question-templates/statistics.js',
+  './js/question-templates/trigonometry.js',
+  './js/question-templates/vectors-3d.js',
+  './js/question-templates/vectors.js',
+  './js/question-templates/why-questions.js',
+  
+  // PWA files
+  './manifest.json',
+  './icons/icon-192x192.png',
+  './icons/icon-512x512.png'
 ];
 
 // Install event - cache resources
@@ -38,6 +89,43 @@ self.addEventListener('install', event => {
 
 // Fetch event - serve from cache when offline
 self.addEventListener('fetch', event => {
+  const requestUrl = new URL(event.request.url);
+  
+  // For CDN resources (Tailwind, MathJax), use network-first with cache fallback
+  if (requestUrl.hostname === 'cdn.jsdelivr.net' || requestUrl.hostname === 'cdn.tailwindcss.com') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          // Cache the successful response
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+          return response;
+        })
+        .catch(() => {
+          // If network fails, try cache
+          return caches.match(event.request).then(cachedResponse => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            // If CDN resource not in cache, return empty fallback
+            // Tailwind CSS will gracefully degrade without styles
+            // MathJax will show raw LaTeX which is still readable
+            const contentType = requestUrl.hostname === 'cdn.tailwindcss.com' 
+              ? 'text/css' 
+              : 'text/javascript';
+            return new Response('/* Offline - CDN resource not available */', {
+              status: 200,
+              headers: { 'Content-Type': contentType }
+            });
+          });
+        })
+    );
+    return;
+  }
+  
+  // For local resources, use cache-first strategy
   event.respondWith(
     caches.match(event.request)
       .then(response => {
@@ -45,24 +133,33 @@ self.addEventListener('fetch', event => {
         if (response) {
           return response;
         }
+        
+        // Not in cache, fetch from network
         return fetch(event.request).then(
           response => {
             // Check if valid response
-            if (!response || response.status !== 200 || response.type !== 'basic') {
+            if (!response || response.status !== 200) {
               return response;
             }
             
-            // Clone the response
-            const responseToCache = response.clone();
-            
-            caches.open(CACHE_NAME)
-              .then(cache => {
-                cache.put(event.request, responseToCache);
-              });
+            // Only cache same-origin requests
+            if (response.type === 'basic') {
+              const responseToCache = response.clone();
+              caches.open(CACHE_NAME)
+                .then(cache => {
+                  cache.put(event.request, responseToCache);
+                });
+            }
             
             return response;
           }
-        );
+        ).catch(() => {
+          // Network request failed
+          return new Response('Offline - Resource not available', {
+            status: 503,
+            statusText: 'Service Unavailable'
+          });
+        });
       })
   );
 });

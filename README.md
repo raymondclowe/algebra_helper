@@ -4,6 +4,8 @@
 
 An intelligent, adaptive math practice tool that helps students master mathematics from basic arithmetic through calculus, using personalized feedback and dynamic difficulty adjustment.
 
+📱 **Works Offline!** Install as a PWA (Progressive Web App) on your phone or computer and use it anywhere, even on an airplane! See the [Offline PWA Guide](OFFLINE_PWA_GUIDE.md) for installation instructions.
+
 ---
 
 ## 📚 For Students
@@ -65,6 +67,23 @@ An intelligent, adaptive math practice tool that helps students master mathemati
 3. **Build Momentum**: Get 3 correct answers in a row to activate Turbo Mode 🔥 for faster progression. Hover over Turbo Mode to see how it works!
 4. **Learn from Mistakes**: Read the explanations when you get something wrong to understand the correct approach.
 5. **"I don't know" Option**: Stuck on a problem? Click "I don't know" to see the correct answer and explanation without penalty. The app will automatically adjust to give you easier questions next.
+
+### 📱 Use Offline (PWA)
+
+**Works on airplanes and anywhere without internet!**
+
+1. **First-time setup** (requires internet once):
+   - Visit the app URL while online
+   - Wait for the page to fully load
+   - On Android/Chrome: Tap menu → "Install app" or "Add to Home Screen"
+   - On iOS/Safari: Tap Share → "Add to Home Screen"
+
+2. **Use offline**:
+   - Launch the app from your home screen
+   - All features work without internet!
+   - Your progress is saved locally
+
+📖 **Detailed instructions**: See [Offline PWA Guide](OFFLINE_PWA_GUIDE.md)
 
 ---
 

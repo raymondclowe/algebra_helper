@@ -2,12 +2,12 @@
   "name": "IB Math Trainer",
   "short_name": "Math Trainer",
   "description": "Fast-response math training app for IB students - adaptive learning with real-time feedback",
-  "start_url": "/algebra_helper/algebra-helper.html",
+  "start_url": "./algebra-helper.html",
   "display": "standalone",
   "background_color": "#111827",
   "theme_color": "#667eea",
   "orientation": "portrait",
-  "scope": "/algebra_helper/",
+  "scope": "./",
   "icons": [
     {
       "src": "icons/icon-192x192.png",
