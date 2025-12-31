@@ -471,4 +471,61 @@ describe('Tab Visibility Time Tracking Tests', () => {
         expect(saveTimeAfterResume).toBeGreaterThan(initialSaveTime);
         expect(saveTimeAfterResume).toBeGreaterThanOrEqual(resumeTime - 100); // Allow 100ms margin
     });
+
+    test('Inactive time beyond 1 minute is not counted in daily stats', async () => {
+        // Clear daily stats and setup
+        const initialTime = await page.evaluate(() => {
+            localStorage.removeItem('algebraHelperDailyStats');
+            ActivityTracker.reset();
+            const now = Date.now();
+            return now;
+        });
+        
+        // Wait a bit to accumulate some time
+        await wait(2000);
+        
+        // Save daily time (should add ~2 seconds)
+        await page.evaluate(() => {
+            ActivityTracker.saveDailyTime();
+        });
+        
+        const minutesAfterFirstSave = await page.evaluate(() => {
+            const stats = StorageManager.getDailyStats();
+            return stats.minutesSpent;
+        });
+        
+        // Should have tracked approximately 2 seconds (~0.033 minutes)
+        expect(minutesAfterFirstSave).toBeGreaterThan(0.02);
+        expect(minutesAfterFirstSave).toBeLessThan(0.1);
+        
+        // Now simulate user being inactive for 90 seconds (1.5 minutes) from NOW
+        // Set lastActivityTime to 90 seconds before current time
+        // Set lastDailySaveTime to 90 seconds before current time
+        const result = await page.evaluate(() => {
+            const now = Date.now();
+            ActivityTracker.lastActivityTime = now - 90000; // 90 seconds ago
+            ActivityTracker.lastDailySaveTime = now - 90000; // 90 seconds ago
+            
+            // Now call saveDailyTime - it should only count 60 seconds (1 minute)
+            ActivityTracker.saveDailyTime();
+            
+            const stats = StorageManager.getDailyStats();
+            return {
+                minutesSpent: stats.minutesSpent,
+                lastActivityTime: ActivityTracker.lastActivityTime,
+                lastDailySaveTime: ActivityTracker.lastDailySaveTime,
+                now: now
+            };
+        });
+        
+        // Should have added 1 minute (not 1.5 minutes)
+        const addedMinutes = result.minutesSpent - minutesAfterFirstSave;
+        
+        // The key test: added time should be close to 1 minute (not 1.5 minutes)
+        expect(addedMinutes).toBeGreaterThan(0.95); // Should be close to 1 minute
+        expect(addedMinutes).toBeLessThanOrEqual(1.05); // 1 minute + small margin
+        
+        // Total should not exceed the first save + 1 minute
+        expect(result.minutesSpent).toBeLessThan(minutesAfterFirstSave + 1.1);
+    });
 });

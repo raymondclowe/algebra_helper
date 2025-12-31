@@ -282,15 +282,27 @@ window.ActivityTracker = {
         // Only save time if currently active (not paused)
         if (!this.isPaused) {
             const now = Date.now();
-            const elapsedSeconds = Math.floor((now - this.lastDailySaveTime) / 1000);
+            const timeSinceLastActivity = now - this.lastActivityTime;
+            
+            // Only count time up to INACTIVITY_TIMEOUT_MS after last activity
+            // If user hasn't interacted in more than 1 minute, they're considered away
+            let endTime = now;
+            if (timeSinceLastActivity > INACTIVITY_TIMEOUT_MS) {
+                // User is inactive - only count up to 1 minute after last activity
+                endTime = this.lastActivityTime + INACTIVITY_TIMEOUT_MS;
+            }
+            
+            const elapsedSeconds = Math.floor((endTime - this.lastDailySaveTime) / 1000);
             
             if (elapsedSeconds > 0) {
                 const minutesToAdd = elapsedSeconds / 60;
                 window.StorageManager.updateDailyStats(minutesToAdd);
+                this.lastDailySaveTime = endTime;
+            } else {
+                // No time to add, but still update lastDailySaveTime to current time
+                // to prevent counting inactive time in future saves
+                this.lastDailySaveTime = now;
             }
-            
-            // Only update lastDailySaveTime when active
-            this.lastDailySaveTime = now;
         }
         // If paused, don't update lastDailySaveTime - this prevents counting away time
     },
