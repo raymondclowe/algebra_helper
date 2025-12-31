@@ -25,6 +25,7 @@ const FLOAT_CLEANUP_DELAY_MS = 900;     // When to remove float element
 // Stats Tracking Constants
 const STATS_SAVE_INTERVAL_MS = 10000;   // How often to save active time to localStorage (10 seconds)
 const DAILY_SAVE_INTERVAL_MS = 60000;   // How often to save daily time tracking (60 seconds)
+const MAX_STALE_TIMESTAMP_MS = 2 * 60 * 60 * 1000; // 2 hours - max age for lastDailySaveTime before reset
 
 // Away Time Tracking Constants
 const AWAY_SESSION_QUICK_CHECK_THRESHOLD = 5;      // Seconds - quick tab switch (< 5s)
@@ -109,6 +110,7 @@ window.BREAK_CHECK_MIN_QUESTIONS = BREAK_CHECK_MIN_QUESTIONS;
 window.BREAK_CHECK_RAPID_WINDOW = BREAK_CHECK_RAPID_WINDOW;
 window.BREAK_RAPID_CORRECT_THRESHOLD = BREAK_RAPID_CORRECT_THRESHOLD;
 window.DAILY_SAVE_INTERVAL_MS = DAILY_SAVE_INTERVAL_MS;
+window.MAX_STALE_TIMESTAMP_MS = MAX_STALE_TIMESTAMP_MS;
 window.INACTIVITY_TIMEOUT_MS = INACTIVITY_TIMEOUT_MS;
 window.AWAY_SESSION_QUICK_CHECK_THRESHOLD = AWAY_SESSION_QUICK_CHECK_THRESHOLD;
 window.AWAY_SESSION_BRIEF_DISTRACTION_THRESHOLD = AWAY_SESSION_BRIEF_DISTRACTION_THRESHOLD;
