@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.SequencesSeries = {
     getSequencesSeries: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.getQuestionType(1, 4);
+        const questionType = utils.getQuestionType(1, 5);
                 
                 if (questionType === 1) {
                     // Arithmetic sequence: nth term
@@ -74,7 +74,7 @@ window.QuestionTemplates.SequencesSeries = {
                         explanation: `S_n = n(a_1 + a_n)/2. First find a_${n} = ${a} + ${(n - 1) * d} = ${l}. Then S_${n} = ${n}(${a} + ${l})/2 = ${sum}.`,
                         calc: false
                     };
-                } else {
+                } else if (questionType === 4) {
                     // Sigma notation
                     const n = utils.rInt(3, 6);
                     const sum = (n * (n + 1)) / 2;
@@ -92,6 +92,39 @@ window.QuestionTemplates.SequencesSeries = {
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Sum of first ${n} natural numbers: 1 + 2 + ... + ${n} = n(n+1)/2 = ${n}(${n + 1})/2 = ${sum}.`,
+                        calc: false
+                    };
+                } else {
+                    // Binomial theorem - coefficient in expansion
+                    // (a + b)^n, find coefficient of a^r b^(n-r)
+                    const n = utils.rInt(3, 5);
+                    const r = utils.rInt(1, n - 1);
+                    
+                    // Calculate binomial coefficient C(n, r) = n! / (r! * (n-r)!)
+                    function factorial(num) {
+                        if (num <= 1) return 1;
+                        return num * factorial(num - 1);
+                    }
+                    
+                    const coeff = factorial(n) / (factorial(r) * factorial(n - r));
+                    const correctAnswer = `${coeff}`;
+                    const candidateDistractors = [
+                        `${n * r}`,
+                        `${factorial(n) / factorial(r)}`,
+                        `${n + r}`
+                    ];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(1, 20)}`
+                    );
+                    
+                    return {
+                        tex: `(a + b)^${n}`,
+                        instruction: `\\text{Find coefficient of } a^${r}b^${n - r}`,
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `Use binomial theorem: coefficient is C(${n}, ${r}) = ${n}!/(${r}! × ${n - r}!) = ${coeff}. This is also written as (${n} choose ${r}).`,
                         calc: false
                     };
                 }

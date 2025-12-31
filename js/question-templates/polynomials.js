@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.Polynomials = {
     getPolynomials: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.getQuestionType(1, 3);
+        const questionType = utils.getQuestionType(1, 4);
                 
                 if (questionType === 1) {
                     // Polynomial addition - avoid coefficient of 1 showing as "1x"
@@ -60,7 +60,7 @@ window.QuestionTemplates.Polynomials = {
                         explanation: utils.toUnicodeFunction(`By factor theorem, if (x - ${a}) is a factor, then f(${a}) = 0. Check: f(${a}) = ${a}² + ${b - a}(${a}) + ${c} = ${a * a} + ${a * (b - a)} + ${c} = 0. Yes, it's a factor.`),
                         calc: false
                     };
-                } else {
+                } else if (questionType === 3) {
                     // Remainder theorem
                     const a = utils.rInt(1, 4);
                     const b = utils.rInt(2, 8);
@@ -80,6 +80,40 @@ window.QuestionTemplates.Polynomials = {
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: utils.toUnicodeFunction(`By remainder theorem, the remainder when f(x) is divided by (x - ${a}) is f(${a}) = ${a}² + ${b}(${a}) + ${c} = ${remainder}.`),
+                        calc: false
+                    };
+                } else {
+                    // Polynomial long division - quotient
+                    // Divide (x^2 + bx + c) by (x - a) to get quotient (x + q) with remainder r
+                    const a = utils.rInt(1, 5);
+                    const q = utils.rInt(2, 8);
+                    const r = utils.rInt(0, 6);
+                    // Work backwards: (x - a)(x + q) + r = x^2 + (q - a)x - aq + r
+                    const b = q - a;
+                    const c = -a * q + r;
+                    
+                    const correctAnswer = `x + ${q}`;
+                    const candidateDistractors = [
+                        `x + ${q + a}`,
+                        `x + ${q - a}`,
+                        `x - ${a}`
+                    ];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `x + ${utils.rInt(-10, 10)}`
+                    );
+                    
+                    // Format polynomial with proper signs
+                    const bTerm = b === 0 ? '' : (b === 1 ? ' + x' : (b === -1 ? ' - x' : utils.formatConstant(b) + 'x'));
+                    const cTerm = utils.formatConstant(c);
+                    
+                    return {
+                        tex: `\\frac{x^2${bTerm}${cTerm}}{x - ${a}}`,
+                        instruction: `\\text{Find the quotient (ignore remainder)}`,
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: utils.toUnicodeFunction(`Divide x² ${bTerm}${cTerm} by (x - ${a}) using polynomial long division. The quotient is x + ${q}${r !== 0 ? ` with remainder ${r}` : ''}.`),
                         calc: false
                     };
                 }

@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.Calculus = {
     getCalculus: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.getQuestionType(1, 3);
+        const questionType = utils.getQuestionType(1, 4);
                 
                 if (questionType === 1) {
                     // Basic integration: ∫x^n dx
@@ -61,7 +61,7 @@ window.QuestionTemplates.Calculus = {
                         explanation: `Integrate using the power rule, keeping the coefficient: ∫${a}x^${n} dx = ${a} × x^${newExp}/${newExp} + C = ${a}x^${newExp}/${newExp} + C.`,
                         calc: false
                     };
-                } else {
+                } else if (questionType === 3) {
                     // Simple infinite series: sum of geometric series
                     // Define series ratios with their corresponding values and display formats
                     const seriesOptions = [
@@ -89,6 +89,44 @@ window.QuestionTemplates.Calculus = {
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `This is a geometric series with first term a=1 and ratio r=${series.display}. Since |r| < 1, it converges to S = a/(1-r) = 1/(1-${series.display}) = ${series.answerDisplay}.`,
+                        calc: false
+                    };
+                } else {
+                    // Partial fractions - simple case with distinct linear factors
+                    // Form: (Ax + B) / ((x - a)(x - b)) = A/(x - a) + B/(x - b)
+                    const a = utils.rInt(1, 4);
+                    const b = utils.rInt(5, 8);
+                    const A = utils.rInt(1, 5);
+                    const B = utils.rInt(1, 5);
+                    
+                    // Construct numerator: A(x - b) + B(x - a) = (A + B)x - Ab - Ba
+                    const numCoeff = A + B;
+                    const numConst = -A * b - B * a;
+                    
+                    const correctAnswer = `\\frac{${A}}{x - ${a}} + \\frac{${B}}{x - ${b}}`;
+                    const candidateDistractors = [
+                        `\\frac{${A}}{x - ${b}} + \\frac{${B}}{x - ${a}}`,
+                        `\\frac{${A + B}}{x - ${a}} + \\frac{1}{x - ${b}}`,
+                        `\\frac{${A}}{(x - ${a})(x - ${b})}`
+                    ];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => {
+                            const randA = utils.rInt(1, 6);
+                            const randB = utils.rInt(1, 6);
+                            return `\\frac{${randA}}{x - ${a}} + \\frac{${randB}}{x - ${b}}`;
+                        }
+                    );
+                    
+                    const numConstTerm = numConst >= 0 ? ` + ${numConst}` : ` - ${Math.abs(numConst)}`;
+                    
+                    return {
+                        tex: `\\frac{${numCoeff}x${numConstTerm}}{(x - ${a})(x - ${b})}`,
+                        instruction: "Express as partial fractions",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `To decompose into partial fractions, write as A/(x - ${a}) + B/(x - ${b}). Solve: ${numCoeff}x${numConstTerm} = A(x - ${b}) + B(x - ${a}). Setting x = ${a}: A = ${A}. Setting x = ${b}: B = ${B}.`,
                         calc: false
                     };
                 }
