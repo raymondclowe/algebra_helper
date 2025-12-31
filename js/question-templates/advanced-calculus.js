@@ -22,7 +22,7 @@ window.QuestionTemplates.AdvancedCalculus = {
                             `${a}(${a}x + ${b})^{${n - 1}}`,
                             `${n * a}x^{${n - 1}}`
                         ],
-                        explanation: `Chain rule: d/dx[(ax+b)^n] = n(ax+b)^(n-1) × a. So derivative = ${n}(${a}x + ${b})^${n - 1} × ${a} = ${n * a}(${a}x + ${b})^${n - 1}.`,
+                        explanation: `Apply the chain rule: d/dx[(ax+b)^n] = n(ax+b)^(n-1) × a. Therefore f'(x) = ${n}(${a}x + ${b})^${n - 1} × ${a} = ${n * a}(${a}x + ${b})^${n - 1}.`,
                         calc: false
                     };
                 } else if (questionType === 2) {
@@ -39,7 +39,7 @@ window.QuestionTemplates.AdvancedCalculus = {
                             `${a}x^{${b}}`,
                             `${a}x^{${b + 1}}`
                         ],
-                        explanation: utils.toUnicodeFunction(`Product rule: (uv)' = u'v + uv'. Here u = x, v = ${a}x^${b}. So (x)(${a * b}x^${b - 1}) + (1)(${a}x^${b}) = ${(b + 1) * a}x^${b}.`),
+                        explanation: utils.toUnicodeFunction(`Apply the product rule (uv)' = u'v + uv' where u = x and v = ${a}x^${b}. Therefore f'(x) = (1)(${a}x^${b}) + (x)(${a * b}x^${b - 1}) = ${(b + 1) * a}x^${b}.`),
                         calc: false
                     };
                 } else if (questionType === 3) {
@@ -58,7 +58,7 @@ window.QuestionTemplates.AdvancedCalculus = {
                             `${a * n * n}x^{${n - 2}}`,
                             `${secondDeriv}x^{${n - 1}}`
                         ],
-                        explanation: utils.toUnicodeFunction(`First derivative: f'(x) = ${firstDeriv}x^${n - 1}. Second derivative: f''(x) = ${firstDeriv}(${n - 1})x^${n - 2} = ${secondDeriv}x^${n - 2}.`),
+                        explanation: utils.toUnicodeFunction(`Differentiate twice. First derivative: f'(x) = ${firstDeriv}x^${n - 1}. Second derivative: f''(x) = ${firstDeriv}(${n - 1})x^${n - 2} = ${secondDeriv}x^${n - 2}.`),
                         calc: false
                     };
                 } else {
@@ -92,7 +92,7 @@ window.QuestionTemplates.AdvancedCalculus = {
                         instruction: utils.toUnicodeFunction("Find the critical point of f(x)"),
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: utils.toUnicodeFunction(`First find the derivative: f'(x) = ${a}x ${b >= 0 ? '+' : ''}${b}. Set f'(x) = 0: ${a}x ${b >= 0 ? '+' : ''}${b} = 0. Solve: ${a}x = ${-b}, so x = ${root}. This is a critical point where the function has a potential maximum or minimum.`),
+                        explanation: utils.toUnicodeFunction(`Differentiate: f'(x) = ${a}x ${b >= 0 ? '+' : ''}${b}. For critical points, solve f'(x) = 0: ${a}x ${b >= 0 ? '+' : ''}${b} = 0, which gives ${a}x = ${-b}, therefore x = ${root}.`),
                         calc: false
                     };
                 }

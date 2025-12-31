@@ -22,7 +22,7 @@ window.QuestionTemplates.Functions = {
                     );
                     return {
                         tex: utils.toUnicodeFunction(`f(x) = ${a}x + ${b} \\\\[0.5em] f(${x}) = ?`),
-                        instruction: "Evaluate the function",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: utils.toUnicodeFunction(`Substitute x = ${x} into the function: f(${x}) = ${a}(${x}) + ${b} = ${a * x} + ${b} = ${answer}.`),
@@ -42,10 +42,10 @@ window.QuestionTemplates.Functions = {
                     );
                     return {
                         tex: utils.toUnicodeFunction(`f(x) = 2x \\\\[0.5em] g(x) = x + 3 \\\\[0.5em] f(g(${x})) = ?`),
-                        instruction: "Evaluate the composite function",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: utils.toUnicodeFunction(`First find g(${x}) = ${x} + 3 = ${gResult}. Then find f(${gResult}) = 2(${gResult}) = ${fResult}. Work from the inside out.`),
+                        explanation: utils.toUnicodeFunction(`Evaluate g(${x}) first: g(${x}) = ${x} + 3 = ${gResult}. Then evaluate f(${gResult}): f(${gResult}) = 2(${gResult}) = ${fResult}.`),
                         calc: false
                     };
                 } else {
@@ -71,7 +71,7 @@ window.QuestionTemplates.Functions = {
                             instruction: "Find the input value",
                             displayAnswer: correctAnswer,
                             distractors: distractors,
-                            explanation: `We have ${m}a - ${c} = ${resultInt}. Add ${c}: ${m}a = ${resultInt + c}. Divide by ${m}: a = ${xInt}.`,
+                            explanation: `Given ${m}a - ${c} = ${resultInt}. Add ${c} to both sides: ${m}a = ${resultInt + c}. Divide by ${m}: a = ${xInt}.`,
                             calc: false
                         };
                     }
@@ -87,7 +87,7 @@ window.QuestionTemplates.Functions = {
                         instruction: "Find the input value",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `We have ${m}a - ${c} = ${result}. Add ${c}: ${m}a = ${result + c}. Divide by ${m}: a = ${x}.`,
+                        explanation: `Given ${m}a - ${c} = ${result}. Add ${c} to both sides: ${m}a = ${result + c}. Divide by ${m}: a = ${x}.`,
                         calc: false
                     };
                 }

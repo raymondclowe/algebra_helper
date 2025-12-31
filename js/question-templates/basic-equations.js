@@ -19,7 +19,7 @@ window.QuestionTemplates.BasicEquations = {
             instruction: "Solve for x", 
             displayAnswer: correctAnswer, 
             distractors: distractors, 
-            explanation:`To isolate x, we need to undo the multiplication by ${a}. We divide both sides by ${a} to keep the equation balanced: ${a}x ÷ ${a} = ${a*x} ÷ ${a}, which gives x = ${x}.`, 
+            explanation:`Divide both sides by ${a} to isolate x: ${a}x ÷ ${a} = ${a*x} ÷ ${a}, which gives x = ${x}.`, 
             calc:false 
         };
     },
@@ -40,7 +40,7 @@ window.QuestionTemplates.BasicEquations = {
             instruction: "Solve for x", 
             displayAnswer: correctAnswer, 
             distractors: distractors, 
-            explanation:`First, subtract ${b} from both sides to isolate the term with x: ${a}x = ${a*x}. Then divide both sides by ${a} to get x alone: x = ${x}. Remember: we perform inverse operations in reverse order of operations (PEMDAS backwards).`, 
+            explanation:`Subtract ${b} from both sides: ${a}x = ${a*x}. Then divide both sides by ${a}: x = ${x}. Note that inverse operations are performed in reverse order of operations.`, 
             calc:false 
         };
     },
@@ -65,7 +65,7 @@ window.QuestionTemplates.BasicEquations = {
             instruction: "Expand", 
             displayAnswer: correctAnswer, 
             distractors: distractors, 
-            explanation:`Use the distributive property: multiply ${a} by each term inside the parentheses. ${a} × x = ${a}x, and ${a} × ${b} = ${a*b}. This gives ${a}x + ${a*b}. Common mistake: forgetting to multiply ${a} by ${b}.`, 
+            explanation:`Apply the distributive property by multiplying ${a} by each term inside the parentheses: ${a} × x = ${a}x, and ${a} × ${b} = ${a*b}. This gives ${a}x + ${a*b}.`, 
             calc:false 
         };
     },
@@ -87,10 +87,10 @@ window.QuestionTemplates.BasicEquations = {
         );
         return { 
             tex: `x^2 + ${a+b}x + ${a*b}`, 
-            instruction: "Factorise", 
+            instruction: "Factorize", 
             displayAnswer: correctAnswer, 
             distractors: distractors, 
-            explanation:`We need two numbers that multiply to ${a*b} (the constant term) and add to ${a+b} (the coefficient of x). These numbers are ${a} and ${b} because ${a} × ${b} = ${a*b} and ${a} + ${b} = ${a+b}. So the answer is (x+${a})(x+${b}). Check by expanding: you should get back to the original expression.`, 
+            explanation:`Find two numbers that multiply to ${a*b} (the constant term) and add to ${a+b} (the coefficient of x). These numbers are ${a} and ${b}: ${a} × ${b} = ${a*b} and ${a} + ${b} = ${a+b}. Therefore (x+${a})(x+${b}). This can be verified by expanding.`, 
             calc:false 
         };
     },
@@ -120,7 +120,7 @@ window.QuestionTemplates.BasicEquations = {
                 instruction: utils.toUnicodeFunction("Find f'(x)"), 
                 displayAnswer: correctAnswer, 
                 distractors: distractors, 
-                explanation: utils.toUnicodeFunction(`Use the power rule for differentiation: multiply the coefficient by the exponent, then reduce the exponent by 1. So ${a}x^${n} becomes ${a} × ${n} × x^${n-1} = ${a*n}x^${n-1}. The derivative tells us the rate of change of the function.`), 
+                explanation: utils.toUnicodeFunction(`Apply the power rule: multiply the coefficient by the exponent, then reduce the exponent by 1. Therefore f'(x) = ${a} × ${n} × x^${n-1} = ${a*n}x^${n-1}.`), 
                 calc:false 
             };
         } else if (questionType === 2) {

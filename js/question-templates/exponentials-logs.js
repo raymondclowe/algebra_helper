@@ -46,10 +46,10 @@ window.QuestionTemplates.ExponentialsLogs = {
                     
                     return {
                         tex: `${logNotation}(${arg})`,
-                        instruction: "Evaluate",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `${logNotation}(${arg}) = ${exp} because ${base}^${exp} = ${arg}. Logarithm asks: "what power gives us ${arg}?"`,
+                        explanation: `${logNotation}(${arg}) = ${exp} because ${base}^${exp} = ${arg}. The logarithm is the inverse of the exponential function.`,
                         calc: false
                     };
                 } else if (questionType === 3) {
@@ -71,7 +71,7 @@ window.QuestionTemplates.ExponentialsLogs = {
                         instruction: "Simplify using log laws",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Using the product rule: log(a) + log(b) = log(ab). So log(${a}) + log(${b}) = log(${product}).`,
+                        explanation: `Apply the product law: log(a) + log(b) = log(ab). Therefore log(${a}) + log(${b}) = log(${a} × ${b}) = log(${product}).`,
                         calc: false
                     };
                 } else {
@@ -90,7 +90,7 @@ window.QuestionTemplates.ExponentialsLogs = {
                         instruction: "Solve for x",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `If e^x = e^${exp}, then x = ${exp}. Equal bases mean equal exponents.`,
+                        explanation: `If e^x = e^${exp}, then the exponents must be equal: x = ${exp}.`,
                         calc: false
                     };
                 }

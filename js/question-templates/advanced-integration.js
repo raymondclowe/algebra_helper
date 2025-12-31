@@ -16,7 +16,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             if (step === 1) {
                 return {
                     tex: `\\int ${a}x(x^2 + 1)^3 \\, dx`,
-                    instruction: `What substitution u should we use?`,
+                    instruction: `State an appropriate substitution`,
                     displayAnswer: `u = x^2 + 1`,
                     distractors: utils.ensureUniqueDistractors(
                         `u = x^2 + 1`,
@@ -33,7 +33,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             } else if (step === 2) {
                 return {
                     tex: `\\text{Given } u = x^2 + 1, \\text{ what is } du?`,
-                    instruction: `Express du in terms of x and dx`,
+                    instruction: `Find du in terms of x`,
                     displayAnswer: `du = 2x \\, dx`,
                     distractors: utils.ensureUniqueDistractors(
                         `du = 2x \\, dx`,
@@ -50,7 +50,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             } else {
                 return {
                     tex: `\\int ${a}x(x^2 + 1)^3 \\, dx \\text{ with } u = x^2 + 1`,
-                    instruction: `What is the result after substitution and integration?`,
+                    instruction: `Hence find the integral`,
                     displayAnswer: `\\frac{${a}}{8}(x^2 + 1)^4 + C`,
                     distractors: utils.ensureUniqueDistractors(
                         `\\frac{${a}}{8}(x^2 + 1)^4 + C`,
@@ -72,7 +72,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             if (step === 1) {
                 return {
                     tex: `\\int x e^x \\, dx`,
-                    instruction: `For integration by parts ∫u dv = uv - ∫v du, what should u be?`,
+                    instruction: `State an appropriate choice for u`,
                     displayAnswer: `u = x`,
                     distractors: utils.ensureUniqueDistractors(
                         `u = x`,
@@ -89,7 +89,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             } else if (step === 2) {
                 return {
                     tex: `\\text{Given } u = x, dv = e^x \\, dx`,
-                    instruction: `What are du and v?`,
+                    instruction: `Find du and v`,
                     displayAnswer: `du = dx, \\quad v = e^x`,
                     distractors: utils.ensureUniqueDistractors(
                         `du = dx, \\quad v = e^x`,
@@ -106,7 +106,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             } else {
                 return {
                     tex: `\\int x e^x \\, dx \\text{ using parts: } uv - \\int v \\, du`,
-                    instruction: `What is the final result?`,
+                    instruction: `Hence find the integral`,
                     displayAnswer: `xe^x - e^x + C = e^x(x - 1) + C`,
                     distractors: utils.ensureUniqueDistractors(
                         `xe^x - e^x + C = e^x(x - 1) + C`,
@@ -128,7 +128,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             if (step === 1) {
                 return {
                     tex: `\\int \\sin(x) \\cos(x) \\, dx`,
-                    instruction: `What substitution should we use?`,
+                    instruction: `State an appropriate substitution`,
                     displayAnswer: `u = \\sin(x)`,
                     distractors: utils.ensureUniqueDistractors(
                         `u = \\sin(x)`,
@@ -145,7 +145,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             } else {
                 return {
                     tex: `\\int \\sin(x) \\cos(x) \\, dx \\text{ with } u = \\sin(x)`,
-                    instruction: `What is the result?`,
+                    instruction: `Hence find the integral`,
                     displayAnswer: `\\frac{1}{2}\\sin^2(x) + C`,
                     distractors: utils.ensureUniqueDistractors(
                         `\\frac{1}{2}\\sin^2(x) + C`,
@@ -170,7 +170,7 @@ window.QuestionTemplates.AdvancedIntegration = {
             
             return {
                 tex: `\\int ${coefficient}x(x^2 + 1)^${n} \\, dx`,
-                instruction: `Integrate using the reverse chain rule`,
+                instruction: `Find the integral`,
                 displayAnswer: `${result}(x^2 + 1)^${n + 1} + C`,
                 distractors: utils.ensureUniqueDistractors(
                     `${result}(x^2 + 1)^${n + 1} + C`,

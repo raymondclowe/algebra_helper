@@ -33,7 +33,7 @@ window.QuestionTemplates.Vectors = {
                     
                     return {
                         tex: `\\begin{pmatrix} ${a1} \\\\ ${a2} \\end{pmatrix} + \\begin{pmatrix} ${b1} \\\\ ${b2} \\end{pmatrix}`,
-                        instruction: "Add the vectors",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Add corresponding components: (${a1} + ${b1}, ${a2} + ${b2}) = (${sum1}, ${sum2}).`,
@@ -64,7 +64,7 @@ window.QuestionTemplates.Vectors = {
                     
                     return {
                         tex: `${k} \\begin{pmatrix} ${v1} \\\\ ${v2} \\end{pmatrix}`,
-                        instruction: "Multiply vector by scalar",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Multiply each component by ${k}: (${k}×${v1}, ${k}×${v2}) = (${result1}, ${result2}).`,

@@ -34,10 +34,10 @@ window.QuestionTemplates.Probability = {
                     
                     return {
                         tex: `\\text{Bag has ${total} balls,}\\\\[0.5em]\\text{${favorable} are red.}\\\\[0.5em]\\text{P(red) = ?}`,
-                        instruction: "Find the probability",
+                        instruction: "Calculate the probability",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Probability = (favorable outcomes)/(total outcomes) = ${favorable}/${total}. This can be simplified if needed.`,
+                        explanation: `Probability = (number of favorable outcomes)/(total number of outcomes) = ${favorable}/${total}.`,
                         calc: false
                     };
                 } else if (questionType === 2) {
@@ -95,10 +95,10 @@ window.QuestionTemplates.Probability = {
                     
                     return {
                         tex: `\\text{If P(success) = } \\frac{${favorable}}{${total}}\\text{,}\\\\[0.5em]\\text{what is P(failure)?}`,
-                        instruction: "Find the complementary probability",
+                        instruction: "Calculate the complementary probability",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `P(failure) = 1 - P(success) = 1 - ${favorable}/${total} = ${complement}/${total}. The probabilities of all outcomes sum to 1.`,
+                        explanation: `P(failure) = 1 - P(success) = 1 - ${favorable}/${total} = ${complement}/${total}. Note that complementary probabilities sum to 1.`,
                         calc: false
                     };
                 }

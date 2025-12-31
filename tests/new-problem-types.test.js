@@ -179,8 +179,8 @@ describe('New Problem Types Tests', () => {
         expect(question.hasAnswer).toBe(true);
         expect(question.hasDistractors).toBe(true);
         expect(question.hasExplanation).toBe(true);
-        // Check that it contains calculus notation
-        expect(question.tex).toMatch(/(int|sum)/i);
+        // Check that it contains calculus notation (int, sum) or partial fractions
+        expect(question.tex).toMatch(/(int|sum|frac.*\(x)/i);
     });
 
     test('Questions are properly distributed across levels', async () => {

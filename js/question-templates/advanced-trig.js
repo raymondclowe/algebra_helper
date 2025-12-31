@@ -41,10 +41,10 @@ window.QuestionTemplates.AdvancedTrig = {
                     );
                     return {
                         tex: `\\sin(2\\theta)`,
-                        instruction: "Express in terms of sinθ and cosθ",
+                        instruction: "Express in terms of sin θ and cos θ",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Double angle formula: sin(2θ) = 2sinθcosθ. This comes from the sum formula sin(A+B).`,
+                        explanation: `Double angle formula: sin(2θ) = 2 sin θ cos θ. This is derived from the sum formula sin(A + B).`,
                         calc: false
                     };
                 } else if (questionType === 3) {
@@ -70,7 +70,7 @@ window.QuestionTemplates.AdvancedTrig = {
                     
                     return {
                         tex: `${degrees}°`,
-                        instruction: "Convert to radians",
+                        instruction: "Express in radians",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `To convert degrees to radians: multiply by π/180. ${degrees}° × (π/180°) = ${radians[degrees]}.`,
@@ -90,10 +90,10 @@ window.QuestionTemplates.AdvancedTrig = {
                     );
                     return {
                         tex: `\\sin(x) = 0.5 \\\\[0.5em] 0° \\leq x < 360°`,
-                        instruction: "Find the smallest solution",
+                        instruction: "Write down the smallest value of x",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `sin(30°) = 1/2 = 0.5. The solutions in [0°, 360°) are 30° and 150° (supplementary angles). The smallest is 30°.`,
+                        explanation: `sin(30°) = 1/2 = 0.5. In the interval [0°, 360°), the solutions are x = 30° and x = 150°. The smallest value is 30°.`,
                         calc: false
                     };
                 }

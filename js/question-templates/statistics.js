@@ -26,7 +26,7 @@ window.QuestionTemplates.Statistics = {
                     
                     return {
                         tex: `\\text{Data: } ${data.join(', ')}`,
-                        instruction: "Find the mean",
+                        instruction: "Calculate the mean",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Mean = sum/count = (${data.join(' + ')})/${data.length} = ${sum}/${data.length} = ${mean}.`,
@@ -100,7 +100,7 @@ window.QuestionTemplates.Statistics = {
                     
                     return {
                         tex: `\\text{Data: } ${data.join(', ')}`,
-                        instruction: "Find the range",
+                        instruction: "Calculate the range",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Range = maximum - minimum = ${max} - ${min} = ${range}.`,

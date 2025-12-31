@@ -26,7 +26,7 @@ window.QuestionTemplates.SequencesSeries = {
                         instruction: `\\text{Find } a_{${n}}`,
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Formula: a_n = a_1 + (n-1)d = ${a} + (${n}-1)(${d}) = ${a} + ${(n - 1) * d} = ${term}.`,
+                        explanation: `Apply the formula a_n = a_1 + (n-1)d. Therefore a_${n} = ${a} + (${n}-1)(${d}) = ${a} + ${(n - 1) * d} = ${term}.`,
                         calc: false
                     };
                 } else if (questionType === 2) {
@@ -48,7 +48,7 @@ window.QuestionTemplates.SequencesSeries = {
                         instruction: `\\text{Find } a_{${n}}`,
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Formula: a_n = a_1 × r^(n-1) = ${a} × ${r}^${n - 1} = ${a} × ${Math.pow(r, n - 1)} = ${term}.`,
+                        explanation: `Apply the formula a_n = a_1 × r^(n-1). Therefore a_${n} = ${a} × ${r}^${n - 1} = ${a} × ${Math.pow(r, n - 1)} = ${term}.`,
                         calc: false
                     };
                 } else if (questionType === 3) {
@@ -68,10 +68,10 @@ window.QuestionTemplates.SequencesSeries = {
                     
                     return {
                         tex: `\\text{Sum of arithmetic series: } a_1 = ${a}, d = ${d}, n = ${n}`,
-                        instruction: "Find the sum S_n",
+                        instruction: "Calculate S_n",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `S_n = n(a_1 + a_n)/2. First find a_${n} = ${a} + ${(n - 1) * d} = ${l}. Then S_${n} = ${n}(${a} + ${l})/2 = ${sum}.`,
+                        explanation: `Apply S_n = n(a_1 + a_n)/2. First calculate a_${n} = ${a} + ${(n - 1) * d} = ${l}. Then S_${n} = ${n}(${a} + ${l})/2 = ${sum}.`,
                         calc: false
                     };
                 } else if (questionType === 4) {
@@ -88,10 +88,10 @@ window.QuestionTemplates.SequencesSeries = {
                     
                     return {
                         tex: `\\sum_{k=1}^{${n}} k`,
-                        instruction: "Evaluate the sum",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Sum of first ${n} natural numbers: 1 + 2 + ... + ${n} = n(n+1)/2 = ${n}(${n + 1})/2 = ${sum}.`,
+                        explanation: `The sum of the first ${n} natural numbers is given by n(n+1)/2. Therefore 1 + 2 + ... + ${n} = ${n}(${n + 1})/2 = ${sum}.`,
                         calc: false
                     };
                 } else {

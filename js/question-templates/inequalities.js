@@ -29,7 +29,7 @@ window.QuestionTemplates.Inequalities = {
                         instruction: "Solve for x",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Divide both sides by ${a}: x < ${b}/${a} = ${x}. The inequality sign stays the same when dividing by a positive number.`,
+                        explanation: `Divide both sides by ${a}: x < ${b}/${a} = ${x}. Note that the inequality sign remains unchanged when dividing by a positive number.`,
                         calc: false
                     };
                 } else if (questionType === 2) {
@@ -55,7 +55,7 @@ window.QuestionTemplates.Inequalities = {
                         instruction: "Solve for x",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Divide both sides by -${a}: x < ${b}/(-${a}) = ${x}. IMPORTANT: Flip the inequality sign when dividing by a negative number.`,
+                        explanation: `Divide both sides by -${a} and reverse the inequality sign: x < ${b}/(-${a}) = ${x}. Note that dividing by a negative number reverses the inequality sign.`,
                         calc: false
                     };
                 } else {
@@ -82,7 +82,7 @@ window.QuestionTemplates.Inequalities = {
                         instruction: "Solve for x",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Subtract ${b}: ${a}x < ${c - b}. Divide by ${a}: x < ${x}. Solve inequalities like equations, but remember to flip the sign when multiplying/dividing by negatives.`,
+                        explanation: `Subtract ${b} from both sides: ${a}x < ${c - b}. Divide by ${a}: x < ${x}.`,
                         calc: false
                     };
                 }
