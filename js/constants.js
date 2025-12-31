@@ -53,6 +53,10 @@ const MIN_LEVEL = 1;                     // Minimum level in the app
 // 7 questions is sufficient for binary search across 34 levels (2^7 = 128 possible discriminations)
 const MAX_CALIBRATION_QUESTIONS = 7;
 
+// Make MAX_LEVEL and MIN_LEVEL globally accessible for use in other scripts
+window.MAX_LEVEL = MAX_LEVEL;
+window.MIN_LEVEL = MIN_LEVEL;
+
 // Display Mode Configuration
 // Controls how progress metrics are shown to students
 // Based on educational research showing mastery-oriented displays promote learning goals
@@ -85,3 +89,22 @@ const BREAK_RAPID_CORRECT_THRESHOLD = 1;   // Maximum correct answers in rapid w
 const PERSONALIZATION_PROBABILITY_SLOW = 0.4;  // 40% chance to use student name in slow answer feedback
 const PERSONALIZATION_PROBABILITY_FAST = 0.3;  // 30% chance to use student name in fast answer feedback
 const INPUT_FOCUS_DELAY_MS = 100;             // Delay before focusing input field in modals
+
+// Export constants to global scope for use in other scripts
+// This is necessary because const declarations are block-scoped and not accessible across script files
+window.AUTO_ADVANCE_DELAY_MS = AUTO_ADVANCE_DELAY_MS;
+window.FAST_ANSWER_THRESHOLD = FAST_ANSWER_THRESHOLD;
+window.SLOW_ANSWER_THRESHOLD = SLOW_ANSWER_THRESHOLD;
+window.BASE_LEVEL_DELTA = BASE_LEVEL_DELTA;
+window.TURBO_LEVEL_DELTA = TURBO_LEVEL_DELTA;
+window.MAX_CALIBRATION_QUESTIONS = MAX_CALIBRATION_QUESTIONS;
+window.FIXING_HABITS_CATEGORY = FIXING_HABITS_CATEGORY;
+window.FIXING_HABITS_INSERTION_RATE = FIXING_HABITS_INSERTION_RATE;
+window.FIXING_HABITS_MIN_ERRORS = FIXING_HABITS_MIN_ERRORS;
+window.BREAK_SPLASH_COOLDOWN_MS = BREAK_SPLASH_COOLDOWN_MS;
+window.BREAK_SESSION_MIN_MINUTES = BREAK_SESSION_MIN_MINUTES;
+window.BREAK_SCORE_THRESHOLD = BREAK_SCORE_THRESHOLD;
+window.BREAK_CHECK_RECENT_QUESTIONS = BREAK_CHECK_RECENT_QUESTIONS;
+window.BREAK_CHECK_MIN_QUESTIONS = BREAK_CHECK_MIN_QUESTIONS;
+window.BREAK_CHECK_RAPID_WINDOW = BREAK_CHECK_RAPID_WINDOW;
+window.BREAK_RAPID_CORRECT_THRESHOLD = BREAK_RAPID_CORRECT_THRESHOLD;

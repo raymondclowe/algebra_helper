@@ -55,7 +55,7 @@ describe('Level Progression Beyond 10 Fix Tests', () => {
         // Check that level increased beyond 10
         const newLevel = await page.evaluate(() => window.APP.level);
         expect(newLevel).toBeGreaterThan(10);
-        expect(newLevel).toBeLessThanOrEqual(24); // Should not exceed MAX_LEVEL
+        expect(newLevel).toBeLessThanOrEqual(34); // Should not exceed MAX_LEVEL
     });
 
     test('Level can reach level 15 through multiple correct answers', async () => {
@@ -76,7 +76,7 @@ describe('Level Progression Beyond 10 Fix Tests', () => {
 
         const finalLevel = await page.evaluate(() => window.APP.level);
         expect(finalLevel).toBeGreaterThanOrEqual(15);
-        expect(finalLevel).toBeLessThanOrEqual(24);
+        expect(finalLevel).toBeLessThanOrEqual(34);
     });
 
     test('Level can reach level 20 through progression', async () => {
@@ -97,25 +97,25 @@ describe('Level Progression Beyond 10 Fix Tests', () => {
 
         const finalLevel = await page.evaluate(() => window.APP.level);
         expect(finalLevel).toBeGreaterThanOrEqual(20);
-        expect(finalLevel).toBeLessThanOrEqual(24);
+        expect(finalLevel).toBeLessThanOrEqual(34);
     });
 
-    test('Level is capped at MAX_LEVEL (24)', async () => {
-        // Set up learning mode at level 23.5
+    test('Level is capped at MAX_LEVEL (34)', async () => {
+        // Set up learning mode at level 33.5
         await page.evaluate(() => {
             window.APP.mode = 'learning';
-            window.APP.level = 23.5;
+            window.APP.level = 33.5;
             window.APP.streak = 3;
         });
 
-        // Try to increase beyond 24
+        // Try to increase beyond 34
         await page.evaluate(() => {
             const delta = 1.0; // Large delta
             window.Learning.applyLevelChange(delta);
         });
 
         const finalLevel = await page.evaluate(() => window.APP.level);
-        expect(finalLevel).toBe(24); // Should be capped at MAX_LEVEL
+        expect(finalLevel).toBe(34); // Should be capped at MAX_LEVEL
     });
 
     test('Level is bounded by MIN_LEVEL (1) on the lower end', async () => {
