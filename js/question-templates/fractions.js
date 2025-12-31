@@ -31,7 +31,7 @@ window.QuestionTemplates.Fractions = {
                     
                     return {
                         tex: `\\frac{${num1}}{${den}} + \\frac{${num2}}{${den}}`,
-                        instruction: "Simplify the result",
+                        instruction: "Simplify",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Add the numerators: ${num1} + ${num2} = ${sum}. Keep the denominator: ${den}. Then simplify ${sum}/${den} = ${simplifiedNum}/${simplifiedDen}.`,
@@ -63,7 +63,7 @@ window.QuestionTemplates.Fractions = {
                     
                     return {
                         tex: `\\frac{${num1}}{${den1}} \\times \\frac{${num2}}{${den2}}`,
-                        instruction: "Multiply and simplify",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Multiply numerators: ${num1} × ${num2} = ${resultNum}. Multiply denominators: ${den1} × ${den2} = ${resultDen}. Simplify: ${simplifiedNum}/${simplifiedDen}.`,
@@ -95,7 +95,7 @@ window.QuestionTemplates.Fractions = {
                     
                     return {
                         tex: `\\frac{${num1}}{${den1}} \\div \\frac{${num2}}{${den2}}`,
-                        instruction: "Divide and simplify",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Dividing by a fraction means multiplying by its reciprocal: (${num1}/${den1}) × (${den2}/${num2}) = ${resultNum}/${resultDen} = ${simplifiedNum}/${simplifiedDen}.`,
@@ -138,7 +138,7 @@ window.QuestionTemplates.Fractions = {
                     
                     return {
                         tex: `\\frac{${num1}}{${den1}} + \\frac{${num2}}{${den2}}`,
-                        instruction: "Find common denominator and add",
+                        instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `Find LCD = ${commonDen}. Convert: ${num1}/${den1} = ${newNum1}/${commonDen} and ${num2}/${den2} = ${newNum2}/${commonDen}. Add: ${newNum1 + newNum2}/${commonDen} = ${simplifiedNum}/${simplifiedDen}.`,

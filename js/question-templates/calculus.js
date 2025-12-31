@@ -27,10 +27,10 @@ window.QuestionTemplates.Calculus = {
                     );
                     return {
                         tex: `\\int x^${n} \\, dx`,
-                        instruction: "Integrate",
+                        instruction: "Find the integral",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Using the power rule for integration: ∫x^n dx = x^(n+1)/(n+1) + C. So ∫x^${n} dx = x^${newExp}/${newExp} + C. Don't forget the constant of integration!`,
+                        explanation: `Apply the power rule for integration: ∫x^n dx = x^(n+1)/(n+1) + C. Therefore ∫x^${n} dx = x^${newExp}/${newExp} + C, where C is the constant of integration.`,
                         calc: false
                     };
                 } else if (questionType === 2) {
@@ -55,10 +55,10 @@ window.QuestionTemplates.Calculus = {
                     );
                     return {
                         tex: `\\int ${a}x^${n} \\, dx`,
-                        instruction: "Integrate",
+                        instruction: "Find the integral",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Integrate using the power rule, keeping the coefficient: ∫${a}x^${n} dx = ${a} × x^${newExp}/${newExp} + C = ${a}x^${newExp}/${newExp} + C.`,
+                        explanation: `Apply the power rule, retaining the coefficient: ∫${a}x^${n} dx = ${a} × x^${newExp}/${newExp} + C = ${a}x^${newExp}/${newExp} + C.`,
                         calc: false
                     };
                 } else {
@@ -85,10 +85,10 @@ window.QuestionTemplates.Calculus = {
                     
                     return {
                         tex: `\\sum_{n=0}^{\\infty} (${series.display})^n`,
-                        instruction: "Find the sum (if |r| < 1)",
+                        instruction: "Find the sum to infinity, given that |r| < 1",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `This is a geometric series with first term a=1 and ratio r=${series.display}. Since |r| < 1, it converges to S = a/(1-r) = 1/(1-${series.display}) = ${series.answerDisplay}.`,
+                        explanation: `This is a geometric series with first term a = 1 and common ratio r = ${series.display}. Since |r| < 1, the series converges. The sum to infinity is S∞ = a/(1-r) = 1/(1-${series.display}) = ${series.answerDisplay}.`,
                         calc: false
                     };
                 }

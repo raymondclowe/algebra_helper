@@ -18,7 +18,7 @@ window.QuestionTemplates.ComplexNumbers = {
                     
                     return {
                         tex: `(${a1} + ${b1}i) + (${a2} + ${b2}i)`,
-                        instruction: "Add the complex numbers",
+                        instruction: "Calculate",
                         displayAnswer: `${sumReal} + ${sumImag}i`,
                         distractors: [
                             `${a1 + a2}i`,

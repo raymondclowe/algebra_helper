@@ -32,10 +32,10 @@ window.QuestionTemplates.Trigonometry = {
                     );
                     return {
                         tex: `\\sin(${angle.deg}°)`,
-                        instruction: "Calculate (use exact values)",
+                        instruction: "Find the exact value",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `sin(${angle.deg}°) = ${angle.sin}. This is one of the standard angles you should memorize.`,
+                        explanation: `sin(${angle.deg}°) = ${angle.sin}. This is a standard result for special angles.`,
                         calc: false
                     };
                 } else if (questionType === 2) {
@@ -54,10 +54,10 @@ window.QuestionTemplates.Trigonometry = {
                     );
                     return {
                         tex: `\\cos(${angle.deg}°)`,
-                        instruction: "Calculate (use exact values)",
+                        instruction: "Find the exact value",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `cos(${angle.deg}°) = ${angle.cos}. Remember: cos(θ) is the x-coordinate on the unit circle.`,
+                        explanation: `cos(${angle.deg}°) = ${angle.cos}. Note that cos(θ) represents the x-coordinate on the unit circle.`,
                         calc: false
                     };
                 } else {
@@ -76,10 +76,10 @@ window.QuestionTemplates.Trigonometry = {
                     );
                     return {
                         tex: `\\tan(${tanAngle.deg}°)`,
-                        instruction: "Calculate (use exact values)",
+                        instruction: "Find the exact value",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `tan(${tanAngle.deg}°) = ${tanAngle.tan}. Remember: tan(θ) = sin(θ)/cos(θ).`,
+                        explanation: `tan(${tanAngle.deg}°) = ${tanAngle.tan}. Note that tan(θ) = sin(θ)/cos(θ).`,
                         calc: false
                     };
                 }

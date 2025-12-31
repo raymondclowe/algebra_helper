@@ -49,10 +49,10 @@ window.QuestionTemplates.Polynomials = {
                     
                     return {
                         tex: utils.toUnicodeFunction(`f(x) = x^2 + ${b - a}x + ${c}`),
-                        instruction: `\\text{Is } (x - ${a}) \\text{ a factor?}`,
+                        instruction: `\\text{Determine whether } (x - ${a}) \\text{ is a factor}`,
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: utils.toUnicodeFunction(`By factor theorem, if (x - ${a}) is a factor, then f(${a}) = 0. Check: f(${a}) = ${a}² + ${b - a}(${a}) + ${c} = ${a * a} + ${a * (b - a)} + ${c} = 0. Yes, it's a factor.`),
+                        explanation: utils.toUnicodeFunction(`By the factor theorem, (x - ${a}) is a factor of f(x) if and only if f(${a}) = 0. Calculate f(${a}) = ${a}² + ${b - a}(${a}) + ${c} = ${a * a} + ${a * (b - a)} + ${c} = 0. Therefore (x - ${a}) is a factor.`),
                         calc: false
                     };
                 } else {
@@ -71,10 +71,10 @@ window.QuestionTemplates.Polynomials = {
                     
                     return {
                         tex: utils.toUnicodeFunction(`f(x) = x^2 + ${b}x + ${c}`),
-                        instruction: `\\text{Find remainder when divided by } (x - ${a})`,
+                        instruction: `\\text{Find the remainder when } f(x) \\text{ is divided by } (x - ${a})`,
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: utils.toUnicodeFunction(`By remainder theorem, the remainder when f(x) is divided by (x - ${a}) is f(${a}) = ${a}² + ${b}(${a}) + ${c} = ${remainder}.`),
+                        explanation: utils.toUnicodeFunction(`By the remainder theorem, when f(x) is divided by (x - ${a}), the remainder is f(${a}). Calculate f(${a}) = ${a}² + ${b}(${a}) + ${c} = ${remainder}.`),
                         calc: false
                     };
                 }

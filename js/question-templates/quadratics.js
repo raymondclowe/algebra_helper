@@ -50,7 +50,7 @@ window.QuestionTemplates.Quadratics = {
                     instruction: utils.toUnicodePlainText("Find f^{-1}(x) for x ≥ 0"),
                     displayAnswer: correctAnswer,
                     distractors: wrongAnswers,
-                    explanation: utils.toUnicodeFunction(`To find the inverse function, we swap x and y, then solve for y. Start with y = ${a}x^2, swap to get x = ${a}y^2, then divide both sides by ${a} to get y^2 = x/${a}. Finally, take the square root of both sides: y = $\\sqrt{x/${a}}$. We take the positive root because x ≥ 0. The inverse "undoes" what the original function does.`),
+                    explanation: utils.toUnicodeFunction(`To find the inverse function: replace f(x) with y to get y = ${a}x^2, interchange x and y to get x = ${a}y^2, then solve for y. Divide both sides by ${a}: y^2 = x/${a}. Take the square root: y = √(x/${a}). The positive root is taken since x ≥ 0.`),
                     calc: false
                 };
     },
@@ -76,10 +76,10 @@ window.QuestionTemplates.Quadratics = {
                     
                     return {
                         tex: `x^2 ${b >= 0 ? '+' : ''}${b}x + ${c} = 0`,
-                        instruction: "Solve for x (give smaller solution)",
+                        instruction: "Write down the smaller value of x",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `This factors as (x - ${p})(x - ${q}) = 0. Solutions are x = ${p} and x = ${q}. The smaller solution is ${Math.min(p, q)}.`,
+                        explanation: `This expression factorizes as (x - ${p})(x - ${q}) = 0. Therefore x = ${p} or x = ${q}. The smaller value is ${Math.min(p, q)}.`,
                         calc: false
                     };
                 } else if (questionType === 2) {
@@ -97,10 +97,10 @@ window.QuestionTemplates.Quadratics = {
                     
                     return {
                         tex: `x^2 + ${2 * b}x + \\underline{\\quad}`,
-                        instruction: "What value completes the perfect square?",
+                        instruction: "Find the value that completes the square",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `To complete the square for x² + ${2 * b}x, take half the coefficient of x: (${2 * b})/2 = ${b}, then square it: ${b}² = ${square}. This gives (x + ${b})².`,
+                        explanation: `To complete the square for x² + ${2 * b}x: take half the coefficient of x, which is (${2 * b})/2 = ${b}, then square it: ${b}² = ${square}. Therefore x² + ${2 * b}x + ${square} = (x + ${b})².`,
                         calc: false
                     };
                 } else {
@@ -122,10 +122,10 @@ window.QuestionTemplates.Quadratics = {
                     
                     return {
                         tex: `x^2 + ${q.b}x + ${q.c} = 0`,
-                        instruction: "What is the discriminant b² - 4ac?",
+                        instruction: "Calculate the value of the discriminant",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Discriminant = b² - 4ac = ${q.b}² - 4(1)(${q.c}) = ${q.b * q.b} - ${4 * q.c} = ${disc}. This means ${q.nature}.`,
+                        explanation: `For the quadratic equation ax² + bx + c = 0, the discriminant Δ = b² - 4ac. Here: Δ = ${q.b}² - 4(1)(${q.c}) = ${q.b * q.b} - ${4 * q.c} = ${disc}. Since Δ ${disc === 0 ? '= 0' : disc > 0 ? '> 0' : '< 0'}, the equation has ${q.nature}.`,
                         calc: false
                     };
                 }
