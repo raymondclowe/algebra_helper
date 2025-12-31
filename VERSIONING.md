@@ -108,7 +108,7 @@ git checkout algebra-helper.html service-worker.js manifest.json index.html
 
 The version number in the HTML comment and console logs shows the Unix timestamp of deployment:
 
-- `1767181664` = Dec 31, 2025 11:47:44 GMT
+- `1704067200` = Jan 1, 2024 00:00:00 GMT (example)
 - You can convert timestamps at [epochconverter.com](https://www.epochconverter.com/)
 
 ## Related Files

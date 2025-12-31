@@ -25,9 +25,14 @@ const files = {
   'algebra-helper.html': {
     patterns: [
       {
-        // CSS and JS file query parameters
+        // CSS and JS file query parameters - update existing versions
         regex: /(\.(css|js))\?v=[^"'\s]+/g,
         replacement: `$1?v=${version}`
+      },
+      {
+        // CSS and JS file query parameters - add version to unversioned local files
+        regex: /((?:href|src)=["'](?:\.\/)?(?:css|js)\/[^"'?]+)(\.(?:css|js))(["'])/g,
+        replacement: `$1$2?v=${version}$3`
       },
       {
         // HTML version comment
@@ -58,8 +63,8 @@ const files = {
     patterns: [
       {
         // Add or update version field in manifest
-        regex: /"name":/,
-        replacement: `"version": "${version}",\n  "name":`
+        regex: /({\s*\n\s*)("version":\s*"[^"]+",\s*\n\s*)?("name":)/,
+        replacement: `$1"version": "${version}",\n  $3`
       }
     ]
   }
