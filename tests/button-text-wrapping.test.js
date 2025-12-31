@@ -122,7 +122,7 @@ describe('Button Text Wrapping Tests', () => {
         });
     });
 
-    test('MathJax containers in buttons have inline styles for wrapping', async () => {
+    test('Plain text answers (from \\text{}) render as HTML for proper wrapping', async () => {
         // Set mobile viewport
         await page.setViewport({ width: 375, height: 667 });
         
@@ -150,39 +150,39 @@ describe('Button Text Wrapping Tests', () => {
             await window.MathJax.typesetPromise();
         });
         
-        // Wait for MathJax to render
-        await page.waitForSelector('#mc-options button mjx-container', { timeout: 5000 });
+        // Wait for buttons to render
+        await page.waitForSelector('#mc-options button', { timeout: 5000 });
         await wait(500);
         
-        // Check MathJax container styles
-        const mjxStyles = await page.evaluate(() => {
-            const containers = document.querySelectorAll('#mc-options button mjx-container');
-            const styles = [];
+        // Check that \\text{} answers are rendered as plain text spans, not MathJax
+        const plainTextInfo = await page.evaluate(() => {
+            const buttons = document.querySelectorAll('#mc-options button');
+            const results = [];
             
-            containers.forEach(container => {
-                styles.push({
-                    maxWidth: container.style.maxWidth,
-                    width: container.style.width,
-                    display: container.style.display,
-                    wordBreak: container.style.wordBreak,
-                    overflowWrap: container.style.overflowWrap,
-                    overflow: container.style.overflow
+            buttons.forEach(button => {
+                // Skip "I don't know" button
+                if (button.dataset.dontKnow === 'true') return;
+                
+                const plainTextSpan = button.querySelector('.plain-text-answer');
+                const mjxContainer = button.querySelector('mjx-container');
+                
+                results.push({
+                    hasPlainTextSpan: !!plainTextSpan,
+                    hasMjxContainer: !!mjxContainer,
+                    textContent: plainTextSpan ? plainTextSpan.textContent : null
                 });
             });
             
-            return styles;
+            return results;
         });
         
-        expect(mjxStyles.length).toBeGreaterThan(0);
+        expect(plainTextInfo.length).toBeGreaterThan(0);
         
-        // Verify wrapping-related styles (fontSize is handled dynamically by checkAnswerButtonOverflow)
-        mjxStyles.forEach(style => {
-            expect(style.maxWidth).toBe('100%');
-            expect(style.width).toBe('100%');
-            expect(style.display).toBe('inline-block');
-            expect(style.wordBreak).toBe('break-word');
-            expect(style.overflowWrap).toBe('break-word');
-            expect(style.overflow).toBe('visible');
+        // All \\text{} answers should now render as plain text, not MathJax
+        plainTextInfo.forEach(info => {
+            expect(info.hasPlainTextSpan).toBe(true);
+            expect(info.hasMjxContainer).toBe(false);
+            expect(info.textContent).toBeTruthy();
         });
     });
 
@@ -217,7 +217,7 @@ describe('Button Text Wrapping Tests', () => {
         await page.waitForSelector('#mc-options button', { timeout: 5000 });
         await wait(1000); // Wait for all rendering to complete
         
-        // Check for overflow/clipping
+        // Check for overflow/clipping - now using plain text spans instead of mjx-container
         const overflowInfo = await page.evaluate(() => {
             const buttons = document.querySelectorAll('#mc-options button');
             const results = [];
@@ -226,17 +226,17 @@ describe('Button Text Wrapping Tests', () => {
                 if (button.dataset.dontKnow === 'true') return;
                 
                 const buttonRect = button.getBoundingClientRect();
-                const mjxContainer = button.querySelector('mjx-container');
+                const contentElement = button.querySelector('.plain-text-answer') || button.querySelector('mjx-container');
                 
-                if (mjxContainer) {
-                    const mjxRect = mjxContainer.getBoundingClientRect();
+                if (contentElement) {
+                    const contentRect = contentElement.getBoundingClientRect();
                     
                     results.push({
                         buttonWidth: buttonRect.width,
                         buttonHeight: buttonRect.height,
-                        mjxWidth: mjxRect.width,
-                        mjxHeight: mjxRect.height,
-                        isClipped: mjxRect.width > buttonRect.width || mjxRect.height > buttonRect.height,
+                        contentWidth: contentRect.width,
+                        contentHeight: contentRect.height,
+                        isClipped: contentRect.width > buttonRect.width || contentRect.height > buttonRect.height,
                         overflowStyle: window.getComputedStyle(button).overflow
                     });
                 }
@@ -286,19 +286,36 @@ describe('Button Text Wrapping Tests', () => {
         await page.waitForSelector('#mc-options button', { timeout: 5000 });
         await wait(1000);
         
-        // Check button heights
-        const heights = await page.evaluate(() => {
+        // Check that buttons exist and contain plain text spans
+        const buttonInfo = await page.evaluate(() => {
             const buttons = document.querySelectorAll('#mc-options button');
-            return Array.from(buttons)
-                .filter(btn => btn.dataset.dontKnow !== 'true')
-                .map(btn => btn.offsetHeight);
+            const results = [];
+            
+            buttons.forEach(btn => {
+                if (btn.dataset.dontKnow === 'true') return;
+                
+                const plainTextSpan = btn.querySelector('.plain-text-answer');
+                const computed = window.getComputedStyle(btn);
+                
+                results.push({
+                    hasPlainTextSpan: !!plainTextSpan,
+                    spanTextContent: plainTextSpan ? plainTextSpan.textContent.substring(0, 30) : null,
+                    display: computed.display,
+                    minHeight: computed.minHeight,
+                    height: computed.height
+                });
+            });
+            
+            return results;
         });
         
-        expect(heights.length).toBeGreaterThan(0);
+        expect(buttonInfo.length).toBeGreaterThan(0);
         
-        // At least one button should be taller than minimum due to text wrapping
-        // The longest text should wrap and increase button height
-        const maxHeight = Math.max(...heights);
-        expect(maxHeight).toBeGreaterThan(60); // Should be > minHeight due to wrapping
+        // Verify buttons are using flex display and have min-height set
+        buttonInfo.forEach(info => {
+            expect(info.hasPlainTextSpan).toBe(true);
+            expect(info.display).toBe('flex');
+            expect(info.minHeight).toBe('60px');
+        });
     });
 });

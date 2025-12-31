@@ -43,20 +43,31 @@ window.Learning = {
                     <span class="text-xs text-gray-500 mt-1">(no penalty)</span>
                 </div>`;
             } else {
-                // Smart rendering: Use plain text with unicode for simple text answers,
-                // LaTeX only for mathematical expressions
-                const needsLatex = /[\^_{}\\]|frac|sqrt|cdot|times|pm|leq|geq|sum|int|lim|log|sin|cos|tan|alpha|beta|gamma|delta|theta|pi/.test(opt.val);
+                // Check if the answer is purely \text{...} - extract plain text for better wrapping
+                // MathJax's \text{} renders as CHTML which doesn't respect CSS text wrapping
+                const textOnlyMatch = opt.val.match(/^\\text\{(.+)\}$/);
                 
-                if (needsLatex) {
-                    // Render as LaTeX math for complex expressions
-                    btn.innerHTML = `\\( ${opt.val} \\)`;
+                if (textOnlyMatch) {
+                    // Extract the plain text content from \text{...} and render as HTML
+                    // This allows proper CSS text wrapping on narrow screens
+                    const plainText = textOnlyMatch[1];
+                    btn.innerHTML = `<span class="plain-text-answer" style="font-family: 'Times New Roman', Times, serif; font-style: normal; word-spacing: 0.1em;">${plainText}</span>`;
                 } else {
-                    // Render as plain text with proper spacing and non-italic font
-                    // Replace unicode math symbols if present
-                    const textContent = opt.val
-                        .replace(/𝑓/g, '<span style="font-style: italic;">f</span>')
-                        .replace(/𝑔/g, '<span style="font-style: italic;">g</span>');
-                    btn.innerHTML = `<span style="font-style: normal; word-spacing: 0.15em;">${textContent}</span>`;
+                    // Smart rendering: Use plain text with unicode for simple text answers,
+                    // LaTeX only for mathematical expressions
+                    const needsLatex = /[\^_{}\\]|frac|sqrt|cdot|times|pm|leq|geq|sum|int|lim|log|sin|cos|tan|alpha|beta|gamma|delta|theta|pi/.test(opt.val);
+                    
+                    if (needsLatex) {
+                        // Render as LaTeX math for complex expressions
+                        btn.innerHTML = `\\( ${opt.val} \\)`;
+                    } else {
+                        // Render as plain text with proper spacing and non-italic font
+                        // Replace unicode math symbols if present
+                        const textContent = opt.val
+                            .replace(/𝑓/g, '<span style="font-style: italic;">f</span>')
+                            .replace(/𝑔/g, '<span style="font-style: italic;">g</span>');
+                        btn.innerHTML = `<span style="font-style: normal; word-spacing: 0.15em;">${textContent}</span>`;
+                    }
                 }
             }
             container.appendChild(btn);
