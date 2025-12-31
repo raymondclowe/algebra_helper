@@ -34,8 +34,13 @@ window.UI = {
             const viewportHeight = window.innerHeight;
             const optionsRect = mcOptions.getBoundingClientRect();
             
-            // If the top of mc-options is below viewport, show indicator
-            if (optionsRect.top > viewportHeight - 50) {
+            // Calculate how much content is hidden below the viewport
+            // Only show indicator if substantial content (>100px) is hidden
+            const hiddenContent = optionsRect.bottom - viewportHeight;
+            
+            // Show indicator only if there's substantial content to scroll to
+            // Threshold of 100px ensures we only show for meaningful scroll scenarios
+            if (hiddenContent > 100) {
                 indicator.classList.add('visible');
                 
                 // Auto-hide after 3 seconds
