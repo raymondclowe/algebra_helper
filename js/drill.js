@@ -47,8 +47,9 @@ window.Learning = {
                 const utils = window.GeneratorUtils;
                 const simplifiedAnswer = utils.simplifyAnswerForDisplay(opt.val);
                 
-                // Check if the simplified answer is different from original (i.e., was simplified)
-                const wasSimplified = simplifiedAnswer !== opt.val && !simplifiedAnswer.includes('\\');
+                // Check if the simplified answer is different from original (i.e., was simplified to plain HTML)
+                // We check for absence of backslash-based LaTeX commands, not just any backslash
+                const wasSimplified = simplifiedAnswer !== opt.val && !simplifiedAnswer.includes('\\text') && !simplifiedAnswer.includes('\\frac');
                 
                 if (wasSimplified) {
                     // Simplified to plain HTML - render directly with proper styling

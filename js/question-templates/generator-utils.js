@@ -345,9 +345,12 @@ window.GeneratorUtils = {
         
         // Check if answer is purely \text{...} - extract plain text
         // Use non-greedy match and ensure no nested \text commands
-        const pureTextMatch = answer.match(/^\\text\{(.+?)\}$/) && !answer.includes('} ');
-        if (pureTextMatch && !answer.includes('\\text{', 6)) {
-            return answer.match(/^\\text\{(.+?)\}$/)[1];
+        const pureTextMatch = answer.match(/^\\text\{(.+?)\}$/);
+        const hasSpaceBrace = answer.includes('} ');
+        const hasMultipleText = answer.includes('\\text{', 6);
+        
+        if (pureTextMatch && !hasSpaceBrace && !hasMultipleText) {
+            return pureTextMatch[1];
         }
         
         // Check for mixed LaTeX pattern: \text{...} with math variables interspersed
@@ -365,7 +368,9 @@ window.GeneratorUtils = {
             result = result.replace(/\\\s+/g, ' ');
             
             // Replace common single-letter variables with italic HTML
-            // Use word boundaries to only replace standalone variables
+            // Use word boundaries to only replace standalone variables (not letters within words)
+            // This will match variables like 'x', 'y', 'a', 'b' when they appear as separate words
+            // but won't affect letters within words like 'add' or 'the'
             result = result.replace(/\b([a-z])\b/gi, '<i>$1</i>');
             
             // Clean up multiple spaces
