@@ -69,8 +69,8 @@ describe('Inverse Quadratic Function Tests', () => {
         });
 
         expect(question).toBeDefined();
-        expect(question.tex).toMatch(/𝑓\(x\) = \d+x\^2/);
-        expect(question.instruction).toContain('𝑓^{-1}(x)');
+        expect(question.tex).toMatch(/𝑓\(x\) = \d+x\^2/); // tex uses LaTeX notation ^2
+        expect(question.instruction).toContain('𝑓⁻¹(x)'); // instruction uses Unicode ⁻¹
         expect(question.displayAnswer).toBeDefined();
         expect(question.displayAnswer).toMatch(/y = /);
         expect(Array.isArray(question.distractors)).toBe(true);
@@ -124,7 +124,7 @@ describe('Inverse Quadratic Function Tests', () => {
             // Level 20 maps to lvl5() which includes inverse quadratic questions
             for (let i = 0; i < 50; i++) {
                 const q = gen.getQuestion(20);
-                if (q.instruction && q.instruction.includes('𝑓^{-1}')) {
+                if (q.instruction && q.instruction.includes('𝑓⁻¹')) {
                     foundInverse = true;
                     break;
                 }
@@ -158,12 +158,15 @@ describe('Inverse Quadratic Function Tests', () => {
             await wait(500);
 
             const instruction = await page.$eval('#instruction-text', el => el.textContent);
-            if (instruction.includes('𝑓^{-1}') || instruction.includes('inverse')) {
+            if (instruction.includes('𝑓⁻¹') || instruction.includes('inverse')) {
                 foundInverse = true;
                 
                 // Verify the question is displayed
                 const questionText = await page.$eval('#question-math', el => el.innerHTML);
                 expect(questionText).toBeTruthy();
+                
+                // Verify no LaTeX notation in instruction (should be Unicode)
+                expect(instruction).not.toContain('^{');
                 
                 // Verify options are rendered
                 const options = await page.$$('#mc-options button');
