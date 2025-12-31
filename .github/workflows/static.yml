@@ -31,6 +31,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Version assets with Unix timestamp
+        run: |
+          TIMESTAMP=$(date +%s)
+          echo "Versioning assets with timestamp: $TIMESTAMP"
+          node tools/version-assets.js $TIMESTAMP
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Create deployment directory
