@@ -36,7 +36,7 @@ window.QuestionTemplates.ProbabilityDistributions = {
             // Binomial mean
             const n = utils.rInt(10, 20);
             const p = [0.2, 0.25, 0.3, 0.4, 0.5][utils.rInt(0, 4)];
-            const mean = Math.round(n * p * 1000) / 1000;  // Round to avoid floating-point errors
+            const mean = utils.roundToClean(n * p, 3);  // Round to avoid floating-point errors
             
             return {
                 tex: `X \\sim B(${n}, ${p})`,
@@ -58,7 +58,7 @@ window.QuestionTemplates.ProbabilityDistributions = {
             // Binomial variance
             const n = utils.rInt(10, 20);
             const p = [0.2, 0.25, 0.3, 0.4, 0.5][utils.rInt(0, 4)];
-            const variance = Math.round(n * p * (1 - p) * 1000) / 1000;  // Round to avoid floating-point errors
+            const variance = utils.roundToClean(n * p * (1 - p), 3);  // Round to avoid floating-point errors
             
             return {
                 tex: `X \\sim B(${n}, ${p})`,
@@ -67,9 +67,9 @@ window.QuestionTemplates.ProbabilityDistributions = {
                 distractors: utils.ensureUniqueDistractors(
                     `${variance}`,
                     [
-                        `${Math.round(n * p * 1000) / 1000}`,
-                        `${Math.round(n * (1 - p) * 1000) / 1000}`,
-                        `${Math.round(p * (1 - p) * 1000) / 1000}`
+                        `${utils.roundToClean(n * p, 3)}`,
+                        `${utils.roundToClean(n * (1 - p), 3)}`,
+                        `${utils.roundToClean(p * (1 - p), 3)}`
                     ],
                     () => `${utils.rInt(1, 20)}`
                 ),

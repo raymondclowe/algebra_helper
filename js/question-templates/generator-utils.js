@@ -27,6 +27,31 @@ window.GeneratorUtils = {
     },
     
     /**
+     * Round a number to remove floating point errors while preserving necessary decimals
+     * @param {number} num - The number to round
+     * @param {number} maxDecimals - Maximum decimal places to keep (default: 10)
+     * @returns {number} Cleaned number without floating point artifacts
+     * Examples:
+     *   roundToClean(4.800000000000001) => 4.8
+     *   roundToClean(0.30000000000000004) => 0.3
+     *   roundToClean(5) => 5
+     *   roundToClean(1.234567890123) => 1.2345678901 (rounds to 10 decimals)
+     */
+    roundToClean: function(num, maxDecimals = 10) {
+        // If the number is already an integer, return it as-is
+        if (Number.isInteger(num)) {
+            return num;
+        }
+        
+        // Round to maxDecimals places, then parse back to remove trailing zeros
+        const factor = Math.pow(10, maxDecimals);
+        const rounded = Math.round(num * factor) / factor;
+        
+        // Use parseFloat to remove trailing zeros (e.g., 4.80 becomes 4.8)
+        return parseFloat(rounded.toFixed(maxDecimals));
+    },
+    
+    /**
      * Format a coefficient for display in an algebraic expression
      * @param {number} n - The coefficient value
      * @param {boolean} isFirst - Whether this is the first term (no leading +)

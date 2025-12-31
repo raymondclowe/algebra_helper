@@ -12,38 +12,38 @@ window.QuestionTemplates.AdvancedProbability = {
                     const total = 100;
                     const eventA = utils.rInt(40, 60);
                     const both = utils.rInt(15, Math.min(30, eventA));
-                    const correctAnswer = `${(both / eventA).toFixed(2)}`;
+                    const correctAnswer = `${utils.roundToClean(both / eventA, 2)}`;
                     
                     const candidateDistractors = [
-                        `${(both / total).toFixed(2)}`,
-                        `${(eventA / total).toFixed(2)}`,
-                        `${((eventA - both) / total).toFixed(2)}`
+                        `${utils.roundToClean(both / total, 2)}`,
+                        `${utils.roundToClean(eventA / total, 2)}`,
+                        `${utils.roundToClean((eventA - both) / total, 2)}`
                     ];
                     
                     // Use fraction-aware deduplication for decimal probabilities
                     const distractors = utils.ensureUniqueDistractorsFractionAware(
                         correctAnswer,
                         candidateDistractors,
-                        () => (Math.random() * 0.9 + 0.1).toFixed(2)
+                        () => `${utils.roundToClean(Math.random() * 0.9 + 0.1, 2)}`
                     );
                     
                     return {
-                        tex: `P(A) = ${eventA / total},\\\\[0.5em]P(A \\cap B) = ${both / total}`,
+                        tex: `P(A) = ${utils.roundToClean(eventA / total, 2)},\\\\[0.5em]P(A \\cap B) = ${utils.roundToClean(both / total, 2)}`,
                         instruction: "Calculate P(B|A)",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Apply the formula for conditional probability: P(B|A) = P(A∩B)/P(A) = ${both / total}/${eventA / total} = ${both}/${eventA} ≈ ${(both / eventA).toFixed(2)}.`,
+                        explanation: `Apply the formula for conditional probability: P(B|A) = P(A∩B)/P(A) = ${utils.roundToClean(both / total, 2)}/${utils.roundToClean(eventA / total, 2)} = ${both}/${eventA} ≈ ${utils.roundToClean(both / eventA, 2)}.`,
                         calc: true
                     };
                 } else if (questionType === 2) {
                     // Independent events: P(A and B) = P(A) × P(B)
                     const pA = [0.3, 0.4, 0.5, 0.6][utils.rInt(0, 3)];
                     const pB = [0.2, 0.3, 0.5][utils.rInt(0, 2)];
-                    const pBoth = Math.round(pA * pB * 100) / 100;  // Round to avoid floating-point errors
+                    const pBoth = utils.roundToClean(pA * pB, 2);  // Round to avoid floating-point errors
                     const correctAnswer = `${pBoth}`;
                     
                     const candidateDistractors = [
-                        `${Math.round((pA + pB) * 100) / 100}`,
+                        `${utils.roundToClean(pA + pB, 2)}`,
                         `${pA}`,
                         `${pB}`
                     ];
@@ -52,7 +52,7 @@ window.QuestionTemplates.AdvancedProbability = {
                     const distractors = utils.ensureUniqueDistractorsFractionAware(
                         correctAnswer,
                         candidateDistractors,
-                        () => (Math.random() * 0.9 + 0.1).toFixed(2)
+                        () => `${utils.roundToClean(Math.random() * 0.9 + 0.1, 2)}`
                     );
                     
                     return {
@@ -67,8 +67,8 @@ window.QuestionTemplates.AdvancedProbability = {
                     // Expected value
                     const outcomes = [1, 2, 3, 4, 5, 6];
                     const probs = [1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6];
-                    const ev = outcomes.reduce((sum, val, i) => sum + val * probs[i], 0);
-                    const correctAnswer = `${ev.toFixed(1)}`;
+                    const ev = utils.roundToClean(outcomes.reduce((sum, val, i) => sum + val * probs[i], 0), 1);
+                    const correctAnswer = `${ev}`;
                     
                     const candidateDistractors = [
                         `${3}`,
@@ -88,7 +88,7 @@ window.QuestionTemplates.AdvancedProbability = {
                         instruction: "Calculate E(X)",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Expected value E(X) = Σ(x × P(x)) = 1(1/6) + 2(1/6) + ... + 6(1/6) = (1+2+3+4+5+6)/6 = 21/6 = ${ev.toFixed(1)}.`,
+                        explanation: `Expected value E(X) = Σ(x × P(x)) = 1(1/6) + 2(1/6) + ... + 6(1/6) = (1+2+3+4+5+6)/6 = 21/6 = ${ev}.`,
                         calc: false
                     };
                 }

@@ -21,7 +21,7 @@ window.QuestionTemplates.Trigonometry = {
                 if (questionType === 1) {
                     // Find sin of angle
                     const correctAnswer = `${angle.sin}`;
-                    const candidateDistractors = [`${angle.cos}`, `${angle.tan}`, `${angle.deg / 90}`];
+                    const candidateDistractors = [`${angle.cos}`, `${angle.tan}`, `${utils.roundToClean(angle.deg / 90)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
@@ -42,7 +42,7 @@ window.QuestionTemplates.Trigonometry = {
                     // Find cos of angle
                     const correctAnswer = `${angle.cos}`;
                     // Use a clearer way to compute a plausible distractor
-                    const complementDistractor = angle.sinVal ? `${(1 - angle.sinVal).toFixed(3)}` : `${1 - Number(angle.sin)}`;
+                    const complementDistractor = angle.sinVal ? `${utils.roundToClean(1 - angle.sinVal, 3)}` : `${utils.roundToClean(1 - Number(angle.sin))}`;
                     const candidateDistractors = [`${angle.sin}`, `${angle.tan}`, complementDistractor];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
@@ -65,7 +65,7 @@ window.QuestionTemplates.Trigonometry = {
                     const validAngles = angles.filter(a => a.deg !== 90);
                     const tanAngle = validAngles[utils.rInt(0, validAngles.length - 1)];
                     const correctAnswer = `${tanAngle.tan}`;
-                    const candidateDistractors = [`${tanAngle.sin}`, `${tanAngle.cos}`, `${tanAngle.deg / 45}`];
+                    const candidateDistractors = [`${tanAngle.sin}`, `${tanAngle.cos}`, `${utils.roundToClean(tanAngle.deg / 45)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
