@@ -91,8 +91,8 @@ self.addEventListener('install', event => {
 self.addEventListener('fetch', event => {
   const requestUrl = new URL(event.request.url);
   
-  // For MathJax CDN resources, use network-first strategy
-  if (requestUrl.hostname === 'cdn.jsdelivr.net') {
+  // For CDN resources (Tailwind, MathJax), use network-first with cache fallback
+  if (requestUrl.hostname === 'cdn.jsdelivr.net' || requestUrl.hostname === 'cdn.tailwindcss.com') {
     event.respondWith(
       fetch(event.request)
         .then(response => {
@@ -105,7 +105,22 @@ self.addEventListener('fetch', event => {
         })
         .catch(() => {
           // If network fails, try cache
-          return caches.match(event.request);
+          return caches.match(event.request).then(cachedResponse => {
+            if (cachedResponse) {
+              return cachedResponse;
+            }
+            // If CDN resource not in cache, return a minimal fallback
+            if (requestUrl.hostname === 'cdn.tailwindcss.com') {
+              // Return basic CSS fallback for Tailwind
+              return new Response('', {
+                headers: { 'Content-Type': 'text/javascript' }
+              });
+            }
+            return new Response('// Offline - CDN resource not available', {
+              status: 200,
+              headers: { 'Content-Type': 'text/javascript' }
+            });
+          });
         })
     );
     return;
