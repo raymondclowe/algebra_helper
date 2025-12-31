@@ -8,19 +8,26 @@
  * and captures screenshots from the actual live app for accurate MathJax rendering.
  * 
  * Usage: npm run validate-questions
+ *        npm run validate-questions -- --skip-existing
  */
 
 const path = require('path');
 const fs = require('fs').promises;
+const fsSync = require('fs');
 const config = require('./config');
 const apiClient = require('./api-client');
 const ScreenshotGenerator = require('./screenshot-generator');
 const issueGenerator = require('./issue-generator');
 
+// Parse command line arguments
+const args = process.argv.slice(2);
+const skipExisting = args.includes('--skip-existing');
+
 class QuestionValidator {
     constructor() {
         this.screenshotGenerator = null;
         this.results = [];
+        this.skippedCount = 0;
     }
     
     /**
@@ -28,6 +35,10 @@ class QuestionValidator {
      */
     async initialize() {
         console.log('🚀 Initializing Question Validator...\n');
+        
+        if (skipExisting) {
+            console.log('ℹ️  --skip-existing flag detected: will skip questions with existing screenshots\n');
+        }
         
         // Validate configuration
         const configValidation = config.validate();
@@ -213,6 +224,18 @@ class QuestionValidator {
             
             const numTypes = levelDef.questionTypes || 1;
             for (let qType = 1; qType <= numTypes; qType++) {
+                const screenshotFilename = `level-${levelDef.level}-type${qType}.png`;
+                const screenshotPath = path.join(config.screenshotsDir, screenshotFilename);
+                
+                // Skip if --skip-existing is set and screenshot already exists
+                if (skipExisting && fsSync.existsSync(screenshotPath)) {
+                    console.log(`⏭️  Skipping Level ${levelDef.level} Type ${qType} - screenshot already exists`);
+                    this.skippedCount++;
+                    processed++;
+                    console.log(`   [Progress: ${processed}/${totalTypes}]`);
+                    continue;
+                }
+                
                 const result = await this.validateQuestionType(levelDef.level, levelDef.name, qType);
                 this.results.push(result);
                 processed++;
@@ -245,6 +268,9 @@ class QuestionValidator {
         console.log(`   ✅ Valid: ${validQuestions.length}`);
         console.log(`   ⚠️  Has Issues: ${invalidQuestions.length}`);
         console.log(`   ❌ Errors: ${errors.length}`);
+        if (this.skippedCount > 0) {
+            console.log(`   ⏭️  Skipped: ${this.skippedCount} (already validated)`);
+        }
         console.log('');
         
         // Generate detailed report
