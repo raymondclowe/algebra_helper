@@ -208,6 +208,12 @@ window.DebugCheatCode = {
     },
 
     cancelDebugMode: function() {
+        // Clear the level input when cancelling
+        const levelInput = document.getElementById('debug-level-input');
+        if (levelInput) {
+            levelInput.value = '';
+        }
+        
         document.getElementById('debug-warning-modal').classList.add('hidden');
     },
 

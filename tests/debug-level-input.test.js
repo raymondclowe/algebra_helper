@@ -142,9 +142,11 @@ describe('Debug Mode Level Input Tests', () => {
         page.on('console', msg => consoleMessages.push(msg.text()));
 
         await page.evaluate(() => {
+            const MAX_LEVEL = window.MAX_LEVEL || 34;
+            const invalidLevel = MAX_LEVEL + 10;  // Invalid: above MAX_LEVEL
             const levelInput = document.getElementById('debug-level-input');
             if (levelInput) {
-                levelInput.value = '100';  // Invalid: above MAX_LEVEL
+                levelInput.value = invalidLevel.toString();
             }
             window.DebugCheatCode.confirmDebugMode();
         });
@@ -154,7 +156,7 @@ describe('Debug Mode Level Input Tests', () => {
 
         // Check that a warning was logged for invalid input
         const hasWarning = consoleMessages.some(msg => 
-            msg.includes('Invalid level input') || msg.includes('100')
+            msg.includes('Invalid level input')
         );
         expect(hasWarning).toBe(true);
     });
