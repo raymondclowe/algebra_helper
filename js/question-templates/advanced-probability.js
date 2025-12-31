@@ -39,11 +39,11 @@ window.QuestionTemplates.AdvancedProbability = {
                     // Independent events: P(A and B) = P(A) × P(B)
                     const pA = [0.3, 0.4, 0.5, 0.6][utils.rInt(0, 3)];
                     const pB = [0.2, 0.3, 0.5][utils.rInt(0, 2)];
-                    const pBoth = pA * pB;
+                    const pBoth = Math.round(pA * pB * 100) / 100;  // Round to avoid floating-point errors
                     const correctAnswer = `${pBoth}`;
                     
                     const candidateDistractors = [
-                        `${pA + pB}`,
+                        `${Math.round((pA + pB) * 100) / 100}`,
                         `${pA}`,
                         `${pB}`
                     ];
