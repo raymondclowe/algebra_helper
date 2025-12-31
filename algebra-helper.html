@@ -25,20 +25,16 @@
     <title>IB Math Trainer (Fast Response)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-    // EXPERIMENTAL: MathJax displayOverflow configuration
-    // This setting enables horizontal scrolling for wide mathematical expressions
-    // that exceed the container width. This is an EXPERIMENTAL feature that may
-    // need to be reverted if it causes display issues or user complaints.
-    // 
-    // To revert: Remove the 'output' configuration block below and restore the
-    // default behavior (wide expressions will wrap or overflow).
+    // MathJax configuration for proper text wrapping in answer buttons
+    // Using 'linebreak' for displayOverflow allows long text to wrap across multiple lines
+    // instead of being clipped or requiring horizontal scrolling on mobile devices
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
       svg: {fontCache: 'global'},
       startup: { typeset: false },
-      // EXPERIMENTAL: Enable horizontal scroll for wide math expressions
+      // Enable line breaking for wide math expressions to prevent clipping
       output: {
-        displayOverflow: 'scroll'  // Allows scrolling for expressions wider than container
+        displayOverflow: 'linebreak'  // Allows wrapping for expressions wider than container
       },
       options: {
         enableMenu: false,
