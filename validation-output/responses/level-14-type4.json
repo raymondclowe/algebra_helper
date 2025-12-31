@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:54:15.994Z",
+  "level": 14,
+  "topic": "Sequences & Series",
+  "questionType": 4,
+  "metadata": {
+    "level": 14,
+    "topic": "Sequences & Series",
+    "questionType": 4,
+    "questionText": "x^2 + 3x + 2",
+    "instruction": "Factorise",
+    "correctAnswer": "(x+1)(x+2)",
+    "distractors": [
+      "(x+3)(x+2)",
+      "x(x+3)",
+      "(x-1)(x-2)"
+    ],
+    "allOptions": [
+      "x(x+3)",
+      "(x-1)(x-2)",
+      "(x+3)(x+2)",
+      "(x+1)(x+2)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "We need two numbers that multiply to 2 (the constant term) and add to 3 (the coefficient of x). These numbers are 1 and 2 because 1 × 2 = 2 and 1 + 2 = 3. So the answer is (x+1)(x+2). Check by expanding: you should get back to the original expression."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "The question has **ISSUES**.\n\nHere is a detailed breakdown of the problems:\n\n**1. Incorrect Topic Classification**\n*   **Issue:** The topic label in the top-left corner is **\"Sequences & Series\"**. However, the problem asks the student to **\"FACTORISE\"** the quadratic expression $x^2 + 3x + 2$.\n*   **Explanation:** Factorising a quadratic trinomial is a fundamental **Algebra** or **Quadratics** topic. It has no direct relation to Sequences & Series (arithmetic/geometric progressions, sigma notation, etc.) unless it were part of a larger context which is not present here.\n*   **Fix:** Change the topic category to **\"Algebra\"**, **\"Polynomials\"**, or **\"Quadratics\"**.\n\n**2. Inappropriate Difficulty Level**\n*   **Issue:** The question is marked as **\"Level: 14\"**.\n*   **Explanation:** Factorising $x^2 + 3x + 2$ is a very basic algebraic skill, typically taught in early high school (Grade 9/10). In the context of an IB Math curriculum, this is foundational assumed knowledge. A \"Level 14\" rating implies a high degree of difficulty or an advanced topic, whereas this is an introductory level problem (likely Level 1 or 2).\n*   **Fix:** Lower the difficulty level significantly to reflect that this is a basic review question.\n\n**3. Mathematical Correctness (Verified)**\n*   The math itself is correct.\n    *   Problem: Factorise $x^2 + 3x + 2$\n    *   Solution: We need two numbers that multiply to 2 and add to 3. These are 1 and 2.\n    *   Result: $(x+1)(x+2)$\n*   The marked correct answer `(x+1)(x+2)` is correct.\n*   The distractors are plausible common errors.\n\n**Summary Recommendation:**\nThe content is mathematically sound, but the **metadata is wrong**. You must reclassify this question under **Algebra/Quadratics** and drastically **reduce the difficulty level**.",
+    "error": null
+  }
+}

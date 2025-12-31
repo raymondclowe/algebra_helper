@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:59:11.627Z",
+  "level": 18,
+  "topic": "Vectors",
+  "questionType": 3,
+  "metadata": {
+    "level": 18,
+    "topic": "Vectors",
+    "questionType": 3,
+    "questionText": "\\left|\\begin{pmatrix} 4 \\\\ 4 \\end{pmatrix}\\right|",
+    "instruction": "Find the magnitude",
+    "correctAnswer": "\\sqrt{32}",
+    "distractors": [
+      "8",
+      "4",
+      "\\sqrt{16}"
+    ],
+    "allOptions": [
+      "√16",
+      "√32",
+      "4",
+      "8",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Magnitude = $\\sqrt{4^2 + 4^2} = \\sqrt{16 + 16} = \\sqrt{32}$."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Note:** The answer $\\sqrt{32}$ is mathematically correct. While simplified radical form ($4\\sqrt{2}$) is often preferred in final answers, $\\sqrt{32}$ is an equivalent value and acceptable in a multiple-choice context. The distractors are logical common errors.",
+    "error": null
+  }
+}

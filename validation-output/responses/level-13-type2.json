@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:51:40.862Z",
+  "level": 13,
+  "topic": "Exponentials & Logarithms",
+  "questionType": 2,
+  "metadata": {
+    "level": 13,
+    "topic": "Exponentials & Logarithms",
+    "questionType": 2,
+    "questionText": "𝑓(x) = x^2 + -1x + -20",
+    "instruction": "\\text{Is } (x - 5) \\text{ a factor?}",
+    "correctAnswer": "\\text{Yes}",
+    "distractors": [
+      "\\text{No}",
+      "\\text{Only if x > 0}",
+      "\\text{Cannot determine}"
+    ],
+    "allOptions": [
+      "Only if x > 0",
+      "No",
+      "Yes",
+      "Cannot determine",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "By factor theorem, if (x - 5) is a factor, then 𝑓(5) = 0. Check: 𝑓(5) = 5² + -1(5) + -20 = 25 + -5 + -20 = 0. Yes, it's a factor."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "This question has **ISSUES**.\n\nHere is a detailed breakdown of the problems:\n\n**1. Topic Mismatch (Major Issue)**\n*   **Current Topic:** The header says **\"Exponentials & Logarithms\"**.\n*   **Actual Content:** The question asks about factoring a quadratic equation. This is a **Polynomials** or **Quadratics** topic. There are absolutely no exponentials or logarithms in this problem.\n\n**2. Poor Mathematical Notation/Formatting**\n*   **Equation:** The function is displayed as $f(x) = x^2 + -1x + -20$. While mathematically equivalent, standard mathematical convention dictates simplifying signs. It should be presented as **$f(x) = x^2 - x - 20$**. The current format looks like raw, uncleaned computer-generated output.\n*   **Title Rendering:** The question text displays `\\TEXT{IS } (X - 5) \\TEXT{ A FACTOR?}`. This indicates a LaTeX rendering error or incorrect syntax. The command `\\TEXT` is likely not defined or case-sensitive (standard LaTeX is `\\text`), causing the code to appear in the final output rather than just the text.\n\n**3. Ambiguity**\n*   While contextually implied, the question asks \"Is $(x - 5)$ a factor?\". To be precise, it should ask \"Is $(x - 5)$ a factor **of $f(x)$**?\".\n\n**Correct Approach/Solution:**\nTo verify the math itself (which is correct despite the formatting):\n*   Use the Factor Theorem: $(x - 5)$ is a factor if $f(5) = 0$.\n*   $f(5) = 5^2 - 5 - 20 = 25 - 25 = 0$.\n*   Since the result is 0, the answer \"Yes\" is correct.\n\n**Suggestions for Fix:**\n1.  **Change the Category:** Move this question to the \"Quadratics\" or \"Functions\" topic.\n2.  **Clean the Equation:** Update the display to $f(x) = x^2 - x - 20$.\n3.  **Fix the Title:** Remove the broken LaTeX tags and ensure it reads clearly: \"Is $(x - 5)$ a factor of $f(x)$?\"",
+    "error": null
+  }
+}

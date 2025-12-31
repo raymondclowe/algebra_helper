@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:38:19.726Z",
+  "level": 1,
+  "topic": "Basic Arithmetic",
+  "questionType": 1,
+  "metadata": {
+    "level": 1,
+    "topic": "Basic Arithmetic",
+    "questionType": 1,
+    "questionText": "8 + 12",
+    "instruction": "Calculate",
+    "correctAnswer": "20",
+    "distractors": [
+      "21",
+      "19",
+      "-4"
+    ],
+    "allOptions": [
+      "21",
+      "20",
+      "19",
+      "-4",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Adding 8 and 12 gives 20. You can verify by counting up from 8 by 12 steps."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct ($8 + 12 = 20$), clear, and appropriate for a Level 1 / Calibration task. The distractors are distinct and plausible for careless errors.",
+    "error": null
+  }
+}

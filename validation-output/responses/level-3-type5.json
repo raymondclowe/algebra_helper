@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:34:04.201Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 5,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 5,
+    "questionText": "36 \\div 4",
+    "instruction": "Calculate",
+    "correctAnswer": "9",
+    "distractors": [
+      "10",
+      "8",
+      "4"
+    ],
+    "allOptions": [
+      "4",
+      "8",
+      "9",
+      "10",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "36 divided by 4 equals 9 because 4 × 9 = 36. Division is the inverse of multiplication."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct.\n- **Calculation:** $36 \\div 4 = 9$.\n- **Correct Answer:** The option \"9\" is correctly identified.\n- **Distractors:** The incorrect options (4, 8, 10) are distinct and plausible for students learning division facts (8 and 10 are neighbors in the 4-times table).\n- **Clarity:** The notation is standard and unambiguous.",
+    "error": null
+  }
+}

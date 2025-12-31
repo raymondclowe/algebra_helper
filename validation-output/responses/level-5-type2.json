@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:43:20.327Z",
+  "level": 5,
+  "topic": "Decimals & Percentages",
+  "questionType": 2,
+  "metadata": {
+    "level": 5,
+    "topic": "Decimals & Percentages",
+    "questionType": 2,
+    "questionText": "0.8",
+    "instruction": "Convert to percentage",
+    "correctAnswer": "80\\%",
+    "distractors": [
+      "0.8\\%",
+      "8\\%",
+      "800\\%"
+    ],
+    "allOptions": [
+      "800%",
+      "8%",
+      "80%",
+      "0.8%",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiply by 100: 0.8 × 100 = 80%."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": null,
+    "error": null
+  }
+}

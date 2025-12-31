@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:55:25.344Z",
+  "level": 15,
+  "topic": "Functions",
+  "questionType": 3,
+  "metadata": {
+    "level": 15,
+    "topic": "Functions",
+    "questionType": 3,
+    "questionText": "𝑓(x) = 2x - 6 \\\\[0.5em] 𝑓(a) = 12 \\\\[0.5em] a = ?",
+    "instruction": "Find the input value",
+    "correctAnswer": "9",
+    "distractors": [
+      "10",
+      "8",
+      "12"
+    ],
+    "allOptions": [
+      "10",
+      "8",
+      "9",
+      "12",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "We have 2a - 6 = 12. Add 6: 2a = 18. Divide by 2: a = 9."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The problem asks to find the input $a$ such that $f(a) = 12$ for the function $f(x) = 2x - 6$.\n  - Step 1: Set up the equation $2a - 6 = 12$.\n  - Step 2: Add 6 to both sides to get $2a = 18$.\n  - Step 3: Divide by 2 to get $a = 9$.\n- **Answer Key:** The selected answer (9) is correct.\n- **Clarity:** The notation is standard function notation and the instruction \"FIND THE INPUT VALUE\" is precise.\n- **Distractors:**\n  - **12:** Plausible if a student confuses the input variable with the output value given in the prompt.\n  - **8 & 10:** Plausible calculation errors (neighbors of the correct answer).",
+    "error": null
+  }
+}

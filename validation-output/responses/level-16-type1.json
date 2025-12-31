@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:55:43.892Z",
+  "level": 16,
+  "topic": "Basic Trigonometry",
+  "questionType": 1,
+  "metadata": {
+    "level": 16,
+    "topic": "Basic Trigonometry",
+    "questionType": 1,
+    "questionText": "\\sin(45°)",
+    "instruction": "Calculate (use exact values)",
+    "correctAnswer": "\\frac{1}{\\sqrt{2}}",
+    "distractors": [
+      "1",
+      "0.5",
+      "0"
+    ],
+    "allOptions": [
+      "1√2",
+      "0.5",
+      "0",
+      "1",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "sin(45°) = \\frac{1}{\\sqrt{2}}. This is one of the standard angles you should memorize."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Note:** While the answer $\\frac{1}{\\sqrt{2}}$ is mathematically correct, many curricula (including IB) often prefer the rationalized form $\\frac{\\sqrt{2}}{2}$. However, since $\\frac{1}{\\sqrt{2}}$ is equivalent and the only correct option provided, the question is perfectly solvable and accurate.",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:04:46.964Z",
+  "level": 23,
+  "topic": "Basic Probability",
+  "questionType": 1,
+  "metadata": {
+    "level": 23,
+    "topic": "Basic Probability",
+    "questionType": 1,
+    "questionText": "\\text{Bag has 14 balls,}\\\\[0.5em]\\text{11 are red.}\\\\[0.5em]\\text{P(red) = ?}",
+    "instruction": "Find the probability",
+    "correctAnswer": "\\frac{11}{14}",
+    "distractors": [
+      "\\frac{3}{14}",
+      "\\frac{11}{3}",
+      "\\frac{14}{11}"
+    ],
+    "allOptions": [
+      "1114",
+      "314",
+      "1411",
+      "113",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Probability = (favorable outcomes)/(total outcomes) = 11/14. This can be simplified if needed."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the \"Basic Probability\" topic.\n\n*   **Correct Answer:** $\\frac{11}{14}$ is the correct probability given 11 red balls out of a total of 14.\n*   **Distractors:** The distractors are well-chosen:\n    *   $\\frac{3}{14}$ represents the probability of *not* picking a red ball.\n    *   $\\frac{14}{11}$ and $\\frac{11}{3}$ represent common errors in setting up ratios or confusing the numerator/denominator (resulting in impossible probabilities > 1).\n*   **Notation:** The notation $P(\\text{red})$ is standard and appropriate.",
+    "error": null
+  }
+}

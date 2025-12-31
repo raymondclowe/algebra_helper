@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:51:57.065Z",
+  "level": 13,
+  "topic": "Exponentials & Logarithms",
+  "questionType": 3,
+  "metadata": {
+    "level": 13,
+    "topic": "Exponentials & Logarithms",
+    "questionType": 3,
+    "questionText": "\\log(4) + \\log(5)",
+    "instruction": "Simplify using log laws",
+    "correctAnswer": "\\log(20)",
+    "distractors": [
+      "\\log(9)",
+      "\\log(40)",
+      "\\log(4) \\times \\log(5)"
+    ],
+    "allOptions": [
+      "log⁡(40)",
+      "log⁡(4) ×log⁡(5)",
+      "log⁡(9)",
+      "log⁡(20)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Using the product rule: log(a) + log(b) = log(ab). So log(4) + log(5) = log(20)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": null,
+    "error": null
+  }
+}

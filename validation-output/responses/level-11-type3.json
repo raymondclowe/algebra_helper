@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:49:34.047Z",
+  "level": 11,
+  "topic": "Quadratic Equations",
+  "questionType": 3,
+  "metadata": {
+    "level": 11,
+    "topic": "Quadratic Equations",
+    "questionType": 3,
+    "questionText": "x^2 + 2x + 5 = 0",
+    "instruction": "What is the discriminant b² - 4ac?",
+    "correctAnswer": "-16",
+    "distractors": [
+      "4",
+      "20",
+      "-18"
+    ],
+    "allOptions": [
+      "4",
+      "-18",
+      "20",
+      "-16",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Discriminant = b² - 4ac = 2² - 4(1)(5) = 4 - 20 = -16. This means no real roots."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Accuracy:** The calculation is correct. For the equation $x^2 + 2x + 5 = 0$, the coefficients are $a=1, b=2, c=5$. The discriminant is $b^2 - 4ac = (2)^2 - 4(1)(5) = 4 - 20 = -16$.\n- **Correct Answer:** The option marked as correct ($-16$) is indeed the correct answer.\n- **Distractors:** The distractors are plausible errors:\n  - $4$ (calculating only $b^2$)\n  - $20$ (calculating only $4ac$)\n- **Clarity:** The question is clear and unambiguous.\n- **Level:** Appropriate for an introductory check on quadratic theory/complex numbers at Level 11 (IB Math).",
+    "error": null
+  }
+}

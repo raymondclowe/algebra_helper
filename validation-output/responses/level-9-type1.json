@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:47:27.111Z",
+  "level": 9,
+  "topic": "Expanding Expressions",
+  "questionType": 1,
+  "metadata": {
+    "level": 9,
+    "topic": "Expanding Expressions",
+    "questionType": 1,
+    "questionText": "9x < 16",
+    "instruction": "Solve for x",
+    "correctAnswer": "x < 1",
+    "distractors": [
+      "x > 1",
+      "x = 1",
+      "x \\leq 1"
+    ],
+    "allOptions": [
+      "x = 1",
+      "𝑥 ≤1",
+      "x > 1",
+      "x < 1",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide both sides by 9: x < 16/9 = 1. The inequality sign stays the same when dividing by a positive number."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "The question has **MAJOR ISSUES** and is **INCORRECT**.\n\nHere is a detailed breakdown of the problems:\n\n**1. Mathematical Error (Incorrect Solution)**\n*   **The Problem:** The inequality to solve is $9x < 16$.\n*   **The Math:** To solve for $x$, you divide both sides by 9.\n    $$x < \\frac{16}{9}$$\n    $$x < 1.77...$$\n*   **The Issue:** The marked correct answer is **$x < 1$**. This is mathematically incorrect. While all values less than 1 satisfy the inequality, the answer $x < 1$ is incomplete because it excludes valid solutions between 1 and 1.77 (e.g., $x = 1.5$ is a valid solution since $9(1.5) = 13.5 < 16$, but it is not included in the answer $x < 1$).\n*   **Fix:** Either change the question to match the answer (e.g., change the question to **$9x < 9$** or **$16x < 16$**) OR change the answer options to include $x < \\frac{16}{9}$. Given the clean integer options, changing the question to **$9x < 9$** is the best fix.\n\n**2. Topic Mismatch**\n*   **The Issue:** The topic header in the top left says **\"Expanding Expressions\"**.\n*   **Reality:** This problem is a **Linear Inequality**. \"Expanding expressions\" typically refers to distributing terms (e.g., expanding $2(x+3)$ to $2x+6$) or multiplying polynomials.\n*   **Fix:** Change the topic category to **\"Solving Inequalities\"** or **\"Linear Inequalities\"**.\n\n**3. Difficulty Level**\n*   **The Issue:**",
+    "error": null
+  }
+}

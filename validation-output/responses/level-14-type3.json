@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:53:46.796Z",
+  "level": 14,
+  "topic": "Sequences & Series",
+  "questionType": 3,
+  "metadata": {
+    "level": 14,
+    "topic": "Sequences & Series",
+    "questionType": 3,
+    "questionText": "\\text{Sum of arithmetic series: } a_1 = 1, d = 3, n = 10",
+    "instruction": "Find the sum S_n",
+    "correctAnswer": "145",
+    "distractors": [
+      "10",
+      "155",
+      "29"
+    ],
+    "allOptions": [
+      "145",
+      "29",
+      "155",
+      "10",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "S_n = n(a_1 + a_n)/2. First find a_10 = 1 + 27 = 28. Then S_10 = 10(1 + 28)/2 = 145."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n1.  **Mathematical Correctness:**\n    *   Formula for the sum of an arithmetic series: $S_n = \\frac{n}{2}[2a_1 + (n-1)d]$\n    *   Given: $a_1 = 1$, $d = 3$, $n = 10$\n    *   Substitution: $S_{10} = \\frac{10}{2}[2(1) + (10-1)(3)]$\n    *   Simplification: $S_{10} = 5[2 + 27] = 5[29] = 145$\n    *   The marked answer (145) is correct.\n\n2.  **Clarity & Notation:**\n    *   The notation ($a_1, d, n$) is standard for IB and general high school algebra.\n    *   The prompt \"Find the sum $S_n$\" is unambiguous.\n\n3.  **Distractors:**\n    *   **29:** This is the value of the term inside the brackets ($2a_1 + (n-1)d$) or the sum of the first and last terms ($a_1 + a_n$). This is a good distractor for students who forget to multiply by $\\frac{n}{2}$.\n    *   **155:** A plausible arithmetic error close to the real answer.\n    *   **10:** A filler distractor (value of $n$).\n\nThe question is well-formed and accurate.",
+    "error": null
+  }
+}

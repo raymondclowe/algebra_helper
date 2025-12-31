@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:31:47.083Z",
+  "level": 2,
+  "topic": "Powers and Roots",
+  "questionType": 3,
+  "metadata": {
+    "level": 2,
+    "topic": "Powers and Roots",
+    "questionType": 3,
+    "questionText": "\\text{What is } 5^3?",
+    "instruction": "Calculate the cube",
+    "correctAnswer": "125",
+    "distractors": [
+      "15",
+      "25",
+      "130"
+    ],
+    "allOptions": [
+      "25",
+      "125",
+      "130",
+      "15",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "5^3 = 5 × 5 × 5 = 125. Cubing means multiplying a number by itself three times."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for the difficulty level.\n- **Calculation:** $5^3 = 5 \\times 5 \\times 5 = 125$.\n- **Correct Answer:** The option marked as correct (125) is accurate.\n- **Distractors:** The incorrect options represent common student errors:\n  - **25:** Mistaking cube for square ($5^2$).\n  - **15:** Multiplying base by exponent ($5 \\times 3$).\n  - **130:** A close value distractor.",
+    "error": null
+  }
+}

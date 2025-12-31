@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:09:08.885Z",
+  "level": 24,
+  "topic": "Advanced Probability",
+  "questionType": 3,
+  "metadata": {
+    "level": 24,
+    "topic": "Advanced Probability",
+    "questionType": 3,
+    "questionText": "\\text{If P(success) = } \\frac{5}{10}\\text{,}\\\\[0.5em]\\text{what is P(failure)?}",
+    "instruction": "Find the complementary probability",
+    "correctAnswer": "\\frac{5}{10}",
+    "distractors": [
+      "\\frac{10}{5}",
+      "\\frac{5}{3}",
+      "\\frac{1}{13}"
+    ],
+    "allOptions": [
+      "113",
+      "53",
+      "105",
+      "510",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "P(failure) = 1 - P(success) = 1 - 5/10 = 5/10. The probabilities of all outcomes sum to 1."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUES FOUND**\n\nWhile the question is mathematically valid in a basic sense (the arithmetic is correct), it has significant design flaws regarding difficulty, classification, and quality for the stated context.\n\n**1. Severe Difficulty & Topic Mismatch**\n*   **Issue:** The question asks for a simple complementary probability ($1 - \\frac{5}{10}$), which is elementary school level arithmetic.\n*   **Context:** It is labeled as **\"Level ",
+    "error": null
+  }
+}

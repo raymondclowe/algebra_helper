@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:39:03.468Z",
+  "level": 1,
+  "topic": "Basic Arithmetic",
+  "questionType": 4,
+  "metadata": {
+    "level": 1,
+    "topic": "Basic Arithmetic",
+    "questionType": 4,
+    "questionText": "9 \\div 3",
+    "instruction": "Calculate",
+    "correctAnswer": "3",
+    "distractors": [
+      "4",
+      "2",
+      "6"
+    ],
+    "allOptions": [
+      "4",
+      "6",
+      "2",
+      "3",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "9 divided by 3 equals 3 because 3 × 3 = 9. Division is the inverse of multiplication."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for a Level 1 Basic Arithmetic task.\n\n*   **Calculation:** $9 \\div 3 = 3$.\n*   **Correct Answer:** The option \"3\" is correctly identified as the answer.\n*   **Distractors:** The incorrect options (4, 6, 2) are plausible errors for very basic learners (e.g., 6 could result from confusing division with subtraction).\n*   **Clarity:** The notation is standard and unambiguous.",
+    "error": null
+  }
+}

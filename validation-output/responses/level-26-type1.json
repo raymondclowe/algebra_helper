@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T02:10:28.490Z",
+  "level": 26,
+  "topic": "Proof by Induction",
+  "questionType": 1,
+  "metadata": {
+    "level": 26,
+    "topic": "Proof by Induction",
+    "questionType": 1,
+    "questionText": "\\text{Induction hypothesis for } \\sum_{i=1}^{n} i = \\frac{n(n+1)}{2}",
+    "instruction": "Assume the formula holds for n = k. What do we assume?",
+    "correctAnswer": "1 + 2 + \\cdots + k = \\frac{k(k+1)}{2}",
+    "distractors": [
+      "1 + 2 + \\cdots + (k+1) = \\frac{k(k+1)}{2}",
+      "1 + 2 + \\cdots + k = \\frac{(k+1)(k+2)}{2}",
+      "1 + 2 + \\cdots + k = k(k+1)"
+    ],
+    "allOptions": [
+      "1 +2 +⋯ +𝑘 =(𝑘+1)⁢(𝑘+2)2",
+      "1 +2 +⋯ +𝑘 =𝑘⁢(𝑘 +1)",
+      "1 +2 +⋯ +(𝑘 +1) =𝑘⁢(𝑘+1)2",
+      "1 +2 +⋯ +𝑘 =𝑘⁢(𝑘+1)2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "The inductive hypothesis states that the formula holds for n = k, so we assume 1 + 2 + ... + k = k(k+1)/2."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the level.\n\n**Analysis:**\n*   **Concept:** The question correctly identifies the \"Induction Hypothesis\" step of mathematical induction, which is assuming the statement $P(n)$ is true for $n=k$.\n*   **Correct Answer:** The option marked as correct (bottom right) correctly substitutes $k$ for $n$ in the given formula: $1 + 2 + ... + k = \\frac{k(k+1)}{2}$.\n*   **Distractors:** The distractors are well-chosen common errors:\n    *   Top-left mixes the sum for $k$ with the formula for $k+1$.\n    *   Bottom-left mixes the sum for $k+1$ with the formula for $k$.\n    *   Top-right omits the division by 2.\n*   **Notation:** The transition from sigma notation in the question to expanded series notation in the answers is a good pedagogical check of understanding.",
+    "error": null
+  }
+}

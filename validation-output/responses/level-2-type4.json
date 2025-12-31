@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:32:03.780Z",
+  "level": 2,
+  "topic": "Powers and Roots",
+  "questionType": 4,
+  "metadata": {
+    "level": 2,
+    "topic": "Powers and Roots",
+    "questionType": 4,
+    "questionText": "64 \\text{ is the cube of what number?}",
+    "instruction": "Find the number",
+    "correctAnswer": "4",
+    "distractors": [
+      "5",
+      "3",
+      "21"
+    ],
+    "allOptions": [
+      "5",
+      "21",
+      "4",
+      "3",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Since 4 × 4 × 4 = 64, the answer is 4. This is finding the cube root: ∛64 = 4."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the difficulty level. The correct answer (4) is accurately identified ($4^3 = 64$), and the distractors are plausible (e.g., 21 is close to $64 \\div 3$, catching students who confuse cubing with multiplying by 3).",
+    "error": null
+  }
+}

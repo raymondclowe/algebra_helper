@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:44:42.416Z",
+  "level": 6,
+  "topic": "Simple Linear Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 6,
+    "topic": "Simple Linear Equations",
+    "questionType": 1,
+    "questionText": "4x = 24",
+    "instruction": "Solve for x",
+    "correctAnswer": "x=6",
+    "distractors": [
+      "x=7",
+      "x=4",
+      "x=5"
+    ],
+    "allOptions": [
+      "x=7",
+      "x=5",
+      "x=6",
+      "x=4",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "To isolate x, we need to undo the multiplication by 4. We divide both sides by 4 to keep the equation balanced: 4x ÷ 4 = 24 ÷ 4, which gives x = 6."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Note:** The question is mathematically correct ($x = 24/4 = 6$). The notation is clear, and the distractors are plausible for a student learning basic division/algebra. Assuming \"Level 6\" refers to Grade 6 (IB MYP Year 1), the difficulty is appropriate.",
+    "error": null
+  }
+}

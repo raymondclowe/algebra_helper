@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:48:17.604Z",
+  "level": 10,
+  "topic": "Factorising Quadratics",
+  "questionType": 1,
+  "metadata": {
+    "level": 10,
+    "topic": "Factorising Quadratics",
+    "questionType": 1,
+    "questionText": "x^2 + 8x + 12",
+    "instruction": "Factorise",
+    "correctAnswer": "(x+2)(x+6)",
+    "distractors": [
+      "(x+8)(x+12)",
+      "x(x+8)",
+      "(x-2)(x-6)"
+    ],
+    "allOptions": [
+      "x(x+8)",
+      "(x+8)(x+12)",
+      "(x+2)(x+6)",
+      "(x-2)(x-6)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "We need two numbers that multiply to 12 (the constant term) and add to 8 (the coefficient of x). These numbers are 2 and 6 because 2 × 6 = 12 and 2 + 6 = 8. So the answer is (x+2)(x+6). Check by expanding: you should get back to the original expression."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The factorization is correct. We need two numbers that multiply to 12 and add to 8. Those numbers are 2 and 6. Therefore, $(x+2)(x+6)$ is the correct solution.\n- **Distractors:**\n  - $(x-2)(x-6)$ tests for sign errors.\n  - $x(x+8)$ tests for incomplete understanding (ignoring the constant).\n  - $(x+8)(x+12)$ tests for simply plugging in the visible numbers.\n- **Difficulty:** Appropriate for a Grade 10 (Level 10) student learning quadratic factorization.\n- **Clarity:** The notation and instructions are standard and unambiguous.",
+    "error": null
+  }
+}

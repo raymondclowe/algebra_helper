@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:33:28.096Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 3,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 3,
+    "questionText": "? + 14 = 20",
+    "instruction": "Find the missing number",
+    "correctAnswer": "6",
+    "distractors": [
+      "7",
+      "20",
+      "14"
+    ],
+    "allOptions": [
+      "14",
+      "6",
+      "7",
+      "20",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "To find the missing number, subtract 14 from 20: 20 - 14 = 6. Check: 6 + 14 = 20 ✓"
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUE FOUND**\n\nThere is a significant mismatch between the stated **Topic** and the **Question Content**.\n\n**Explanation:**\n1.  **Topic Mismatch:** The topic is labeled as **\"Multiplication & Division\"** (visible in the top-left corner and the prompt), but the problem presented is **$? + 14 = 20$**. This is an **addition/subtraction** problem (finding a missing addend). It does not test multiplication or division skills.\n2.  **Pedagogical Confusion:** A student selecting a \"Multiplication & Division\" module expects to practice factors, products, or quotients. Encountering a basic addition problem breaks the learning flow and does not assess the intended skill.\n\n**How to Fix:**\n*   **Option A (Change Question):** Replace the equation with one that fits the topic.\n    *   *Example:* $? \\times 4 = 20$ (Answer: 5)\n    *   *Example:* $14 \\div ? = 2$ (Answer: 7)\n*   **Option B (Change Topic):** If the intention is to test this specific equation, change the Topic label to **\"Addition & Subtraction\"** or **\"Pre-Algebra\"**.",
+    "error": null
+  }
+}

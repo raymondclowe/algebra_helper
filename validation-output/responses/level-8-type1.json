@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:46:15.873Z",
+  "level": 8,
+  "topic": "Inequalities",
+  "questionType": 1,
+  "metadata": {
+    "level": 8,
+    "topic": "Inequalities",
+    "questionType": 1,
+    "questionText": "2x + 6 = 10",
+    "instruction": "Solve for x",
+    "correctAnswer": "x=2",
+    "distractors": [
+      "x=3",
+      "x=-2",
+      "x=6"
+    ],
+    "allOptions": [
+      "x=3",
+      "x=2",
+      "x=6",
+      "x=-2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "First, subtract 6 from both sides to isolate the term with x: 2x = 4. Then divide both sides by 2 to get x alone: x = 2. Remember: we perform inverse operations in reverse order of operations (PEMDAS backwards)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "Based on the review of the screenshot provided, the question has **ISSUES**.\n\nHere is the detailed assessment:\n\n### **1. Topic Mismatch (Major Issue)**\n*   **The Issue:** The question is categorized under the topic **\"Inequalities\"** (visible in the top-left corner), but the problem presented ($2x + 6 = 10$) is a **Linear Equation**.\n*   **Explanation:** By definition, an inequality must use inequality symbols such as $<$, $>$, $\\leq$, or $\\geq$. The presence of an equals sign ($=$) makes this an equation, not an inequality. A student practicing \"Inequalities\" would be confused by receiving a standard equation.\n\n### **2. Difficulty Level Discrepancy**\n*   **The Issue:** The question is marked as **\"Level: ",
+    "error": null
+  }
+}

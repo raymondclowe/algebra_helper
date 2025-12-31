@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:42:33.852Z",
+  "level": 4,
+  "topic": "Fractions",
+  "questionType": 4,
+  "metadata": {
+    "level": 4,
+    "topic": "Fractions",
+    "questionType": 4,
+    "questionText": "\\frac{4}{6} + \\frac{2}{3}",
+    "instruction": "Find common denominator and add",
+    "correctAnswer": "\\frac{4}{3}",
+    "distractors": [
+      "\\frac{6}{9}",
+      "\\frac{8}{6}",
+      "\\frac{4}{6}"
+    ],
+    "allOptions": [
+      "69",
+      "43",
+      "46",
+      "86",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Find LCD = 6. Convert: 4/6 = 4/6 and 2/3 = 4/6. Add: 8/6 = 4/3."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUE: Multiple Correct Answers / Ambiguity**\n\nThere is a significant design flaw in the options provided for this question.\n\n**Explanation:**\n1.  **The Problem:** The question asks to add $\\frac{4}{6} + \\frac{2}{3}$.\n    *   Finding a common denominator (6): $\\frac{4}{6} + \\frac{4}{6} = \\frac{8}{6}$.\n    *   Simplifying the result: $\\frac{8}{6} = \\frac{4}{3}$.\n2.  **The Conflict:** Both $\\frac{4}{3}$ (the intended correct answer) and $\\frac{8}{6}$ (one of the distractors) are mathematically equivalent.\n3.  **Ambiguity:** The instruction \"FIND COMMON DENOMINATOR AND ADD\" does not explicitly state \"and simplify your answer.\" Therefore, a student who performs the addition correctly to get $\\frac{8}{6}$ sees their exact answer as an option. If they select it and are marked wrong, it is unfair because their answer is mathematically correct.\n\n**Recommendation:**\nYou must replace the distractor $\\frac{8}{6}$ with a value that is actually incorrect to ensure there is only one valid choice.\n*   **Suggested Replacement:** Change $\\frac{8}{6}$ to something like $\\frac{7}{6}$, $\\frac{5}{6}$, or $\\frac{2}{2}$ (result of incorrect cancellation).",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:59:48.021Z",
+  "level": 19,
+  "topic": "Complex Numbers",
+  "questionType": 1,
+  "metadata": {
+    "level": 19,
+    "topic": "Complex Numbers",
+    "questionType": 1,
+    "questionText": "(5 + 2i) + (6 + 6i)",
+    "instruction": "Add the complex numbers",
+    "correctAnswer": "11 + 8i",
+    "distractors": [
+      "11i",
+      "11 + 2i",
+      "5 + 8i"
+    ],
+    "allOptions": [
+      "5 + 8i",
+      "11 + 8i",
+      "11i",
+      "11 + 2i",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add real parts and imaginary parts separately: (5 + 6) + (2 + 6)i = 11 + 8i."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and the indicated answer ($11 + 8i$) is accurate. The distractors are plausible for students learning complex number arithmetic.",
+    "error": null
+  }
+}

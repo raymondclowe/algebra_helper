@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T01:45:44.973Z",
+  "level": 7,
+  "topic": "Two-Step Equations",
+  "questionType": 2,
+  "metadata": {
+    "level": 7,
+    "topic": "Two-Step Equations",
+    "questionType": 2,
+    "questionText": "7x + 5 = 40",
+    "instruction": "Solve for x",
+    "correctAnswer": "x=5",
+    "distractors": [
+      "x=6",
+      "x=-5",
+      "x=3"
+    ],
+    "allOptions": [
+      "x=6",
+      "x=3",
+      "x=5",
+      "x=-5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "First, subtract 5 from both sides to isolate the term with x: 7x = 35. Then divide both sides by 7 to get x alone: x = 5. Remember: we perform inverse operations in reverse order of operations (PEMDAS backwards)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": null,
+    "error": null
+  }
+}
