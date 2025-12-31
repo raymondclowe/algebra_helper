@@ -29,10 +29,10 @@ window.QuestionTemplates.AdvancedProbability = {
                     
                     return {
                         tex: `P(A) = ${eventA / total},\\\\[0.5em]P(A \\cap B) = ${both / total}`,
-                        instruction: "Find P(B|A) = P(A∩B)/P(A)",
+                        instruction: "Calculate P(B|A)",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Conditional probability: P(B|A) = P(A∩B)/P(A) = ${both / total}/${eventA / total} = ${both}/${eventA} ≈ ${(both / eventA).toFixed(2)}.`,
+                        explanation: `Apply the formula for conditional probability: P(B|A) = P(A∩B)/P(A) = ${both / total}/${eventA / total} = ${both}/${eventA} ≈ ${(both / eventA).toFixed(2)}.`,
                         calc: true
                     };
                 } else if (questionType === 2) {
@@ -57,7 +57,7 @@ window.QuestionTemplates.AdvancedProbability = {
                     
                     return {
                         tex: `\\text{If A and B are independent:}\\\\[0.5em]P(A) = ${pA},\\\\[0.5em]P(B) = ${pB}`,
-                        instruction: "Find P(A and B)",
+                        instruction: "Calculate P(A and B)",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `For independent events: P(A and B) = P(A) × P(B) = ${pA} × ${pB} = ${pBoth}.`,
@@ -85,10 +85,10 @@ window.QuestionTemplates.AdvancedProbability = {
                     
                     return {
                         tex: `\\text{Fair die: outcomes 1-6,}\\\\[0.5em]\\text{each with P = 1/6}`,
-                        instruction: "Find expected value E(X)",
+                        instruction: "Calculate E(X)",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `E(X) = Σ(x × P(x)) = 1(1/6) + 2(1/6) + ... + 6(1/6) = (1+2+3+4+5+6)/6 = 21/6 = ${ev.toFixed(1)}.`,
+                        explanation: `Expected value E(X) = Σ(x × P(x)) = 1(1/6) + 2(1/6) + ... + 6(1/6) = (1+2+3+4+5+6)/6 = 21/6 = ${ev.toFixed(1)}.`,
                         calc: false
                     };
                 }
