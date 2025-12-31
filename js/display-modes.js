@@ -145,7 +145,8 @@ window.DisplayModes = {
         if (mode === DISPLAY_MODES.MASTERY) {
             // Mastery Mode: Show skill area and encouraging message
             if (levelLabel) levelLabel.textContent = 'Working On';
-            levelDisplay.textContent = this.getSkillDescription(level);
+            const levelInt = Math.floor(level);
+            levelDisplay.textContent = `Lvl: ${levelInt}: ${this.getSkillDescription(level)}`;
             // Use smaller text on mobile to prevent overflow
             levelDisplay.className = 'text-xs md:text-sm font-bold text-blue-400 transition-all duration-300';
             
