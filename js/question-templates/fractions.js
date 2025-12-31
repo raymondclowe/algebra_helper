@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.Fractions = {
     getFractions: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 5);
+        const questionType = utils.getQuestionType(1, 5);
                 
                 if (questionType === 1) {
                     // Adding fractions with same denominator

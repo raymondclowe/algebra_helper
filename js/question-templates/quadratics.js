@@ -56,7 +56,7 @@ window.QuestionTemplates.Quadratics = {
     },
     getQuadratics: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 3);
+        const questionType = utils.getQuestionType(1, 3);
                 
                 if (questionType === 1) {
                     // Solving using quadratic formula (simple cases)

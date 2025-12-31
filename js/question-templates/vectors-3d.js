@@ -6,7 +6,7 @@ window.QuestionTemplates.Vectors3D = {
     // 3D vector operations
     get3DVectorQuestion: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 5);
+        const questionType = utils.getQuestionType(1, 5);
         
         if (questionType === 1) {
             // 3D vector addition

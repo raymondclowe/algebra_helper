@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.Polynomials = {
     getPolynomials: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 3);
+        const questionType = utils.getQuestionType(1, 3);
                 
                 if (questionType === 1) {
                     // Polynomial addition

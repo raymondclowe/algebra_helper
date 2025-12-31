@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.AdvancedTrig = {
     getAdvancedTrig: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 4);
+        const questionType = utils.getQuestionType(1, 4);
                 
                 if (questionType === 1) {
                     // Trig identity: sin²θ + cos²θ = 1

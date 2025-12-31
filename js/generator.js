@@ -115,9 +115,15 @@ window.Generator = {
     },
     
     getQuestion: function(level) {
-        const questionLevel = this.selectQuestionLevel(level);
+        // If in testing mode with forced level, use that instead
+        let effectiveLevel = level;
+        if (window.TESTING_MODE && window.FORCED_TEST_LEVEL !== null) {
+            effectiveLevel = window.FORCED_TEST_LEVEL;
+        }
         
-        // Check for Fixing Habits questions
+        const questionLevel = this.selectQuestionLevel(effectiveLevel);
+        
+        // Check for Fixing Habits questions (skip in testing mode)
         if (window.FixingHabitsQuestions && window.FixingHabitsQuestions.shouldInsertFixingHabitsQuestion()) {
             return window.FixingHabitsQuestions.getFixingHabitsQuestion();
         }

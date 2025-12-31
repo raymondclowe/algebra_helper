@@ -6,7 +6,7 @@ window.QuestionTemplates.ProbabilityDistributions = {
     // Probability distributions - binomial and normal
     getProbabilityDistributionQuestion: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 6);
+        const questionType = utils.getQuestionType(1, 6);
         
         if (questionType === 1) {
             // Binomial distribution - identify

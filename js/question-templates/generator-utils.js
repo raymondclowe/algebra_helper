@@ -1,7 +1,30 @@
 // --- GENERATOR UTILITIES ---
 // Shared utility functions and constants for all question templates
 window.GeneratorUtils = {
-    rInt: (min, max) => Math.floor(Math.random() * (max - min + 1)) + min,
+    /**
+     * Random integer between min and max (inclusive)
+     * If in testing mode with forced question type, this is used for question type selection
+     */
+    rInt: function(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    
+    /**
+     * Get question type - either forced (for testing) or random
+     * @param {number} min - Minimum question type
+     * @param {number} max - Maximum question type
+     * @returns {number} The question type to use
+     */
+    getQuestionType: function(min, max) {
+        // If testing mode with forced question type, use that (clamped to valid range)
+        if (window.TESTING_MODE && window.FORCED_QUESTION_TYPE !== null) {
+            const forced = window.FORCED_QUESTION_TYPE;
+            // Clamp to valid range
+            return Math.max(min, Math.min(max, forced));
+        }
+        // Otherwise random
+        return this.rInt(min, max);
+    },
     
     // Constants for expression evaluation
     EQUIVALENCE_TOLERANCE: 0.0001,

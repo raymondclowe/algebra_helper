@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.AdvancedProbability = {
     getAdvancedProbability: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 3);
+        const questionType = utils.getQuestionType(1, 3);
                 
                 if (questionType === 1) {
                     // Conditional probability

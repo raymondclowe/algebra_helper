@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.Trigonometry = {
     getTrigonometry: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 3);
+        const questionType = utils.getQuestionType(1, 3);
                 
                 // Common angles in degrees and their trig values
                 const angles = [

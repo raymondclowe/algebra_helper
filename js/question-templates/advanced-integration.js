@@ -6,7 +6,7 @@ window.QuestionTemplates.AdvancedIntegration = {
     // Advanced integration techniques
     getAdvancedIntegrationQuestion: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 4);
+        const questionType = utils.getQuestionType(1, 4);
         
         if (questionType === 1) {
             // Integration by substitution - fill in the steps

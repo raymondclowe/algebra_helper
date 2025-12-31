@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.Statistics = {
     getStatistics: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 4);
+        const questionType = utils.getQuestionType(1, 4);
                 
                 if (questionType === 1) {
                     // Mean

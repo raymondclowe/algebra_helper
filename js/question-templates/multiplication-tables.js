@@ -5,7 +5,7 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.MultiplicationTables = {
     getMultiplicationTables: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 5);
+        const questionType = utils.getQuestionType(1, 5);
                 
                 if (questionType === 1) {
                     // Standard multiplication (easier numbers)

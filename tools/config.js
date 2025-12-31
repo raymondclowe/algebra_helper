@@ -15,9 +15,13 @@ class Config {
         this.outputDir = './validation-output';
         this.issuesDir = './validation-issues';
         this.screenshotsDir = './validation-output/screenshots';
+        this.responsesDir = './validation-output/responses'; // Store AI responses for cross-checking
         
         // Question Generation Configuration
         this.questionsPerLevel = 2; // Generate multiple questions per level for thorough testing
+        
+        // App URL for live testing (uses local file for accurate rendering)
+        this.appUrl = 'file://' + require('path').resolve(__dirname, '..', 'algebra-helper.html');
         
         // Prompt Configuration
         this.validationPrompt = this.getValidationPrompt();
@@ -26,34 +30,45 @@ class Config {
     /**
      * Generate level bands to test all question types
      * Based on topic-definitions.js mapping
+     * Each level includes the number of question types available
      */
     generateLevelsToTest() {
         return [
-            { level: 1, name: "Basic Arithmetic" },
-            { level: 2, name: "Powers and Roots" },
-            { level: 3, name: "Multiplication and Division" },
-            { level: 4, name: "Fractions" },
-            { level: 5, name: "Decimals & Percentages" },
-            { level: 6, name: "Simple Linear Equations" },
-            { level: 7, name: "Two-Step Equations" },
-            { level: 8, name: "Inequalities" },
-            { level: 9, name: "Expanding Expressions" },
-            { level: 10, name: "Factorising Quadratics" },
-            { level: 11, name: "Quadratic Equations" },
-            { level: 12, name: "Polynomials" },
-            { level: 13, name: "Exponentials & Logarithms" },
-            { level: 14, name: "Sequences & Series" },
-            { level: 15, name: "Functions" },
-            { level: 16, name: "Basic Trigonometry" },
-            { level: 17, name: "Advanced Trigonometry" },
-            { level: 18, name: "Vectors" },
-            { level: 19, name: "Complex Numbers" },
-            { level: 20, name: "Basic Differentiation" },
-            { level: 21, name: "Advanced Calculus" },
-            { level: 22, name: "Statistics" },
-            { level: 23, name: "Basic Probability" },
-            { level: 24, name: "Advanced Probability" },
-            { level: 25, name: "Integration & Series" }
+            { level: 1, name: "Basic Arithmetic", questionTypes: 4 },
+            { level: 2, name: "Powers and Roots", questionTypes: 6 },
+            { level: 3, name: "Multiplication and Division", questionTypes: 5 },
+            { level: 4, name: "Fractions", questionTypes: 5 },
+            { level: 5, name: "Decimals & Percentages", questionTypes: 4 },
+            { level: 6, name: "Simple Linear Equations", questionTypes: 2 },
+            { level: 7, name: "Two-Step Equations", questionTypes: 2 },
+            { level: 8, name: "Inequalities", questionTypes: 3 },
+            { level: 9, name: "Expanding Expressions", questionTypes: 2 },
+            { level: 10, name: "Factorising Quadratics", questionTypes: 2 },
+            { level: 11, name: "Quadratic Equations", questionTypes: 3 },
+            { level: 12, name: "Polynomials", questionTypes: 3 },
+            { level: 13, name: "Exponentials & Logarithms", questionTypes: 4 },
+            { level: 14, name: "Sequences & Series", questionTypes: 4 },
+            { level: 15, name: "Functions", questionTypes: 3 },
+            { level: 16, name: "Basic Trigonometry", questionTypes: 3 },
+            { level: 17, name: "Advanced Trigonometry", questionTypes: 4 },
+            { level: 18, name: "Vectors", questionTypes: 4 },
+            { level: 19, name: "Complex Numbers", questionTypes: 4 },
+            { level: 20, name: "Basic Differentiation", questionTypes: 2 },
+            { level: 21, name: "Advanced Calculus", questionTypes: 4 },
+            { level: 22, name: "Statistics", questionTypes: 4 },
+            { level: 23, name: "Basic Probability", questionTypes: 3 },
+            { level: 24, name: "Advanced Probability", questionTypes: 3 },
+            { level: 25, name: "Integration & Series", questionTypes: 3 },
+            // Advanced HL Topics
+            { level: 26, name: "Proof by Induction", questionTypes: 1 },
+            { level: 27, name: "Proof by Contradiction", questionTypes: 1 },
+            { level: 28, name: "Matrix Algebra", questionTypes: 6 },
+            { level: 29, name: "3D Vectors", questionTypes: 5 },
+            { level: 30, name: "Complex Numbers (Polar)", questionTypes: 5 },
+            { level: 31, name: "Advanced Integration", questionTypes: 4 },
+            { level: 32, name: "Differential Equations", questionTypes: 4 },
+            { level: 33, name: "Probability Distributions", questionTypes: 6 },
+            { level: 34, name: "Hypothesis Testing", questionTypes: 6 }
         ];
     }
     

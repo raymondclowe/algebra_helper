@@ -6,7 +6,7 @@ window.QuestionTemplates.DifferentialEquations = {
     // First-order differential equations
     getDifferentialEquationQuestion: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 4);
+        const questionType = utils.getQuestionType(1, 4);
         
         if (questionType === 1) {
             // Separation of variables - identify the method

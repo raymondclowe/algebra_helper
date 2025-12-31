@@ -6,7 +6,7 @@ window.QuestionTemplates.ComplexPolar = {
     // Complex numbers in polar form
     getComplexPolarQuestion: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.rInt(1, 5);
+        const questionType = utils.getQuestionType(1, 5);
         
         if (questionType === 1) {
             // Convert from Cartesian to polar (simple cases)

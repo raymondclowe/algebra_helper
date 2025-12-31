@@ -99,7 +99,7 @@ window.QuestionTemplates.BasicEquations = {
     lvl5: function() {
         const utils = window.GeneratorUtils;
         // Randomly choose between differentiation and inverse function questions
-        const questionType = utils.rInt(1, 2);
+        const questionType = utils.getQuestionType(1, 2);
         
         if (questionType === 1) {
             // Original differentiation question
