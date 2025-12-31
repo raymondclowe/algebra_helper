@@ -119,14 +119,14 @@ window.QuestionTemplates.Calculus = {
                         }
                     );
                     
-                    const numConstTerm = numConst >= 0 ? ` + ${numConst}` : ` - ${Math.abs(numConst)}`;
+                    const formattedNumConst = numConst >= 0 ? ` + ${numConst}` : ` - ${Math.abs(numConst)}`;
                     
                     return {
-                        tex: `\\frac{${numCoeff}x${numConstTerm}}{(x - ${a})(x - ${b})}`,
+                        tex: `\\frac{${numCoeff}x${formattedNumConst}}{(x - ${a})(x - ${b})}`,
                         instruction: "Express as partial fractions",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `To decompose into partial fractions, write as A/(x - ${a}) + B/(x - ${b}). Solve: ${numCoeff}x${numConstTerm} = A(x - ${b}) + B(x - ${a}). Setting x = ${a}: A = ${A}. Setting x = ${b}: B = ${B}.`,
+                        explanation: `To decompose into partial fractions, write as A/(x - ${a}) + B/(x - ${b}). Solve: ${numCoeff}x${formattedNumConst} = A(x - ${b}) + B(x - ${a}). Setting x = ${a}: A = ${A}. Setting x = ${b}: B = ${B}.`,
                         calc: false
                     };
                 }

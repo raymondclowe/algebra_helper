@@ -101,16 +101,20 @@ window.QuestionTemplates.SequencesSeries = {
                     const r = utils.rInt(1, n - 1);
                     
                     // Calculate binomial coefficient C(n, r) = n! / (r! * (n-r)!)
+                    // Using iterative approach to avoid recursion stack issues
                     function factorial(num) {
-                        if (num <= 1) return 1;
-                        return num * factorial(num - 1);
+                        let result = 1;
+                        for (let i = 2; i <= num; i++) {
+                            result *= i;
+                        }
+                        return result;
                     }
                     
                     const coeff = factorial(n) / (factorial(r) * factorial(n - r));
                     const correctAnswer = `${coeff}`;
                     const candidateDistractors = [
                         `${n * r}`,
-                        `${factorial(n) / factorial(r)}`,
+                        `${Math.floor(factorial(n) / (factorial(r) * 2))}`,  // More plausible distractor
                         `${n + r}`
                     ];
                     const distractors = utils.ensureUniqueDistractors(
