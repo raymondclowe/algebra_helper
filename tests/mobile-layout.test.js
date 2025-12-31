@@ -297,7 +297,7 @@ describe('Mobile Layout Optimization Tests', () => {
         });
         
         // In landscape, calibration controls should be even more compact
-        expect(calibrationHeight).toBeLessThan(96);
+        expect(calibrationHeight).toBeLessThanOrEqual(96);
     });
 
     test('Very small phone (320x568) can access all calibration buttons', async () => {

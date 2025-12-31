@@ -835,8 +835,8 @@ Removed, not necessary in MathJax 4
     #question-math {
         padding-top: 0.5rem !important;
         padding-bottom: 0.5rem !important;
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
+        padding-left: 3.5rem !important;
+        padding-right: 3.5rem !important;
         overflow-x: auto !important; /* Allow horizontal scroll for very wide formulas */
         -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
     }
@@ -849,8 +849,8 @@ Removed, not necessary in MathJax 4
     }
     
     #question-math {
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
+        padding-left: 2.5rem !important;
+        padding-right: 2.5rem !important;
     }
     
     #mc-options mjx-container {
@@ -865,8 +865,8 @@ Removed, not necessary in MathJax 4
     }
     
     #question-math {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
     }
 }
 
