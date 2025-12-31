@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:ci": "jest --ci --coverage",
-    "validate-questions": "node tools/question-validator.js"
+    "validate-questions": "node tools/question-validator.js",
+    "version-assets": "node tools/version-assets.js"
   },
   "keywords": [],
   "author": "",
