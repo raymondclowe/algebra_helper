@@ -84,14 +84,16 @@ window.Calibration = {
 
         // Check if we have enough confidence to end calibration
         if (this.shouldEndCalibration()) {
-            // Ready to learn. Start slightly below found level.
+            // Ready to learn. Determine starting level based on calibration results.
             // Special case: if cMax <= 1, start at level 1 (user doesn't know anything)
-            // Special case: if cMin >= MAX_LEVEL, start at MAX_LEVEL (user knows everything)
+            // Special case: if cMin is near MAX_LEVEL, start at MAX_LEVEL (user knows everything)
             if (window.APP.cMax <= MIN_LEVEL) {
                 window.APP.level = MIN_LEVEL;
-            } else if (window.APP.cMin >= MAX_LEVEL) {
+            } else if (window.APP.cMin >= MAX_LEVEL - 1) {
+                // User demonstrated knowledge at top levels - place them at MAX_LEVEL
                 window.APP.level = MAX_LEVEL;
             } else {
+                // Normal case: start slightly below the found level for comfortable progression
                 window.APP.level = Math.max(MIN_LEVEL, window.APP.cMin - 1.0);
             }
             // Support both 'learning' (new) and 'drill' (old) for backward compatibility
@@ -112,7 +114,7 @@ window.Calibration = {
     // Ensures calibration completes within MAX_CALIBRATION_QUESTIONS for efficiency
     shouldEndCalibration: function() {
         const MIN_RESPONSES = 4; // Minimum responses before considering early termination
-        const MAX_RESPONSES = 6; // Maximum number of responses - binary search should converge by then
+        const MAX_RESPONSES = 7; // Maximum number of responses - binary search converges for 34 levels
         const CONVERGENCE_THRESHOLD = 2.0; // Range must be narrow (relaxed from 1.5)
         const CONSISTENCY_WINDOW = 3; // Check last N responses for consistency (reduced from 4)
         
@@ -135,10 +137,10 @@ window.Calibration = {
         }
         
         // Early termination: If cMin is at or very close to maximum level
-        // This handles the case where user knows everything
-        // We check >= MAX_LEVEL - 1 because the binary search asymptotically approaches MAX_LEVEL
-        // but may never reach it exactly (e.g., 23.25, 23.625, 23.8125, ...)
-        if (window.APP.cMin >= MAX_LEVEL - 1 && window.APP.calibrationHistory.length >= MIN_RESPONSES) {
+        // This handles the case where user knows everything - they'll be placed at MAX_LEVEL
+        // We check >= MAX_LEVEL - 2 because binary search may not reach MAX_LEVEL exactly
+        // After MIN_RESPONSES of consecutive "I know", user has demonstrated top-level knowledge
+        if (window.APP.cMin >= MAX_LEVEL - 2 && window.APP.calibrationHistory.length >= MIN_RESPONSES) {
             return true;
         }
         

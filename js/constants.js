@@ -46,13 +46,12 @@ const BASE_LEVEL_DELTA = 0.2;           // Base level increase for correct answe
 const TURBO_LEVEL_DELTA = 0.4;          // Level increase when in turbo mode (reduced from 0.5 to reduce speed pressure)
 
 // Calibration Constants
-const MAX_LEVEL = 24;                    // Maximum supported level in the app
+const MAX_LEVEL = 34;                    // Maximum supported level in the app (includes Advanced HL AA topics)
 const MIN_LEVEL = 1;                     // Minimum level in the app
 // Maximum number of calibration questions before forcing completion
 // This ensures rapid convergence and prevents prolonged calibration
-// Can be adjusted if more precision is needed, but 6 questions should be sufficient
-// for binary search across 24 levels (2^6 = 64 possible discriminations)
-const MAX_CALIBRATION_QUESTIONS = 6;
+// 7 questions is sufficient for binary search across 34 levels (2^7 = 128 possible discriminations)
+const MAX_CALIBRATION_QUESTIONS = 7;
 
 // Display Mode Configuration
 // Controls how progress metrics are shown to students

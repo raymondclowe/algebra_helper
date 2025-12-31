@@ -1,5 +1,7 @@
 // Service Worker for Algebra Helper PWA
-const CACHE_NAME = 'algebra-helper-v1.0.2-offline';
+// IMPORTANT: Increment version when deploying file changes to bust cache
+const CACHE_VERSION = '1.0.3';
+const CACHE_NAME = `algebra-helper-v${CACHE_VERSION}-offline`;
 const urlsToCache = [
   // HTML files
   './algebra-helper.html',
@@ -172,6 +174,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
@@ -179,4 +182,11 @@ self.addEventListener('activate', event => {
     })
   );
   return self.clients.claim();
+});
+
+// Listen for skip waiting message from client
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
 });

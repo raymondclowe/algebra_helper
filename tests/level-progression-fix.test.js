@@ -164,25 +164,26 @@ describe('Level Progression Beyond 10 Fix Tests', () => {
         });
     });
 
-    test('Calibration can set level to 20+ when user knows everything', async () => {
-        // Simulate calibration that determines user knows level 24
+    test('Calibration can set level to 30+ when user knows everything', async () => {
+        // Simulate calibration that determines user knows level 34 (MAX_LEVEL)
         await page.evaluate(() => {
             window.APP.mode = 'calibration';
-            window.APP.cMin = 24;
-            window.APP.cMax = 24;
+            window.APP.cMin = 33;
+            window.APP.cMax = 34;
             window.APP.calibrationHistory = [
-                { level: 12, action: 'pass', timeTaken: 5 },
-                { level: 18, action: 'pass', timeTaken: 7 },
-                { level: 21, action: 'pass', timeTaken: 8 },
-                { level: 23, action: 'pass', timeTaken: 6 },
-                { level: 24, action: 'pass', timeTaken: 9 },
-                { level: 24, action: 'fail', timeTaken: 15 } // One fail to create boundary
+                { level: 17, action: 'pass', timeTaken: 5 },
+                { level: 25.5, action: 'pass', timeTaken: 7 },
+                { level: 29.75, action: 'pass', timeTaken: 8 },
+                { level: 31.875, action: 'pass', timeTaken: 6 },
+                { level: 32.9375, action: 'pass', timeTaken: 9 },
+                { level: 33.5, action: 'pass', timeTaken: 6 },
+                { level: 33.75, action: 'fail', timeTaken: 15 } // One fail to create boundary
             ];
             
             // Manually trigger calibration end logic
             if (window.Calibration.shouldEndCalibration()) {
-                if (window.APP.cMin >= 24) {
-                    window.APP.level = 24;
+                if (window.APP.cMin >= 33) {
+                    window.APP.level = 34;
                 } else {
                     window.APP.level = Math.max(1, window.APP.cMin - 1.0);
                 }
@@ -194,6 +195,6 @@ describe('Level Progression Beyond 10 Fix Tests', () => {
         const mode = await page.evaluate(() => window.APP.mode);
         
         expect(mode).toBe('learning');
-        expect(finalLevel).toBe(24);
+        expect(finalLevel).toBe(34);
     });
 });

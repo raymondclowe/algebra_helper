@@ -33,9 +33,9 @@ describe('Calibration Edge Cases Tests', () => {
         await page.close();
     });
 
-    test('Initial cMax is set to 24 (maximum level)', async () => {
+    test('Initial cMax is set to 34 (maximum level)', async () => {
         const cMax = await page.evaluate(() => window.APP.cMax);
-        expect(cMax).toBe(24);
+        expect(cMax).toBe(34);
     });
 
     test('Calibration ends at level 1 when user fails repeatedly (timeouts)', async () => {
@@ -83,7 +83,7 @@ describe('Calibration Edge Cases Tests', () => {
         expect(shouldEnd).toBe(true);
     });
 
-    test('Calibration allows reaching maximum level (24)', async () => {
+    test('Calibration allows reaching maximum level (34)', async () => {
         // Simulate user passing all questions (knows everything)
         for (let i = 0; i < 15; i++) {
             const mode = await page.evaluate(() => window.APP.mode);
@@ -102,23 +102,23 @@ describe('Calibration Edge Cases Tests', () => {
         const mode = await page.evaluate(() => window.APP.mode);
         expect(mode === 'learning' || mode === 'drill').toBe(true);
         
-        // Should start at or near level 24
+        // Should start at or near level 34
         const level = await page.evaluate(() => window.APP.level);
-        expect(level).toBeGreaterThanOrEqual(20);
+        expect(level).toBeGreaterThanOrEqual(30);
     });
 
     test('Calibration ends early when cMin reaches maximum level', async () => {
-        // Set up state where cMin is at 24
+        // Set up state where cMin is at 32 (within MAX_LEVEL - 2 threshold)
         await page.evaluate(() => {
-            window.APP.cMin = 24;
-            window.APP.cMax = 24;
+            window.APP.cMin = 32;
+            window.APP.cMax = 34;
             window.APP.calibrationHistory = [
-                { level: 12, action: 'pass', timeTaken: 5 },
-                { level: 18, action: 'pass', timeTaken: 5 },
-                { level: 21, action: 'pass', timeTaken: 5 },
-                { level: 22.5, action: 'pass', timeTaken: 5 },
-                { level: 23.25, action: 'pass', timeTaken: 5 },
-                { level: 24, action: 'pass', timeTaken: 5 }
+                { level: 17, action: 'pass', timeTaken: 5 },
+                { level: 25.5, action: 'pass', timeTaken: 5 },
+                { level: 29.75, action: 'pass', timeTaken: 5 },
+                { level: 31.875, action: 'pass', timeTaken: 5 },
+                { level: 32.9375, action: 'pass', timeTaken: 5 },
+                { level: 33.5, action: 'pass', timeTaken: 5 }
             ];
         });
         
@@ -130,20 +130,20 @@ describe('Calibration Edge Cases Tests', () => {
         expect(shouldEnd).toBe(true);
     });
 
-    test('Final level is 24 when cMin >= 24', async () => {
-        // Simulate calibration ending with cMin at 24
+    test('Final level is 34 when cMin >= 33', async () => {
+        // Simulate calibration ending with cMin at 33
         await page.evaluate(() => {
             window.APP.mode = 'calibration';
-            window.APP.cMin = 24;
-            window.APP.cMax = 24;
-            window.APP.level = 24;
+            window.APP.cMin = 33;
+            window.APP.cMax = 34;
+            window.APP.level = 33.5;
             window.APP.calibrationHistory = [
-                { level: 12, action: 'pass', timeTaken: 5 },
-                { level: 18, action: 'pass', timeTaken: 5 },
-                { level: 21, action: 'pass', timeTaken: 5 },
-                { level: 22.5, action: 'pass', timeTaken: 5 },
-                { level: 23.25, action: 'pass', timeTaken: 5 },
-                { level: 24, action: 'pass', timeTaken: 5 }
+                { level: 17, action: 'pass', timeTaken: 5 },
+                { level: 25.5, action: 'pass', timeTaken: 5 },
+                { level: 29.75, action: 'pass', timeTaken: 5 },
+                { level: 31.875, action: 'pass', timeTaken: 5 },
+                { level: 32.9375, action: 'pass', timeTaken: 5 },
+                { level: 33.5, action: 'pass', timeTaken: 5 }
             ];
             window.APP.startTime = Date.now() - 5000;
             window.APP.handleCalibration('pass');
@@ -155,9 +155,9 @@ describe('Calibration Edge Cases Tests', () => {
         const mode = await page.evaluate(() => window.APP.mode);
         expect(mode === 'learning' || mode === 'drill').toBe(true);
         
-        // Level should be 24
+        // Level should be 34
         const level = await page.evaluate(() => window.APP.level);
-        expect(level).toBe(24);
+        expect(level).toBe(34);
     });
 
     test('Final level is 1 when cMax <= 1', async () => {
@@ -194,13 +194,13 @@ describe('Calibration Edge Cases Tests', () => {
         // Simulate passing questions to push level above 10
         await page.evaluate(() => {
             window.APP.cMin = 0;
-            window.APP.cMax = 24;
-            window.APP.level = 12;
+            window.APP.cMax = 34;
+            window.APP.level = 17;
             window.APP.startTime = Date.now() - 5000;
         });
         
         const initialLevel = await page.evaluate(() => window.APP.level);
-        expect(initialLevel).toBe(12);
+        expect(initialLevel).toBe(17);
         
         // Pass this question (should increase cMin)
         await page.evaluate(() => {
@@ -209,15 +209,15 @@ describe('Calibration Edge Cases Tests', () => {
         
         await wait(200);
         
-        // cMin should now be at least 12
+        // cMin should now be at least 17
         const cMin = await page.evaluate(() => window.APP.cMin);
-        expect(cMin).toBeGreaterThanOrEqual(12);
+        expect(cMin).toBeGreaterThanOrEqual(17);
         
-        // Next level should be above 12 (binary search between cMin and cMax=24)
+        // Next level should be above 17 (binary search between cMin and cMax=34)
         const mode = await page.evaluate(() => window.APP.mode);
         if (mode === 'calibration') {
             const nextLevel = await page.evaluate(() => window.APP.level);
-            expect(nextLevel).toBeGreaterThan(12);
+            expect(nextLevel).toBeGreaterThan(17);
         }
     });
 

@@ -426,11 +426,82 @@
                 navigator.serviceWorker.register('service-worker.js')
                     .then(registration => {
                         console.log('ServiceWorker registered:', registration.scope);
+                        
+                        // Check for updates on page load
+                        registration.update();
+                        
+                        // Listen for new service worker installing
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('New service worker installing...');
+                            
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New version available - show update notification
+                                    showUpdateNotification();
+                                }
+                            });
+                        });
+                        
+                        // Check for updates periodically (every 30 minutes)
+                        setInterval(() => {
+                            registration.update();
+                            console.log('Checking for service worker updates...');
+                        }, 30 * 60 * 1000);
                     })
                     .catch(err => {
                         console.log('ServiceWorker registration failed:', err);
                     });
             });
+            
+            // Handle controller change (new SW activated)
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+                console.log('New service worker activated, reloading...');
+                window.location.reload();
+            });
+        }
+        
+        function showUpdateNotification() {
+            // Create update notification banner
+            const banner = document.createElement('div');
+            banner.id = 'update-banner';
+            banner.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-family: system-ui, -apple-system, sans-serif;
+            `;
+            banner.innerHTML = `
+                <span>🔄 New version available!</span>
+                <button onclick="location.reload()" style="
+                    background: white;
+                    color: #667eea;
+                    border: none;
+                    padding: 6px 16px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">Update Now</button>
+                <button onclick="this.parentElement.remove()" style="
+                    background: transparent;
+                    color: white;
+                    border: 1px solid rgba(255,255,255,0.5);
+                    padding: 6px 12px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                ">Later</button>
+            `;
+            document.body.appendChild(banner);
         }
     </script>
 </body>
