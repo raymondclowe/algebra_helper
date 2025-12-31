@@ -97,7 +97,7 @@ describe('Constants Accessibility Tests', () => {
         expect(finalLevel).toBe(1); // Should be capped at MIN_LEVEL
     });
 
-    test('Level can progress from 21 (Advanced Calculus) to 22', async () => {
+    test('Level can progress from level 21 (Advanced Calculus) to level 22', async () => {
         // Set up at level 21 with streak
         await page.evaluate(() => {
             window.APP.mode = 'learning';
@@ -116,7 +116,7 @@ describe('Constants Accessibility Tests', () => {
         expect(newLevel).toBeLessThanOrEqual(34);
     });
 
-    test('Level can progress from 25 (Integration & Series) to 26', async () => {
+    test('Level can progress from level 25 (Integration & Series) to level 26', async () => {
         // Set up at level 25 with streak
         await page.evaluate(() => {
             window.APP.mode = 'learning';
@@ -135,7 +135,7 @@ describe('Constants Accessibility Tests', () => {
         expect(newLevel).toBeLessThanOrEqual(34);
     });
 
-    test('Multiple correct answers at level 21 can advance to level 26+', async () => {
+    test('Multiple correct answers at level 21 can advance to levels 26+', async () => {
         // Set up at level 21
         await page.evaluate(() => {
             window.APP.mode = 'learning';
