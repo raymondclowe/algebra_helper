@@ -243,5 +243,5 @@ For issues or questions:
 
 ---
 
-**Last Updated**: December 2024  
-**Version**: 1.0.2-offline
+**Version**: See service-worker.js for current cache version  
+**Last Updated**: See git commit history

@@ -109,16 +109,15 @@ self.addEventListener('fetch', event => {
             if (cachedResponse) {
               return cachedResponse;
             }
-            // If CDN resource not in cache, return a minimal fallback
-            if (requestUrl.hostname === 'cdn.tailwindcss.com') {
-              // Return basic CSS fallback for Tailwind
-              return new Response('', {
-                headers: { 'Content-Type': 'text/javascript' }
-              });
-            }
-            return new Response('// Offline - CDN resource not available', {
+            // If CDN resource not in cache, return empty fallback
+            // Tailwind CSS will gracefully degrade without styles
+            // MathJax will show raw LaTeX which is still readable
+            const contentType = requestUrl.hostname === 'cdn.tailwindcss.com' 
+              ? 'text/css' 
+              : 'text/javascript';
+            return new Response('/* Offline - CDN resource not available */', {
               status: 200,
-              headers: { 'Content-Type': 'text/javascript' }
+              headers: { 'Content-Type': contentType }
             });
           });
         })
