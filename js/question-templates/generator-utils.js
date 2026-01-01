@@ -463,7 +463,7 @@ window.GeneratorUtils = {
         }
         
         // Check if text has complex LaTeX that needs MathJax rendering
-        const hasComplexLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\^|_/.test(text);
+        const hasComplexLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|_/.test(text);
         
         if (hasComplexLatex) {
             // Complex LaTeX detected - needs MathJax rendering

@@ -65,9 +65,7 @@ window.ExplanationModal = {
         this.showingDetailed = false;
         
         // Process explanation to handle LaTeX properly
-        const processedExplanation = window.GeneratorUtils 
-            ? window.GeneratorUtils.processExplanationText(explanation)
-            : explanation;
+        const processedExplanation = window.GeneratorUtils?.processExplanationText(explanation) || explanation;
         
         // Update content
         document.getElementById('explanation-modal-text').innerHTML = processedExplanation;
@@ -248,9 +246,7 @@ window.ExplanationModal = {
         detailed += `</div>`;
         
         // Add the basic explanation (process it to handle LaTeX properly)
-        const processedBasicExplanation = window.GeneratorUtils 
-            ? window.GeneratorUtils.processExplanationText(basicExplanation)
-            : basicExplanation;
+        const processedBasicExplanation = window.GeneratorUtils?.processExplanationText(basicExplanation) || basicExplanation;
         detailed += `<div class="bg-gray-700 p-3 rounded">`;
         detailed += `<p class="text-sm font-semibold text-yellow-300 mb-2">Step-by-step approach:</p>`;
         detailed += `<p class="text-gray-300">${processedBasicExplanation}</p>`;
