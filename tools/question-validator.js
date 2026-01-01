@@ -242,8 +242,7 @@ class QuestionValidator {
                 
                 console.log(`   [Progress: ${processed}/${totalTypes}]`);
                 
-                // Small delay to avoid rate limiting
-                await new Promise(resolve => setTimeout(resolve, 2000));
+                // Rate limiting is now handled by api-client.js (1 second minimum between calls)
             }
         }
         
