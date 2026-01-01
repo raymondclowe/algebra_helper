@@ -43,38 +43,44 @@ window.Learning = {
                     <span class="text-xs text-gray-500 mt-1">(no penalty)</span>
                 </div>`;
             } else {
-                // First, process answer text to convert simple LaTeX to Unicode (like \times → ×, \div → ÷)
-                // This uses the comprehensive text processing system for both explanations and answers
+                // First, simplify answer to extract plain text from \text{...} blocks
+                // This prevents \text{...} from being wrapped in $...$ delimiters
                 const utils = window.GeneratorUtils;
-                const processedAnswer = utils.processTextContent(opt.val);
+                const simplifiedAnswer = utils.simplifyAnswerForDisplay(opt.val);
                 
-                // Then use the simplifyAnswerForDisplay helper to intelligently convert LaTeX to HTML when appropriate
-                const simplifiedAnswer = utils.simplifyAnswerForDisplay(processedAnswer);
+                // Then process remaining LaTeX to convert simple symbols to Unicode (like \times → ×, \div → ÷)
+                const processedAnswer = utils.processTextContent(simplifiedAnswer);
                 
-                // Check if the simplified answer is different from processed answer (i.e., was simplified to plain HTML)
-                // We check for absence of backslash-based LaTeX commands, not just any backslash
-                const wasSimplified = simplifiedAnswer !== processedAnswer && !simplifiedAnswer.includes('\\text') && !simplifiedAnswer.includes('\\frac');
+                // Check if the answer was simplified (i.e., plain text extracted from \text{...})
+                // We check for absence of LaTeX commands and math delimiters
+                const wasSimplified = simplifiedAnswer !== opt.val && !simplifiedAnswer.includes('\\text') && !simplifiedAnswer.includes('\\frac');
                 
-                if (wasSimplified) {
-                    // Simplified to plain HTML - render directly with proper styling
-                    btn.innerHTML = `<span class="plain-text-answer" style="font-family: 'Times New Roman', Times, serif; font-style: normal; word-spacing: 0.1em;">${simplifiedAnswer}</span>`;
-                } else {
-                    // Still contains LaTeX - check if it needs MathJax rendering
-                    // Only truly complex LaTeX needs MathJax (fractions, roots, sums, integrals, etc.)
-                    // Simple symbols like ×, ÷, ±, ≤, ≥ are already converted to Unicode by processTextContent
-                    const needsLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|\\_/.test(simplifiedAnswer);
-                    
-                    if (needsLatex) {
-                        // Render as LaTeX math for complex expressions
-                        btn.innerHTML = `\\( ${simplifiedAnswer} \\)`;
-                    } else {
-                        // Plain text - render with proper spacing
-                        const textContent = simplifiedAnswer
-                            .replace(/𝑓/g, '<span style="font-style: italic;">f</span>')
-                            .replace(/𝑔/g, '<span style="font-style: italic;">g</span>')
-                            .replace(/𝑥/g, '<span style="font-style: italic;">x</span>');
-                        btn.innerHTML = `<span style="font-style: normal; word-spacing: 0.15em;">${textContent}</span>`;
+                // Check if final processed answer still needs MathJax rendering
+                // Only truly complex LaTeX needs MathJax (fractions, roots, sums, integrals, etc.)
+                // Simple symbols like ×, ÷, ±, ≤, ≥ are already converted to Unicode by processTextContent
+                const needsLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|\\_/.test(processedAnswer);
+                
+                // Also check for math delimiters that indicate MathJax content
+                const hasMathDelimiters = processedAnswer.includes('$') || processedAnswer.includes('\\(') || processedAnswer.includes('\\[');
+                
+                if (wasSimplified && !needsLatex && !hasMathDelimiters) {
+                    // Simplified to plain text - render directly with proper styling
+                    btn.innerHTML = `<span class="plain-text-answer" style="font-family: 'Times New Roman', Times, serif; font-style: normal; word-spacing: 0.1em;">${processedAnswer}</span>`;
+                } else if (needsLatex || hasMathDelimiters) {
+                    // Render as LaTeX math for complex expressions
+                    // Remove any existing delimiters to avoid double-wrapping
+                    let latexContent = processedAnswer;
+                    if (latexContent.startsWith('$') && latexContent.endsWith('$')) {
+                        latexContent = latexContent.slice(1, -1);
                     }
+                    btn.innerHTML = `\\( ${latexContent} \\)`;
+                } else {
+                    // Plain text - render with proper spacing
+                    const textContent = processedAnswer
+                        .replace(/𝑓/g, '<span style="font-style: italic;">f</span>')
+                        .replace(/𝑔/g, '<span style="font-style: italic;">g</span>')
+                        .replace(/𝑥/g, '<span style="font-style: italic;">x</span>');
+                    btn.innerHTML = `<span style="font-style: normal; word-spacing: 0.15em;">${textContent}</span>`;
                 }
             }
             container.appendChild(btn);
