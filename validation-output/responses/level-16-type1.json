@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:55:43.892Z",
+  "timestamp": "2026-01-01T08:49:39.270Z",
   "level": 16,
   "topic": "Basic Trigonometry",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 16,
     "topic": "Basic Trigonometry",
     "questionType": 1,
-    "questionText": "\\sin(45°)",
-    "instruction": "Calculate (use exact values)",
-    "correctAnswer": "\\frac{1}{\\sqrt{2}}",
+    "questionText": "\\sin(30°)",
+    "instruction": "FIND THE EXACT VALUE",
+    "correctAnswer": "\\frac{1}{2}",
     "distractors": [
-      "1",
-      "0.5",
-      "0"
+      "\\frac{\\sqrt{3}}{2}",
+      "\\frac{1}{\\sqrt{3}}",
+      "0.3333333333"
     ],
     "allOptions": [
-      "1√2",
-      "0.5",
-      "0",
-      "1",
+      "1√3",
+      "√32",
+      "12",
+      "0.3333333333",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "sin(45°) = \\frac{1}{\\sqrt{2}}. This is one of the standard angles you should memorize."
+    "explanation": "sin(30°) = \\frac{1}{2}. This is a standard result for special angles."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Note:** While the answer $\\frac{1}{\\sqrt{2}}$ is mathematically correct, many curricula (including IB) often prefer the rationalized form $\\frac{\\sqrt{2}}{2}$. However, since $\\frac{1}{\\sqrt{2}}$ is equivalent and the only correct option provided, the question is perfectly solvable and accurate.",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the \"Trigonometry Basics\" topic.\n\n*   **Correctness:** $\\sin(30^\\circ)$ is indeed exactly $\\frac{1}{2}$.\n*   **Distractors:**\n    *   $\\frac{\\sqrt{3}}{2}$ is a strong distractor (it is $\\cos(30^\\circ)$).\n    *   $\\frac{1}{\\sqrt{3}}$ is a plausible distractor (it is $\\tan(30^\\circ)$).\n    *   $0.3333333333$ is clearly incorrect, though stylistically inconsistent with the other \"exact form\" options.\n*   **Clarity:** The instruction \"FIND THE EXACT VALUE\" is clear and standard for this type of problem.",
     "error": null
   }
 }

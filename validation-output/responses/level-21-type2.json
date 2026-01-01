@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:02:15.001Z",
+  "timestamp": "2026-01-01T08:54:01.603Z",
   "level": 21,
   "topic": "Advanced Calculus",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 21,
     "topic": "Advanced Calculus",
     "questionType": 2,
-    "questionText": "𝑓(x) = x \\cdot 4x^4",
-    "instruction": "Find 𝑓'(x) using product rule",
-    "correctAnswer": "20x^{4}",
+    "questionText": "𝑓(x) = x \\cdot 5x^1",
+    "instruction": "FIND 𝑓'(X) USING PRODUCT RULE",
+    "correctAnswer": "10x^{1}",
     "distractors": [
-      "16x^{3}",
-      "4x^{4}",
-      "4x^{5}"
+      "5x^{0}",
+      "5x^{1}",
+      "5x^{2}"
     ],
     "allOptions": [
-      "16⁢𝑥3",
-      "4⁢𝑥5",
-      "20⁢𝑥4",
-      "4⁢𝑥4",
+      "5⁢𝑥1",
+      "10⁢𝑥1",
+      "5⁢𝑥2",
+      "5⁢𝑥0",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Product rule: (uv)' = u'v + uv'. Here u = x, v = 4x^4. So (x)(16x^3) + (1)(4x^4) = 20x^4."
+    "explanation": "Apply the product rule (uv)' = u'v + uv' where u = x and v = 5x^1. Therefore 𝑓'(x) = (1)(5x^1) + (x)(5x^0) = 10x^1."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "**VALID**\n\nThe question is mathematically correct.\n\n**Analysis:**\n1.  **Function:** $f(x) = x \\cdot 4x^4$\n2.  **Simplification (Mental Check):** $f(x) = 4x^5$\n3.  **Derivative:** Using the power rule on the simplified form, $f'(x) = 5 \\cdot 4x^4 = 20x^4$.\n4.  **Using Product Rule (as requested):**\n    *   $u = x, u' = 1$\n    *   $v = 4x^4, v' = 16x^3$\n    *   $f'(x) = u'v + uv' = (1)(4x^4) + (x)(16x^3) = 4x^4 + 16x^4 = 20x^4$.\n\nThe marked correct answer ($20x^4$) is accurate. The distractors represent common errors (e.g., $4x^5$ is the original function simplified, $16x^3$ is the derivative of just the second term). The notation is clear.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:53:46.796Z",
+  "timestamp": "2026-01-01T08:48:09.647Z",
   "level": 14,
   "topic": "Sequences & Series",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 14,
     "topic": "Sequences & Series",
     "questionType": 3,
-    "questionText": "\\text{Sum of arithmetic series: } a_1 = 1, d = 3, n = 10",
-    "instruction": "Find the sum S_n",
-    "correctAnswer": "145",
+    "questionText": "\\text{Sum of arithmetic series: } a_1 = 4, d = 1, n = 10",
+    "instruction": "CALCULATE S_N",
+    "correctAnswer": "85",
     "distractors": [
-      "10",
-      "155",
-      "29"
+      "40",
+      "95",
+      "17"
     ],
     "allOptions": [
-      "145",
-      "29",
-      "155",
-      "10",
+      "40",
+      "85",
+      "17",
+      "95",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "S_n = n(a_1 + a_n)/2. First find a_10 = 1 + 27 = 28. Then S_10 = 10(1 + 28)/2 = 145."
+    "explanation": "Apply S_n = n(a_1 + a_n)/2. First calculate a_10 = 4 + 9 = 13. Then S_10 = 10(4 + 13)/2 = 85."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Analysis:**\n1.  **Mathematical Correctness:**\n    *   Formula for the sum of an arithmetic series: $S_n = \\frac{n}{2}[2a_1 + (n-1)d]$\n    *   Given: $a_1 = 1$, $d = 3$, $n = 10$\n    *   Substitution: $S_{10} = \\frac{10}{2}[2(1) + (10-1)(3)]$\n    *   Simplification: $S_{10} = 5[2 + 27] = 5[29] = 145$\n    *   The marked answer (145) is correct.\n\n2.  **Clarity & Notation:**\n    *   The notation ($a_1, d, n$) is standard for IB and general high school algebra.\n    *   The prompt \"Find the sum $S_n$\" is unambiguous.\n\n3.  **Distractors:**\n    *   **29:** This is the value of the term inside the brackets ($2a_1 + (n-1)d$) or the sum of the first and last terms ($a_1 + a_n$). This is a good distractor for students who forget to multiply by $\\frac{n}{2}$.\n    *   **155:** A plausible arithmetic error close to the real answer.\n    *   **10:** A filler distractor (value of $n$).\n\nThe question is well-formed and accurate.",
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The formula for the sum of an arithmetic series is $S_n = \\frac{n}{2}(2a_1 + (n-1)d)$.\n  Substituting the given values:\n  $S_{10} = \\frac{10}{2}(2(4) + (10-1)(1))$\n  $S_{10} = 5(8 + 9)$\n  $S_{10} = 5(17)$\n  $S_{10} = 85$\n  The calculation is correct.\n- **Options:** The correct answer (85) is present. The distractors are plausible:\n  - **17:** Result of $a_1 + a_n$ (forgetting to multiply by $n/2$).\n  - **40:** Result of $\\frac{n}{2} \\times 2a_1$ (ignoring the common difference term).\n- **Clarity:** The notation is standard and the question is unambiguous.\n- **Difficulty:** Appropriate for a quick mental math check of the formula.",
     "error": null
   }
 }

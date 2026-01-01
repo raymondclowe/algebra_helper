@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:36:24.966Z",
+  "timestamp": "2026-01-01T08:55:26.264Z",
   "level": 28,
   "topic": "Matrix Algebra",
   "questionType": 4,
@@ -7,26 +7,26 @@
     "level": 28,
     "topic": "Matrix Algebra",
     "questionType": 4,
-    "questionText": "\\text{Prove } \\sqrt{3} \\text{ is irrational}",
-    "instruction": "What do we assume to start a proof by contradiction?",
-    "correctAnswer": "\\text{Assume } \\sqrt{3} = \\frac{p}{q} \\text{ in lowest terms}",
+    "questionText": "\\text{det}\\begin{pmatrix} 6 & 1 \\\\ 6 & 5 \\end{pmatrix}",
+    "instruction": "CALCULATE THE DETERMINANT",
+    "correctAnswer": "24",
     "distractors": [
-      "\\text{Assume } \\sqrt{3} \\text{ is irrational}",
-      "\\text{Assume } \\sqrt{3} \\text{ is an integer}",
-      "\\text{Assume } p \\text{ and } q \\text{ are both divisible by 3}"
+      "36",
+      "11",
+      "30"
     ],
     "allOptions": [
-      "Assume } p \\text{ and } q \\text{ are both divisible by 3",
-      "Assume } \\sqrt{3} \\text{ is irrational",
-      "Assume } \\sqrt{3} = \\frac{p}{q} \\text{ in lowest terms",
-      "Assume } \\sqrt{3} \\text{ is an integer",
+      "24",
+      "11",
+      "36",
+      "30",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "To prove by contradiction, we assume √3 IS rational: √3 = p/q where p and q are coprime (lowest terms)."
+    "explanation": "Determinant = ad - bc = 6×5 - 1×6 = 30 - 6 = 24."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "The question has **ISSUES** and requires correction.\n\nHere is a detailed breakdown of the problems:\n\n**1. LaTeX Formatting / Syntax Errors**\n*   **Issue:** There is a stray closing curly brace `}` visible in every single option immediately after the word \"Assume\".\n    *   *Example:* \"Assume **}** $\\sqrt{3} = \\frac{p}{",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

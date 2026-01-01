@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:38:50.181Z",
+  "timestamp": "2026-01-01T08:33:24.447Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 3,
-    "questionText": "? + 4 = 30",
-    "instruction": "Find the missing number",
-    "correctAnswer": "26",
+    "questionText": "? + 14 = 27",
+    "instruction": "FIND THE MISSING NUMBER",
+    "correctAnswer": "13",
     "distractors": [
+      "14",
       "27",
-      "30",
-      "4"
+      "18"
     ],
     "allOptions": [
-      "4",
-      "26",
-      "30",
+      "18",
+      "14",
+      "13",
       "27",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "To find the missing number, subtract 4 from 30: 30 - 4 = 26. Check: 26 + 4 = 30 ✓"
+    "explanation": "To find the missing number, subtract 14 from 27: 27 - 14 = 13. Check: 13 + 14 = 27 ✓"
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Accuracy:** The question is mathematically correct. Solving for the missing number: $30 - 4 = 26$.\n- **Correct Answer:** The option marked as correct (26) is indeed the right answer.\n- **Difficulty:** Appropriate for \"Level 1 Basic Arithmetic\". It is a simple one-step linear equation (missing addend).\n- **Distractors:** The distractors are reasonable for this level (e.g., 27 is a close calculation error, 30 and 4 are numbers present in the problem).",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n\n**Verification:**\n- Equation: $x + 14 = 27$\n- Solution: $27 - 14 = 13$\n- The correct answer (13) is present and marked correctly.\n- The distractors (18, 14, 27) are distinct and incorrect.",
     "error": null
   }
 }

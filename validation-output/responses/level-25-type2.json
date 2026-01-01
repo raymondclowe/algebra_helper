@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:09:52.861Z",
+  "timestamp": "2026-01-01T08:54:57.815Z",
   "level": 25,
   "topic": "Integration & Series",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 25,
     "topic": "Integration & Series",
     "questionType": 2,
-    "questionText": "\\int 5x^3 \\, dx",
-    "instruction": "Integrate",
-    "correctAnswer": "\\frac{5x^{4}}{4} + C",
+    "questionText": "\\int 2x^4 \\, dx",
+    "instruction": "FIND THE INTEGRAL",
+    "correctAnswer": "\\frac{2x^{5}}{5} + C",
     "distractors": [
-      "5x^{4} + C",
-      "\\frac{x^{4}}{4} + C",
-      "15x^{2} + C"
+      "2x^{5} + C",
+      "\\frac{x^{5}}{5} + C",
+      "8x^{3} + C"
     ],
     "allOptions": [
-      "5⁢𝑥44 +𝐶",
-      "15⁢𝑥2 +𝐶",
-      "𝑥44 +𝐶",
-      "5⁢𝑥4 +𝐶",
+      "𝑥55 +𝐶",
+      "8⁢𝑥3 +𝐶",
+      "2⁢𝑥5 +𝐶",
+      "2⁢𝑥55 +𝐶",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Integrate using the power rule, keeping the coefficient: ∫5x^3 dx = 5 × x^4/4 + C = 5x^4/4 + C."
+    "explanation": "Apply the power rule, retaining the coefficient: ∫2x^4 dx = 2 × x^5/5 + C = 2x^5/5 + C."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the topic.\n\n*   **Mathematical Check:** The integral of $5x^3$ is indeed $\\frac{5x^4}{4} + C$.\n*   **Distractors:** The distractors are well-chosen common errors:\n    *   $15x^2 + C$ is the derivative (confusing operations).\n    *   $\\frac{x^4}{4} + C$ forgets the constant coefficient.\n    *   $5x^4 + C$ applies the power rule but forgets to divide by the new exponent.\n*   **Notation:** Standard and clear.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

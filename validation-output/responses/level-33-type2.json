@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:45:03.253Z",
+  "timestamp": "2026-01-01T08:56:56.411Z",
   "level": 33,
   "topic": "Probability Distributions",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 33,
     "topic": "Probability Distributions",
     "questionType": 2,
-    "questionText": "X \\sim B(12, 0.2)",
-    "instruction": "What is E(X), the expected value?",
-    "correctAnswer": "2.4000000000000004",
+    "questionText": "\\frac{dy}{dx} = 4y",
+    "instruction": "WHAT IS THE GENERAL SOLUTION?",
+    "correctAnswer": "y = Ae^{4x}",
     "distractors": [
-      "12",
-      "0.2",
-      "12.2"
+      "y = 4e^{x}",
+      "y = Ae^{x}",
+      "y = A4x"
     ],
     "allOptions": [
-      "2.4000000000000004",
-      "12.2",
-      "12",
-      "0.2",
+      "𝑦 =𝐴⁢𝑒𝑥",
+      "𝑦 =4⁢𝑒𝑥",
+      "𝑦 =𝐴⁢𝑒4⁢𝑥",
+      "y = A4x",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "For binomial distribution B(n, p), the mean is E(X) = np = 12 × 0.2 = 2.4000000000000004."
+    "explanation": "For dy/dx = 4y, separate variables: (1/y) dy = 4 dx. Integrate: ln|y| = 4x + C. Exponentiating: y = Ae^(4x) where A = e^C."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "**ISSUE DETECTED**\n\n**Problem:**\nThe correct answer is displaying a **floating-point precision error** rather than the exact value.\n- The calculation for the expected value of a Binomial distribution $B(n, p)$ is $E(X) = n \\times p$.\n- Here: $12 \\times 0.2 = 2.4$.\n- The option displays `2.4000000000000004`. This is a raw computer artifact (likely IEEE 754 floating-point standard) and is confusing/unprofessional for a student. It suggests the answer is an approximation or an irrational number, when it is actually a terminating decimal.\n\n**Correction:**\nThe correct answer option should simply be **2.4**.\n\n**Suggestion for Fix:**\nImplement a rounding function or string formatting on the generated answers to limit decimal places (e.g., to the significant figures appropriate for the inputs) to avoid displaying raw floating-point garbage values.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

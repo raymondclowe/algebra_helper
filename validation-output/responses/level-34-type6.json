@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:48:20.194Z",
+  "timestamp": "2026-01-01T08:57:36.851Z",
   "level": 34,
   "topic": "Hypothesis Testing",
   "questionType": 6,
@@ -7,8 +7,8 @@
     "level": 34,
     "topic": "Hypothesis Testing",
     "questionType": 6,
-    "questionText": "p\\text{-value} = 0.001, \\quad \\alpha = 0.05",
-    "instruction": "What is the conclusion?",
+    "questionText": "p\\text{-value} = 0.03, \\quad \\alpha = 0.05",
+    "instruction": "WHAT IS THE CONCLUSION?",
     "correctAnswer": "\\text{Reject } H_0",
     "distractors": [
       "\\text{Fail to reject } H_0",
@@ -16,17 +16,17 @@
       "\\text{Accept } H_1"
     ],
     "allOptions": [
-      "Reject 𝐻0",
-      "Fail to reject 𝐻0",
-      "Accept 𝐻0",
-      "Accept 𝐻1",
+      "Fail to reject H_0",
+      "Accept H_0",
+      "Reject H_0",
+      "Accept H_1",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "p-value (0.001) < α (0.05), so reject H₀. Evidence is significant."
+    "explanation": "p-value (0.03) < α (0.05), so reject H₀. Evidence is significant."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\n**Reasoning:**\nThe question is mathematically accurate and uses standard statistical terminology.\n- **Logic:** In hypothesis testing, if the $p\\text{-value}$ is less than the significance level ($\\alpha$), the correct conclusion is to reject the null hypothesis ($H_0$).\n- **Calculation:** Here, $0.001 < 0.05$, so \"Reject $H_0$\" is the correct answer.\n- **Distractors:** The distractors are appropriate. \"Fail to reject $H_0$\" is the opposite error. \"Accept $H_0$\" and \"Accept $H_1$\" test the student's knowledge of precise statistical language (we typically \"reject\" or \"fail to reject\" rather than \"accept\").",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

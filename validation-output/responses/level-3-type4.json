@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:33:43.718Z",
+  "timestamp": "2026-01-01T08:36:24.299Z",
   "level": 3,
   "topic": "Multiplication and Division",
   "questionType": 4,
@@ -7,26 +7,26 @@
     "level": 3,
     "topic": "Multiplication and Division",
     "questionType": 4,
-    "questionText": "8 \\times 1000",
-    "instruction": "Calculate",
-    "correctAnswer": "8000",
+    "questionText": "87 \\times 100",
+    "instruction": "CALCULATE",
+    "correctAnswer": "8700",
     "distractors": [
-      "9000",
-      "1008",
-      "800"
+      "8800",
+      "187",
+      "870"
     ],
     "allOptions": [
-      "800",
-      "1008",
-      "8000",
-      "9000",
+      "187",
+      "8700",
+      "870",
+      "8800",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Multiplying by 1000 is like adding 3 zeros: 8 × 1000 = 8000."
+    "explanation": "Multiplying by 100 is like adding 2 zeros: 87 × 100 = 8700."
   },
   "apiResponse": {
     "success": true,
-    "validationText": null,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate.\n\n*   **Calculation:** $87 \\times 100 = 8700$.\n*   **Correct Answer:** The option labeled \"8700\" is correct.\n*   **Distractors:** The distractors are plausible errors (confusing addition for multiplication, missing a zero, or a close estimation error).",
     "error": null
   }
 }

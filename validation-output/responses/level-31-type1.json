@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:41:37.551Z",
+  "timestamp": "2026-01-01T08:56:19.462Z",
   "level": 31,
   "topic": "Advanced Integration",
   "questionType": 1,
@@ -8,7 +8,7 @@
     "topic": "Advanced Integration",
     "questionType": 1,
     "questionText": "\\text{Given } u = x^2 + 1, \\text{ what is } du?",
-    "instruction": "Express du in terms of x and dx",
+    "instruction": "FIND DU IN TERMS OF X",
     "correctAnswer": "du = 2x \\, dx",
     "distractors": [
       "du = x \\, dx",
@@ -16,17 +16,17 @@
       "du = dx"
     ],
     "allOptions": [
+      "du = x \\, dx",
       "du = dx",
-      "𝑑⁢𝑢 =𝑥 𝑑⁢𝑥",
-      "𝑑⁢𝑢 =2⁢𝑥 𝑑⁢𝑥",
+      "du = 2x \\, dx",
       "𝑑⁢𝑢 =2⁢𝑥2 𝑑⁢𝑥",
       "I don't know\n                    (no penalty)"
     ],
     "explanation": "Differentiating u = x² + 1 gives du/dx = 2x, so du = 2x dx. This means x dx = du/2."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the topic of integration by substitution.\n\n*   **Mathematical Accuracy:** The derivative of $u = x^2 + 1$ is $\\frac{du}{dx} = 2x$, which leads to the differential $du = 2x \\, dx$. The marked correct answer is accurate.\n*   **Distractors:** The incorrect options represent common student errors (e.g., forgetting the coefficient, assuming $du = dx$).\n*   **Clarity:** The instruction \"Express du in terms of x and dx\" is precise.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

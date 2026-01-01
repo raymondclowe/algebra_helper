@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:40:30.109Z",
+  "timestamp": "2026-01-01T08:56:07.114Z",
   "level": 30,
   "topic": "Complex Numbers (Polar)",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 30,
     "topic": "Complex Numbers (Polar)",
     "questionType": 3,
-    "questionText": "5e^{i\\pi}",
-    "instruction": "Convert to Cartesian form a + bi",
-    "correctAnswer": "-5",
+    "questionText": "2e^{i\\pi}",
+    "instruction": "CONVERT TO CARTESIAN FORM A + BI",
+    "correctAnswer": "-2",
     "distractors": [
-      "5 + 5i",
-      "-4 + 0i",
-      "-5i"
+      "2 + 2i",
+      "-1 + 0i",
+      "-2i"
     ],
     "allOptions": [
-      "5 + 5i",
-      "-4 + 0i",
-      "-5",
-      "-5i",
+      "2 + 2i",
+      "-2",
+      "-1 + 0i",
+      "-2i",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Using Euler's formula: z = r·e^(iθ) = r(cos θ + i·sin θ). Here: 5(cos(\\pi) + i·sin(\\pi)) = 5(-1 + i·0) = -5."
+    "explanation": "Using Euler's formula: z = r·e^(iθ) = r(cos θ + i·sin θ). Here: 2(cos(\\pi) + i·sin(\\pi)) = 2(-1 + i·0) = -2."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\n**Minor Note:**\nThe screen header in the top-left corner reads \"Integration & Series\", but the question topic is clearly **Complex Numbers**. You may want to check the categorization or tagging for this question to ensure it appears in the correct section of the app.\n\nMathematically, the question and the correct answer ($-5$) are accurate ($e^{i\\pi} = -1$, so $5e^{i\\pi} = -5$).",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

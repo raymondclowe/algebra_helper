@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:00:48.710Z",
+  "timestamp": "2026-01-01T08:53:44.972Z",
   "level": 19,
   "topic": "Complex Numbers",
   "questionType": 4,
@@ -8,7 +8,7 @@
     "topic": "Complex Numbers",
     "questionType": 4,
     "questionText": "i^{2}",
-    "instruction": "Simplify",
+    "instruction": "SIMPLIFY",
     "correctAnswer": "-1",
     "distractors": [
       "i",
@@ -16,17 +16,17 @@
       "2"
     ],
     "allOptions": [
-      "-1",
-      "2i",
       "i",
       "2",
+      "2i",
+      "-1",
       "I don't know\n                    (no penalty)"
     ],
     "explanation": "i¹ = i, i² = -1, i³ = -i, i⁴ = 1, and the pattern repeats. So i^2 = -1."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct. By definition of the imaginary unit $i$, $i^2 = -1$. The correct answer is properly identified, and the distractors are clearly incorrect. The notation is standard and unambiguous.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

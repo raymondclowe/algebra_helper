@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:09:36.948Z",
+  "timestamp": "2026-01-01T08:54:53.702Z",
   "level": 25,
   "topic": "Integration & Series",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 25,
     "topic": "Integration & Series",
     "questionType": 1,
-    "questionText": "\\text{Data: } 18, 24, 27, 10",
-    "instruction": "Find the mean",
-    "correctAnswer": "19.75",
+    "questionText": "\\int x^2 \\, dx",
+    "instruction": "FIND THE INTEGRAL",
+    "correctAnswer": "\\frac{x^{3}}{3} + C",
     "distractors": [
-      "27",
-      "20.75",
-      "21"
+      "\\frac{x^{2}}{2} + C",
+      "2x^{1} + C",
+      "x^{3} + C"
     ],
     "allOptions": [
-      "27",
-      "20.75",
-      "21",
-      "19.75",
+      "𝑥33 +𝐶",
+      "2⁢𝑥1 +𝐶",
+      "𝑥22 +𝐶",
+      "𝑥3 +𝐶",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Mean = sum/count = (18 + 24 + 27 + 10)/4 = 79/4 = 19.75."
+    "explanation": "Apply the power rule for integration: ∫x^n dx = x^(n+1)/(n+1) + C. Therefore ∫x^2 dx = x^3/3 + C, where C is the constant of integration."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "The question has **ISSUES**.\n\n**1. Major Topic Mismatch**\n*   **Issue:** The topic header in the top-left corner is **\"Integration & Series\"**, but the question asks to **\"FIND THE MEAN\"** of a set of numbers.\n*   **Explanation:** Finding the mean is a basic **Statistics** concept. It has nothing to do with Calculus (Integration) or Sequences and Series. A student practicing Integration would be confused to see this question.\n\n**2. Difficulty Level Appropriateness**\n*   **Issue:** For an IB Math curriculum, finding the mean of four integers is extremely basic (Pre-IB or middle school level).\n*   **Context:** If \"Level 25\" implies a progression where Integration is taught, this question is far too easy and likely misplaced.\n\n**Mathematical Verification (The math itself is correct):**\n*   **Sum:** $18 + 24 + 27 + 10 = 79$\n*   **Count:** $4$\n*   **Mean:** $79 \\div 4 = 19.75$\n*   The marked correct answer ($19.75$) is accurate.\n*   **Distractor Note:** The option $21$ is the *median* of the data set ($10, 18, 24, 27$), making it a plausible distractor for students confusing mean and median.\n\n**How to Fix:**\n*   **Option A:** Change the **Topic** label to \"Statistics\" or \"Descriptive Statistics\".\n*   **Option B (Recommended):**",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

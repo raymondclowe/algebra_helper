@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:34:31.544Z",
+  "timestamp": "2026-01-01T08:55:05.993Z",
   "level": 26,
   "topic": "Proof by Induction",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 26,
     "topic": "Proof by Induction",
     "questionType": 1,
-    "questionText": "\\text{Given: } 1+2+\\cdots+k = \\frac{k(k+1)}{2}",
-    "instruction": "What is 1+2+\\cdots+k+(k+1) in simplified form?",
-    "correctAnswer": "\\frac{(k+1)(k+2)}{2}",
+    "questionText": "\\text{Assume: } 1+4+\\cdots+4^k = \\frac{4^{k+1}-1}{4-1}. \\text{ Add } 4^{k+1}",
+    "instruction": "WHAT IS THE RESULT AFTER ADDING 4K⁺¹?",
+    "correctAnswer": "\\frac{4^{k+2} - 1}{4 - 1}",
     "distractors": [
-      "\\frac{k(k+1)}{2} + k",
-      "\\frac{k(k+2)}{2}",
-      "\\frac{(k+1)^2}{2}"
+      "\\frac{4^{k+1} - 1}{4 - 1}",
+      "\\frac{4^{k+2}}{4 - 1}",
+      "4^{k+2} - 1"
     ],
     "allOptions": [
-      "𝑘⁢(𝑘+1)2 +𝑘",
-      "(𝑘+1)22",
-      "(𝑘+1)⁢(𝑘+2)2",
-      "𝑘⁢(𝑘+2)2",
+      "4𝑘+1−14−1",
+      "4𝑘+2 −1",
+      "4𝑘+2−14−1",
+      "4𝑘+24−1",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Add (k+1) to both sides: k(k+1)/2 + (k+1) = (k+1)[k/2 + 1] = (k+1)(k+2)/2. This shows the formula holds for n = k+1."
+    "explanation": "(4^(k+1) - 1)/(4 - 1) + 4^(k+1) = (4^(k+1) - 1 + 4^(k+1)(4 - 1))/(4 - 1) = (4^(k+2) - 1)/(4 - 1)."
   },
   "apiResponse": {
-    "success": true,
+    "success": false,
     "validationText": null,
-    "error": null
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

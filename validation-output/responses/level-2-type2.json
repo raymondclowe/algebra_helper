@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:31:32.018Z",
+  "timestamp": "2026-01-01T08:34:21.066Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 2,
-    "questionText": "144 \\text{ is the square of what number?}",
-    "instruction": "Find the number",
-    "correctAnswer": "12",
+    "questionText": "4 \\text{ is the square of what number?}",
+    "instruction": "FIND THE NUMBER",
+    "correctAnswer": "2",
     "distractors": [
-      "13",
-      "11",
-      "72"
+      "3",
+      "1",
+      "12"
     ],
     "allOptions": [
+      "1",
       "12",
-      "13",
-      "72",
-      "11",
+      "3",
+      "2",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Since 12 × 12 = 144, the answer is 12. This is finding the square root: $\\sqrt{144} = 12$."
+    "explanation": "Since 2 × 2 = 4, the answer is 2. This is finding the square root: $\\sqrt{4} = 2$."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for the stated difficulty level.\n- **Correctness:** $12^2 = 144$, so 12 is the correct answer.\n- **Distractors:**\n  - **72:** Catches the common error of dividing by 2 instead of taking the square root.\n  - **11 and 13:** Test knowledge of nearby perfect squares ($121$ and $169$).\n- **Clarity:** The wording is unambiguous given the positive integer options.",
+    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for the difficulty level. The wording \"4 is the square of what number?\" correctly asks for the square root of 4. The provided answer (2) is correct ($2^2 = 4$), and the distractors are clearly incorrect. There is no ambiguity given the available options.",
     "error": null
   }
 }

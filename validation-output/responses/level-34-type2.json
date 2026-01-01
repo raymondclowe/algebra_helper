@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:47:11.940Z",
+  "timestamp": "2026-01-01T08:57:20.906Z",
   "level": 34,
   "topic": "Hypothesis Testing",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 34,
     "topic": "Hypothesis Testing",
     "questionType": 2,
-    "questionText": "\\text{Test if population mean differs from 61}",
-    "instruction": "What is the alternative hypothesis H₁?",
-    "correctAnswer": "H_1: \\mu \\neq 61",
+    "questionText": "\\text{Test if population mean differs from 85}",
+    "instruction": "WHAT IS THE ALTERNATIVE HYPOTHESIS H₁?",
+    "correctAnswer": "H_1: \\mu \\neq 85",
     "distractors": [
-      "H_1: \\mu = 61",
-      "H_1: \\mu > 61",
-      "H_1: \\mu < 61"
+      "H_1: \\mu = 85",
+      "H_1: \\mu > 85",
+      "H_1: \\mu < 85"
     ],
     "allOptions": [
-      "𝐻1 :𝜇 <61",
-      "𝐻1 :𝜇 >61",
-      "𝐻1 :𝜇 ≠61",
-      "𝐻1 :𝜇 =61",
+      "𝐻1 :𝜇 ≠85",
+      "𝐻1 :𝜇 <85",
+      "𝐻1 :𝜇 >85",
+      "𝐻1 :𝜇 =85",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "For two-tailed test (\"differs from\"), alternative hypothesis H₁: μ ≠ 61. This tests for any difference, not a specific direction."
+    "explanation": "For two-tailed test (\"differs from\"), alternative hypothesis H₁: μ ≠ 85. This tests for any difference, not a specific direction."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and uses standard statistical terminology.\n\n*   **Concept:** The phrase \"differs from\" correctly implies a two-tailed test, meaning the alternative hypothesis is inequality ($\\neq$).\n*   **Notation:** The use of $H_1$ for the alternative hypothesis and $\\mu$ for the population mean is standard in IB Math.\n*   **Options:** The correct answer ($H_1: \\mu \\neq 61$) is accurately identified. The distractors cover common mistakes: one-tailed tests ($<$ or $>$) and confusing the alternative hypothesis with the null hypothesis ($=$).",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

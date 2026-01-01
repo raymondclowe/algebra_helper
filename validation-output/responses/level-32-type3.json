@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:43:53.297Z",
+  "timestamp": "2026-01-01T08:56:44.123Z",
   "level": 32,
   "topic": "Differential Equations",
   "questionType": 3,
@@ -8,7 +8,7 @@
     "topic": "Differential Equations",
     "questionType": 3,
     "questionText": "\\frac{dy}{dx} = 5x^3",
-    "instruction": "What is the general solution?",
+    "instruction": "WHAT IS THE GENERAL SOLUTION?",
     "correctAnswer": "y = \\frac{5x^{4}}{4} + C",
     "distractors": [
       "y = 5x^{4} + C",
@@ -16,17 +16,17 @@
       "y = 5x^3 + C"
     ],
     "allOptions": [
-      "𝑦 =5⁢𝑥4 +𝐶",
       "𝑦 =5⁢𝑥33 +𝐶",
       "𝑦 =5⁢𝑥44 +𝐶",
       "𝑦 =5⁢𝑥3 +𝐶",
+      "𝑦 =5⁢𝑥4 +𝐶",
       "I don't know\n                    (no penalty)"
     ],
     "explanation": "For dy/dx = 5x^3, integrate directly: y = ∫5x^3 dx = 5·x^(4)/(4) + C."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the topic of basic integration/differential equations.\n\n**Analysis:**\n*   **Question:** Asking for the general solution of $\\frac{dy}{dx} = 5x^3$ requires integrating $5x^3$ with respect to $x$.\n*   **Calculation:** $\\int 5x^3 \\, dx = 5 \\cdot \\frac{x^{3+1}}{3+1} + C = \\frac{5x^4}{4} + C$.\n*   **Correct Answer:** The option marked as correct ($y = \\frac{5x^4}{4} + C$) matches the calculation.\n*   **Distractors:** The incorrect options represent common student errors:\n    *   $y = 5x^4 + C$ (increasing power but forgetting to divide)\n    *   $y = \\frac{5x^3}{3} + C$ (dividing by the old power/incorrect application of power rule)\n    *   $y = 5x^3 + C$ (simply adding $+C$ without integrating)\n*   **Notation:** The LaTeX rendering is clear and standard.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

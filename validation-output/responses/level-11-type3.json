@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:49:34.047Z",
+  "timestamp": "2026-01-01T08:44:19.848Z",
   "level": 11,
   "topic": "Quadratic Equations",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 11,
     "topic": "Quadratic Equations",
     "questionType": 3,
-    "questionText": "x^2 + 2x + 5 = 0",
-    "instruction": "What is the discriminant b² - 4ac?",
-    "correctAnswer": "-16",
+    "questionText": "x^2 + 5x + 6 = 0",
+    "instruction": "CALCULATE THE VALUE OF THE DISCRIMINANT",
+    "correctAnswer": "1",
     "distractors": [
-      "4",
-      "20",
-      "-18"
+      "25",
+      "24",
+      "-19"
     ],
     "allOptions": [
-      "4",
-      "-18",
-      "20",
-      "-16",
+      "24",
+      "-19",
+      "1",
+      "25",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Discriminant = b² - 4ac = 2² - 4(1)(5) = 4 - 20 = -16. This means no real roots."
+    "explanation": "For the quadratic equation ax² + bx + c = 0, the discriminant Δ = b² - 4ac. Here: Δ = 5² - 4(1)(6) = 25 - 24 = 1. Since Δ > 0, the equation has two distinct real roots."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Accuracy:** The calculation is correct. For the equation $x^2 + 2x + 5 = 0$, the coefficients are $a=1, b=2, c=5$. The discriminant is $b^2 - 4ac = (2)^2 - 4(1)(5) = 4 - 20 = -16$.\n- **Correct Answer:** The option marked as correct ($-16$) is indeed the correct answer.\n- **Distractors:** The distractors are plausible errors:\n  - $4$ (calculating only $b^2$)\n  - $20$ (calculating only $4ac$)\n- **Clarity:** The question is clear and unambiguous.\n- **Level:** Appropriate for an introductory check on quadratic theory/complex numbers at Level 11 (IB Math).",
+    "validationText": "VALID\n\n**Analysis:**\n*   **Mathematical Correctness:** The question asks for the discriminant of $x^2 + 5x + 6 = 0$.\n    *   Formula: $\\Delta = b^2 - 4ac$\n    *   Values: $a=1, b=5, c=6$\n    *   Calculation: $5^2 - 4(1)(6) = 25 - 24 = 1$.\n    *   The indicated correct answer (1) is accurate.\n*   **Distractors:**\n    *   **25:** Represents calculating only $b^2$.\n    *   **24:** Represents calculating only $4ac$.\n    *   **-19:** Represents calculating $b - 4ac$ ($5 - 24$).\n    *   These are good distractors based on common student errors.\n*   **Clarity & Level:** The wording is unambiguous, and the difficulty is appropriate for an introductory or review question on quadratics within an IB Math context (likely SL or HL Analysis & Approaches/Applications & Interpretations).",
     "error": null
   }
 }

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:48:00.958Z",
+  "timestamp": "2026-01-01T08:57:32.810Z",
   "level": 34,
   "topic": "Hypothesis Testing",
   "questionType": 5,
@@ -7,26 +7,26 @@
     "level": 34,
     "topic": "Hypothesis Testing",
     "questionType": 5,
-    "questionText": "\\text{Fail to reject } H_0 \\text{ when } H_0 \\text{ is false}",
-    "instruction": "What type of error is this?",
-    "correctAnswer": "Type II error",
+    "questionText": "\\text{Reject } H_0 \\text{ when } H_0 \\text{ is true}",
+    "instruction": "WHAT TYPE OF ERROR IS THIS?",
+    "correctAnswer": "Type I error",
     "distractors": [
-      "Type I error",
+      "Type II error",
       "Standard error",
       "Sampling error"
     ],
     "allOptions": [
-      "Type I error",
-      "𝑆⁢𝑡⁢𝑎⁢𝑛⁢𝑑⁢𝑎⁢𝑟⁢𝑑⁢𝑒⁢𝑟⁢𝑟⁢𝑜⁢𝑟",
-      "Type II error",
       "Sampling error",
+      "Type II error",
+      "Type I error",
+      "Standard error",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Type II error: failing to reject H₀ when it's actually false (false negative). Probability = β."
+    "explanation": "Type I error: rejecting H₀ when it's actually true (false positive). Probability = α."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the IB Math curriculum.\n\n*   **Correctness:** \"Failing to reject the null hypothesis ($H_0$) when it is false\" is the standard definition of a **Type II error**.\n*   **Answer Key:** The highlighted answer (Type II error) is correct.\n*   **Distractors:** \"Type I error\" is the most common confusion point, making it a good distractor. \"Standard error\" and \"Sampling error\" are related statistical terms but incorrect in this context, serving as valid distractors.\n*   **Clarity:** The wording is precise and uses standard statistical terminology.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

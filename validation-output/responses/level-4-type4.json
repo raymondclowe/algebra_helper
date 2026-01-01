@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:42:33.852Z",
+  "timestamp": "2026-01-01T08:38:13.166Z",
   "level": 4,
   "topic": "Fractions",
   "questionType": 4,
@@ -7,26 +7,26 @@
     "level": 4,
     "topic": "Fractions",
     "questionType": 4,
-    "questionText": "\\frac{4}{6} + \\frac{2}{3}",
-    "instruction": "Find common denominator and add",
-    "correctAnswer": "\\frac{4}{3}",
+    "questionText": "\\frac{2}{2} + \\frac{5}{6}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "\\frac{11}{6}",
     "distractors": [
-      "\\frac{6}{9}",
-      "\\frac{8}{6}",
-      "\\frac{4}{6}"
+      "\\frac{7}{8}",
+      "\\frac{6}{6}",
+      "\\frac{25}{6}"
     ],
     "allOptions": [
-      "69",
-      "43",
-      "46",
-      "86",
+      "66",
+      "78",
+      "256",
+      "116",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Find LCD = 6. Convert: 4/6 = 4/6 and 2/3 = 4/6. Add: 8/6 = 4/3."
+    "explanation": "Find LCD = 6. Convert: 2/2 = 6/6 and 5/6 = 5/6. Add: 11/6 = 11/6."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "**ISSUE: Multiple Correct Answers / Ambiguity**\n\nThere is a significant design flaw in the options provided for this question.\n\n**Explanation:**\n1.  **The Problem:** The question asks to add $\\frac{4}{6} + \\frac{2}{3}$.\n    *   Finding a common denominator (6): $\\frac{4}{6} + \\frac{4}{6} = \\frac{8}{6}$.\n    *   Simplifying the result: $\\frac{8}{6} = \\frac{4}{3}$.\n2.  **The Conflict:** Both $\\frac{4}{3}$ (the intended correct answer) and $\\frac{8}{6}$ (one of the distractors) are mathematically equivalent.\n3.  **Ambiguity:** The instruction \"FIND COMMON DENOMINATOR AND ADD\" does not explicitly state \"and simplify your answer.\" Therefore, a student who performs the addition correctly to get $\\frac{8}{6}$ sees their exact answer as an option. If they select it and are marked wrong, it is unfair because their answer is mathematically correct.\n\n**Recommendation:**\nYou must replace the distractor $\\frac{8}{6}$ with a value that is actually incorrect to ensure there is only one valid choice.\n*   **Suggested Replacement:** Change $\\frac{8}{6}$ to something like $\\frac{7}{6}$, $\\frac{5}{6}$, or $\\frac{2}{2}$ (result of incorrect cancellation).",
+    "validationText": "VALID\n\n**Analysis:**\n1.  **Mathematical Correctness:** The problem asks to calculate $\\frac{2}{2} + \\frac{5}{6}$.\n    *   Method 1 (Simplification): $\\frac{2}{2} = 1$. So, $1 + \\frac{5}{6} = \\frac{6}{6} + \\frac{5}{6} = \\frac{11}{6}$.\n    *   Method 2 (Common Denominator): The common denominator for 2 and 6 is 6. $\\frac{2}{2} = \\frac{6}{6}$. Then $\\frac{6}{6} + \\frac{5}{6} = \\frac{11}{6}$.\n    *   The indicated correct answer is $\\frac{11}{6}$, which is correct.\n2.  **Distractors:**\n    *   $\\frac{7}{8}$: Represents the common error of adding numerators and denominators straight across ($\\frac{2+5}{2+6}$).\n    *   $\\frac{6}{6}$: Represents just the value of the first term converted to the common denominator, ignoring the second term.\n    *   $\\frac{25}{6}$: A random distractor, possibly resulting from miscalculation.\n3.  **Level Appropriateness:** Adding fractions with unlike denominators is suitable for a Level 4 \"Working with Fractions\" module.\n4.  **Formatting:** The LaTeX rendering is clear and standard.",
     "error": null
   }
 }

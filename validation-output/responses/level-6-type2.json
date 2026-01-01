@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:45:06.447Z",
+  "timestamp": "2026-01-01T08:40:20.068Z",
   "level": 6,
   "topic": "Simple Linear Equations",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 6,
     "topic": "Simple Linear Equations",
     "questionType": 2,
-    "questionText": "6x = 24",
-    "instruction": "Solve for x",
-    "correctAnswer": "x=4",
+    "questionText": "3x = 24",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x=8",
     "distractors": [
-      "x=5",
-      "x=6",
-      "x=3"
+      "x=9",
+      "x=3",
+      "x=7"
     ],
     "allOptions": [
-      "x=4",
-      "x=6",
-      "x=5",
       "x=3",
+      "x=8",
+      "x=7",
+      "x=9",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "To isolate x, we need to undo the multiplication by 6. We divide both sides by 6 to keep the equation balanced: 6x ÷ 6 = 24 ÷ 6, which gives x = 4."
+    "explanation": "Divide both sides by 3 to isolate x: 3x ÷ 3 = 24 ÷ 3, which gives x = 8."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct, unambiguous, and the provided solution ($x=4$) is accurate. The distractors are distinct and incorrect. Assuming \"Level 6\" refers to Grade 6 (MYP Year 1) curriculum where one-step equations are introduced, the difficulty is appropriate.",
+    "validationText": "VALID\n\nThe question is mathematically correct and clearly presented.\n- **Equation:** $3x = 24$\n- **Solution:** $x = 24 / 3 = 8$.\n- **Options:** The correct answer ($x=8$) is present and identified. The distractors ($3, 7, 9$) are plausible integer values that might result from arithmetic errors (e.g., misremembering multiplication tables for $3 \\times 7$ or $3 \\times 9$).\n- **Notation:** Standard and unambiguous.",
     "error": null
   }
 }

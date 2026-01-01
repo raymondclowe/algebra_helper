@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:45:30.303Z",
+  "timestamp": "2026-01-01T08:57:00.560Z",
   "level": 33,
   "topic": "Probability Distributions",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 33,
     "topic": "Probability Distributions",
     "questionType": 3,
-    "questionText": "X \\sim B(13, 0.25)",
-    "instruction": "What is Var(X)?",
-    "correctAnswer": "2.4375",
+    "questionText": "\\frac{dy}{dx} = 4x^2",
+    "instruction": "WHAT IS THE GENERAL SOLUTION?",
+    "correctAnswer": "y = \\frac{4x^{3}}{3} + C",
     "distractors": [
-      "3.25",
-      "9.75",
-      "0.1875"
+      "y = 4x^{3} + C",
+      "y = \\frac{4x^2}{2} + C",
+      "y = 4x^2 + C"
     ],
     "allOptions": [
-      "9.75",
-      "2.4375",
-      "3.25",
-      "0.1875",
+      "𝑦 =4⁢𝑥3 +𝐶",
+      "𝑦 =4⁢𝑥33 +𝐶",
+      "𝑦 =4⁢𝑥2 +𝐶",
+      "𝑦 =4⁢𝑥22 +𝐶",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "For binomial B(n, p), variance is Var(X) = np(1-p) = 13 × 0.25 × 0.75 = 2.4375."
+    "explanation": "For dy/dx = 4x^2, integrate directly: y = ∫4x^2 dx = 4·x^(3)/(3) + C."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\n**Verification:**\nThe question asks for the variance of a binomial distribution $X \\sim B(n, p)$ with $n=13$ and $p=0.25$.\nThe formula for variance is $\\text{Var}(X) = n \\cdot p \\cdot (1-p)$.\nCalculation: $13 \\cdot 0.25 \\cdot (1 - 0.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:46:55.883Z",
+  "timestamp": "2026-01-01T08:57:16.844Z",
   "level": 34,
   "topic": "Hypothesis Testing",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 34,
     "topic": "Hypothesis Testing",
     "questionType": 1,
-    "questionText": "\\text{Test if population mean differs from 57}",
-    "instruction": "What is the null hypothesis H₀?",
-    "correctAnswer": "H_0: \\mu = 57",
+    "questionText": "\\text{Test if population mean differs from 100}",
+    "instruction": "WHAT IS THE NULL HYPOTHESIS H₀?",
+    "correctAnswer": "H_0: \\mu = 100",
     "distractors": [
-      "H_0: \\mu \\neq 57",
-      "H_0: \\mu > 57",
-      "H_0: \\mu < 57"
+      "H_0: \\mu \\neq 100",
+      "H_0: \\mu > 100",
+      "H_0: \\mu < 100"
     ],
     "allOptions": [
-      "𝐻0 :𝜇 ≠57",
-      "𝐻0 :𝜇 =57",
-      "𝐻0 :𝜇 <57",
-      "𝐻0 :𝜇 >57",
+      "𝐻0 :𝜇 ≠100",
+      "𝐻0 :𝜇 <100",
+      "𝐻0 :𝜇 >100",
+      "𝐻0 :𝜇 =100",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "The null hypothesis H₀ states no effect or no difference. For testing if mean differs from 57, H₀: μ = 57."
+    "explanation": "The null hypothesis H₀ states no effect or no difference. For testing if mean differs from 100, H₀: μ = 100."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the context.\n\n*   **Reasoning:** In hypothesis testing, the null hypothesis ($H_0$) typically states that a population parameter is equal to a specific value (the status quo). The phrase \"differs from\" indicates a two-tailed test where the alternative hypothesis ($H_1$) would be $\\mu \\neq 57$. Therefore, the correct null hypothesis is indeed $\\mu = 57$.\n*   **Distractors:** The distractors are well-chosen, representing the alternative hypothesis ($\\neq$) or one-sided hypotheses ($<$ or $>$), which are common student misconceptions.\n*   **Notation:** The notation used is standard and clear.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

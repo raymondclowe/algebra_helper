@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:43:04.642Z",
+  "timestamp": "2026-01-01T08:38:43.199Z",
   "level": 5,
   "topic": "Decimals & Percentages",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 5,
     "topic": "Decimals & Percentages",
     "questionType": 1,
-    "questionText": "\\frac{4}{8} + \\frac{2}{8}",
-    "instruction": "Simplify the result",
-    "correctAnswer": "\\frac{3}{4}",
+    "questionText": "\\frac{3}{4}",
+    "instruction": "CONVERT TO DECIMAL",
+    "correctAnswer": "0.75",
     "distractors": [
-      "\\frac{6}{8}",
-      "\\frac{6}{16}",
-      "\\frac{4}{4}"
+      "0.85",
+      "1.5",
+      "0.25"
     ],
     "allOptions": [
-      "44",
-      "68",
-      "616",
-      "34",
+      "0.85",
+      "0.25",
+      "1.5",
+      "0.75",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Add the numerators: 4 + 2 = 6. Keep the denominator: 8. Then simplify 6/8 = 3/4."
+    "explanation": "Divide the numerator by the denominator to get 0.75."
   },
   "apiResponse": {
     "success": true,
-    "validationText": null,
+    "validationText": "VALID\n\nThe question is mathematically correct and clear.\n\n*   **Question:** Convert $\\frac{3}{4}$ to a decimal.\n*   **Correct Answer:** $0.75$ (which is correctly marked).\n*   **Distractors:** $0.25$ ($\\frac{1}{4}$), $1.5$ ($\\frac{3}{2}$), and $0.85$ are plausible incorrect answers.\n*   **Difficulty:** This is a fundamental skill appropriate for a \"no calculator\" mental math check on decimals.",
     "error": null
   }
 }

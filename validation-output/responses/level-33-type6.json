@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:46:36.363Z",
+  "timestamp": "2026-01-01T08:57:12.782Z",
   "level": 33,
   "topic": "Probability Distributions",
   "questionType": 6,
@@ -7,26 +7,26 @@
     "level": 33,
     "topic": "Probability Distributions",
     "questionType": 6,
-    "questionText": "X \\sim N(60, 8^2)",
-    "instruction": "How do we standardize X to get Z ~ N(0, 1)?",
-    "correctAnswer": "Z = \\frac{X - 60}{8}",
+    "questionText": "X \\sim N(95, 6^2)",
+    "instruction": "HOW DO WE STANDARDIZE X TO GET Z ~ N(0, 1)?",
+    "correctAnswer": "Z = \\frac{X - 95}{6}",
     "distractors": [
-      "Z = \\frac{X - 60}{8^2}",
-      "Z = \\frac{X}{8}",
-      "Z = X - 60"
+      "Z = \\frac{X - 95}{6^2}",
+      "Z = \\frac{X}{6}",
+      "Z = X - 95"
     ],
     "allOptions": [
-      "Z = X - 60",
-      "𝑍 =𝑋−608",
-      "𝑍 =𝑋−6082",
-      "𝑍 =𝑋8",
+      "𝑍 =𝑋−956",
+      "Z = X - 95",
+      "𝑍 =𝑋−9562",
+      "𝑍 =𝑋6",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "To standardize, subtract the mean and divide by standard deviation: Z = (X - μ)/σ = (X - 60)/8."
+    "explanation": "To standardize, subtract the mean and divide by standard deviation: Z = (X - μ)/σ = (X - 95)/6."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the IB Math curriculum.\n\n**Analysis:**\n*   **Concept:** The question tests the standardization formula for a Normal Distribution: $Z = \\frac{X - \\mu}{\\sigma}$.\n*   **Given:** $X \\sim N(60, 8^2)$. In this notation, $\\mu = 60$ and $\\sigma^2 = 8^2$, which implies the standard deviation $\\sigma = 8$.\n*   **Correct Answer:** Substituting the values into the formula gives $Z = \\frac{X - 60}{8}$. The option selected in the screenshot (top right) matches this perfectly.\n*   **Distractors:**\n    *   $Z = \\frac{X - 60}{8^2}$: Incorrectly divides by variance instead of standard deviation (common error).\n    *   $Z = X - 60$: Centers but fails to scale.\n    *   $Z = \\frac{X}{8}$: Scales but fails to center.\n*   **Notation:** The notation $N(\\mu, \\sigma^2)$ is standard and clear. Writing the variance as $8^2$ is helpful for students to identify $\\sigma$.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }
