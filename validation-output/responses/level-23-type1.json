@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:04:46.964Z",
+  "timestamp": "2026-01-01T08:54:29.551Z",
   "level": 23,
   "topic": "Basic Probability",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 23,
     "topic": "Basic Probability",
     "questionType": 1,
-    "questionText": "\\text{Bag has 14 balls,}\\\\[0.5em]\\text{11 are red.}\\\\[0.5em]\\text{P(red) = ?}",
-    "instruction": "Find the probability",
-    "correctAnswer": "\\frac{11}{14}",
+    "questionText": "\\text{Bag has 8 balls,}\\\\[0.5em]\\text{5 are red.}\\\\[0.5em]\\text{P(red) = ?}",
+    "instruction": "CALCULATE THE PROBABILITY",
+    "correctAnswer": "\\frac{5}{8}",
     "distractors": [
-      "\\frac{3}{14}",
-      "\\frac{11}{3}",
-      "\\frac{14}{11}"
+      "\\frac{3}{8}",
+      "\\frac{5}{3}",
+      "\\frac{8}{5}"
     ],
     "allOptions": [
-      "1114",
-      "314",
-      "1411",
-      "113",
+      "58",
+      "53",
+      "85",
+      "38",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Probability = (favorable outcomes)/(total outcomes) = 11/14. This can be simplified if needed."
+    "explanation": "Probability = (number of favorable outcomes)/(total number of outcomes) = 5/8."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the \"Basic Probability\" topic.\n\n*   **Correct Answer:** $\\frac{11}{14}$ is the correct probability given 11 red balls out of a total of 14.\n*   **Distractors:** The distractors are well-chosen:\n    *   $\\frac{3}{14}$ represents the probability of *not* picking a red ball.\n    *   $\\frac{14}{11}$ and $\\frac{11}{3}$ represent common errors in setting up ratios or confusing the numerator/denominator (resulting in impossible probabilities > 1).\n*   **Notation:** The notation $P(\\text{red})$ is standard and appropriate.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

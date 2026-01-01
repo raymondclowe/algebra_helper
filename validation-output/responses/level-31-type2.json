@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:41:53.453Z",
+  "timestamp": "2026-01-01T08:56:23.646Z",
   "level": 31,
   "topic": "Advanced Integration",
   "questionType": 2,
@@ -8,7 +8,7 @@
     "topic": "Advanced Integration",
     "questionType": 2,
     "questionText": "\\text{Given } u = x, dv = e^x \\, dx",
-    "instruction": "What are du and v?",
+    "instruction": "FIND DU AND V",
     "correctAnswer": "du = dx, \\quad v = e^x",
     "distractors": [
       "du = 1, \\quad v = e^x",
@@ -16,17 +16,17 @@
       "du = 0, \\quad v = e^x"
     ],
     "allOptions": [
-      "𝑑⁢𝑢 =𝑑⁢𝑥, 𝑣 =𝑥⁢𝑒𝑥",
-      "𝑑⁢𝑢 =𝑑⁢𝑥, 𝑣 =𝑒𝑥",
-      "𝑑⁢𝑢 =1, 𝑣 =𝑒𝑥",
       "𝑑⁢𝑢 =0, 𝑣 =𝑒𝑥",
+      "𝑑⁢𝑢 =𝑑⁢𝑥, 𝑣 =𝑥⁢𝑒𝑥",
+      "𝑑⁢𝑢 =1, 𝑣 =𝑒𝑥",
+      "𝑑⁢𝑢 =𝑑⁢𝑥, 𝑣 =𝑒𝑥",
       "I don't know\n                    (no penalty)"
     ],
     "explanation": "From u = x, we get du = dx. From dv = e^x dx, we integrate to get v = e^x."
   },
   "apiResponse": {
-    "success": true,
+    "success": false,
     "validationText": null,
-    "error": null
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

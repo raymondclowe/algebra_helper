@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:42:06.617Z",
+  "timestamp": "2026-01-01T08:37:53.740Z",
   "level": 4,
   "topic": "Fractions",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 4,
     "topic": "Fractions",
     "questionType": 3,
-    "questionText": "\\frac{3}{2} \\div \\frac{5}{4}",
-    "instruction": "Divide and simplify",
-    "correctAnswer": "\\frac{6}{5}",
+    "questionText": "\\frac{2}{4} \\div \\frac{5}{4}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "\\frac{2}{5}",
     "distractors": [
-      "\\frac{15}{8}",
-      "\\frac{12}{10}",
-      "\\frac{3}{10}"
+      "\\frac{10}{16}",
+      "\\frac{8}{20}",
+      "\\frac{2}{20}"
     ],
     "allOptions": [
-      "65",
-      "1210",
-      "310",
-      "158",
+      "1016",
+      "25",
+      "220",
+      "820",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Dividing by a fraction means multiplying by its reciprocal: (3/2) × (4/5) = 12/10 = 6/5."
+    "explanation": "Dividing by a fraction means multiplying by its reciprocal: (2/4) × (4/5) = 8/20 = 2/5."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The operation is $\\frac{3}{2} \\div \\frac{5}{4}$. To solve, multiply by the reciprocal: $\\frac{3}{2} \\times \\frac{4}{5} = \\frac{12}{10}$. Simplifying this fraction gives $\\frac{6}{5}$. The marked correct answer is $\\frac{6}{5}$, which is correct.\n- **Instructions:** The prompt explicitly asks to \"DIVIDE AND SIMPLIFY\".\n- **Distractors:**\n  - $\\frac{12}{10}$: This is the correct value but unsimplified. This is an excellent distractor to test if the student followed the \"simplify\" instruction.\n  - $\\frac{15}{8}$: This is the result of multiplying instead of dividing ($\\frac{3}{2} \\times \\frac{5}{4}$), a common student error.\n  - $\\frac{3}{10}$: A plausible incorrect value.\n- **Presentation:** The LaTeX rendering is clear and standard. The difficulty level (4) is appropriate for fraction division involving simplification.",
+    "validationText": "**INVALID / INCORRECT**\n\n**Issue:**\nThe question has **two correct answers** among the choices.\n1. The marked correct answer is **$\\frac{2}{5}$**.\n2. The distractor **$\\frac{8}{20}$** is mathematically equivalent to $\\frac{2}{5}$.\n\n**Explanation:**\nWhen solving $\\frac{2}{4} \\div \\frac{5}{4}$:\n1.  Convert division to multiplication by the reciprocal: $\\frac{2}{4} \\times \\frac{4}{5}$\n2.  Multiply numerators and denominators: $\\frac{2 \\times 4}{4 \\times 5} = \\frac{8}{20}$\n\nWhile $\\frac{2}{5}$ is the simplified form, $\\frac{8}{20}$ is also a correct value. A student who performs the calculation correctly but does not simplify immediately will see their exact answer ($\\frac{8}{20}$) as an option and select it, only to be marked wrong. This is unfair and confusing.\n\n**Suggestion to Fix:**\nReplace the distractor **$\\frac{8}{20}$** with a clearly incorrect value to ensure there is only one valid choice.\n*   **Suggested replacement:** $\\frac{5}{2}$ (the reciprocal of the answer) or $\\frac{8}{10}$.",
     "error": null
   }
 }

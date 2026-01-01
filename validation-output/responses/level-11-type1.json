@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:48:57.216Z",
+  "timestamp": "2026-01-01T08:43:49.687Z",
   "level": 11,
   "topic": "Quadratic Equations",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 11,
     "topic": "Quadratic Equations",
     "questionType": 1,
-    "questionText": "x^2 -5x + 6 = 0",
-    "instruction": "Solve for x (give smaller solution)",
-    "correctAnswer": "x = 2",
+    "questionText": "4(x + 2)",
+    "instruction": "EXPAND",
+    "correctAnswer": "4x + 8",
     "distractors": [
-      "x = 3",
-      "x = -2",
-      "x = 5"
+      "4x+2",
+      "x+8",
+      "4x^2+2"
     ],
     "allOptions": [
-      "x = -2",
-      "x = 3",
-      "x = 2",
-      "x = 5",
+      "4⁢𝑥2 +2",
+      "4x+2",
+      "4x + 8",
+      "x+8",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "This factors as (x - 2)(x - 3) = 0. Solutions are x = 2 and x = 3. The smaller solution is 2."
+    "explanation": "Apply the distributive property by multiplying 4 by each term inside the parentheses: 4 × x = 4x, and 4 × 2 = 8. This gives 4x + 8."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Analysis:**\n1.  **Mathematical Correctness:** The quadratic equation is $x^2 - 5x + 6 = 0$. Factoring this gives $(x - 2)(x - 3) = 0$, resulting in two solutions: $x = 2$ and $x = 3$.\n2.  **Instruction Compliance:** The prompt explicitly asks for the \"SMALLER SOLUTION\". Comparing the two roots ($2$ and $3$), $2$ is the smaller value.\n3.  **Answer Verification:** The option marked as correct is $x = 2$, which is accurate.\n4.  **Distractors:**\n    *   $x = 3$: This is the other valid root, catching students who miss the \"smaller solution\" instruction.\n    *   $x = -2$: Catches sign errors in factoring (e.g., $(x+2)(x-3)$).\n    *   $x = 5$: Plausible guess based on the coefficient of the $x$ term.\n\n**Note on Difficulty:** For an IB Math curriculum (Level 11/Grade 11), this is a fundamental skill (GCSE/IGCSE level) and serves as a basic fluency check or warm-up question. It is solvable well within the 30-60 second timeframe.",
+    "validationText": "The question has **ISSUES**.\n\n**1. Incorrect Topic Classification (Major Issue)**\nThe topic header is labeled **\"Quadratic Equations\"**, but the problem asks to expand $4(x + 2)$.\n*   The result of this expansion is $4x + 8$, which is a **linear expression** (degree 1).\n*   A quadratic equation or expression must contain a squared term (degree 2), such as $x^2$.\n*   This is a fundamental categorization error.\n\n**2. Difficulty Level Mismatch**\nThe level is marked as **11**. In an IB or standard curriculum context, Level/Grade 11 corresponds to students aged 16-17.\n*   Expanding a single bracket by a constant (distributive property) is typically taught in **Grade 7 or 8** (Pre-Algebra).\n*   This question is far too easy for the stated level.\n\n**How to Fix:**\n*   **Option A (Match the Topic):** Change the expression to one that results in a quadratic.\n    *   *Example:* Expand $4x(x + 2)$ $\\rightarrow$ Answer: $4x^2 + 8x$\n    *   *Example:* Expand $(x + 4)(x + 2)$ $\\rightarrow$ Answer: $x^2 + 6x + 8$\n*   **Option B (Match the Content):** Change the topic label to \"Expanding Linear Expressions\" or \"Basic Algebra\" and lower the difficulty rating significantly (e.g., to Level 7 or 8).",
     "error": null
   }
 }

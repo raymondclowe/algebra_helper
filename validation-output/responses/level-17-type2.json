@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:57:11.105Z",
+  "timestamp": "2026-01-01T08:51:00.159Z",
   "level": 17,
   "topic": "Advanced Trigonometry",
   "questionType": 2,
@@ -8,7 +8,7 @@
     "topic": "Advanced Trigonometry",
     "questionType": 2,
     "questionText": "\\sin(2\\theta)",
-    "instruction": "Express in terms of sinθ and cosθ",
+    "instruction": "EXPRESS IN TERMS OF SIN Θ AND COS Θ",
     "correctAnswer": "2\\sin\\theta\\cos\\theta",
     "distractors": [
       "\\sin^2\\theta",
@@ -16,17 +16,17 @@
       "\\sin\\theta + \\cos\\theta"
     ],
     "allOptions": [
+      "sin⁡𝜃 +cos⁡𝜃",
       "sin2⁡𝜃",
       "2⁢sin⁡𝜃",
-      "sin⁡𝜃 +cos⁡𝜃",
       "2⁢sin⁡𝜃⁢cos⁡𝜃",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Double angle formula: sin(2θ) = 2sinθcosθ. This comes from the sum formula sin(A+B)."
+    "explanation": "Double angle formula: sin(2θ) = 2 sin θ cos θ. This is derived from the sum formula sin(A + B)."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question correctly asks for the double angle identity for sine.\n- **Mathematical Accuracy:** The identity $\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta$ is correct.\n- **Clarity:** The instruction \"Express in terms of $\\sin\\theta$ and $\\cos\\theta$\" is precise.\n- **Distractors:** The incorrect options target common misconceptions (e.g., treating sine as a linear operator in $2\\sin\\theta$).\n- **Level:** Appropriate for a trigonometry unit covering identities.",
+    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for the topic of Advanced Trigonometry (specifically Double Angle Identities).\n\n*   **Question:** Asking to expand $\\sin(2\\theta)$ is a standard task.\n*   **Correct Answer:** $2\\sin\\theta\\cos\\theta$ is the correct identity.\n*   **Distractors:** The incorrect options represent common student errors (linear distribution, confusing with squares, etc.).\n*   **Notation:** Clear and standard.",
     "error": null
   }
 }

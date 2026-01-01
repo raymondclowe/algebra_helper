@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:03:22.078Z",
+  "timestamp": "2026-01-01T08:54:13.601Z",
   "level": 22,
   "topic": "Statistics",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 22,
     "topic": "Statistics",
     "questionType": 1,
-    "questionText": "\\text{Data: } 20, 24, 23, 11",
-    "instruction": "Find the mean",
-    "correctAnswer": "19.5",
+    "questionText": "\\text{Data: } 12, 25, 20, 12",
+    "instruction": "CALCULATE THE MEAN",
+    "correctAnswer": "17.25",
     "distractors": [
-      "24",
-      "23",
-      "20.5"
+      "25",
+      "20",
+      "18.25"
     ],
     "allOptions": [
-      "24",
-      "23",
-      "19.5",
-      "20.5",
+      "17.25",
+      "25",
+      "18.25",
+      "20",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Mean = sum/count = (20 + 24 + 23 + 11)/4 = 78/4 = 19.5."
+    "explanation": "Mean = sum/count = (12 + 25 + 20 + 12)/4 = 69/4 = 17.25."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The mean is calculated as $\\frac{20 + 24 + 23 + 11}{4} = \\frac{78}{4} = 19.5$. The indicated correct answer ($19.5$) is accurate.\n- **Clarity:** The instruction \"FIND THE MEAN\" and the data set are presented clearly.\n- **Difficulty:** Adding four two-digit numbers and dividing by 4 is appropriate for a \"No Calc\" environment and fits the 30-60 second timeframe.\n- **Distractors:** The distractors ($23$, $24$, $20.5$) are plausible values that a student might guess or arrive at through calculation errors.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

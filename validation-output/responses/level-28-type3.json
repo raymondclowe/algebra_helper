@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:35:57.198Z",
+  "timestamp": "2026-01-01T08:55:22.271Z",
   "level": 28,
   "topic": "Matrix Algebra",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 28,
     "topic": "Matrix Algebra",
     "questionType": 3,
-    "questionText": "\\begin{pmatrix} 2 & 1 \\\\ 4 & 2 \\end{pmatrix} \\begin{pmatrix} 2 & 3 \\\\ 3 & 2 \\end{pmatrix}",
-    "instruction": "Calculate the matrix product",
-    "correctAnswer": "\\begin{pmatrix} 7 & 8 \\\\ 14 & 16 \\end{pmatrix}",
+    "questionText": "\\text{Given } \\sqrt{3} = \\frac{p}{q}, \\text{ square both sides}",
+    "instruction": "WHAT EQUATION RESULTS?",
+    "correctAnswer": "3q^2 = p^2",
     "distractors": [
-      "\\begin{pmatrix} 4 & 3 \\\\ 12 & 4 \\end{pmatrix}",
-      "\\begin{pmatrix} 8 & 8 \\\\ 14 & 16 \\end{pmatrix}",
-      "\\begin{pmatrix} 4 & 4 \\\\ 7 & 4 \\end{pmatrix}"
+      "3 = \\frac{p^2}{q^2}",
+      "9q^2 = p^2",
+      "3 = p^2 + q^2"
     ],
     "allOptions": [
-      "(781416)",
-      "(43124)",
-      "(881416)",
-      "(4474)",
+      "3⁢𝑞2 =𝑝2",
+      "3 =𝑝2𝑞2",
+      "9⁢𝑞2 =𝑝2",
+      "3 =𝑝2 +𝑞2",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Matrix multiplication: top-left = 2×2 + 1×3 = 7. Top-right = 2×3 + 1×2 = 8. Similarly for bottom row."
+    "explanation": "Squaring: 3 = p²/q², so 3q² = p². This shows p² is divisible by 3, so p is divisible by 3."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically correct and appropriate for the topic of Matrix Algebra.\n\n**Verification:**\n1.  **Calculation:**\n    *   Row 1, Col 1: $(2 \\times 2) + (1 \\times 3) = 4 + 3 = 7$\n    *   Row 1, Col 2: $(2 \\times 3) + (1 \\times 2) = 6 + 2 = 8$\n    *   Row 2, Col 1: $(4 \\times 2) + (2 \\times 3) = 8 + 6 = 14$\n    *   Row 2, Col 2: $(4 \\times 3) + (2 \\times 2) = 12 + 4 = 16$\n    *   Resulting Matrix: $\\begin{pmatrix} 7 & 8 \\\\ 14 & 16 \\end{pmatrix}$\n\n2.  **Options:**\n    *   The option marked as correct (top-left) matches the calculated result exactly.\n    *   The top-right distractor $\\begin{pmatrix} 4 & 3 \\\\ 12 & 4 \\end{pmatrix}$ represents element-wise multiplication, which is a common student misconception (a good distractor).\n\n3.  **Difficulty:** The use of small integers allows for quick mental calculation, fitting the 30-60 second timeframe.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

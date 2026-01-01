@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:58:52.147Z",
+  "timestamp": "2026-01-01T08:52:22.591Z",
   "level": 18,
   "topic": "Vectors",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 18,
     "topic": "Vectors",
     "questionType": 2,
-    "questionText": "\\sin(2\\theta)",
-    "instruction": "Express in terms of sinθ and cosθ",
-    "correctAnswer": "2\\sin\\theta\\cos\\theta",
+    "questionText": "3 \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "\\begin{pmatrix} 6 \\\\ 3 \\end{pmatrix}",
     "distractors": [
-      "\\sin^2\\theta",
-      "2\\sin\\theta",
-      "\\sin\\theta + \\cos\\theta"
+      "\\begin{pmatrix} 5 \\\\ 4 \\end{pmatrix}",
+      "\\begin{pmatrix} 6 \\\\ 1 \\end{pmatrix}",
+      "\\begin{pmatrix} 3 \\\\ 3 \\end{pmatrix}"
     ],
     "allOptions": [
-      "sin2⁡𝜃",
-      "2⁢sin⁡𝜃⁢cos⁡𝜃",
-      "sin⁡𝜃 +cos⁡𝜃",
-      "2⁢sin⁡𝜃",
+      "(63)",
+      "(61)",
+      "(33)",
+      "(54)",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Double angle formula: sin(2θ) = 2sinθcosθ. This comes from the sum formula sin(A+B)."
+    "explanation": "Multiply each component by 3: (3×2, 3×1) = (6, 3)."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "**ISSUE FOUND**\n\n**1. Incorrect Topic Classification (Major Issue):**\n*   **The Problem:** The topic label in the top-left corner is **\"Vectors\"**, but the question is purely about **Trigonometry**.\n*   **Explanation:** The question asks for the double-angle identity for sine ($\\sin(2\\theta) = 2\\sin\\theta\\cos\\theta$). This is a standard trigonometric identity. While trigonometry is used *within* vector problems (e.g., dot products, cross products, direction angles), this specific question is a direct test of a trigonometric formula and contains no vector notation, concepts, or context.\n*   **Fix:** Change the topic category to **\"Trigonometry\"** or **\"Trigonometric Identities\"**.\n\n**2. Mathematical Content (Valid):**\n*   The math itself is correct. The expansion of $\\sin(2\\theta)$ is indeed $2\\sin\\theta\\cos\\theta$.\n*   The distractors are appropriate for this level, targeting common misconceptions (e.g., linearity errors like $2\\sin\\theta$).\n\n**Summary:** The question content is mathematically sound, but it is miscategorized in the \"Vectors\" section, which would confuse a student studying that specific topic.",
+    "validationText": "VALID\n\nThe question is mathematically correct and unambiguous.\n\n**Analysis:**\n*   **Operation:** Scalar multiplication of a vector.\n*   **Calculation:** $3 \\cdot \\begin{pmatrix} 2 \\\\ 1 \\end{pmatrix} = \\begin{pmatrix} 3 \\cdot 2 \\\\ 3 \\cdot 1 \\end{pmatrix} = \\begin{pmatrix} 6 \\\\ 3 \\end{pmatrix}$.\n*   **Correct Answer:** The highlighted option $\\begin{pmatrix} 6 \\\\ 3 \\end{pmatrix}$ is correct.\n*   **Distractors:**\n    *   $\\begin{pmatrix} 5 \\\\ 4 \\end{pmatrix}$ tests the common error of adding the scalar to the vector components ($2+3, 1+3$).\n    *   $\\begin{pmatrix} 6 \\\\ 1 \\end{pmatrix}$ tests the error of distributing the scalar to only the top component.\n*   **Difficulty:** Appropriate for an introductory level on Vectors.",
     "error": null
   }
 }

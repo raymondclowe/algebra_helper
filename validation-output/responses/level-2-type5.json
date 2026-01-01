@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:32:17.467Z",
+  "timestamp": "2026-01-01T08:35:12.553Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 5,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 5,
-    "questionText": "\\sqrt{49}",
-    "instruction": "Calculate",
-    "correctAnswer": "7",
+    "questionText": "\\sqrt{121}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "11",
     "distractors": [
-      "8",
-      "6",
-      "24"
+      "12",
+      "10",
+      "60"
     ],
     "allOptions": [
-      "24",
-      "7",
-      "8",
-      "6",
+      "11",
+      "12",
+      "10",
+      "60",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "The square root of 49 is 7 because 7 × 7 = 49."
+    "explanation": "The square root of 121 is 11 because 11 × 11 = 121."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct.\n*   **Calculation:** The principal square root of 49 is 7 ($7 \\times 7 = 49$).\n*   **Options:** The correct answer (7) is present and marked correctly. The distractors (6, 8, 24) are incorrect integers, with 6 and 8 being plausible \"close guesses\" for students unsure of their perfect squares.\n*   **Level:** Appropriate for Level 2 (basic roots).",
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for Level 2.\n- **Question:** $\\sqrt{121}$ asks for the principal square root of 121.\n- **Correct Answer:** $11$ (since $11^2 = 121$) is correctly identified.\n- **Distractors:**\n  - **10:** Plausible (root of 100, close value).\n  - **12:** Plausible (root of 144, common confusion).\n  - **60:** Catches the misconception of dividing by 2 (approx $120/2$).",
     "error": null
   }
 }

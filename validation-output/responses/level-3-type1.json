@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:32:49.469Z",
+  "timestamp": "2026-01-01T08:35:40.338Z",
   "level": 3,
   "topic": "Multiplication and Division",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 3,
     "topic": "Multiplication and Division",
     "questionType": 1,
-    "questionText": "\\text{What is } 6^2?",
-    "instruction": "Calculate the square",
-    "correctAnswer": "36",
+    "questionText": "10 \\times 10",
+    "instruction": "CALCULATE",
+    "correctAnswer": "100",
     "distractors": [
-      "12",
-      "42",
-      "30"
+      "110",
+      "90",
+      "20"
     ],
     "allOptions": [
-      "12",
-      "30",
-      "36",
-      "42",
+      "110",
+      "20",
+      "100",
+      "90",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "6^2 = 6 × 6 = 36. Squaring means multiplying a number by itself."
+    "explanation": "10 × 10 = 100. You can think of this as 10 groups of 10, or 10 groups of 10."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct, clear, and unambiguous.\n- **Calculation:** $6^2 = 6 \\times 6 = 36$.\n- **Correct Answer:** The option \"36\" is correctly identified.\n- **Distractors:** \"12\" is a good distractor (common error of doing $6 \\times 2$), and \"30\" and \"42\" are plausible nearby multiples of 6.",
+    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Correctness:** The calculation $10 \\times 10 = 100$ is correct.\n- **Answer:** The option marked as correct (100) is accurate.\n- **Distractors:** The incorrect options are plausible common errors:\n  - **20:** Result of adding instead of multiplying ($10 + 10$).\n  - **90:** Result of $10 \\times 9$ (off by one factor).\n  - **110:** Result of $10 \\times 11$ (off by one factor).\n- **Clarity:** The notation and instruction are unambiguous.",
     "error": null
   }
 }

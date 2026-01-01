@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:04:09.534Z",
+  "timestamp": "2026-01-01T08:54:21.553Z",
   "level": 22,
   "topic": "Statistics",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 22,
     "topic": "Statistics",
     "questionType": 3,
-    "questionText": "𝑓(x) = 4x^4",
-    "instruction": "Find the second derivative 𝑓''(x)",
-    "correctAnswer": "48x^{2}",
+    "questionText": "\\text{Data: } 19, 11, 19, 30, 19",
+    "instruction": "FIND THE MODE",
+    "correctAnswer": "19",
     "distractors": [
-      "16x^{3}",
-      "64x^{2}",
-      "48x^{3}"
+      "11",
+      "30",
+      "\\text{no mode}"
     ],
     "allOptions": [
-      "48⁢𝑥2",
-      "16⁢𝑥3",
-      "64⁢𝑥2",
-      "48⁢𝑥3",
+      "11",
+      "no mode",
+      "19",
+      "30",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "First derivative: 𝑓'(x) = 16x^3. Second derivative: 𝑓''(x) = 16(3)x^2 = 48x^2."
+    "explanation": "Mode is the most frequent value. 19 appears 3 times, more than any other value."
   },
   "apiResponse": {
-    "success": true,
+    "success": false,
     "validationText": null,
-    "error": null
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

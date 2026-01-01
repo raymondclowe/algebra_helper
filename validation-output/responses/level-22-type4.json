@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:04:27.855Z",
+  "timestamp": "2026-01-01T08:54:25.519Z",
   "level": 22,
   "topic": "Statistics",
   "questionType": 4,
@@ -7,26 +7,26 @@
     "level": 22,
     "topic": "Statistics",
     "questionType": 4,
-    "questionText": "\\text{Data: } 13, 21, 52",
-    "instruction": "Find the range",
-    "correctAnswer": "39",
+    "questionText": "\\text{Data: } 14, 25, 42",
+    "instruction": "CALCULATE THE RANGE",
+    "correctAnswer": "28",
     "distractors": [
-      "52",
-      "13",
-      "32.5"
+      "42",
+      "14",
+      "34"
     ],
     "allOptions": [
-      "32.5",
-      "39",
-      "13",
-      "52",
+      "28",
+      "14",
+      "42",
+      "34",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Range = maximum - minimum = 52 - 13 = 39."
+    "explanation": "Range = maximum - minimum = 42 - 14 = 28."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The range is defined as the difference between the maximum and minimum values in a data set.\n  - Maximum value = $52$\n  - Minimum value = $13$\n  - Range = $52 - 13 = 39$\n- **Correct Answer:** The option marked as correct ($39$) is accurate.\n- **Distractors:**\n  - $32.5$: This is the midrange ($\\frac{13+52}{2}$), a common point of confusion.\n  - $13$: The minimum value.\n  - $52$: The maximum value.\n  These are plausible incorrect answers for students who misunderstand the definition.\n- **Clarity:** The question is concise and unambiguous.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

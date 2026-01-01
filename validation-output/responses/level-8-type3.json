@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:46:58.601Z",
+  "timestamp": "2026-01-01T08:41:55.745Z",
   "level": 8,
   "topic": "Inequalities",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 8,
     "topic": "Inequalities",
     "questionType": 3,
-    "questionText": "5x + 10 < 23",
-    "instruction": "Solve for x",
-    "correctAnswer": "x < 2",
+    "questionText": "8x + 9 < 41",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x < 4",
     "distractors": [
-      "x > 2",
-      "x < 3",
-      "x \\leq 2"
+      "x > 4",
+      "x < 5",
+      "x \\leq 4"
     ],
     "allOptions": [
-      "𝑥 ≤2",
-      "x > 2",
-      "x < 2",
-      "x < 3",
+      "𝑥 ≤4",
+      "x < 4",
+      "x < 5",
+      "x > 4",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Subtract 10: 5x < 13. Divide by 5: x < 2. Solve inequalities like equations, but remember to flip the sign when multiplying/dividing by negatives."
+    "explanation": "Subtract 9 from both sides: 8x < 32. Divide by 8: x < 4."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "**INCORRECT**\n\nThere is a mathematical error in the question setup. The provided \"correct\" answer does not match the solution to the inequality shown.\n\n**Detailed Explanation:**\n1.  **Solving the displayed inequality:**\n    $$5x + 10 < 23$$\n    Subtract 10 from both sides:\n    $$5x < 13$$\n    Divide by 5:\n    $$x < 2.6$$ (or $x < \\frac{13}{5}$)\n\n2.  **The issue:**\n    The option marked as correct is **$x < 2$**.\n    However, the actual solution is **$x < 2.6$**.\n    The statement $x < 2$ is not the correct solution set for the given inequality (it misses values like 2.1, 2.5, etc.).\n\n**Suggested Fix:**\nIt appears there is a typo in the constant term on the right side of the inequality. To make the answer **$x < 2$** correct, change the number **23** to **20**.\n\n**Revised Question:**\n$$5x + 10 < 20$$\n*(Solution: $5x < 10 \\rightarrow x < 2$)*",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the level.\n\n**Breakdown:**\n*   **Equation:** $8x + 9 < 41$\n*   **Step 1:** Subtract 9 from both sides: $8x < 32$\n*   **Step 2:** Divide by 8: $x < 4$\n\nThe highlighted correct answer ($x < 4$) is accurate. The distractors cover common mistakes (flipping the inequality sign, confusing strict/non-strict inequalities, and arithmetic errors).",
     "error": null
   }
 }

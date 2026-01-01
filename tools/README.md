@@ -45,21 +45,36 @@ This tool validates the correctness and quality of **all automatically generated
 
 ## Usage
 
-### Run Full Validation
+### Run Full Validation (Recommended)
 
-Validate all question types (recommended):
+Run complete validation with automatic cleanup and issue concatenation:
+```bash
+npm run validate-and-combine
+```
+
+This will:
+1. **Clear** validation-output and validation-issues directories from previous runs
+2. **Validate** all question types:
+   - Test **all 34 difficulty levels** (including HL topics)
+   - Test **every question type** for each level (not just random samples)
+   - Create screenshots for each question type using the real app UI (with MathJax)
+   - Send each screenshot to Gemini 3 Pro for validation
+   - Save the full AI response for every question to `validation-output/responses/`
+   - Generate issue files for any problems found
+   - Create a summary report
+3. **Concatenate** all issue reports into a single `all-issues-combined.md` file
+
+### Run Validation Only
+
+Validate all question types without clearing directories:
 ```bash
 npm run validate-questions
 ```
 
-This will:
-- Test **all 34 difficulty levels** (including HL topics)
-- Test **every question type** for each level (not just random samples)
-- Create screenshots for each question type using the real app UI (with MathJax)
-- Send each screenshot to Gemini 3 Pro for validation
-- Save the full AI response for every question to `validation-output/responses/`
-- Generate issue files for any problems found
-- Create a summary report
+This runs the validator without clearing existing data, useful for:
+- Adding new question types to existing validation
+- Re-validating specific levels
+- Debugging validation issues
 
 ### Output
 
@@ -78,7 +93,13 @@ The tool creates these types of output:
    - Contains full context and AI feedback
    - Ready to be converted to GitHub issues
 
-4. **Summary Report** — `validation-output/`
+4. **Combined Issues** — `validation-issues/all-issues-combined.md`
+   - Single markdown file containing all issues concatenated together
+   - Organized by level number
+   - Generated automatically when using `npm run validate-and-combine`
+   - Ready for processing and correction
+
+5. **Summary Report** — `validation-output/`
    - Overall validation results
    - Statistics by level
    - Recommendations for fixes

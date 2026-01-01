@@ -7,6 +7,7 @@
     "test": "jest",
     "test:ci": "jest --ci --coverage",
     "validate-questions": "node tools/question-validator.js",
+    "validate-and-combine": "node tools/run-validator.js",
     "version-assets": "node tools/version-assets.js"
   },
   "keywords": [],

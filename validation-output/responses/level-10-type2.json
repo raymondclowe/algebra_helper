@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:48:33.775Z",
+  "timestamp": "2026-01-01T08:43:27.287Z",
   "level": 10,
   "topic": "Factorising Quadratics",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 10,
     "topic": "Factorising Quadratics",
     "questionType": 2,
-    "questionText": "x^2 + 10x + 24",
-    "instruction": "Factorise",
-    "correctAnswer": "(x+4)(x+6)",
+    "questionText": "x^2 + 6x + 8",
+    "instruction": "FACTORIZE",
+    "correctAnswer": "(x+4)(x+2)",
     "distractors": [
-      "(x+10)(x+24)",
-      "x(x+10)",
-      "(x-4)(x-6)"
+      "(x+6)(x+8)",
+      "x(x+6)",
+      "(x-4)(x-2)"
     ],
     "allOptions": [
-      "(x-4)(x-6)",
-      "(x+4)(x+6)",
-      "(x+10)(x+24)",
-      "x(x+10)",
+      "(x-4)(x-2)",
+      "(x+6)(x+8)",
+      "x(x+6)",
+      "(x+4)(x+2)",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "We need two numbers that multiply to 24 (the constant term) and add to 10 (the coefficient of x). These numbers are 4 and 6 because 4 × 6 = 24 and 4 + 6 = 10. So the answer is (x+4)(x+6). Check by expanding: you should get back to the original expression."
+    "explanation": "Find two numbers that multiply to 8 (the constant term) and add to 6 (the coefficient of x). These numbers are 4 and 2: 4 × 2 = 8 and 4 + 2 = 6. Therefore (x+4)(x+2). This can be verified by expanding."
   },
   "apiResponse": {
     "success": true,
-    "validationText": null,
+    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Correctness:** The factorization of $x^2 + 6x + 8$ is indeed $(x+4)(x+2)$. The expansion $(x+4)(x+2) = x^2 + 2x + 4x + 8 = x^2 + 6x + 8$ confirms this.\n- **Distractors:** The distractors are well-chosen:\n  - $(x-4)(x-2)$ tests for sign errors (results in $x^2 - 6x + 8$).\n  - $(x+6)(x+8)$ tests for the common mistake of just using the visible numbers.\n  - $x(x+6)$ tests for incomplete understanding of quadratic structure.\n- **Clarity:** The notation is standard and unambiguous.\n- **Difficulty:** This is a standard introductory problem for factoring monic quadratics with positive coefficients, suitable for the stated topic.",
     "error": null
   }
 }

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T01:54:34.671Z",
+  "timestamp": "2026-01-01T08:48:42.374Z",
   "level": 15,
   "topic": "Functions",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 15,
     "topic": "Functions",
     "questionType": 1,
-    "questionText": "𝑓(x) = 7x + 9 \\\\[0.5em] 𝑓(4) = ?",
-    "instruction": "Evaluate the function",
-    "correctAnswer": "37",
+    "questionText": "𝑓(x) = 4x + 1 \\\\[0.5em] 𝑓(8) = ?",
+    "instruction": "CALCULATE",
+    "correctAnswer": "33",
     "distractors": [
-      "28",
-      "44",
-      "41"
+      "32",
+      "37",
+      "62"
     ],
     "allOptions": [
-      "41",
       "37",
-      "28",
-      "44",
+      "32",
+      "62",
+      "33",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Substitute x = 4 into the function: 𝑓(4) = 7(4) + 9 = 28 + 9 = 37."
+    "explanation": "Substitute x = 8 into the function: 𝑓(8) = 4(8) + 1 = 32 + 1 = 33."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The calculation is $f(4) = 7(4) + 9 = 28 + 9 = 37$. The provided correct answer (indicated by the yellow outline) is 37, which is correct.\n- **Distractors:**\n    - **28:** Plausible error (student calculates $7 \\times 4$ but forgets to add 9).\n    - **44:** Plausible error (arithmetic mistake or perhaps calculating $f(5)$).\n    - **41:** Plausible arithmetic error.\n- **Clarity:** The notation is standard and unambiguous.\n- **Difficulty:** Appropriate for a basic algebra/functions drill.",
+    "validationText": "VALID\n\nThe question is mathematically correct and unambiguous.\n- **Calculation:** Substituting $x = 8$ into $f(x) = 4x + 1$ gives $4(8) + 1 = 32 + 1 = 33$.\n- **Answer:** The option labeled \"33\" is correct.\n- **Distractors:** The distractors are plausible (e.g., 32 is the result if a student forgets to add 1).\n- **Notation:** Standard function notation is used correctly.",
     "error": null
   }
 }

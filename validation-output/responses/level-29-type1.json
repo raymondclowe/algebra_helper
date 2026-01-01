@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-12-31T02:37:30.776Z",
+  "timestamp": "2026-01-01T08:55:38.590Z",
   "level": 29,
   "topic": "3D Vectors",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 29,
     "topic": "3D Vectors",
     "questionType": 1,
-    "questionText": "\\begin{pmatrix} 4 \\\\ 6 \\\\ 5 \\end{pmatrix} + \\begin{pmatrix} 4 \\\\ 7 \\\\ 1 \\end{pmatrix}",
-    "instruction": "Calculate the vector sum",
-    "correctAnswer": "\\begin{pmatrix} 8 \\\\ 13 \\\\ 6 \\end{pmatrix}",
+    "questionText": "\\text{Given } \\sqrt{2} = \\frac{a}{b}, \\text{ square both sides}",
+    "instruction": "WHAT EQUATION DO WE GET?",
+    "correctAnswer": "2 = \\frac{a^2}{b^2} \\text{ or } 2b^2 = a^2",
     "distractors": [
-      "\\begin{pmatrix} 9 \\\\ 13 \\\\ 6 \\end{pmatrix}",
-      "\\begin{pmatrix} 8 \\\\ 14 \\\\ 6 \\end{pmatrix}",
-      "\\begin{pmatrix} 16 \\\\ 42 \\\\ 5 \\end{pmatrix}"
+      "2 = \\frac{a}{b}",
+      "4 = \\frac{a^2}{b^2}",
+      "2 = a^2 + b^2"
     ],
     "allOptions": [
-      "⎛⎜\n⎜\n⎜⎝9136⎞⎟\n⎟\n⎟⎠",
-      "⎛⎜\n⎜\n⎜⎝16425⎞⎟\n⎟\n⎟⎠",
-      "⎛⎜\n⎜\n⎜⎝8146⎞⎟\n⎟\n⎟⎠",
-      "⎛⎜\n⎜\n⎜⎝8136⎞⎟\n⎟\n⎟⎠",
+      "\\( 2 = \\frac{a^2}{b^2} or 2b^2 = a^2 \\)",
+      "2 =𝑎𝑏",
+      "2 =𝑎2 +𝑏2",
+      "4 =𝑎2𝑏2",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Add corresponding components: (4+4, 6+7, 5+1) = (8, 13, 6)."
+    "explanation": "Squaring both sides: (√2)² = (a/b)², so 2 = a²/b², which gives us 2b² = a²."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the context.\n\n**Verification:**\n- **Calculation:** Vector addition is performed component-wise:\n  $$x: 4 + 4 = 8$$\n  $$y: 6 + 7 = 13$$\n  $$z: 5 + 1 = 6$$\n- **Result:** $\\begin{pmatrix} 8 \\\\ 13 \\\\ 6 \\end{pmatrix}$ matches the selected correct answer (bottom right).\n- **Distractors:** The distractors are plausible:\n  - Top Right $\\begin{pmatrix} 16 \\\\ 42 \\\\ 5 \\end{pmatrix}$ tests if a student multiplies instead of adds.\n  - Bottom Left $\\begin{pmatrix} 8 \\\\ 14 \\\\ 6 \\end{pmatrix}$ tests for a simple arithmetic error ($6+7 \\neq 14$).\n- **Notation:** Standard column vector notation is used correctly.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }
