@@ -44,9 +44,9 @@ window.Learning = {
                 </div>`;
             } else {
                 // First, process answer text to convert simple LaTeX to Unicode (like \times → ×, \div → ÷)
-                // This is the same processing applied to explanation text
+                // This uses the comprehensive text processing system for both explanations and answers
                 const utils = window.GeneratorUtils;
-                const processedAnswer = utils.processExplanationText(opt.val);
+                const processedAnswer = utils.processTextContent(opt.val);
                 
                 // Then use the simplifyAnswerForDisplay helper to intelligently convert LaTeX to HTML when appropriate
                 const simplifiedAnswer = utils.simplifyAnswerForDisplay(processedAnswer);
@@ -61,7 +61,7 @@ window.Learning = {
                 } else {
                     // Still contains LaTeX - check if it needs MathJax rendering
                     // Only truly complex LaTeX needs MathJax (fractions, roots, sums, integrals, etc.)
-                    // Simple symbols like ×, ÷, ±, ≤, ≥ are already converted to Unicode by processExplanationText
+                    // Simple symbols like ×, ÷, ±, ≤, ≥ are already converted to Unicode by processTextContent
                     const needsLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|\\_/.test(simplifiedAnswer);
                     
                     if (needsLatex) {
