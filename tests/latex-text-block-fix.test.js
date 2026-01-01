@@ -57,11 +57,11 @@ describe('LaTeX Text Block Rendering Fix', () => {
                 type: 'why',
                 tex: '\\frac{d}{dx}[f(g(x))] = f\'(g(x)) \\cdot g\'(x)',
                 instruction: "Why do we multiply by g'(x) in the chain rule?",
-                displayAnswer: '\\text{Because we need to account for how fast the inner function is changing}',
+                displayAnswer: "\\text{Because we need to account for how fast the inner function is changing}",
                 distractors: [
-                    '\\text{To make the derivative correct}',
-                    '\\text{Because that\'s the product rule}',
-                    '\\text{To simplify the calculation}'
+                    "\\text{To make the derivative correct}",
+                    "\\text{Because that's the product rule}",
+                    "\\text{To simplify the calculation}"
                 ],
                 explanation: 'The chain rule accounts for nested rates of change.',
                 calc: false,
@@ -124,11 +124,11 @@ describe('LaTeX Text Block Rendering Fix', () => {
                 type: 'why',
                 tex: '3x = 12',
                 instruction: 'Why do we divide both sides by 3?',
-                displayAnswer: '\\text{To isolate } x \\text{ by canceling out the coefficient}',
+                displayAnswer: "\\text{To isolate } x \\text{ by canceling out the coefficient}",
                 distractors: [
-                    '\\text{To make the equation simpler}',
-                    '\\text{To get rid of the equals sign}',
-                    '\\text{Because division is the opposite of addition}'
+                    "\\text{To make the equation simpler}",
+                    "\\text{To get rid of the equals sign}",
+                    "\\text{Because division is the opposite of addition}"
                 ],
                 explanation: 'We divide to isolate the variable.',
                 calc: false,
@@ -174,7 +174,7 @@ describe('LaTeX Text Block Rendering Fix', () => {
         // Verify the functions are called in the correct order
         const result = await page.evaluate(() => {
             const utils = window.GeneratorUtils;
-            const input = '\\text{Because that\'s the product rule}';
+            const input = "\\text{Because that's the product rule}";
             
             // CORRECT ORDER (new implementation):
             // 1. simplifyAnswerForDisplay extracts plain text
