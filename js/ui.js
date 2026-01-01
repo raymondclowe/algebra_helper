@@ -303,7 +303,7 @@ window.UI = {
             const accuracy = window.APP.history.length > 0
                 ? window.APP.history.slice(-5).reduce((a,b)=>a+b,0) / Math.min(5, window.APP.history.length)
                 : null;
-            // Pass question level if available (for spaced repetition display)
+            // Pass question level if available (for spaced repetition and fixing habits display)
             const questionLevel = window.APP.currentQ ? window.APP.currentQ.questionLevel : undefined;
             window.DisplayModes.updateHeaderDisplay(window.APP.level, accuracy, window.APP.history, questionLevel);
         } else {
