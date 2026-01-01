@@ -43,20 +43,24 @@ window.Learning = {
                     <span class="text-xs text-gray-500 mt-1">(no penalty)</span>
                 </div>`;
             } else {
-                // Use the simplifyAnswerForDisplay helper to intelligently convert LaTeX to HTML when appropriate
+                // First, process answer text to convert simple LaTeX to Unicode (like \times → ×, \div → ÷)
+                // This is the same processing applied to explanation text
                 const utils = window.GeneratorUtils;
-                const simplifiedAnswer = utils.simplifyAnswerForDisplay(opt.val);
+                const processedAnswer = utils.processExplanationText(opt.val);
                 
-                // Check if the simplified answer is different from original (i.e., was simplified to plain HTML)
+                // Then use the simplifyAnswerForDisplay helper to intelligently convert LaTeX to HTML when appropriate
+                const simplifiedAnswer = utils.simplifyAnswerForDisplay(processedAnswer);
+                
+                // Check if the simplified answer is different from processed answer (i.e., was simplified to plain HTML)
                 // We check for absence of backslash-based LaTeX commands, not just any backslash
-                const wasSimplified = simplifiedAnswer !== opt.val && !simplifiedAnswer.includes('\\text') && !simplifiedAnswer.includes('\\frac');
+                const wasSimplified = simplifiedAnswer !== processedAnswer && !simplifiedAnswer.includes('\\text') && !simplifiedAnswer.includes('\\frac');
                 
                 if (wasSimplified) {
                     // Simplified to plain HTML - render directly with proper styling
                     btn.innerHTML = `<span class="plain-text-answer" style="font-family: 'Times New Roman', Times, serif; font-style: normal; word-spacing: 0.1em;">${simplifiedAnswer}</span>`;
                 } else {
                     // Still contains LaTeX - check if it needs MathJax rendering
-                    const needsLatex = /\\frac|\\sqrt|\\cdot|\\times|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(simplifiedAnswer);
+                    const needsLatex = /\\frac|\\sqrt|\\cdot|\\times|\\div|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(simplifiedAnswer);
                     
                     if (needsLatex) {
                         // Render as LaTeX math for complex expressions
