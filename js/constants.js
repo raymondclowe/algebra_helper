@@ -78,6 +78,10 @@ const FIXING_HABITS_CATEGORY = 0;        // Category code for internal use
 const FIXING_HABITS_INSERTION_RATE = 0.15; // 15% chance of inserting a fixing habits question when relevant errors detected
 const FIXING_HABITS_MIN_ERRORS = 2;      // Minimum error count before triggering habit fixing questions
 
+// Spaced Repetition Display Threshold
+// Determines when to show "Reviewing" label vs "Working On" label
+const SPACED_REPETITION_DISPLAY_THRESHOLD = 0.5; // Level difference threshold for detecting review questions
+
 // Break Splash Screen Constants
 const BREAK_SPLASH_COOLDOWN_MS = 15 * 60 * 1000; // 15 minutes - minimum time between break splash screens
 const BREAK_SESSION_MIN_MINUTES = 25;      // Minimum session length (minutes) before checking for break
@@ -102,6 +106,7 @@ window.MAX_CALIBRATION_QUESTIONS = MAX_CALIBRATION_QUESTIONS;
 window.FIXING_HABITS_CATEGORY = FIXING_HABITS_CATEGORY;
 window.FIXING_HABITS_INSERTION_RATE = FIXING_HABITS_INSERTION_RATE;
 window.FIXING_HABITS_MIN_ERRORS = FIXING_HABITS_MIN_ERRORS;
+window.SPACED_REPETITION_DISPLAY_THRESHOLD = SPACED_REPETITION_DISPLAY_THRESHOLD;
 window.BREAK_SPLASH_COOLDOWN_MS = BREAK_SPLASH_COOLDOWN_MS;
 window.BREAK_SESSION_MIN_MINUTES = BREAK_SESSION_MIN_MINUTES;
 window.BREAK_SCORE_THRESHOLD = BREAK_SCORE_THRESHOLD;

@@ -126,7 +126,8 @@ window.DisplayModes = {
     },
     
     // Update the header display based on current mode
-    updateHeaderDisplay: function(level, accuracy, history) {
+    // questionLevel: optional - the actual level of the current question (may differ from user level due to spaced repetition)
+    updateHeaderDisplay: function(level, accuracy, history, questionLevel) {
         const mode = this.currentMode;
         
         const levelDisplay = document.getElementById('level-display');
@@ -142,11 +143,28 @@ window.DisplayModes = {
             return;
         }
         
+        // Check if this is a spaced repetition question (question from lower level)
+        // Uses SPACED_REPETITION_DISPLAY_THRESHOLD to determine when level difference is significant
+        const isSpacedRepetition = questionLevel !== undefined && questionLevel !== null && 
+                                   questionLevel !== window.FIXING_HABITS_CATEGORY && 
+                                   (level - questionLevel) > window.SPACED_REPETITION_DISPLAY_THRESHOLD;
+        
+        // Check if this is a fixing habits question
+        const isFixingHabits = questionLevel !== undefined && questionLevel !== null && 
+                              questionLevel === window.FIXING_HABITS_CATEGORY;
+        
         if (mode === DISPLAY_MODES.MASTERY) {
             // Mastery Mode: Show skill area and encouraging message
-            if (levelLabel) levelLabel.textContent = 'Working On';
-            const levelInt = Math.floor(level);
-            levelDisplay.textContent = `Lvl: ${levelInt}: ${this.getSkillDescription(level)}`;
+            const displayLevel = isSpacedRepetition ? questionLevel : level;
+            
+            if (isFixingHabits) {
+                if (levelLabel) levelLabel.textContent = 'Reinforcing';
+                levelDisplay.textContent = 'Building Strong Habits';
+            } else {
+                if (levelLabel) levelLabel.textContent = isSpacedRepetition ? 'Reviewing' : 'Working On';
+                const levelInt = Math.floor(displayLevel);
+                levelDisplay.textContent = `Lvl: ${levelInt}: ${this.getSkillDescription(displayLevel)}`;
+            }
             // Use smaller text on mobile to prevent overflow
             levelDisplay.className = 'text-xs md:text-sm font-bold text-blue-400 transition-all duration-300';
             
@@ -158,8 +176,15 @@ window.DisplayModes = {
             
         } else if (mode === DISPLAY_MODES.GROWTH) {
             // Growth Mode: Show level band and trend
-            if (levelLabel) levelLabel.textContent = 'Level Range';
-            levelDisplay.textContent = this.getLevelBand(level);
+            const displayLevel = isSpacedRepetition ? questionLevel : level;
+            
+            if (isFixingHabits) {
+                if (levelLabel) levelLabel.textContent = 'Reinforcing';
+                levelDisplay.textContent = 'Building Habits';
+            } else {
+                if (levelLabel) levelLabel.textContent = isSpacedRepetition ? 'Reviewing' : 'Level Range';
+                levelDisplay.textContent = this.getLevelBand(displayLevel);
+            }
             // Smaller font on mobile to prevent overflow
             levelDisplay.className = 'text-sm md:text-xl font-bold text-yellow-400 transition-all duration-300';
             
@@ -171,8 +196,15 @@ window.DisplayModes = {
             
         } else {
             // Full Mode: Show exact level and accuracy with educational context
-            if (levelLabel) levelLabel.textContent = 'Level';
-            levelDisplay.textContent = level.toFixed(1);
+            const displayLevel = isSpacedRepetition ? questionLevel : level;
+            
+            if (isFixingHabits) {
+                if (levelLabel) levelLabel.textContent = 'Reinforcing';
+                levelDisplay.textContent = 'Habits';
+            } else {
+                if (levelLabel) levelLabel.textContent = isSpacedRepetition ? 'Reviewing' : 'Level';
+                levelDisplay.textContent = displayLevel.toFixed(1);
+            }
             // Smaller font on mobile to prevent overflow
             levelDisplay.className = 'text-sm md:text-xl font-bold text-yellow-400 transition-all duration-300';
             
@@ -208,7 +240,8 @@ window.DisplayModes = {
                 const accuracy = window.APP.history && window.APP.history.length > 0
                     ? window.APP.history.slice(-5).reduce((a,b)=>a+b,0) / Math.min(5, window.APP.history.length)
                     : null;
-                this.updateHeaderDisplay(window.APP.level, accuracy, window.APP.history);
+                const questionLevel = window.APP.currentQ ? window.APP.currentQ.questionLevel : undefined;
+                this.updateHeaderDisplay(window.APP.level, accuracy, window.APP.history, questionLevel);
             }
         }
     },
