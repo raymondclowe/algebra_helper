@@ -64,8 +64,13 @@ window.ExplanationModal = {
         this.allowRetry = allowRetry;
         this.showingDetailed = false;
         
+        // Process explanation to handle LaTeX properly
+        const processedExplanation = window.GeneratorUtils 
+            ? window.GeneratorUtils.processExplanationText(explanation)
+            : explanation;
+        
         // Update content
-        document.getElementById('explanation-modal-text').innerHTML = explanation;
+        document.getElementById('explanation-modal-text').innerHTML = processedExplanation;
         
         // Show/hide feedback buttons vs action buttons
         const feedbackButtons = document.getElementById('feedback-buttons');
@@ -118,6 +123,7 @@ window.ExplanationModal = {
     showDetailedExplanation: function() {
         if (this.currentDetailedExplanation) {
             // Update content with detailed explanation
+            // Note: detailed explanation is already processed by generateDetailedExplanation
             this.showingDetailed = true;
             document.getElementById('explanation-modal-text').innerHTML = this.currentDetailedExplanation;
             
@@ -241,10 +247,13 @@ window.ExplanationModal = {
         }
         detailed += `</div>`;
         
-        // Add the basic explanation (already safe HTML from Generator)
+        // Add the basic explanation (process it to handle LaTeX properly)
+        const processedBasicExplanation = window.GeneratorUtils 
+            ? window.GeneratorUtils.processExplanationText(basicExplanation)
+            : basicExplanation;
         detailed += `<div class="bg-gray-700 p-3 rounded">`;
         detailed += `<p class="text-sm font-semibold text-yellow-300 mb-2">Step-by-step approach:</p>`;
-        detailed += `<p class="text-gray-300">${basicExplanation}</p>`;
+        detailed += `<p class="text-gray-300">${processedBasicExplanation}</p>`;
         detailed += `</div>`;
         
         // Add additional tips based on question type

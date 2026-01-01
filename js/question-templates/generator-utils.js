@@ -414,5 +414,70 @@ window.GeneratorUtils = {
         
         // Has complex math - leave unchanged for MathJax
         return answer;
+    },
+    
+    /**
+     * Process explanation text to handle LaTeX properly
+     * This function:
+     * 1. Detects if text has LaTeX math delimiters ($...$ or \(...\))
+     * 2. For text with proper delimiters, ensures MathJax can render it
+     * 3. For text without delimiters but with simple LaTeX commands, converts to Unicode or wraps appropriately
+     * 4. Handles plain text with Unicode symbols (passes through)
+     * 
+     * @param {string} text - The explanation text (may contain LaTeX, Unicode, or plain text)
+     * @returns {string} Processed text ready for display
+     */
+    processExplanationText: function(text) {
+        if (!text) return text;
+        
+        // If text already has proper math delimiters, it's ready for MathJax
+        if (text.includes('$') || text.includes('\\(') || text.includes('\\[')) {
+            return text;
+        }
+        
+        // Map of simple LaTeX commands to Unicode characters
+        const simpleLatexToUnicode = {
+            '\\times': '×',
+            '\\div': '÷',
+            '\\cdot': '·',
+            '\\pm': '±',
+            '\\leq': '≤',
+            '\\geq': '≥',
+            '\\neq': '≠',
+            '\\approx': '≈',
+            '\\infty': '∞',
+            '\\pi': 'π',
+            '\\alpha': 'α',
+            '\\beta': 'β',
+            '\\gamma': 'γ',
+            '\\delta': 'δ',
+            '\\theta': 'θ'
+        };
+        
+        // Check if text contains any LaTeX commands
+        const hasLatexCommands = /\\[a-zA-Z]+/.test(text);
+        
+        if (!hasLatexCommands) {
+            // Plain text or text with Unicode symbols - return as-is
+            return text;
+        }
+        
+        // Check if text has complex LaTeX that needs MathJax rendering
+        const hasComplexLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\^|_/.test(text);
+        
+        if (hasComplexLatex) {
+            // Complex LaTeX detected - needs MathJax rendering
+            // Wrap entire text in inline math delimiters if not already wrapped
+            return `$${text}$`;
+        }
+        
+        // Text has simple LaTeX commands - convert to Unicode
+        let processed = text;
+        for (const [latex, unicode] of Object.entries(simpleLatexToUnicode)) {
+            // Use global replace to convert all occurrences
+            processed = processed.split(latex).join(unicode);
+        }
+        
+        return processed;
     }
 };
