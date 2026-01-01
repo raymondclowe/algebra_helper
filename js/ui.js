@@ -85,6 +85,9 @@ window.UI = {
         // Generate Question
         window.APP.currentQ = window.Generator.getQuestion(window.APP.level);
         window.APP.startTime = Date.now();
+        
+        // Update UI with question level for accurate display
+        this.updateUI();
 
         // Render instruction - check if it contains LaTeX commands
         const instrDiv = document.getElementById('instruction-text');
@@ -301,7 +304,9 @@ window.UI = {
             const accuracy = window.APP.history.length > 0
                 ? window.APP.history.slice(-5).reduce((a,b)=>a+b,0) / Math.min(5, window.APP.history.length)
                 : null;
-            window.DisplayModes.updateHeaderDisplay(window.APP.level, accuracy, window.APP.history);
+            // Pass question level if available (for spaced repetition display)
+            const questionLevel = window.APP.currentQ ? window.APP.currentQ.questionLevel : undefined;
+            window.DisplayModes.updateHeaderDisplay(window.APP.level, accuracy, window.APP.history, questionLevel);
         } else {
             // Fallback: original display logic
             document.getElementById('level-display').innerText = window.APP.level.toFixed(1);
