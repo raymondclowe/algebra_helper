@@ -9,9 +9,10 @@ window.QuestionTemplates.Inequalities = {
                 
                 if (questionType === 1) {
                     // Simple inequality: ax < b
+                    // Ensure b is divisible by a for integer result
                     const a = utils.rInt(2, 9);
-                    const b = utils.rInt(10, 50);
-                    const x = Math.floor(b / a);
+                    const x = utils.rInt(2, 9);  // Pick answer first
+                    const b = a * x;  // Ensure b is divisible by a
                     const correctAnswer = `x < ${x}`;
                     const candidateDistractors = [`x > ${x}`, `x = ${x}`, `x \\leq ${x}`];
                     const distractors = utils.ensureUniqueDistractors(

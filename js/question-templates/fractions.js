@@ -84,10 +84,11 @@ window.QuestionTemplates.Fractions = {
                     const correctAnswer = `\\frac{${simplifiedNum}}{${simplifiedDen}}`;
                     const candidateDistractors = [
                         `\\frac{${num1 * num2}}{${den1 * den2}}`,
-                        `\\frac{${resultNum}}{${resultDen}}`,
+                        // Only include unsimplified version if it's actually different from simplified
+                        divisor > 1 ? `\\frac{${resultNum}}{${resultDen}}` : `\\frac{${den1}}{${num1}}`,
                         `\\frac{${num1}}{${den1 * num2}}`
                     ];
-                    const distractors = utils.ensureUniqueDistractors(
+                    const distractors = utils.ensureUniqueDistractorsFractionAware(
                         correctAnswer,
                         candidateDistractors,
                         () => `\\frac{${utils.rInt(1, 40)}}{${utils.rInt(2, 40)}}`
@@ -98,7 +99,7 @@ window.QuestionTemplates.Fractions = {
                         instruction: "Calculate",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Dividing by a fraction means multiplying by its reciprocal: (${num1}/${den1}) × (${den2}/${num2}) = ${resultNum}/${resultDen} = ${simplifiedNum}/${simplifiedDen}.`,
+                        explanation: `Dividing by a fraction means multiplying by its reciprocal: (${num1}/${den1}) × (${den2}/${num2}) = ${resultNum}/${resultDen}${divisor > 1 ? ` = ${simplifiedNum}/${simplifiedDen}` : ''}.`,
                         calc: false
                     };
                 } else if (questionType === 4) {
