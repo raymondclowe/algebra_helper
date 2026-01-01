@@ -517,8 +517,9 @@ window.GeneratorUtils = {
             return 'COMPLEX_LATEX';
         }
         
-        // Check for any backslashes (LaTeX commands or curly braces)
+        // Check for backslashes (indicating LaTeX commands)
         const hasBackslash = text.includes('\\');
+        // Check for curly braces (which could be part of LaTeX syntax or literal braces)
         const hasCurlyBraces = text.includes('{') || text.includes('}');
         
         // Check for standalone _ or ^ that could be part of math expressions

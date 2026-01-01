@@ -306,7 +306,9 @@ describe('Text Processing System - Comprehensive Tests', () => {
         });
 
         test('handles text with backslash in non-LaTeX context', async () => {
-            // If it has backslash followed by letters, should be treated as LaTeX
+            // File paths or other text with backslashes will be treated as COMPLEX_LATEX
+            // This is acceptable since file paths should not appear in math explanations
+            // If wrapped in $ delimiters, they'll display as-is (backslashes show literally)
             const result = await page.evaluate(() => {
                 return window.GeneratorUtils.categorizeTextType('File path C:\\users\\test');
             });

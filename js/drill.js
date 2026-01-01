@@ -61,7 +61,7 @@ window.Learning = {
                 } else {
                     // Still contains LaTeX - check if it needs MathJax rendering
                     // Only truly complex LaTeX needs MathJax (fractions, roots, sums, integrals, etc.)
-                    // Simple symbols like ×, ÷, ±, ≤, ≥ are already converted to Unicode by processExplanationText
+                    // Simple symbols like ×, ÷, ±, ≤, ≥ are already converted to Unicode by processTextContent
                     const needsLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|\\_/.test(simplifiedAnswer);
                     
                     if (needsLatex) {
