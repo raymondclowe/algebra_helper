@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Tracking Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        .card {
+            background: #2a2a2a;
+            border: 2px solid #4a4a4a;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        h1 { color: #5cb3ff; }
+        h2 { color: #ffa500; }
+        button {
+            background: #5cb3ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #4a9de5;
+        }
+        button.danger {
+            background: #ff4444;
+        }
+        button.danger:hover {
+            background: #cc0000;
+        }
+        .status {
+            font-size: 18px;
+            font-weight: bold;
+            color: #5cb3ff;
+            margin: 10px 0;
+        }
+        .info {
+            background: #1a3a5a;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .success {
+            color: #5cb3ff;
+            font-weight: bold;
+        }
+        pre {
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🕐 Time Tracking Bug Test</h1>
+    
+    <div class="card">
+        <h2>Test Scenario</h2>
+        <p>This page helps verify the fix for the "500+ minutes on morning open" bug.</p>
+        <p><strong>Bug:</strong> Opening the PWA in the morning showed 500+ minutes worked today.</p>
+        <p><strong>Root Causes:</strong></p>
+        <ul>
+            <li>Constants loaded AFTER ActivityTracker (causing undefined values)</li>
+            <li>No validation of stale timestamps from previous sessions</li>
+            <li>No reset of daily stats when date changes</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Current Status</h2>
+        <div id="status-display">
+            <div class="status">Today's Minutes: <span id="today-minutes">0</span></div>
+            <div class="info">
+                <strong>Date:</strong> <span id="current-date"></span><br>
+                <strong>Constants Loaded:</strong> <span id="constants-status" class="success">Checking...</span><br>
+                <strong>ActivityTracker Status:</strong> <span id="tracker-status">Checking...</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Test Actions</h2>
+        <button onclick="testYesterdayData()">📅 Simulate Yesterday's Data</button>
+        <button onclick="testStaleTimestamp()">⏰ Test Stale Timestamp (5 hours)</button>
+        <button onclick="reloadPage()">🔄 Reload Page</button>
+        <button onclick="viewLocalStorage()">👁️ View localStorage</button>
+        <button onclick="clearAllData()" class="danger">🗑️ Clear All Data</button>
+    </div>
+
+    <div class="card">
+        <h2>Test Results</h2>
+        <div id="test-results" style="font-family: monospace; font-size: 14px;"></div>
+    </div>
+
+    <div class="card">
+        <h2>localStorage Data</h2>
+        <pre id="storage-data">Click "View localStorage" to see data</pre>
+    </div>
+
+    <script>
+        // Update status display
+        function updateStatus() {
+            const today = new Date().toDateString();
+            document.getElementById('current-date').textContent = today;
+            
+            // Check if constants are loaded
+            const constantsLoaded = typeof DAILY_SAVE_INTERVAL_MS !== 'undefined' &&
+                                   typeof INACTIVITY_TIMEOUT_MS !== 'undefined';
+            const constantsStatus = document.getElementById('constants-status');
+            constantsStatus.textContent = constantsLoaded ? '✅ YES' : '❌ NO';
+            constantsStatus.className = constantsLoaded ? 'success' : '';
+            
+            // Check ActivityTracker
+            const trackerStatus = document.getElementById('tracker-status');
+            if (typeof ActivityTracker !== 'undefined') {
+                trackerStatus.textContent = `✅ Loaded (isPaused: ${ActivityTracker.isPaused})`;
+                trackerStatus.className = 'success';
+            } else {
+                trackerStatus.textContent = '❌ Not loaded';
+            }
+            
+            // Get today's minutes
+            if (typeof StorageManager !== 'undefined') {
+                const stats = StorageManager.getDailyStats();
+                document.getElementById('today-minutes').textContent = 
+                    Math.round(stats.minutesSpent * 100) / 100;
+            }
+        }
+        
+        function log(message, isSuccess = true) {
+            const results = document.getElementById('test-results');
+            const timestamp = new Date().toLocaleTimeString();
+            const color = isSuccess ? '#5cb3ff' : '#ff4444';
+            results.innerHTML += `<div style="color: ${color}">[${timestamp}] ${message}</div>`;
+            results.scrollTop = results.scrollHeight;
+        }
+        
+        function testYesterdayData() {
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayString = yesterday.toDateString();
+            
+            localStorage.setItem('algebraHelperDailyStats', JSON.stringify({
+                date: yesterdayString,
+                minutesSpent: 20
+            }));
+            
+            log('✅ Set yesterday\'s data to 20 minutes');
+            log('🔄 Now reload the page to see if it resets to 0...');
+            updateStatus();
+        }
+        
+        function testStaleTimestamp() {
+            if (typeof ActivityTracker === 'undefined') {
+                log('❌ ActivityTracker not loaded', false);
+                return;
+            }
+            
+            const fiveHoursAgo = Date.now() - (5 * 60 * 60 * 1000);
+            ActivityTracker.lastDailySaveTime = fiveHoursAgo;
+            ActivityTracker.isPaused = false;
+            
+            log('✅ Set lastDailySaveTime to 5 hours ago');
+            
+            setTimeout(() => {
+                const beforeMinutes = StorageManager.getDailyStats().minutesSpent;
+                log(`📊 Minutes before save: ${Math.round(beforeMinutes * 100) / 100}`);
+                
+                ActivityTracker.saveDailyTime();
+                
+                const afterMinutes = StorageManager.getDailyStats().minutesSpent;
+                log(`📊 Minutes after save: ${Math.round(afterMinutes * 100) / 100}`);
+                
+                const added = afterMinutes - beforeMinutes;
+                if (added < 5) {
+                    log(`✅ PASS: Stale timestamp rejected (added only ${Math.round(added * 100) / 100} minutes)`);
+                } else {
+                    log(`❌ FAIL: Stale timestamp accepted (added ${Math.round(added * 100) / 100} minutes)`, false);
+                }
+                
+                updateStatus();
+            }, 1000);
+        }
+        
+        function reloadPage() {
+            location.reload();
+        }
+        
+        function viewLocalStorage() {
+            const data = {
+                dailyStats: localStorage.getItem('algebraHelperDailyStats'),
+                dailyHistory: localStorage.getItem('algebraHelperDailyHistory'),
+                awaySessions: localStorage.getItem('away_sessions')
+            };
+            
+            document.getElementById('storage-data').textContent = 
+                JSON.stringify(JSON.parse(JSON.stringify(data)), null, 2);
+            
+            log('✅ localStorage data displayed below');
+        }
+        
+        function clearAllData() {
+            if (!confirm('Clear all time tracking data?')) return;
+            
+            localStorage.removeItem('algebraHelperDailyStats');
+            localStorage.removeItem('algebraHelperDailyHistory');
+            localStorage.removeItem('away_sessions');
+            
+            if (typeof ActivityTracker !== 'undefined') {
+                ActivityTracker.reset();
+            }
+            
+            log('✅ All data cleared');
+            updateStatus();
+            document.getElementById('storage-data').textContent = 'Data cleared';
+        }
+        
+        // Initialize
+        updateStatus();
+        setInterval(updateStatus, 2000);
+        
+        log('✅ Test page loaded successfully');
+        log('📋 Run tests using the buttons above');
+    </script>
+</body>
+</html>

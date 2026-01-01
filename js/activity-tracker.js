@@ -20,6 +20,22 @@ window.ActivityTracker = {
         this.lastDailySaveTime = Date.now();
         this.lastActivityTime = Date.now();
         
+        // Safety check: Verify daily stats are for today, otherwise reset
+        // This prevents counting time from previous sessions/days
+        if (window.StorageManager) {
+            const dailyStats = window.StorageManager.getDailyStats();
+            const today = new Date().toDateString();
+            
+            if (dailyStats.date !== today) {
+                // It's a new day, save previous day's stats to history
+                if (window.StorageManager.saveDailyStatsToHistory) {
+                    window.StorageManager.saveDailyStatsToHistory();
+                }
+                // getDailyStats() will automatically return fresh stats for today
+                // when called next time due to date mismatch handling
+            }
+        }
+        
         // Page Visibility API - detects when tab is focused
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
@@ -283,6 +299,15 @@ window.ActivityTracker = {
         if (!this.isPaused) {
             const now = Date.now();
             const timeSinceLastActivity = now - this.lastActivityTime;
+            
+            // Safety check: If lastDailySaveTime is more than MAX_STALE_TIMESTAMP_MS old, 
+            // it's likely from a previous session. Reset to prevent counting stale time.
+            const timeSinceLastSave = now - this.lastDailySaveTime;
+            if (timeSinceLastSave > MAX_STALE_TIMESTAMP_MS) {
+                console.warn('lastDailySaveTime is stale (more than 2 hours old), resetting to prevent counting old time');
+                this.lastDailySaveTime = now;
+                return; // Don't count any time from this stale interval
+            }
             
             // Only count time up to INACTIVITY_TIMEOUT_MS after last activity
             // If user hasn't interacted in more than INACTIVITY_TIMEOUT_MS, they're considered away
