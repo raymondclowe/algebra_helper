@@ -60,7 +60,9 @@ window.Learning = {
                     btn.innerHTML = `<span class="plain-text-answer" style="font-family: 'Times New Roman', Times, serif; font-style: normal; word-spacing: 0.1em;">${simplifiedAnswer}</span>`;
                 } else {
                     // Still contains LaTeX - check if it needs MathJax rendering
-                    const needsLatex = /\\frac|\\sqrt|\\cdot|\\times|\\div|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(simplifiedAnswer);
+                    // Only truly complex LaTeX needs MathJax (fractions, roots, sums, integrals, etc.)
+                    // Simple symbols like ×, ÷, ±, ≤, ≥ are already converted to Unicode by processExplanationText
+                    const needsLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\^|_/.test(simplifiedAnswer);
                     
                     if (needsLatex) {
                         // Render as LaTeX math for complex expressions

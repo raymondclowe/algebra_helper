@@ -91,6 +91,14 @@ describe('Explanation LaTeX Processing Tests', () => {
         expect(result).toBe('Use ± and × with ≤');
     });
 
+    test('processExplanationText converts percent sign', async () => {
+        const result = await page.evaluate(() => {
+            return window.GeneratorUtils.processExplanationText('The answer is 10\\% of the total');
+        });
+        
+        expect(result).toBe('The answer is 10% of the total');
+    });
+
     test('Explanation modal processes LaTeX in explanations', async () => {
         // Wait for app to be ready
         await page.waitForFunction(

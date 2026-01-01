@@ -435,7 +435,7 @@ window.GeneratorUtils = {
             return text;
         }
         
-        // Map of simple LaTeX commands to Unicode characters
+        // Map of simple LaTeX commands to Unicode characters or HTML entities
         const simpleLatexToUnicode = {
             '\\times': '×',
             '\\div': '÷',
@@ -451,11 +451,12 @@ window.GeneratorUtils = {
             '\\beta': 'β',
             '\\gamma': 'γ',
             '\\delta': 'δ',
-            '\\theta': 'θ'
+            '\\theta': 'θ',
+            '\\%': '%'
         };
         
-        // Check if text contains any LaTeX commands
-        const hasLatexCommands = /\\[a-zA-Z]+/.test(text);
+        // Check if text contains any LaTeX commands (including \%)
+        const hasLatexCommands = /\\[a-zA-Z]+|\\%/.test(text);
         
         if (!hasLatexCommands) {
             // Plain text or text with Unicode symbols - return as-is

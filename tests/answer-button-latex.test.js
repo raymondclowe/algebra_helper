@@ -208,4 +208,61 @@ describe('Answer Button LaTeX Processing Tests', () => {
         
         expect(hasMathJax).toBe(true);
     });
+
+    test('Answer buttons convert \\% to % symbol', async () => {
+        // Switch to learning mode and create a test question with \% in answers
+        await page.evaluate(() => {
+            window.APP.mode = 'learning';
+            window.APP.level = 5.0;
+            
+            // Create a test question with \% in displayAnswer
+            window.APP.currentQ = {
+                type: 'basic',
+                tex: '0.1',
+                instruction: 'Convert to percentage',
+                displayAnswer: '10\\% of total',
+                distractors: [
+                    '20\\% of total',
+                    '5\\% of total',
+                    '15\\% of total'
+                ],
+                explanation: 'Test explanation',
+                calc: false,
+                level: 5.0
+            };
+            
+            // Render buttons
+            window.Learning.setupUI();
+        });
+        
+        // Wait for buttons to render
+        await page.waitForSelector('#mc-options button', { timeout: 5000 });
+        
+        // Wait for MathJax to complete
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Check button text content
+        const buttonTexts = await page.evaluate(() => {
+            const buttons = document.querySelectorAll('#mc-options button');
+            const texts = [];
+            
+            buttons.forEach(button => {
+                // Skip "I don't know" button
+                if (button.dataset.dontKnow === 'true') return;
+                
+                texts.push(button.textContent || button.innerText);
+            });
+            
+            return texts;
+        });
+        
+        // At least one button should have the % symbol
+        const hasPercentSymbol = buttonTexts.some(text => text.includes('%'));
+        expect(hasPercentSymbol).toBe(true);
+        
+        // None should contain raw LaTeX with backslash
+        buttonTexts.forEach(text => {
+            expect(text).not.toContain('\\%');
+        });
+    });
 });
