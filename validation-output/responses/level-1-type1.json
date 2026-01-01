@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01T08:32:55.432Z",
+  "timestamp": "2026-01-01T10:23:40.906Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 1,
-    "questionText": "18 + 11",
+    "questionText": "13 + 20",
     "instruction": "CALCULATE",
-    "correctAnswer": "29",
+    "correctAnswer": "33",
     "distractors": [
-      "30",
-      "28",
-      "7"
+      "34",
+      "32",
+      "-7"
     ],
     "allOptions": [
-      "30",
-      "29",
-      "7",
-      "28",
+      "-7",
+      "34",
+      "32",
+      "33",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Adding 18 and 11 gives 29. You can verify by counting up from 18 by 11 steps."
+    "explanation": "Adding 13 and 20 gives 33. You can verify by counting up from 13 by 20 steps."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n\n*   **Calculation:** $18 + 11 = 29$. The correct answer is present and correctly identified.\n*   **Distractors:** The distractors are plausible:\n    *   $30$ and $28$ cover simple off-by-one calculation errors.\n    *   $7$ covers the error of subtracting instead of adding ($18 - 11$).",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01T08:40:03.838Z",
+  "timestamp": "2026-01-01T10:23:42.881Z",
   "level": 6,
   "topic": "Simple Linear Equations",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 6,
     "topic": "Simple Linear Equations",
     "questionType": 1,
-    "questionText": "6x = 54",
+    "questionText": "5x = 45",
     "instruction": "SOLVE FOR X",
     "correctAnswer": "x=9",
     "distractors": [
       "x=10",
-      "x=6",
+      "x=5",
       "x=8"
     ],
     "allOptions": [
+      "x=9",
+      "x=5",
       "x=10",
       "x=8",
-      "x=9",
-      "x=6",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Divide both sides by 6 to isolate x: 6x ÷ 6 = 54 ÷ 6, which gives x = 9."
+    "explanation": "Divide both sides by 5 to isolate x: 5x ÷ 5 = 45 ÷ 5, which gives x = 9."
   },
   "apiResponse": {
-    "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the topic \"Simple Linear Equations\".\n\n*   **Equation:** $6x = 54$\n*   **Solution:** $x = 54 / 6 = 9$\n*   **Correct Answer:** The option $x=9$ is correctly identified.\n*   **Distractors:** The incorrect options ($10$, $8$, $6$) are plausible errors based on misremembering multiplication tables.",
-    "error": null
+    "success": false,
+    "validationText": null,
+    "error": "OpenRouter API error (403): {\"error\":{\"message\":\"Key limit exceeded (total limit). Manage it using https://openrouter.ai/settings/keys\",\"code\":403}}"
   }
 }
