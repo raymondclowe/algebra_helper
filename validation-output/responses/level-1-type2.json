@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01T08:33:11.310Z",
+  "timestamp": "2026-01-01T10:41:10.165Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 2,
-    "questionText": "29 - 8",
+    "questionText": "16 - 1",
     "instruction": "CALCULATE",
-    "correctAnswer": "21",
+    "correctAnswer": "15",
     "distractors": [
-      "22",
-      "20",
-      "37"
+      "16",
+      "14",
+      "17"
     ],
     "allOptions": [
-      "22",
-      "21",
-      "37",
-      "20",
+      "14",
+      "17",
+      "16",
+      "15",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Subtracting 8 from 29 gives 21. You can verify by adding: 21 + 8 = 29."
+    "explanation": "Subtracting 1 from 16 gives 15. You can verify by adding: 15 + 1 = 16."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Correctness:** The calculation $29 - 8 = 21$ is correct.\n- **Options:** The correct answer (21) is present and marked. The distractors (22, 37, 20) are plausible (37 results from adding instead of subtracting, 20 and 22 are close values).\n- **Clarity:** The question is unambiguous.\n- **Level:** Appropriate for \"Level 1: Basic Arithmetic\".",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n- **Calculation:** $16 - 1 = 15$\n- **Correct Answer:** The option labeled \"15\" is correctly marked as the answer.\n- **Distractors:** The incorrect options (14, 16, 17) are plausible errors for this level (off-by-one, no change, or addition instead of subtraction).",
     "error": null
   }
 }

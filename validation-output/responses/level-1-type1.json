@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01T08:32:55.432Z",
+  "timestamp": "2026-01-01T10:41:01.333Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 1,
-    "questionText": "18 + 11",
+    "questionText": "15 + 11",
     "instruction": "CALCULATE",
-    "correctAnswer": "29",
+    "correctAnswer": "26",
     "distractors": [
-      "30",
-      "28",
-      "7"
+      "27",
+      "25",
+      "4"
     ],
     "allOptions": [
-      "30",
-      "29",
-      "7",
-      "28",
+      "26",
+      "25",
+      "27",
+      "4",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Adding 18 and 11 gives 29. You can verify by counting up from 18 by 11 steps."
+    "explanation": "Adding 15 and 11 gives 26. You can verify by counting up from 15 by 11 steps."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n\n*   **Calculation:** $18 + 11 = 29$. The correct answer is present and correctly identified.\n*   **Distractors:** The distractors are plausible:\n    *   $30$ and $28$ cover simple off-by-one calculation errors.\n    *   $7$ covers the error of subtracting instead of adding ($18 - 11$).",
+    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for Level 1 Basic Arithmetic.\n\n*   **Calculation:** $15 + 11 = 26$. The highlighted correct answer is correct.\n*   **Difficulty:** Adding two-digit numbers without regrouping (carrying) is suitable for a beginner level.\n*   **Distractors:**\n    *   $25$ and $27$ are good \"off-by-one\" errors.\n    *   $4$ is a plausible error if the student misreads the plus sign as a minus sign ($15 - 11$).",
     "error": null
   }
 }
