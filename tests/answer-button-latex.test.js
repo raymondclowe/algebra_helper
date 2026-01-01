@@ -89,12 +89,12 @@ describe('Answer Button LaTeX Processing Tests', () => {
         });
         
         // All button texts should contain × (Unicode) not \times (LaTeX)
+        // At least one button should have the × symbol
+        const hasUnicodeSymbol = buttonTexts.some(text => text.includes('×'));
+        expect(hasUnicodeSymbol).toBe(true);
+        
+        // None should contain raw LaTeX
         buttonTexts.forEach(text => {
-            if (text.includes('×')) {
-                // Good - has Unicode symbol
-                expect(text).toContain('×');
-            }
-            // Should NOT contain raw LaTeX
             expect(text).not.toContain('\\times');
         });
     });
@@ -147,12 +147,12 @@ describe('Answer Button LaTeX Processing Tests', () => {
         });
         
         // All button texts should contain ÷ (Unicode) not \div (LaTeX)
+        // At least one button should have the ÷ symbol
+        const hasUnicodeSymbol = buttonTexts.some(text => text.includes('÷'));
+        expect(hasUnicodeSymbol).toBe(true);
+        
+        // None should contain raw LaTeX
         buttonTexts.forEach(text => {
-            if (text.includes('÷')) {
-                // Good - has Unicode symbol
-                expect(text).toContain('÷');
-            }
-            // Should NOT contain raw LaTeX
             expect(text).not.toContain('\\div');
         });
     });
