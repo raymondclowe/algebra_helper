@@ -63,7 +63,7 @@ window.UI = {
         WIDTH_TOLERANCE_FACTOR: 0.95,          // 95% width tolerance for overflow detection
         FONT_REDUCTION_INCREMENT: 0.05,        // 5% font size reduction per step
         MAX_QUESTION_REDUCTION: 0.25,          // Maximum 25% reduction for questions
-        MAX_BUTTON_REDUCTION: 0.30             // Maximum 30% reduction for buttons
+        MAX_BUTTON_REDUCTION: 0                // No reduction for buttons - wrap instead
     },
     
     nextQuestion: function() {
