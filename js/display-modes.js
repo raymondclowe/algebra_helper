@@ -144,13 +144,14 @@ window.DisplayModes = {
         }
         
         // Check if this is a spaced repetition question (question from lower level)
+        // Uses SPACED_REPETITION_DISPLAY_THRESHOLD to determine when level difference is significant
         const isSpacedRepetition = questionLevel !== undefined && questionLevel !== null && 
-                                   questionLevel !== 0 && // Not fixing habits
-                                   (level - questionLevel) > 0.5;
+                                   questionLevel !== window.FIXING_HABITS_CATEGORY && 
+                                   (level - questionLevel) > window.SPACED_REPETITION_DISPLAY_THRESHOLD;
         
         // Check if this is a fixing habits question
         const isFixingHabits = questionLevel !== undefined && questionLevel !== null && 
-                              questionLevel === 0; // FIXING_HABITS_CATEGORY = 0
+                              questionLevel === window.FIXING_HABITS_CATEGORY;
         
         if (mode === DISPLAY_MODES.MASTERY) {
             // Mastery Mode: Show skill area and encouraging message

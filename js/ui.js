@@ -79,14 +79,13 @@ window.UI = {
         document.getElementById('mc-options').innerHTML = '';
         // delta-display is permanently hidden (internal level tracking)
         
-        this.updateUI();
         this.updateNavigationButtons();
 
         // Generate Question
         window.APP.currentQ = window.Generator.getQuestion(window.APP.level);
         window.APP.startTime = Date.now();
         
-        // Update UI with question level for accurate display
+        // Update UI with question level for accurate display (after question generation)
         this.updateUI();
 
         // Render instruction - check if it contains LaTeX commands
