@@ -6,6 +6,9 @@
 const apiClientInstance = require('./api-client');
 const ApiClient = apiClientInstance.ApiClient;
 
+// Constants
+const MOCK_MODEL_NAME = 'google/gemini-3-pro-preview';
+
 class MockApiClient extends ApiClient {
     constructor() {
         super();
@@ -29,7 +32,7 @@ class MockApiClient extends ApiClient {
                     message: { content: 'VALID' },
                     finish_reason: 'stop'
                 }],
-                model: 'google/gemini-3-pro-preview',
+                model: MOCK_MODEL_NAME,
                 usage: { total_tokens: 100 }
             }),
             text: async () => ''
@@ -146,7 +149,7 @@ async function testRateLimiting() {
             status: 200,
             json: async () => ({
                 choices: [{ message: { content: 'VALID' }, finish_reason: 'stop' }],
-                model: 'google/gemini-3-pro-preview',
+                model: MOCK_MODEL_NAME,
                 usage: { total_tokens: 100 }
             }),
             text: async () => ''
@@ -156,7 +159,7 @@ async function testRateLimiting() {
             status: 200,
             json: async () => ({
                 choices: [{ message: { content: 'VALID' }, finish_reason: 'stop' }],
-                model: 'google/gemini-3-pro-preview',
+                model: MOCK_MODEL_NAME,
                 usage: { total_tokens: 100 }
             }),
             text: async () => ''
@@ -206,7 +209,7 @@ async function testRateLimitRetry() {
             status: 200,
             json: async () => ({
                 choices: [{ message: { content: 'VALID' }, finish_reason: 'stop' }],
-                model: 'google/gemini-3-pro-preview',
+                model: MOCK_MODEL_NAME,
                 usage: { total_tokens: 100 }
             }),
             text: async () => ''
@@ -258,7 +261,7 @@ async function testExponentialBackoff() {
             status: 200,
             json: async () => ({
                 choices: [{ message: { content: 'VALID' }, finish_reason: 'stop' }],
-                model: 'google/gemini-3-pro-preview',
+                model: MOCK_MODEL_NAME,
                 usage: { total_tokens: 100 }
             }),
             text: async () => ''
@@ -339,7 +342,7 @@ async function testNonRateLimitError() {
             status: 200,
             json: async () => ({
                 choices: [{ message: { content: 'VALID' }, finish_reason: 'stop' }],
-                model: 'google/gemini-3-pro-preview',
+                model: MOCK_MODEL_NAME,
                 usage: { total_tokens: 100 }
             }),
             text: async () => ''
@@ -365,7 +368,7 @@ async function testNonRateLimitError() {
  */
 async function runAllTests() {
     console.log('🚀 Running API Client Retry Logic Tests\n');
-    console.log('=' .repeat(70));
+    console.log('='.repeat(70));
     
     const tests = [
         testRateLimiting,

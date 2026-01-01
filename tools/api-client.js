@@ -49,9 +49,13 @@ class ApiClient {
         }
         
         // Check for rate limit keywords in error message
-        const rateLimitKeywords = ['rate limit', 'rate_limit', 'too many requests', 'quota exceeded'];
-        const lowerErrorText = errorText.toLowerCase();
-        return rateLimitKeywords.some(keyword => lowerErrorText.includes(keyword));
+        if (errorText) {
+            const rateLimitKeywords = ['rate limit', 'rate_limit', 'too many requests', 'quota exceeded'];
+            const lowerErrorText = errorText.toLowerCase();
+            return rateLimitKeywords.some(keyword => lowerErrorText.includes(keyword));
+        }
+        
+        return false;
     }
     
     /**
