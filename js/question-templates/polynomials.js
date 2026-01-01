@@ -53,7 +53,7 @@ window.QuestionTemplates.Polynomials = {
                     const constTerm = utils.formatConstant(c);
                     
                     return {
-                        tex: utils.toUnicodeFunction(`f(x) = x^2 + ${b - a}x + ${c}`),
+                        tex: utils.toUnicodeFunction(`f(x) = x^2${middleTerm}${constTerm}`),
                         instruction: `\\text{Determine whether } (x - ${a}) \\text{ is a factor}`,
                         displayAnswer: correctAnswer,
                         distractors: distractors,
