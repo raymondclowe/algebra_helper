@@ -435,7 +435,7 @@ window.GeneratorUtils = {
             return text;
         }
         
-        // Map of simple LaTeX commands to Unicode characters or HTML entities
+        // Map of simple LaTeX commands to Unicode characters
         const simpleLatexToUnicode = {
             '\\times': '×',
             '\\div': '÷',
