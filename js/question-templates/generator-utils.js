@@ -463,7 +463,9 @@ window.GeneratorUtils = {
         }
         
         // Check if text has complex LaTeX that needs MathJax rendering
-        const hasComplexLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|_/.test(text);
+        // Note: In regex, we need to match literal backslash followed by ^ or _
+        // For example: \^ or \_ (superscript/subscript indicators in LaTeX)
+        const hasComplexLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|\\_/.test(text);
         
         if (hasComplexLatex) {
             // Complex LaTeX detected - needs MathJax rendering

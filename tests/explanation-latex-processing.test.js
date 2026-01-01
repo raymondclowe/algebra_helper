@@ -131,8 +131,12 @@ describe('Explanation LaTeX Processing Tests', () => {
         // Wait for modal to appear
         await page.waitForSelector('#explanation-modal:not(.hidden)', { timeout: 2000 });
 
-        // Wait for MathJax to render using a promise-based delay
-        await new Promise(resolve => setTimeout(resolve, 500));
+        // Wait for MathJax to render by checking for the presence of MathJax elements
+        await page.waitForFunction(() => {
+            const modalText = document.getElementById('explanation-modal-text');
+            // Either MathJax has rendered, or there's no math to render
+            return modalText && (modalText.querySelector('mjx-container') !== null || !modalText.textContent.includes('\\'));
+        }, { timeout: 3000 });
 
         // Check if MathJax rendered the content
         const hasMathJax = await page.evaluate(() => {
