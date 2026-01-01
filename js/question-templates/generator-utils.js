@@ -417,70 +417,241 @@ window.GeneratorUtils = {
     },
     
     /**
-     * Process explanation text to handle LaTeX properly
-     * This function:
-     * 1. Detects if text has LaTeX math delimiters ($...$ or \(...\))
-     * 2. For text with proper delimiters, ensures MathJax can render it
-     * 3. For text without delimiters but with simple LaTeX commands, converts to Unicode or wraps appropriately
-     * 4. Handles plain text with Unicode symbols (passes through)
-     * 
-     * @param {string} text - The explanation text (may contain LaTeX, Unicode, or plain text)
-     * @returns {string} Processed text ready for display
+     * LATEX/TEXT PROCESSING SYSTEM
+     * ===========================
+     * Comprehensive system for handling text content that may contain:
+     * - Pure plain text
+     * - Simple LaTeX symbols (×, ÷, etc.)
+     * - Complex LaTeX expressions (fractions, integrals, etc.)
      */
-    processExplanationText: function(text) {
-        if (!text) return text;
+    
+    // Substitution table for simple LaTeX symbols to Unicode/HTML
+    SIMPLE_LATEX_SUBSTITUTIONS: {
+        // Mathematical operators
+        '\\times': '×',
+        '\\div': '÷',
+        '\\cdot': '·',
+        '\\pm': '±',
         
-        // If text already has proper math delimiters, it's ready for MathJax
+        // Comparison operators
+        '\\leq': '≤',
+        '\\geq': '≥',
+        '\\neq': '≠',
+        '\\approx': '≈',
+        
+        // Greek letters (simple ones)
+        '\\alpha': 'α',
+        '\\beta': 'β',
+        '\\gamma': 'γ',
+        '\\delta': 'δ',
+        '\\theta': 'θ',
+        '\\pi': 'π',
+        '\\lambda': 'λ',
+        '\\mu': 'μ',
+        '\\sigma': 'σ',
+        
+        // Special symbols
+        '\\infty': '∞',
+        '\\%': '%',
+        '\\degree': '°',
+        '\\circ': '∘'
+    },
+    
+    // Patterns that indicate complex LaTeX requiring MathJax
+    COMPLEX_LATEX_PATTERNS: [
+        '\\frac',      // Fractions
+        '\\sqrt',      // Square roots
+        '\\sum',       // Summation
+        '\\int',       // Integration
+        '\\lim',       // Limits
+        '\\log',       // Logarithms (when used as commands)
+        '\\ln',        // Natural log
+        '\\sin',       // Trig functions
+        '\\cos',
+        '\\tan',
+        '\\sec',
+        '\\csc',
+        '\\cot',
+        '\\arcsin',
+        '\\arccos',
+        '\\arctan',
+        '\\sinh',
+        '\\cosh',
+        '\\tanh',
+        '\\begin',     // LaTeX environments
+        '\\end',
+        '\\left',      // Delimiters
+        '\\right',
+        '\\binom',     // Binomial coefficients
+        '\\choose',
+        '\\overset',   // Overset/underset
+        '\\underset',
+        '\\overline',  // Lines over/under
+        '\\underline',
+        '\\vec',       // Vectors
+        '\\hat',
+        '\\bar',
+        '\\tilde',
+        '\\partial',   // Partial derivative
+        '\\nabla',     // Del operator
+        '_',           // Subscripts (standalone)
+        '^'            // Superscripts (standalone)
+    ],
+    
+    /**
+     * Categorize text into one of three types:
+     * 1. PURE_TEXT - No LaTeX markup at all
+     * 2. SIMPLE_LATEX - Contains simple LaTeX symbols that can be substituted
+     * 3. COMPLEX_LATEX - Contains complex LaTeX requiring MathJax rendering
+     * 
+     * @param {string} text - The text to categorize
+     * @returns {string} One of: 'PURE_TEXT', 'SIMPLE_LATEX', 'COMPLEX_LATEX'
+     */
+    categorizeTextType: function(text) {
+        if (!text || typeof text !== 'string') {
+            return 'PURE_TEXT';
+        }
+        
+        // Check for explicit math delimiters - these always indicate complex LaTeX
         if (text.includes('$') || text.includes('\\(') || text.includes('\\[')) {
-            return text;
+            return 'COMPLEX_LATEX';
         }
         
-        // Map of simple LaTeX commands to Unicode characters
-        const simpleLatexToUnicode = {
-            '\\times': '×',
-            '\\div': '÷',
-            '\\cdot': '·',
-            '\\pm': '±',
-            '\\leq': '≤',
-            '\\geq': '≥',
-            '\\neq': '≠',
-            '\\approx': '≈',
-            '\\infty': '∞',
-            '\\pi': 'π',
-            '\\alpha': 'α',
-            '\\beta': 'β',
-            '\\gamma': 'γ',
-            '\\delta': 'δ',
-            '\\theta': 'θ',
-            '\\%': '%'
-        };
+        // Check for any backslashes (LaTeX commands or curly braces)
+        const hasBackslash = text.includes('\\');
+        const hasCurlyBraces = text.includes('{') || text.includes('}');
         
-        // Check if text contains any LaTeX commands (including \%)
-        const hasLatexCommands = /\\[a-zA-Z]+|\\%/.test(text);
-        
-        if (!hasLatexCommands) {
-            // Plain text or text with Unicode symbols - return as-is
-            return text;
+        // Check for standalone _ or ^ that could be part of math expressions
+        // These need to be checked before early return for pure text
+        if (/_/.test(text) || /\^/.test(text)) {
+            return 'COMPLEX_LATEX';
         }
         
-        // Check if text has complex LaTeX that needs MathJax rendering
-        // Note: In regex, we need to match literal backslash followed by ^ or _
-        // For example: \^ or \_ (superscript/subscript indicators in LaTeX)
-        const hasComplexLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|\\_/.test(text);
-        
-        if (hasComplexLatex) {
-            // Complex LaTeX detected - needs MathJax rendering
-            // Wrap entire text in inline math delimiters if not already wrapped
-            return `$${text}$`;
+        // If no backslashes and no curly braces, it's pure text
+        if (!hasBackslash && !hasCurlyBraces) {
+            return 'PURE_TEXT';
         }
         
-        // Text has simple LaTeX commands - convert to Unicode
+        // Check for complex LaTeX patterns
+        // First check for subscript/superscript with curly braces
+        if (/_\{/.test(text) || /\^\{/.test(text)) {
+            return 'COMPLEX_LATEX';
+        }
+        
+        // Check for any complex LaTeX pattern
+        for (let pattern of this.COMPLEX_LATEX_PATTERNS) {
+            if (text.includes(pattern)) {
+                return 'COMPLEX_LATEX';
+            }
+        }
+        
+        // If we have backslashes but no complex patterns, check if they're simple substitutions
+        if (hasBackslash) {
+            // Check if all LaTeX commands are in our simple substitution table
+            const latexCommands = text.match(/\\[a-zA-Z]+|\\%/g) || [];
+            const allSimple = latexCommands.every(cmd => 
+                cmd in this.SIMPLE_LATEX_SUBSTITUTIONS
+            );
+            
+            if (allSimple && latexCommands.length > 0) {
+                return 'SIMPLE_LATEX';
+            }
+            
+            // Unknown LaTeX commands - treat as complex to be safe
+            if (latexCommands.length > 0) {
+                return 'COMPLEX_LATEX';
+            }
+        }
+        
+        // Has curly braces but no LaTeX commands - could be literal braces
+        // Treat as pure text (they'll be displayed as-is)
+        return 'PURE_TEXT';
+    },
+    
+    /**
+     * Process pure text (Category 1)
+     * Pure text has no LaTeX markup - just return as-is
+     * 
+     * @param {string} text - Pure text with no LaTeX
+     * @returns {string} The text unchanged
+     */
+    processPureText: function(text) {
+        // Pure text needs no processing - return as-is
+        return text;
+    },
+    
+    /**
+     * Process simple LaTeX (Category 2)
+     * Simple LaTeX contains only basic symbols that can be substituted with Unicode
+     * 
+     * @param {string} text - Text with simple LaTeX symbols
+     * @returns {string} Text with LaTeX symbols replaced by Unicode
+     */
+    processSimpleLatex: function(text) {
         let processed = text;
-        for (const [latex, unicode] of Object.entries(simpleLatexToUnicode)) {
-            // Use global replace to convert all occurrences
+        
+        // Apply all substitutions from the table
+        for (const [latex, unicode] of Object.entries(this.SIMPLE_LATEX_SUBSTITUTIONS)) {
+            // Use split/join for global replacement (more reliable than regex)
             processed = processed.split(latex).join(unicode);
         }
         
         return processed;
+    },
+    
+    /**
+     * Process complex LaTeX (Category 3)
+     * Complex LaTeX requires MathJax rendering
+     * 
+     * @param {string} text - Text with complex LaTeX
+     * @returns {string} Text wrapped in math delimiters for MathJax
+     */
+    processComplexLatex: function(text) {
+        // If already has math delimiters, return as-is
+        if (text.includes('$') || text.includes('\\(') || text.includes('\\[')) {
+            return text;
+        }
+        
+        // Wrap in inline math delimiters for MathJax rendering
+        return `$${text}$`;
+    },
+    
+    /**
+     * Main entry point for processing any text content
+     * This replaces the old processExplanationText function
+     * Works for explanations, answer buttons, and any other text content
+     * 
+     * @param {string} text - The text to process (may contain LaTeX, Unicode, or plain text)
+     * @returns {string} Processed text ready for display
+     */
+    processTextContent: function(text) {
+        if (!text) return text;
+        
+        // Categorize the text
+        const category = this.categorizeTextType(text);
+        
+        // Process based on category
+        switch (category) {
+            case 'PURE_TEXT':
+                return this.processPureText(text);
+            
+            case 'SIMPLE_LATEX':
+                return this.processSimpleLatex(text);
+            
+            case 'COMPLEX_LATEX':
+                return this.processComplexLatex(text);
+            
+            default:
+                // Fallback - treat as pure text
+                return text;
+        }
+    },
+    
+    /**
+     * Backward compatibility alias
+     * @deprecated Use processTextContent instead
+     */
+    processExplanationText: function(text) {
+        return this.processTextContent(text);
     }
 };
