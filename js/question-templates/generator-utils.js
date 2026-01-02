@@ -368,6 +368,18 @@ window.GeneratorUtils = {
     simplifyAnswerForDisplay: function(answer) {
         if (!answer) return answer;
         
+        // Check if answer has complex mixed LaTeX and text
+        // If it has both \text{} blocks AND math notation (like \frac, \sqrt), 
+        // it should be rendered entirely as LaTeX, not simplified
+        const hasTextBlocks = answer.includes('\\text{');
+        const hasMathNotation = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(answer);
+        
+        if (hasTextBlocks && hasMathNotation) {
+            // Complex mixed LaTeX - return as-is for MathJax rendering
+            // Don't try to simplify - MathJax will handle the \text{} blocks properly
+            return answer;
+        }
+        
         // Check if answer is purely \text{...} - extract plain text
         // Use non-greedy match and ensure no nested \text commands
         const pureTextMatch = answer.match(/^\\text\{(.+?)\}$/);
@@ -378,11 +390,10 @@ window.GeneratorUtils = {
             return pureTextMatch[1];
         }
         
-        // Check for mixed LaTeX pattern: \text{...} with math variables interspersed
-        // Pattern: \text{...} [math] \text{...} etc.
-        // Common in why-questions like: \text{To isolate } x \text{ by canceling out the coefficient}
-        if (answer.includes('\\text{')) {
-            // Parse mixed LaTeX and convert to plain HTML
+        // Check for multiple \text{} blocks without math notation
+        // Pattern: \text{...} \text{...} etc.
+        if (hasTextBlocks && !hasMathNotation) {
+            // Parse multiple text blocks and convert to plain HTML
             let result = answer;
             
             // Replace ALL occurrences of \text{...} with just the content
