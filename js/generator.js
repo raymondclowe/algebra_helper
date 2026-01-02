@@ -90,6 +90,11 @@ window.Generator = {
     
     // Spaced repetition: Select question level with logarithmic fall-off
     selectQuestionLevel: function(currentLevel) {
+        // Skip spaced repetition in testing mode to ensure forced levels are used
+        if (window.TESTING_MODE) {
+            return currentLevel;
+        }
+        
         if (window.APP.mode !== 'learning' && window.APP.mode !== 'drill') {
             return currentLevel;
         }
