@@ -5,18 +5,18 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.SquaresRoots = {
     getSquaresAndRoots: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.getQuestionType(1, 6);
+        const questionType = utils.getQuestionType(1, 8);
                 
                 if (questionType === 1) {
-                    // Forward: "What is the square of n?"
-                    const n = utils.rInt(2, 12);
+                    // Forward: "What is the square of n?" - expanded range to 1-20
+                    const n = utils.rInt(1, 20);
                     const answer = n * n;
                     const correctAnswer = `${answer}`;
                     const candidateDistractors = [`${n * 2}`, `${answer + n}`, `${answer - n}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(4, 150)}`
+                        () => `${utils.rInt(1, 400)}`
                     );
                     return {
                         tex: `\\text{What is } ${n}^2?`,
@@ -27,15 +27,15 @@ window.QuestionTemplates.SquaresRoots = {
                         calc: false
                     };
                 } else if (questionType === 2) {
-                    // Reverse: "n² = answer, find n"
-                    const n = utils.rInt(2, 12);
+                    // Reverse: "n² = answer, find n" - expanded range to 1-20
+                    const n = utils.rInt(1, 20);
                     const square = n * n;
                     const correctAnswer = `${n}`;
                     const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(square / 2)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(2, 12)}`
+                        () => `${utils.rInt(1, 20)}`
                     );
                     return {
                         tex: `${square} \\text{ is the square of what number?}`,
@@ -46,15 +46,15 @@ window.QuestionTemplates.SquaresRoots = {
                         calc: false
                     };
                 } else if (questionType === 3) {
-                    // Forward: "What is the cube of n?"
-                    const n = utils.rInt(2, 6);
+                    // Forward: "What is the cube of n?" - expanded range to 1-20
+                    const n = utils.rInt(1, 20);
                     const answer = n * n * n;
                     const correctAnswer = `${answer}`;
                     const candidateDistractors = [`${n * 3}`, `${n * n}`, `${answer + n}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(8, 250)}`
+                        () => `${utils.rInt(1, 8000)}`
                     );
                     return {
                         tex: `\\text{What is } ${n}^3?`,
@@ -65,34 +65,34 @@ window.QuestionTemplates.SquaresRoots = {
                         calc: false
                     };
                 } else if (questionType === 4) {
-                    // Reverse: "n³ = answer, find n"
-                    const n = utils.rInt(2, 6);
+                    // Reverse: "n³ = answer, find n" - expanded range to 1-20
+                    const n = utils.rInt(1, 20);
                     const cube = n * n * n;
                     const correctAnswer = `${n}`;
                     const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(cube / 3)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(2, 6)}`
+                        () => `${utils.rInt(1, 20)}`
                     );
                     return {
                         tex: `${cube} \\text{ is the cube of what number?}`,
                         instruction: "Find the number",
                         displayAnswer: correctAnswer,
                         distractors: distractors,
-                        explanation: `Since ${n} × ${n} × ${n} = ${cube}, the answer is ${n}. This is finding the cube root: ∛${cube} = ${n}.`,
+                        explanation: `Since ${n} × ${n} × ${n} = ${cube}, the answer is ${n}. This is finding the cube root: $\\sqrt[3]{${cube}} = ${n}$.`,
                         calc: false
                     };
                 } else if (questionType === 5) {
-                    // Square root
-                    const n = utils.rInt(2, 12);
+                    // Square root - expanded range to 1-20
+                    const n = utils.rInt(1, 20);
                     const square = n * n;
                     const correctAnswer = `${n}`;
                     const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(square / 2)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(2, 12)}`
+                        () => `${utils.rInt(1, 20)}`
                     );
                     return {
                         tex: `\\sqrt{${square}}`,
@@ -102,7 +102,26 @@ window.QuestionTemplates.SquaresRoots = {
                         explanation: `The square root of ${square} is ${n} because ${n} × ${n} = ${square}.`,
                         calc: false
                     };
-                } else {
+                } else if (questionType === 6) {
+                    // Cube root - expanded range to 1-20
+                    const n = utils.rInt(1, 20);
+                    const cube = n * n * n;
+                    const correctAnswer = `${n}`;
+                    const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(cube / 3)}`];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(1, 20)}`
+                    );
+                    return {
+                        tex: `\\sqrt[3]{${cube}}`,
+                        instruction: "Calculate",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `The cube root of ${cube} is ${n} because ${n} × ${n} × ${n} = ${cube}.`,
+                        calc: false
+                    };
+                } else if (questionType === 7) {
                     // Power notation with small exponents
                     const base = utils.rInt(2, 8);
                     const exp = utils.rInt(2, 4);
@@ -122,6 +141,24 @@ window.QuestionTemplates.SquaresRoots = {
                         displayAnswer: correctAnswer,
                         distractors: distractors,
                         explanation: `${base}^${exp} means multiply ${base} by itself ${exp} times: ${multChain} = ${answer}.`,
+                        calc: false
+                    };
+                } else {
+                    // Inverse square root: √(n²) = n
+                    const n = utils.rInt(1, 20);
+                    const correctAnswer = `${n}`;
+                    const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${n * 2}`];
+                    const distractors = utils.ensureUniqueDistractors(
+                        correctAnswer,
+                        candidateDistractors,
+                        () => `${utils.rInt(1, 20)}`
+                    );
+                    return {
+                        tex: `\\sqrt{${n}^2}`,
+                        instruction: "Simplify",
+                        displayAnswer: correctAnswer,
+                        distractors: distractors,
+                        explanation: `$\\sqrt{${n}^2} = ${n}$ because the square root and square operations are inverses of each other.`,
                         calc: false
                     };
                 }
