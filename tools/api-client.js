@@ -125,6 +125,22 @@ Question Text: ${questionMetadata.questionText}`
                 
                 const errorText = !response.ok ? await response.text() : null;
                 
+                // Check for credit/quota exhaustion
+                if (!response.ok && errorText && 
+                    (errorText.toLowerCase().includes('insufficient') || 
+                     errorText.toLowerCase().includes('quota') ||
+                     errorText.toLowerCase().includes('credit') ||
+                     response.status === 402)) {
+                    console.log('\n' + '='.repeat(70));
+                    console.log('  ⚠️  API CREDITS EXHAUSTED');
+                    console.log('='.repeat(70));
+                    console.log('\n🛑 The validation has been stopped due to insufficient API credits.');
+                    console.log('📊 Progress has been saved and you can resume later using:');
+                    console.log('   npm run validate-and-combine -- --resume');
+                    console.log('\n💳 Please allocate more funds to your OpenRouter account and then resume.\n');
+                    throw new Error('API credits exhausted - please add more funds and resume validation');
+                }
+                
                 // Check for rate limit error
                 if (!response.ok && this.isRateLimitError(response, errorText)) {
                     // Calculate exponential backoff: 30s, 60s, 120s, 240s, 480s
