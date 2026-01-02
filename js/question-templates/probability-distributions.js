@@ -106,12 +106,12 @@ window.QuestionTemplates.ProbabilityDistributions = {
                 distractors: utils.ensureUniqueDistractors(
                     "Standard normal distribution",
                     [
-                        "Unit normal distribution",
-                        "Normal distribution",
-                        "Gaussian distribution"
+                        "Binomial distribution",
+                        "Poisson distribution",
+                        "Uniform distribution"
                     ],
                     () => {
-                        const names = ["Z-distribution", "Standard distribution", "Central normal"];
+                        const names = ["Exponential distribution", "Chi-squared distribution", "Student's t-distribution"];
                         return names[utils.rInt(0, names.length - 1)];
                     }
                 ),

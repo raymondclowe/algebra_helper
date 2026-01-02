@@ -166,7 +166,10 @@ window.QuestionTemplates.AdvancedIntegration = {
             const n = utils.rInt(2, 4);
             
             const coefficient = a * (n + 1);
-            const result = utils.roundToClean(coefficient / (n + 1));
+            // For ∫ ax(x²+1)^n dx with u=x²+1, du=2x dx, so x dx = du/2
+            // Result: ∫(a/2)u^n du = (a/2)·u^(n+1)/(n+1) = a/(2(n+1))·(x²+1)^(n+1)
+            // Since coefficient = a(n+1), the final coefficient is coefficient/(2(n+1))
+            const result = utils.roundToClean(coefficient / (2 * (n + 1)));
             
             return {
                 tex: `\\int ${coefficient}x(x^2 + 1)^${n} \\, dx`,
@@ -181,7 +184,7 @@ window.QuestionTemplates.AdvancedIntegration = {
                     ],
                     () => `${utils.rInt(1, 10)}(x^2 + 1)^${utils.rInt(2, 6)} + C`
                 ),
-                explanation: `Recognize d/dx[(x² + 1)^${n + 1}] involves ${n + 1}(x² + 1)^${n}(2x). So ∫${coefficient}x(x² + 1)^${n} dx = ${result}(x² + 1)^${n + 1} + C.`,
+                explanation: `Let u = x² + 1, then du = 2x dx, so x dx = du/2. ∫${coefficient}x(x² + 1)^${n} dx = ∫${coefficient/2}u^${n} du = ${result}u^${n + 1} + C = ${result}(x² + 1)^${n + 1} + C.`,
                 calc: true
             };
         }

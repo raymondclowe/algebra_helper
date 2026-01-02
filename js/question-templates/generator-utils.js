@@ -98,6 +98,10 @@ window.GeneratorUtils = {
     EQUIVALENCE_TEST_VALUES: [1, 2, 4, 9, 16],
     FALLBACK_DISTRACTOR_MAX_COEFFICIENT: 20, // Max coefficient for fallback distractors
     
+    // Pattern for detecting mathematical notation in LaTeX strings
+    // Used to determine if content needs MathJax rendering
+    MATH_NOTATION_PATTERN: /\\frac|\\sqrt|\\cdot|\\times|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/,
+    
     // Helper function to convert function notation to unicode mathematical italic characters
     // For LaTeX/MathJax content (tex, explanation) - preserves superscript notation
     // U+1D453 = 𝑓 (Mathematical Italic Small F)
@@ -368,6 +372,19 @@ window.GeneratorUtils = {
     simplifyAnswerForDisplay: function(answer) {
         if (!answer) return answer;
         
+        // Check if answer has complex mixed LaTeX and text
+        // Fixes LaTeX rendering issue where mixed text/math answers showed raw code or missing spaces
+        // Example: \text{Assume } \sqrt{3} = \frac{p}{q} \text{ in lowest terms}
+        // This should be rendered entirely by MathJax, not partially simplified
+        const hasTextBlocks = answer.includes('\\text{');
+        const hasMathNotation = this.MATH_NOTATION_PATTERN.test(answer);
+        
+        if (hasTextBlocks && hasMathNotation) {
+            // Complex mixed LaTeX - return as-is for MathJax rendering
+            // Don't try to simplify - MathJax will handle the \text{} blocks properly
+            return answer;
+        }
+        
         // Check if answer is purely \text{...} - extract plain text
         // Use non-greedy match and ensure no nested \text commands
         const pureTextMatch = answer.match(/^\\text\{(.+?)\}$/);
@@ -378,11 +395,10 @@ window.GeneratorUtils = {
             return pureTextMatch[1];
         }
         
-        // Check for mixed LaTeX pattern: \text{...} with math variables interspersed
-        // Pattern: \text{...} [math] \text{...} etc.
-        // Common in why-questions like: \text{To isolate } x \text{ by canceling out the coefficient}
-        if (answer.includes('\\text{')) {
-            // Parse mixed LaTeX and convert to plain HTML
+        // Check for multiple \text{} blocks without math notation
+        // Pattern: \text{...} \text{...} etc.
+        if (hasTextBlocks && !hasMathNotation) {
+            // Parse multiple text blocks and convert to plain HTML
             let result = answer;
             
             // Replace ALL occurrences of \text{...} with just the content
@@ -405,7 +421,7 @@ window.GeneratorUtils = {
         }
         
         // Check if answer needs LaTeX rendering (has complex math notation)
-        const needsLatex = /\\frac|\\sqrt|\\cdot|\\times|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(answer);
+        const needsLatex = this.MATH_NOTATION_PATTERN.test(answer);
         
         if (!needsLatex) {
             // No LaTeX needed - return as plain text
