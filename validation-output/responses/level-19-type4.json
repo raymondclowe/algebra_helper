@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:06:46.180Z",
+  "level": 19,
+  "topic": "Complex Numbers",
+  "questionType": 4,
+  "metadata": {
+    "level": 19,
+    "topic": "Complex Numbers",
+    "questionType": 4,
+    "questionText": "i^{2}",
+    "instruction": "SIMPLIFY",
+    "correctAnswer": "-1",
+    "distractors": [
+      "i",
+      "2i",
+      "2"
+    ],
+    "allOptions": [
+      "2i",
+      "2",
+      "i",
+      "-1",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "i¹ = i, i² = -1, i³ = -i, i⁴ = 1, and the pattern repeats. So i^2 = -1."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically accurate and unambiguous.\n- **Question:** Simplify $i^2$.\n- **Correct Answer:** $-1$ (by definition of the imaginary unit $i$).\n- **Distractors:** The distractors ($2i$, $2$, $i$) are distinct and incorrect.\n- **Notation:** Standard mathematical notation is used.",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:50:43.646Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 4,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 4,
+    "questionText": "19 \\times 10",
+    "instruction": "CALCULATE",
+    "correctAnswer": "190",
+    "distractors": [
+      "200",
+      "29",
+      "19"
+    ],
+    "allOptions": [
+      "200",
+      "29",
+      "190",
+      "19",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiplying by 10 is like adding 1 zeros: 19 × 10 = 190."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for a basic arithmetic level.\n- **Calculation:** $19 \\times 10 = 190$.\n- **Options:** The correct answer (190) is present. The distractors are plausible common errors (29 results from adding instead of multiplying; 200 is a close estimation; 19 is the result of multiplying by 1).\n- **Presentation:** Clear and unambiguous.",
+    "error": null
+  }
+}

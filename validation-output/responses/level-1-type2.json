@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01T10:41:10.165Z",
+  "timestamp": "2026-01-02T01:48:18.242Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 2,
-    "questionText": "16 - 1",
+    "questionText": "19 - 15",
     "instruction": "CALCULATE",
-    "correctAnswer": "15",
+    "correctAnswer": "4",
     "distractors": [
-      "16",
-      "14",
-      "17"
+      "5",
+      "3",
+      "34"
     ],
     "allOptions": [
-      "14",
-      "17",
-      "16",
-      "15",
+      "34",
+      "5",
+      "4",
+      "3",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Subtracting 1 from 16 gives 15. You can verify by adding: 15 + 1 = 16."
+    "explanation": "Subtracting 15 from 19 gives 4. You can verify by adding: 4 + 15 = 19."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n- **Calculation:** $16 - 1 = 15$\n- **Correct Answer:** The option labeled \"15\" is correctly marked as the answer.\n- **Distractors:** The incorrect options (14, 16, 17) are plausible errors for this level (off-by-one, no change, or addition instead of subtraction).",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for a Level 1 Basic Arithmetic task.\n\n*   **Calculation:** $19 - 15 = 4$.\n*   **Correct Answer:** The option \"4\" is correctly identified.\n*   **Distractors:**\n    *   34 (Result of adding: $19 + 15$)\n    *   5 (Close value / calculation error)\n    *   3 (Close value / calculation error)\n    These are reasonable distractors for this level.",
     "error": null
   }
 }

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:25:17.601Z",
+  "level": 34,
+  "topic": "Hypothesis Testing",
+  "questionType": 1,
+  "metadata": {
+    "level": 34,
+    "topic": "Hypothesis Testing",
+    "questionType": 1,
+    "questionText": "\\text{Coin flipped 5 times, P(heads) = 0.5}",
+    "instruction": "WHAT DISTRIBUTION MODELS THE NUMBER OF HEADS?",
+    "correctAnswer": "\\text{Binomial: } B(5, 0.5)",
+    "distractors": [
+      "\\text{Normal: } N(5, 0.5)",
+      "\\text{Poisson: } Po(5)",
+      "\\text{Uniform: } U(0, 5)"
+    ],
+    "allOptions": [
+      "Binomial: B(5, 0.5)",
+      "Poisson: Po(5)",
+      "Uniform: U(0, 5)",
+      "Normal: N(5, 0.5)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "This is a binomial distribution: fixed number of trials (5), two outcomes, constant probability (0.5), independent trials. Notation: B(5, 0.5)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically accurate and clearly worded.\n\n*   **Correctness:** The scenario describes a fixed number of independent trials ($n=5$) with two possible outcomes and a constant probability of success ($p=0.5$). This is the definition of a Binomial distribution, denoted as $B(n, p)$.\n*   **Answer:** The selected answer \"Binomial: $B(5, 0.5)$\" is correct.\n*   **Distractors:** The distractors (Poisson, Uniform, Normal) are distinct and incorrect for this specific discrete scenario, making them appropriate choices for a multiple-choice question.\n*   **Notation:** The notation used is standard for IB Mathematics.",
+    "error": null
+  }
+}

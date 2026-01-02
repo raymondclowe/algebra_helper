@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:24:34.963Z",
+  "level": 33,
+  "topic": "Probability Distributions",
+  "questionType": 5,
+  "metadata": {
+    "level": 33,
+    "topic": "Probability Distributions",
+    "questionType": 5,
+    "questionText": "Z \\sim N(0, 1)",
+    "instruction": "WHAT IS THIS DISTRIBUTION CALLED?",
+    "correctAnswer": "Standard normal distribution",
+    "distractors": [
+      "Unit normal distribution",
+      "Normal distribution",
+      "Gaussian distribution"
+    ],
+    "allOptions": [
+      "Gaussian distribution",
+      "Unit normal distribution",
+      "Normal distribution",
+      "Standard normal distribution",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "N(0, 1) is the standard normal distribution with mean 0 and variance 1. We standardize: Z = (X - μ)/σ."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUE DETECTED**\n\nThere are two main issues with this question:\n\n1.  **Ambiguous Distractors (Major Issue):**\n    The question asks, \"What is this distribution called?\" for $Z \\sim N(0, 1)$.\n    *   **Option D (Standard normal distribution)** is the *most specific* and intended correct answer.\n    *   **Option C (Normal distribution)** is also mathematically correct. The standard normal distribution *is* a normal distribution.\n    *   **Option A (Gaussian distribution)** is a synonym for normal distribution, so it is also mathematically correct.\n    \n    In a multiple-choice format, distractors must be factually incorrect. Here, a student could correctly identify the notation as a \"Normal distribution\" or \"Gaussian distribution\" and be marked wrong, despite being factually accurate. This is like showing a picture of a square and having \"Rectangle\" and \"Quadrilateral\" as incorrect options alongside \"Square\".\n\n2.  **Incorrect Topic Categorization (Minor Issue):**\n    The top-left corner of the screen displays **\"Lvl: 33: Integration & Series\"**. However, this is a **Probability / Statistics** question. It is miscategorized in the database.\n\n**Suggested Fixes:**\n*   **Fix the Distractors:** Replace the correct-but-broad options with actually incorrect distributions to test the student's ability to distinguish the distribution type, not just the specific sub-type.\n    *   *Example Distractors:* \"Binomial distribution\", \"Poisson distribution\", \"Uniform distribution\", \"Student's t-distribution\".\n*   **Alternative Fix (Phrasing):** If the goal is to test the specific vocabulary \"Standard Normal\", change the question to: *\"Which specific term describes the normal distribution with mean 0 and variance 1?\"* and ensure distractors are not synonyms (e.g., use \"General normal distribution\" or \"Normalized distribution\").\n*   **Fix Category:** Update the question metadata to belong to the \"Probability & Statistics\" topic.",
+    "error": null
+  }
+}

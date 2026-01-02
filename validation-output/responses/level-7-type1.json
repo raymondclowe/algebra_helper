@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:54:24.461Z",
+  "level": 7,
+  "topic": "Two-Step Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 7,
+    "topic": "Two-Step Equations",
+    "questionType": 1,
+    "questionText": "5x + 2 = 12",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x=2",
+    "distractors": [
+      "x=3",
+      "x=-2",
+      "x=8"
+    ],
+    "allOptions": [
+      "x=2",
+      "x=-2",
+      "x=3",
+      "x=8",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Subtract 2 from both sides: 5x = 10. Then divide both sides by 5: x = 2. Note that inverse operations are performed in reverse order of operations."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the stated level.\n\n**Analysis:**\n*   **Equation:** $5x + 2 = 12$\n*   **Solution:** Subtract 2 from both sides ($5x = 10$), then divide by 5 ($x = 2$).\n*   **Correct Answer:** The option \"x=2\" is correctly identified as the answer.\n*   **Distractors:** The incorrect options ($x=-2$, $x=3$, $x=8$) are distinct and plausible wrong answers for students making arithmetic or procedural errors.\n*   **Difficulty:** This is a standard Grade 7 / pre-algebra problem solvable within the 30-60 second timeframe.",
+    "error": null
+  }
+}

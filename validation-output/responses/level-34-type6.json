@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:27:07.430Z",
+  "level": 34,
+  "topic": "Hypothesis Testing",
+  "questionType": 6,
+  "metadata": {
+    "level": 34,
+    "topic": "Hypothesis Testing",
+    "questionType": 6,
+    "questionText": "p\\text{-value} = 0.08, \\quad \\alpha = 0.05",
+    "instruction": "WHAT IS THE CONCLUSION?",
+    "correctAnswer": "\\text{Fail to reject } H_0",
+    "distractors": [
+      "\\text{Reject } H_0",
+      "\\text{Accept } H_0",
+      "\\text{Accept } H_1"
+    ],
+    "allOptions": [
+      "𝐴⁢𝑐⁢𝑐⁢𝑒⁢𝑝⁢𝑡⁢𝐻1",
+      "𝐹⁡𝑎⁢𝑖⁢𝑙⁢𝑡⁢𝑜⁢𝑟⁢𝑒⁢𝑗⁢𝑒⁢𝑐⁢𝑡⁢𝐻0",
+      "𝐴⁢𝑐⁢𝑐⁢𝑒⁢𝑝⁢𝑡⁢𝐻0",
+      "𝑅⁢𝑒⁢𝑗⁢𝑒⁢𝑐⁢𝑡⁢𝐻0",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "p-value (0.08) ≥ α (0.05), so fail to reject H₀. Insufficient evidence."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "The question has **ISSUES** regarding formatting and categorization, although the mathematical logic is correct.\n\n**1. Formatting / LaTeX Error (Major Visual Issue):**\nThe text in the answer options lacks spacing between words.\n- **Current display:** \"$FailtorejectH_0$\", \"$AcceptH_1$\", etc.\n- **The problem:** It appears the entire phrase was put inside a LaTeX math environment without handling text spacing (e.g., typing `Fail to reject H_0` inside `$$` renders as $FailtorejectH_0$ because LaTeX math mode ignores spaces and treats letters as variables).\n- **Fix:** Use the `\\text{}` command for words or place the text outside the math delimiters.\n  - *Example:* Instead of `$Fail to reject H_0$`, use `$\\text{Fail to reject } H_0$` or simply `Fail to reject $H_0$`.\n\n**2. Topic Mismatch (Metadata Issue):**\n- The header in the top-left corner reads **\"Lvl: 34: Integration & Series\"**.\n- The question content is clearly **Statistics / Hypothesis Testing**.\n- **Fix:** Change the topic category to \"Statistics\", \"Hypothesis Testing\", or the relevant IB Math equivalent (e.g., \"Prob & Stats\").\n\n**3. Mathematical Logic (Correct):**\n- Since the $p\\text{-value} (0.08) > \\alpha (0.05)$, the correct conclusion is indeed to **\"Fail to reject $H_0$\"**.\n- Including \"Accept $H_0$\" as a distractor is excellent for an IB curriculum, as it tests the specific nuance that we do not \"prove\" the null hypothesis true, we only fail to reject it.\n\n**Summary for Fix:**\nCorrect the LaTeX code in the answer choices to include spaces and update the question's topic tag to match the content.",
+    "error": null
+  }
+}

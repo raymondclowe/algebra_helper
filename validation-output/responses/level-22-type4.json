@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:09:50.415Z",
+  "level": 22,
+  "topic": "Statistics",
+  "questionType": 4,
+  "metadata": {
+    "level": 22,
+    "topic": "Statistics",
+    "questionType": 4,
+    "questionText": "\\text{Data: } 15, 22, 57",
+    "instruction": "CALCULATE THE RANGE",
+    "correctAnswer": "42",
+    "distractors": [
+      "57",
+      "15",
+      "36"
+    ],
+    "allOptions": [
+      "36",
+      "15",
+      "42",
+      "57",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Range = maximum - minimum = 57 - 15 = 42."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The calculation is correct. The range is defined as the difference between the maximum and minimum values.\n  - Maximum value = $57$\n  - Minimum value = $15$\n  - Range = $57 - 15 = 42$\n- **Clarity:** The question is unambiguous.\n- **Distractors:** The distractors are plausible:\n  - $15$ is the minimum value.\n  - $57$ is the maximum value.\n  - $36$ is a reasonable random distractor (close to $57-21$).\n- **Difficulty:** The question is very simple arithmetic, suitable for a \"No Calc\" speed drill or an introductory statistics review.",
+    "error": null
+  }
+}

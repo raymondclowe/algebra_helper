@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:22:02.570Z",
+  "level": 32,
+  "topic": "Differential Equations",
+  "questionType": 2,
+  "metadata": {
+    "level": 32,
+    "topic": "Differential Equations",
+    "questionType": 2,
+    "questionText": "\\frac{dy}{dx} = 5y",
+    "instruction": "WHAT IS THE GENERAL SOLUTION?",
+    "correctAnswer": "y = Ae^{5x}",
+    "distractors": [
+      "y = 5e^{x}",
+      "y = Ae^{x}",
+      "y = A5x"
+    ],
+    "allOptions": [
+      "𝑦 =𝐴⁢𝑒5⁢𝑥",
+      "y = A5x",
+      "𝑦 =5⁢𝑒𝑥",
+      "𝑦 =𝐴⁢𝑒𝑥",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For dy/dx = 5y, separate variables: (1/y) dy = 5 dx. Integrate: ln|y| = 5x + C. Exponentiating: y = Ae^(5x) where A = e^C."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The differential equation $\\frac{dy}{dx} = 5y$ is a standard first-order linear ODE. Separating variables yields $\\int \\frac{1}{y} dy = \\int 5 dx$, which leads to $\\ln|y| = 5x + C$, and finally $y = Ae^{5x}$. The selected answer is correct.\n- **Distractors:**\n  - $y = A5x$: Incorrectly assumes a linear relationship.\n  - $y = 5e^x$: Incorrectly places the constant 5 as a coefficient rather than in the exponent.\n  - $y = Ae^x$: Misses the coefficient 5 entirely (solution for $y'=y$).\n  These are all plausible errors for students learning this topic.\n- **Level & Timing:** This is a fundamental recognition problem for differential equations, perfectly suitable for an IB Math curriculum and easily solvable within 30-60 seconds without a calculator.\n- **Notation:** The notation is standard and clear.",
+    "error": null
+  }
+}

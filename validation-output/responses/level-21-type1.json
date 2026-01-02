@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:07:31.514Z",
+  "level": 21,
+  "topic": "Advanced Calculus",
+  "questionType": 1,
+  "metadata": {
+    "level": 21,
+    "topic": "Advanced Calculus",
+    "questionType": 1,
+    "questionText": "𝑓(x) = (5x + 3)^3",
+    "instruction": "FIND 𝑓'(X) USING CHAIN RULE",
+    "correctAnswer": "15(5x + 3)^{2}",
+    "distractors": [
+      "3(5x + 3)^{2}",
+      "5(5x + 3)^{2}",
+      "15x^{2}"
+    ],
+    "allOptions": [
+      "15⁢𝑥2",
+      "3⁢(5⁢𝑥+3)2",
+      "15⁢(5⁢𝑥+3)2",
+      "5⁢(5⁢𝑥+3)2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Apply the chain rule: d/dx[(ax+b)^n] = n(ax+b)^(n-1) × a. Therefore f'(x) = 3(5x + 3)^2 × 5 = 15(5x + 3)^2."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Accuracy:** The derivative of $f(x) = (5x + 3)^3$ is indeed calculated using the chain rule: $f'(x) = 3(5x + 3)^2 \\cdot \\frac{d}{dx}(5x+3) = 3(5x + 3)^2 \\cdot 5 = 15(5x + 3)^2$. The indicated correct answer is mathematically accurate.\n- **Distractors:**\n  - $3(5x + 3)^2$: Catches the common error of forgetting to multiply by the derivative of the inner function (chain rule).\n  - $5(5x + 3)^2$: Catches the error of using the inner derivative as the coefficient but forgetting the power rule coefficient.\n  - $15x^2$: A conceptual error distractor.\n- **Clarity:** The notation and instruction are standard and unambiguous.\n- **Difficulty:** Appropriate for a standard drill on the chain rule within an IB calculus context.",
+    "error": null
+  }
+}

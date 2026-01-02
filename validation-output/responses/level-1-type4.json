@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:48:38.022Z",
+  "level": 1,
+  "topic": "Basic Arithmetic",
+  "questionType": 4,
+  "metadata": {
+    "level": 1,
+    "topic": "Basic Arithmetic",
+    "questionType": 4,
+    "questionText": "56 \\div 8",
+    "instruction": "CALCULATE",
+    "correctAnswer": "7",
+    "distractors": [
+      "8",
+      "6",
+      "5"
+    ],
+    "allOptions": [
+      "7",
+      "8",
+      "5",
+      "6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "56 divided by 8 equals 7 because 8 × 7 = 56. Division is the inverse of multiplication."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n- **Calculation:** $56 \\div 8 = 7$.\n- **Correct Answer:** The option \"7\" is correctly identified.\n- **Distractors:** 5, 6, and 8 are plausible incorrect answers for students learning multiplication tables.\n- **Clarity:** The notation is standard and unambiguous.",
+    "error": null
+  }
+}

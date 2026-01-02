@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:49:36.073Z",
+  "level": 2,
+  "topic": "Powers and Roots",
+  "questionType": 5,
+  "metadata": {
+    "level": 2,
+    "topic": "Powers and Roots",
+    "questionType": 5,
+    "questionText": "\\sqrt{49}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "7",
+    "distractors": [
+      "8",
+      "6",
+      "24"
+    ],
+    "allOptions": [
+      "24",
+      "8",
+      "7",
+      "6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "The square root of 49 is 7 because 7 × 7 = 49."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Correctness:** The question asks for the principal square root of 49. Since $7^2 = 49$, $\\sqrt{49} = 7$. The math is correct.\n- **Difficulty:** Level 2 is appropriate for basic perfect square roots.\n- **Clarity:** The notation is standard and unambiguous.\n- **Distractors:**\n  - 6 and 8 are good distractors as they are the integers adjacent to the correct answer (and correspond to $\\sqrt{36}$ and $\\sqrt{64}$).\n  - 24 is likely a distractor based on halving 49 (approx 24.5), which is a common misconception for students confusing square roots with division by 2.",
+    "error": null
+  }
+}

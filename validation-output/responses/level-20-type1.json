@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:06:58.809Z",
+  "level": 20,
+  "topic": "Basic Differentiation",
+  "questionType": 1,
+  "metadata": {
+    "level": 20,
+    "topic": "Basic Differentiation",
+    "questionType": 1,
+    "questionText": "𝑓(x) = 2x^{3}",
+    "instruction": "FIND 𝑓'(X)",
+    "correctAnswer": "6x^{2}",
+    "distractors": [
+      "6x^{3}",
+      "2x^{2}",
+      "3x^{2}"
+    ],
+    "allOptions": [
+      "2⁢𝑥2",
+      "6⁢𝑥3",
+      "6⁢𝑥2",
+      "3⁢𝑥2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Apply the power rule: multiply the coefficient by the exponent, then reduce the exponent by 1. Therefore 𝑓'(x) = 2 × 3 × x^2 = 6x^2."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the \"Basic Calculus\" level.\n\n*   **Correctness:** The derivative of $f(x) = 2x^3$ is indeed $f'(x) = 6x^2$, which matches the highlighted correct answer.\n*   **Clarity:** The notation is standard and unambiguous.\n*   **Distractors:** The incorrect options represent common student errors:\n    *   $2x^2$: Decreasing the power but forgetting to multiply by the exponent.\n    *   $6x^3$: Multiplying by the exponent but forgetting to decrease the power.\n    *   $3x^2$: Differentiating $x^3$ but ignoring the coefficient of 2.",
+    "error": null
+  }
+}

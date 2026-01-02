@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-01T10:41:01.333Z",
+  "timestamp": "2026-01-02T01:48:07.672Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 1,
-    "questionText": "15 + 11",
+    "questionText": "13 + 3",
     "instruction": "CALCULATE",
-    "correctAnswer": "26",
+    "correctAnswer": "16",
     "distractors": [
-      "27",
-      "25",
-      "4"
+      "17",
+      "15",
+      "10"
     ],
     "allOptions": [
-      "26",
-      "25",
-      "27",
-      "4",
+      "17",
+      "15",
+      "16",
+      "10",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Adding 15 and 11 gives 26. You can verify by counting up from 15 by 11 steps."
+    "explanation": "Adding 13 and 3 gives 16. You can verify by counting up from 13 by 3 steps."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for Level 1 Basic Arithmetic.\n\n*   **Calculation:** $15 + 11 = 26$. The highlighted correct answer is correct.\n*   **Difficulty:** Adding two-digit numbers without regrouping (carrying) is suitable for a beginner level.\n*   **Distractors:**\n    *   $25$ and $27$ are good \"off-by-one\" errors.\n    *   $4$ is a plausible error if the student misreads the plus sign as a minus sign ($15 - 11$).",
+    "validationText": "VALID",
     "error": null
   }
 }

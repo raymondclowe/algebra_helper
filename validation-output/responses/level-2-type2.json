@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:49:00.015Z",
+  "level": 2,
+  "topic": "Powers and Roots",
+  "questionType": 2,
+  "metadata": {
+    "level": 2,
+    "topic": "Powers and Roots",
+    "questionType": 2,
+    "questionText": "9 \\text{ is the square of what number?}",
+    "instruction": "FIND THE NUMBER",
+    "correctAnswer": "3",
+    "distractors": [
+      "4",
+      "2",
+      "6"
+    ],
+    "allOptions": [
+      "3",
+      "6",
+      "2",
+      "4",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Since 3 × 3 = 9, the answer is 3. This is finding the square root: $\\sqrt{9} = 3$."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the stated difficulty level.\n\n*   **Question:** \"9 is the square of what number?\" asks for $x$ where $x^2 = 9$.\n*   **Correct Answer:** 3 is correct ($3^2 = 9$).\n*   **Distractors:** 6, 2, and 4 are all incorrect.\n*   **Ambiguity:** While $(-3)^2$ is also 9, negative numbers are not included in the options, making 3 the single distinct correct choice.",
+    "error": null
+  }
+}

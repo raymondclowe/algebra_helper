@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:55:39.839Z",
+  "level": 8,
+  "topic": "Inequalities",
+  "questionType": 3,
+  "metadata": {
+    "level": 8,
+    "topic": "Inequalities",
+    "questionType": 3,
+    "questionText": "3x + 5 < 29",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x < 8",
+    "distractors": [
+      "x > 8",
+      "x < 9",
+      "x \\leq 8"
+    ],
+    "allOptions": [
+      "x < 9",
+      "x < 8",
+      "x ≤ 8",
+      "x > 8",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Subtract 5 from both sides: 3x < 24. Divide by 3: x < 8."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for the level.\n\n**Analysis:**\n1.  **Solving:**\n    *   $3x + 5 < 29$\n    *   Subtract 5 from both sides: $3x < 24$\n    *   Divide by 3: $x < 8$\n2.  **Options:** The selected correct answer ($x < 8$) matches the solution.\n3.  **Distractors:** The incorrect options represent common student errors (wrong inequality direction, confusing $<$ with $\\le$, or arithmetic errors).\n4.  **Presentation:** Notation is clear and standard.",
+    "error": null
+  }
+}

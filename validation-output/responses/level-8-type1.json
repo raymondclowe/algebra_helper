@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:55:01.746Z",
+  "level": 8,
+  "topic": "Inequalities",
+  "questionType": 1,
+  "metadata": {
+    "level": 8,
+    "topic": "Inequalities",
+    "questionType": 1,
+    "questionText": "9x < 45",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x < 5",
+    "distractors": [
+      "x > 5",
+      "x = 5",
+      "x \\leq 5"
+    ],
+    "allOptions": [
+      "x > 5",
+      "x ≤ 5",
+      "x < 5",
+      "x = 5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide both sides by 9: x < 45/9 = 5. Note that the inequality sign remains unchanged when dividing by a positive number."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically correct and free of errors.\n- **Correctness:** Solving $9x < 45$ by dividing both sides by 9 yields $x < 5$. The highlighted answer is correct.\n- **Distractors:** The incorrect options cover common student mistakes:\n  - $x > 5$ (flipping the inequality sign incorrectly).\n  - $x \\leq 5$ (confusing strict inequality with non-strict).\n  - $x = 5$ (treating the inequality as an equation).\n- **Clarity:** The notation is standard and unambiguous.\n- **Level:** For an IB curriculum aligned tool, \"Level 8\" likely corresponds to Grade 8 (MYP Year 3). Solving simple linear inequalities is a standard learning objective for this grade level, making the difficulty appropriate.",
+    "error": null
+  }
+}

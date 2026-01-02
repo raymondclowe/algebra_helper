@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:53:36.105Z",
+  "level": 5,
+  "topic": "Decimals & Percentages",
+  "questionType": 4,
+  "metadata": {
+    "level": 5,
+    "topic": "Decimals & Percentages",
+    "questionType": 4,
+    "questionText": "\\text{Which is smallest: } 0.86, 0.09, 0.7?",
+    "instruction": "CHOOSE THE SMALLEST DECIMAL",
+    "correctAnswer": "0.09",
+    "distractors": [
+      "0.7",
+      "0.86",
+      "\\text{all equal}"
+    ],
+    "allOptions": [
+      "0.7",
+      "0.09",
+      "all equal",
+      "0.86",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Compare place values: 0.09 < 0.7 < 0.86."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically accurate, appropriate for the difficulty level (testing decimal place value), and the marked correct answer ($0.09$) is indeed the smallest of the three values. The distractors are plausible for students learning this concept.",
+    "error": null
+  }
+}

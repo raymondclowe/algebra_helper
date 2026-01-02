@@ -57,12 +57,37 @@ This will:
 2. **Validate** all question types:
    - Test **all 34 difficulty levels** (including HL topics)
    - Test **every question type** for each level (not just random samples)
+   - Total: **124 question types** to validate
    - Create screenshots for each question type using the real app UI (with MathJax)
    - Send each screenshot to Gemini 3 Pro for validation
    - Save the full AI response for every question to `validation-output/responses/`
    - Generate issue files for any problems found
    - Create a summary report
 3. **Concatenate** all issue reports into a single `all-issues-combined.md` file
+
+### Resume Validation (After Interruption)
+
+If the validation was interrupted (e.g., API credits exhausted, network issue, or manual interruption):
+```bash
+npm run validate-and-combine -- --resume
+```
+or
+```bash
+node tools/run-validator.js --resume
+```
+
+**Resume mode features:**
+- ✅ Keeps existing validation data (no cleanup)
+- ✅ Automatically skips already validated questions
+- ✅ Shows progress (X/124 completed)
+- ✅ Continues from where you left off
+- ✅ Perfect for long-running validations that may be interrupted
+
+**When to use resume mode:**
+- API credits ran out during validation
+- Validation was manually interrupted (Ctrl+C)
+- Network connection was lost
+- System reboot or crash occurred
 
 ### Run Validation Only
 

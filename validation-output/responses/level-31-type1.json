@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:20:20.842Z",
+  "level": 31,
+  "topic": "Advanced Integration",
+  "questionType": 1,
+  "metadata": {
+    "level": 31,
+    "topic": "Advanced Integration",
+    "questionType": 1,
+    "questionText": "\\begin{pmatrix} 3 & 9 \\\\ 8 & 5 \\end{pmatrix} + \\begin{pmatrix} 6 & 2 \\\\ 5 & 1 \\end{pmatrix}",
+    "instruction": "CALCULATE THE SUM OF THESE MATRICES",
+    "correctAnswer": "\\begin{pmatrix} 9 & 11 \\\\ 13 & 6 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 18 & 18 \\\\ 40 & 5 \\end{pmatrix}",
+      "\\begin{pmatrix} 10 & 11 \\\\ 13 & 6 \\end{pmatrix}",
+      "\\begin{pmatrix} 9 & 12 \\\\ 13 & 6 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "(912136)",
+      "(911136)",
+      "(1011136)",
+      "(1818405)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add corresponding elements: (3+6, 9+2; 8+5, 5+1) = (9, 11; 13, 6)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "The question has **ISSUES** regarding its categorization and difficulty level, although the mathematics itself is correct.\n\n**1. Major Issue: Incorrect Topic Classification**\n*   **The Problem:** The question asks for **Matrix Addition** (Linear Algebra), but the topic is labeled as **\"Advanced Integration\"** in your description and **\"Integration & Series\"** in the screenshot header.\n*   **Why it's wrong:** Matrices and Integration are distinct topics in the IB Math curriculum (and mathematics in general). A student practicing integration would be confused to encounter a matrix algebra problem.\n*   **Fix:** The topic tag must be changed to **\"Matrices\"** or **\"Linear Algebra\"**.\n\n**2. Secondary Issue: Difficulty Level**\n*   **The Problem:** The question is labeled \"Level: 31\" and \"Advanced\".\n*   **Why it'",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:20:59.776Z",
+  "level": 31,
+  "topic": "Advanced Integration",
+  "questionType": 3,
+  "metadata": {
+    "level": 31,
+    "topic": "Advanced Integration",
+    "questionType": 3,
+    "questionText": "3e^{i\\frac{3\\pi}{2}}",
+    "instruction": "CONVERT TO CARTESIAN FORM A + BI",
+    "correctAnswer": "-3i",
+    "distractors": [
+      "3 + 3i",
+      "1 + -3i",
+      "-3"
+    ],
+    "allOptions": [
+      "-3i",
+      "1 + -3i",
+      "-3",
+      "3 + 3i",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Using Euler's formula: z = r·e^(iθ) = r(cos θ + i·sin θ). Here: 3(cos(\\frac{3\\pi}{2}) + i·sin(\\frac{3\\pi}{2})) = 3(0 + i·-1) = -3i."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "The question has **ISSUES** regarding its categorization and difficulty level, although the mathematics itself is correct.\n\n**1. Topic Mismatch (Major Issue)**\n*   **The Issue:** The question is categorized under **\"Integration & Series\"** (visible in the top-left header) and described in your context as **\"Advanced Integration\"**. However, the problem asks to convert a complex number from exponential to Cartesian form. This is purely a **Complex Numbers** algebra problem. There is absolutely no integration, calculus, or series content in this",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:56:46.581Z",
+  "level": 10,
+  "topic": "Factorising Quadratics",
+  "questionType": 1,
+  "metadata": {
+    "level": 10,
+    "topic": "Factorising Quadratics",
+    "questionType": 1,
+    "questionText": "x^2 + 7x + 10",
+    "instruction": "FACTORIZE",
+    "correctAnswer": "(x+5)(x+2)",
+    "distractors": [
+      "(x+7)(x+10)",
+      "x(x+7)",
+      "(x-5)(x-2)"
+    ],
+    "allOptions": [
+      "(x-5)(x-2)",
+      "x(x+7)",
+      "(x+7)(x+10)",
+      "(x+5)(x+2)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Find two numbers that multiply to 10 (the constant term) and add to 7 (the coefficient of x). These numbers are 5 and 2: 5 × 2 = 10 and 5 + 2 = 7. Therefore (x+5)(x+2). This can be verified by expanding."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically sound.\n- **Expression:** $x^2 + 7x + 10$ factors correctly to $(x+5)(x+2)$.\n- **Correct Answer:** The highlighted option $(x+5)(x+2)$ is correct.\n- **Distractors:**\n  - $(x-5)(x-2)$ tests for sign errors (expands to $x^2 - 7x + 10$).\n  - $x(x+7)$ tests for incomplete understanding of factoring trinomials.\n  - $(x+7)(x+10)$ tests for simply using the visible numbers as factors.\n- **Difficulty:** Appropriate for an introduction to factoring quadratics (monic quadratic with positive integer roots).\n- **Presentation:** Clear and legible.",
+    "error": null
+  }
+}

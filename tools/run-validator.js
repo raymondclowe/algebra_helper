@@ -3,12 +3,14 @@
  * Run Question Validator Script
  * 
  * This script performs the following tasks:
- * 1. Clears validation-output and validation-issues directories
+ * 1. Clears validation-output and validation-issues directories (unless --resume is used)
  * 2. Runs the question validator for all question types (levels 1-34)
  * 3. Concatenates all issue reports into a single markdown file
  * 
  * Usage: node tools/run-validator.js
  *        npm run validate-and-combine
+ *        node tools/run-validator.js --resume  (continue from where left off)
+ *        npm run validate-and-combine -- --resume
  */
 
 const fs = require('fs').promises;
@@ -16,10 +18,15 @@ const fsSync = require('fs');
 const path = require('path');
 const QuestionValidator = require('./question-validator');
 
+// Parse command line arguments
+const args = process.argv.slice(2);
+const resumeMode = args.includes('--resume');
+
 class ValidatorRunner {
-    constructor() {
+    constructor(options = {}) {
         this.validationOutputDir = path.join(__dirname, '..', 'validation-output');
         this.validationIssuesDir = path.join(__dirname, '..', 'validation-issues');
+        this.resumeMode = options.resumeMode || false;
     }
 
     /**
@@ -74,13 +81,58 @@ class ValidatorRunner {
     }
 
     /**
+     * Get validation progress statistics
+     */
+    async getValidationProgress() {
+        const screenshotsDir = path.join(this.validationOutputDir, 'screenshots');
+        const responsesDir = path.join(this.validationOutputDir, 'responses');
+        
+        let existingScreenshots = 0;
+        let existingResponses = 0;
+        
+        if (fsSync.existsSync(screenshotsDir)) {
+            const screenshots = await fs.readdir(screenshotsDir);
+            existingScreenshots = screenshots.filter(f => f.endsWith('.png')).length;
+        }
+        
+        if (fsSync.existsSync(responsesDir)) {
+            const responses = await fs.readdir(responsesDir);
+            existingResponses = responses.filter(f => f.endsWith('.json')).length;
+        }
+        
+        return {
+            screenshots: existingScreenshots,
+            responses: existingResponses,
+            completed: Math.min(existingScreenshots, existingResponses)
+        };
+    }
+
+    /**
      * Run the question validator
      */
     async runValidator() {
         console.log('\n🚀 Running Question Validator...\n');
+        
+        // Show progress if resuming
+        if (this.resumeMode) {
+            const progress = await this.getValidationProgress();
+            console.log(`📊 Resume Mode Active:`);
+            console.log(`   Already completed: ${progress.completed}/124 question types`);
+            console.log(`   Remaining: ${124 - progress.completed} question types\n`);
+        }
+        
         console.log('=' .repeat(70));
         
         const validator = new QuestionValidator();
+        
+        // Pass --skip-existing flag if in resume mode
+        if (this.resumeMode) {
+            // Modify process.argv to include --skip-existing for the validator
+            if (!process.argv.includes('--skip-existing')) {
+                process.argv.push('--skip-existing');
+            }
+        }
+        
         await validator.run();
         
         console.log('\n✅ Validation completed!\n');
@@ -148,11 +200,21 @@ class ValidatorRunner {
     async run() {
         try {
             console.log('\n' + '='.repeat(70));
-            console.log('  QUESTION VALIDATOR - FULL RUN');
+            if (this.resumeMode) {
+                console.log('  QUESTION VALIDATOR - RESUME RUN');
+            } else {
+                console.log('  QUESTION VALIDATOR - FULL RUN');
+            }
             console.log('='.repeat(70) + '\n');
             
-            // Step 1: Clear directories
-            await this.clearOutputDirectories();
+            // Step 1: Clear directories (skip if resuming)
+            if (!this.resumeMode) {
+                await this.clearOutputDirectories();
+            } else {
+                console.log('\n🔄 Resume mode: Keeping existing validation data\n');
+                const progress = await this.getValidationProgress();
+                console.log(`📊 Progress: ${progress.completed}/124 question types completed\n`);
+            }
             
             // Step 2: Run validator
             await this.runValidator();
@@ -174,7 +236,7 @@ class ValidatorRunner {
 
 // Run if executed directly
 if (require.main === module) {
-    const runner = new ValidatorRunner();
+    const runner = new ValidatorRunner({ resumeMode });
     runner.run().catch(error => {
         console.error('Fatal error:', error);
         process.exit(1);

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:08:17.637Z",
+  "level": 21,
+  "topic": "Advanced Calculus",
+  "questionType": 3,
+  "metadata": {
+    "level": 21,
+    "topic": "Advanced Calculus",
+    "questionType": 3,
+    "questionText": "𝑓(x) = 2x^2",
+    "instruction": "FIND THE SECOND DERIVATIVE 𝑓''(X)",
+    "correctAnswer": "4x^{0}",
+    "distractors": [
+      "4x^{1}",
+      "8x^{0}",
+      "4x^{1}"
+    ],
+    "allOptions": [
+      "4⁢𝑥1",
+      "4⁢𝑥0",
+      "4⁢𝑥1",
+      "8⁢𝑥0",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Differentiate twice. First derivative: 𝑓'(x) = 4x^1. Second derivative: 𝑓''(x) = 4(1)x^0 = 4x^0."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUES FOUND**\n\nThere are several issues with this question that need to be addressed:\n\n1.  **Duplicate Options:** The option $4x^1$ appears twice (top-left and bottom-left). In a valid multiple-choice question, all options must be unique.\n2.  **Unconventional Notation (Simplification):** The correct answer is displayed as $4x^0$. While mathematically equivalent to $4$ (since $x^0 = 1$), it is standard mathematical practice to simplify the result. Students are taught that the derivative of a linear term is a constant. Presenting it as $4x^0$ is confusing and pedagogically weak. The same applies to the distractors (e.g., $4x^1$ should be $4x$).\n3.  **Difficulty Labeling:** The topic is labeled \"Advanced Calculus,\" but finding the second derivative of a simple monomial like $2x^2$ is an introductory calculus skill (basic power rule). This label is misleadingly high.\n\n**Correct Solution:**\n1.  Function: $f(x) = 2x^2$\n2.  First Derivative: $f'(x) = 4x$\n3.  Second Derivative: $f''(x) = 4$\n\n**Suggested Fixes:**\n*   **Simplify the Options:** Display the correct answer as **$4$** instead of $4x^0$. Display the distractor $4x^1$ as **$4x$**.\n*   **Remove Duplicates:** Ensure the distractors are distinct. Good distractors could be:\n    *   $4x$ (the first derivative)\n    *   $2$ (incorrect constant)\n    *   $0$ (third derivative)\n    *   $x$ (variable error)",
+    "error": null
+  }
+}

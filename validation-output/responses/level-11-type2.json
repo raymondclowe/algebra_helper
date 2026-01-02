@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:57:36.022Z",
+  "level": 11,
+  "topic": "Quadratic Equations",
+  "questionType": 2,
+  "metadata": {
+    "level": 11,
+    "topic": "Quadratic Equations",
+    "questionType": 2,
+    "questionText": "x^2 + 16x + \\underline{\\quad}",
+    "instruction": "FIND THE VALUE THAT COMPLETES THE SQUARE",
+    "correctAnswer": "64",
+    "distractors": [
+      "8",
+      "16",
+      "32"
+    ],
+    "allOptions": [
+      "32",
+      "64",
+      "8",
+      "16",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "To complete the square for x² + 16x: take half the coefficient of x, which is (16)/2 = 8, then square it: 8² = 64. Therefore x² + 16x + 64 = (x + 8)²."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically accurate and clearly worded.\n- **Calculation:** To complete the square for $x^2 + bx$, you add $(\\frac{b}{2})^2$. Here, $b=16$, so $(\\frac{16}{2})^2 = 8^2 = 64$.\n- **Answer:** The option marked as correct (64) is indeed correct.\n- **Distractors:** The distractors are plausible common mistakes:\n  - 8 (forgetting to square the half-coefficient)\n  - 32 (doubling instead of squaring, or miscalculation)\n  - 16 (using the coefficient itself)\n- **Level:** Appropriate for a basic check on quadratic skills for the target level.",
+    "error": null
+  }
+}
