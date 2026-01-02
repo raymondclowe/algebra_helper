@@ -98,6 +98,10 @@ window.GeneratorUtils = {
     EQUIVALENCE_TEST_VALUES: [1, 2, 4, 9, 16],
     FALLBACK_DISTRACTOR_MAX_COEFFICIENT: 20, // Max coefficient for fallback distractors
     
+    // Pattern for detecting mathematical notation in LaTeX strings
+    // Used to determine if content needs MathJax rendering
+    MATH_NOTATION_PATTERN: /\\frac|\\sqrt|\\cdot|\\times|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/,
+    
     // Helper function to convert function notation to unicode mathematical italic characters
     // For LaTeX/MathJax content (tex, explanation) - preserves superscript notation
     // U+1D453 = 𝑓 (Mathematical Italic Small F)
@@ -369,10 +373,11 @@ window.GeneratorUtils = {
         if (!answer) return answer;
         
         // Check if answer has complex mixed LaTeX and text
-        // If it has both \text{} blocks AND math notation (like \frac, \sqrt), 
-        // it should be rendered entirely as LaTeX, not simplified
+        // Fixes LaTeX rendering issue where mixed text/math answers showed raw code or missing spaces
+        // Example: \text{Assume } \sqrt{3} = \frac{p}{q} \text{ in lowest terms}
+        // This should be rendered entirely by MathJax, not partially simplified
         const hasTextBlocks = answer.includes('\\text{');
-        const hasMathNotation = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(answer);
+        const hasMathNotation = this.MATH_NOTATION_PATTERN.test(answer);
         
         if (hasTextBlocks && hasMathNotation) {
             // Complex mixed LaTeX - return as-is for MathJax rendering
@@ -416,7 +421,7 @@ window.GeneratorUtils = {
         }
         
         // Check if answer needs LaTeX rendering (has complex math notation)
-        const needsLatex = /\\frac|\\sqrt|\\cdot|\\times|\\pm|\\leq|\\geq|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\alpha|\\beta|\\gamma|\\delta|\\theta|\\pi|\^|_/.test(answer);
+        const needsLatex = this.MATH_NOTATION_PATTERN.test(answer);
         
         if (!needsLatex) {
             // No LaTeX needed - return as plain text

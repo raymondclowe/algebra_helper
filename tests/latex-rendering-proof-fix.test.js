@@ -85,8 +85,8 @@ describe('LaTeX Rendering Fixes - Proof Questions', () => {
                 const simplified = utils.simplifyAnswerForDisplay(answer);
                 const processed = utils.processTextContent(simplified);
                 
-                // Check if the result should be rendered as LaTeX
-                const needsLatex = /\\frac|\\sqrt|\\sum|\\int|\\lim|\\log|\\sin|\\cos|\\tan|\\begin|\\end|\\\^|\\_/.test(processed);
+                // Use the shared pattern from GeneratorUtils for consistency
+                const needsLatex = utils.MATH_NOTATION_PATTERN.test(processed);
                 const hasMathDelimiters = processed.includes('$') || processed.includes('\\(') || processed.includes('\\[');
                 
                 // Check for raw LaTeX code (backslashes that shouldn't be there)
