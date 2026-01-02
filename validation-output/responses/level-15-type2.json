@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:01:54.423Z",
+  "level": 15,
+  "topic": "Functions",
+  "questionType": 2,
+  "metadata": {
+    "level": 15,
+    "topic": "Functions",
+    "questionType": 2,
+    "questionText": "𝑓(x) = 2x \\\\[0.5em] 𝑔(x) = x + 3 \\\\[0.5em] 𝑓(𝑔(5)) = ?",
+    "instruction": "CALCULATE",
+    "correctAnswer": "16",
+    "distractors": [
+      "18",
+      "8",
+      "13"
+    ],
+    "allOptions": [
+      "8",
+      "16",
+      "13",
+      "18",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Evaluate 𝑔(5) first: 𝑔(5) = 5 + 3 = 8. Then evaluate 𝑓(8): 𝑓(8) = 2(8) = 16."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n1.  **Mathematical Correctness**:\n    *   Step 1: Calculate the inner function $g(5)$. Given $g(x) = x + 3$, then $g(5) = 5 + 3 = 8$.\n    *   Step 2: Calculate the outer function $f(8)$. Given $f(x) = 2x$, then $f(8) = 2 \\times 8 = 16$.\n    *   The calculation is correct.\n\n2.  **Answer & Distractors**:\n    *   **16 (Correct)**: Correctly calculated.\n    *   **8**: Result of $g(5)$ only (stopping halfway). Good distractor.\n    *   **13**: Result of $g(f(5)) = g(10) = 13$ (reversing the order of composition). Very common error, excellent distractor.\n    *   **18**: Result of $f(5) + g(5) = 10 + 8 = 18$ (confusing composition with addition of functions). Good distractor.\n\n3.  **Clarity & Level**:\n    *   Notation is standard and clear.\n    *   Difficulty is appropriate for a basic check on function composition (Level 15).\n    *   Solvable within the 30-60 second timeframe.",
+    "error": null
+  }
+}

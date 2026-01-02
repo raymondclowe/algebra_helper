@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:10:38.332Z",
+  "level": 23,
+  "topic": "Basic Probability",
+  "questionType": 3,
+  "metadata": {
+    "level": 23,
+    "topic": "Basic Probability",
+    "questionType": 3,
+    "questionText": "\\text{If P(success) = } \\frac{7}{11}\\text{,}\\\\[0.5em]\\text{what is P(failure)?}",
+    "instruction": "CALCULATE THE COMPLEMENTARY PROBABILITY",
+    "correctAnswer": "\\frac{4}{11}",
+    "distractors": [
+      "\\frac{7}{11}",
+      "\\frac{11}{4}",
+      "\\frac{11}{12}"
+    ],
+    "allOptions": [
+      "1112",
+      "411",
+      "711",
+      "114",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "P(failure) = 1 - P(success) = 1 - 7/11 = 4/11. Note that complementary probabilities sum to 1."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Correctness:** The question correctly asks for the complementary probability. Since $P(\\text{success}) + P(\\text{failure}) = 1$, then $P(\\text{failure}) = 1 - \\frac{7}{11} = \\frac{4}{11}$.\n- **Correct Answer:** The option marked as correct ($\\frac{4}{11}$) is accurate.\n- **Distractors:**\n  - $\\frac{7}{11}$ is the original probability (common error).\n  - $\\frac{11}{4}$ is the reciprocal (common error, though impossible as probability $>1$).\n  - $\\frac{11}{12}$ is a random distractor.\n- **Clarity:** The wording is standard and unambiguous.\n- **Difficulty:** Appropriate for \"Basic Probability\".",
+    "error": null
+  }
+}

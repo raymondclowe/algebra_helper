@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:21:22.578Z",
+  "level": 31,
+  "topic": "Advanced Integration",
+  "questionType": 4,
+  "metadata": {
+    "level": 31,
+    "topic": "Advanced Integration",
+    "questionType": 4,
+    "questionText": "\\int 12x(x^2 + 1)^3 \\, dx",
+    "instruction": "FIND THE INTEGRAL",
+    "correctAnswer": "3(x^2 + 1)^4 + C",
+    "distractors": [
+      "12(x^2 + 1)^4 + C",
+      "3(x^2 + 1)^3 + C",
+      "\\frac{12}{3}(x^2 + 1)^4 + C"
+    ],
+    "allOptions": [
+      "123⁢(𝑥2+1)4 +𝐶",
+      "12⁢(𝑥2+1)4 +𝐶",
+      "3⁢(𝑥2+1)4 +𝐶",
+      "3⁢(𝑥2+1)3 +𝐶",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Recognize d/dx[(x² + 1)^4] involves 4(x² + 1)^3(2x). So ∫12x(x² + 1)^3 dx = 3(x² + 1)^4 + C."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**Reviewing the Integral**\n\nI'm currently focused on the mathematics question, starting with understanding the indefinite integral. My next step will be to apply the most appropriate integration technique. I'm considering u-substitution as the initial approach given the structure of the integrand.\n\n\n**Evaluating the Solution**\n\nAfter solving the integral using u-substitution, I arrived at $\\frac{3}{2}(x^2 + 1)^4 + C$.  I'm now cross-referencing my solution against the multiple-choice options provided by the app, and verifying by differentiating the given choices. Option A looks promising because it is a similar form but not quite there, and B is already incorrect.\n\n\n**Confirming the Integral**\n\nI've re-calculated the integral, paying close attention to the coefficients. The correct indefinite integral is $\\frac{3}{2}(x^2 + 1)^4 + C$.  I'm now carefully re-examining each of the given multiple-choice options, particularly the constants, as it seems I was initially off by a factor of 2. I'm verifying the options through differentiation.\n\n\n**Calculating the Integral**\n\nI've worked through the integral, finding  $\\frac{3}{2}(x^2 + 1)^4 + C$.  I've verified my approach using u-substitution, and expanded the original integrand as a sanity check.  It seems none of the given multiple-choice options are actually the correct answer. The answer should be $1.5(x^2 + 1)^4 + C$.\n\n\n**Examining Question and Solutions**\n\nI've re-reviewed the problem and options, meticulously checking calculations and derivatives. My initial answer of $\\frac{3}{2}(x^2 + 1)^4 + C$ is correct, but none of the app's choices match. Option C is closest, but incorrect by a factor of 2. It seems like the question itself might be flawed.\n\n\n**Concluding the Analysis**\n\nI've meticulously worked through the integral, expanded the integrand, and cross-referenced with the multiple-choice solutions. I'm now confident that my solution is $\\frac{3}{2}(x^2 + 1)^4 + C$, which is not one of the app's answers. Option C is close but incorrect. It appears the question has an error.\n\n\n",
+    "error": null
+  }
+}

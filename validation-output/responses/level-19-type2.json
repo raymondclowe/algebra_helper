@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:06:19.158Z",
+  "level": 19,
+  "topic": "Complex Numbers",
+  "questionType": 2,
+  "metadata": {
+    "level": 19,
+    "topic": "Complex Numbers",
+    "questionType": 2,
+    "questionText": "(3 + 2i)(3 - 2i)",
+    "instruction": "MULTIPLY (USE I² = -1)",
+    "correctAnswer": "13",
+    "distractors": [
+      "9 - 4",
+      "9i",
+      "12i"
+    ],
+    "allOptions": [
+      "9 - 4",
+      "9i",
+      "13",
+      "12i",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Using (a+bi)(a-bi) = a² - (bi)² = a² - b²i² = a² - b²(-1) = a² + b². So 3² + 2² = 13."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Notes:**\nThe question is mathematically sound. The calculation $(3 + 2i)(3 - 2i) = 3^2 - (2i)^2 = 9 - 4(-1) = 9 + 4 = 13$ is correct. The selected answer is correct. The distractors are reasonable, particularly \"9 - 4\" which catches the common error of forgetting that $i^2 = -1$ changes the sign in the difference of squares pattern.\n\n*Minor observation:* The instruction text uses a capital \"I\" ($I^2 = -1$) while the equation uses the standard lowercase \"$i$\". While not a critical error, consistent notation (lowercase $i$) is preferred in formal mathematics.",
+    "error": null
+  }
+}

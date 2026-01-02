@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:50:19.687Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 2,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 2,
+    "questionText": "13 \\times 6",
+    "instruction": "CALCULATE",
+    "correctAnswer": "78",
+    "distractors": [
+      "88",
+      "68",
+      "19"
+    ],
+    "allOptions": [
+      "78",
+      "19",
+      "88",
+      "68",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "13 × 6 = 78. Break it down: (10 × 6) + (3 × 6) = 60 + 18 = 78."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Correctness:** The calculation $13 \\times 6 = 78$ is correct.\n- **Answer Key:** The option marked as correct (78) is indeed the correct answer.\n- **Distractors:**\n  - **19:** Represents a common error where a student adds instead of multiplies ($13 + 6$).\n  - **68 & 88:** Plausible calculation errors (off by 10), testing mental math accuracy.\n- **Clarity:** The question is unambiguous and standard notation is used.\n- **Difficulty:** Appropriate for a \"Level 3\" mental math exercise involving 2-digit by 1-digit multiplication.",
+    "error": null
+  }
+}

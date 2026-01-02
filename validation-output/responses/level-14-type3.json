@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:01:07.854Z",
+  "level": 14,
+  "topic": "Sequences & Series",
+  "questionType": 3,
+  "metadata": {
+    "level": 14,
+    "topic": "Sequences & Series",
+    "questionType": 3,
+    "questionText": "\\text{Sum of arithmetic series: } a_1 = 3, d = 1, n = 8",
+    "instruction": "CALCULATE S_N",
+    "correctAnswer": "52",
+    "distractors": [
+      "24",
+      "60",
+      "13"
+    ],
+    "allOptions": [
+      "13",
+      "52",
+      "60",
+      "24",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Apply S_n = n(a_1 + a_n)/2. First calculate a_8 = 3 + 7 = 10. Then S_8 = 8(3 + 10)/2 = 52."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically correct and free of errors.\n\n*   **Calculation verification:**\n    *   Formula: $S_n = \\frac{n}{2}[2a_1 + (n-1)d]$\n    *   Substitute values: $S_8 = \\frac{8}{2}[2(3) + (7)(1)]$\n    *   Simplify: $4[6 + 7] = 4[13] = 52$\n*   **Answer Key:** The selected answer (52) is correct.\n*   **Notation:** Standard and clear LaTeX notation is used.\n*   **Difficulty:** Appropriate for a basic drill on arithmetic series. The numbers are small enough to be calculated mentally within the 30-60 second timeframe.",
+    "error": null
+  }
+}

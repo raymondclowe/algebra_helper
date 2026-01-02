@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:12:04.730Z",
+  "level": 25,
+  "topic": "Integration & Series",
+  "questionType": 1,
+  "metadata": {
+    "level": 25,
+    "topic": "Integration & Series",
+    "questionType": 1,
+    "questionText": "\\int x^3 \\, dx",
+    "instruction": "FIND THE INTEGRAL",
+    "correctAnswer": "\\frac{x^{4}}{4} + C",
+    "distractors": [
+      "\\frac{x^{3}}{3} + C",
+      "3x^{2} + C",
+      "x^{4} + C"
+    ],
+    "allOptions": [
+      "3⁢𝑥2 +𝐶",
+      "𝑥4 +𝐶",
+      "𝑥33 +𝐶",
+      "𝑥44 +𝐶",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Apply the power rule for integration: ∫x^n dx = x^(n+1)/(n+1) + C. Therefore ∫x^3 dx = x^4/4 + C, where C is the constant of integration."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for an introductory calculus topic within the IB Math curriculum.\n\n*   **Question:** $\\int x^3 \\, dx$ correctly applies the power rule for integration ($\\int x^n \\, dx = \\frac{x^{n+1}}{n+1} + C$).\n*   **Correct Answer:** $\\frac{x^4}{4} + C$ is the correct solution.\n*   **Distractors:**\n    *   $3x^2 + C$ tests if the student confused integration with differentiation.\n    *   $x^4 + C$ tests if the student forgot to divide by the new exponent.\n    *   $\\frac{x^3}{3} + C$ tests for incorrect application of the power rule.\n*   **Notation:** Standard and clear.",
+    "error": null
+  }
+}

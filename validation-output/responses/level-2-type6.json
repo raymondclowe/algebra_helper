@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:49:50.683Z",
+  "level": 2,
+  "topic": "Powers and Roots",
+  "questionType": 6,
+  "metadata": {
+    "level": 2,
+    "topic": "Powers and Roots",
+    "questionType": 6,
+    "questionText": "3^3",
+    "instruction": "CALCULATE",
+    "correctAnswer": "27",
+    "distractors": [
+      "9",
+      "30",
+      "24"
+    ],
+    "allOptions": [
+      "24",
+      "30",
+      "27",
+      "9",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "3^3 means multiply 3 by itself 3 times: 3 × 3 × 3 = 27."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct.\n- **Calculation:** $3^3 = 3 \\times 3 \\times 3 = 27$.\n- **Correct Answer:** The option marked as correct (27) is accurate.\n- **Distractors:**\n  - **9:** Good distractor for students who calculate $3 \\times 3$ (squaring) or $3 + 3 + 3$.\n  - **24 & 30:** Plausible nearby values for estimation errors.\n- **Level:** Appropriate for Level 2 (introduction to powers/exponents).\n\n*Minor Note:* The category label in the top left says \"Squares & Roots\", but the question involves a cube ($3^3$). While mathematically valid, the category name might be better phrased as \"Powers & Roots\" or \"Exponents\" to be strictly accurate, but this does not affect the validity of the question itself.",
+    "error": null
+  }
+}

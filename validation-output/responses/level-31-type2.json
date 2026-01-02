@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:20:36.580Z",
+  "level": 31,
+  "topic": "Advanced Integration",
+  "questionType": 2,
+  "metadata": {
+    "level": 31,
+    "topic": "Advanced Integration",
+    "questionType": 2,
+    "questionText": "\\int x e^x \\, dx \\text{ using parts: } uv - \\int v \\, du",
+    "instruction": "HENCE FIND THE INTEGRAL",
+    "correctAnswer": "xe^x - e^x + C = e^x(x - 1) + C",
+    "distractors": [
+      "xe^x + e^x + C",
+      "xe^x + C",
+      "e^x + C"
+    ],
+    "allOptions": [
+      "𝑥⁢𝑒𝑥 +𝑒𝑥 +𝐶",
+      "𝑥⁢𝑒𝑥 +𝐶",
+      "𝑥⁢𝑒𝑥 −𝑒𝑥 +𝐶 =𝑒𝑥⁢(𝑥 −1) +𝐶",
+      "𝑒𝑥 +𝐶",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Using ∫u dv = uv - ∫v du with u = x, v = e^x, du = dx: ∫xe^x dx = x·e^x - ∫e^x dx = xe^x - e^x + C = e^x(x - 1) + C."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, appropriate for the level (introductory integration by parts), and the marked answer is correct.\n\n**Solution Verification:**\nUsing integration by parts with $u = x$ and $dv = e^x dx$:\n1. $du = dx$ and $v = e^x$\n2. Formula: $\\int u \\, dv = uv - \\int v \\, du$\n3. Substitute: $xe^x - \\int e^x \\, dx$\n4. Integrate: $xe^x - e^x + C$\n5. Factor: $e^x(x - 1) + C$\n\nThis matches the selected option perfectly.\n\n**Minor Note:**\nThe instruction \"HENCE FIND THE INTEGRAL\" usually implies that the question follows a previous step (e.g., \"Find the derivative of... hence find the integral\"). If this is a standalone question, \"EVALUATE THE INTEGRAL\" would be linguistically more precise, but this does not affect the validity of the math.",
+    "error": null
+  }
+}

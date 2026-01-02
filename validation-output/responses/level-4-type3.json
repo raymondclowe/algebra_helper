@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:51:59.737Z",
+  "level": 4,
+  "topic": "Fractions",
+  "questionType": 3,
+  "metadata": {
+    "level": 4,
+    "topic": "Fractions",
+    "questionType": 3,
+    "questionText": "\\frac{5}{7} \\div \\frac{5}{6}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "\\frac{6}{7}",
+    "distractors": [
+      "\\frac{25}{42}",
+      "\\frac{5}{35}",
+      "\\frac{8}{19}"
+    ],
+    "allOptions": [
+      "2542",
+      "67",
+      "535",
+      "819",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Dividing by a fraction means multiplying by its reciprocal: (5/7) × (6/5) = 30/35 = 6/7."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct.\n\n*   **Calculation:** $\\frac{5}{7} \\div \\frac{5}{6} = \\frac{5}{7} \\times \\frac{6}{5} = \\frac{30}{35} = \\frac{6}{7}$.\n*   **Correct Answer:** The option marked as correct ($\\frac{6}{7}$) is accurate.\n*   **Distractors:**\n    *   $\\frac{25}{42}$ is a good distractor, representing the common error of multiplying straight across ($\\frac{5 \\times 5}{7 \\times 6}$) instead of multiplying by the reciprocal.\n    *   The other distractors are plausible incorrect values.\n*   **Level:** Appropriate for Level 4 (Working with Fractions).\n*   **Notation:** Clear and standard.",
+    "error": null
+  }
+}

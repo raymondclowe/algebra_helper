@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:01:22.455Z",
+  "level": 14,
+  "topic": "Sequences & Series",
+  "questionType": 4,
+  "metadata": {
+    "level": 14,
+    "topic": "Sequences & Series",
+    "questionType": 4,
+    "questionText": "\\sum_{k=1}^{5} k",
+    "instruction": "CALCULATE",
+    "correctAnswer": "15",
+    "distractors": [
+      "25",
+      "6",
+      "20"
+    ],
+    "allOptions": [
+      "20",
+      "15",
+      "6",
+      "25",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "The sum of the first 5 natural numbers is given by n(n+1)/2. Therefore 1 + 2 + ... + 5 = 5(6)/2 = 15."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and the indicated answer (15) is correct.\n\n**Mathematical Check:**\n$\\sum_{k=1}^{5} k = 1 + 2 + 3 + 4 + 5 = 15$\n\n**Note on Difficulty:**\nWhile the question is valid, the difficulty seems quite low for a \"Level 14\" unless the leveling system starts from extremely basic arithmetic. This is an introductory question for Sigma notation.",
+    "error": null
+  }
+}

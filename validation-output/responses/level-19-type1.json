@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:06:05.523Z",
+  "level": 19,
+  "topic": "Complex Numbers",
+  "questionType": 1,
+  "metadata": {
+    "level": 19,
+    "topic": "Complex Numbers",
+    "questionType": 1,
+    "questionText": "(3 + 4i) + (7 + 8i)",
+    "instruction": "CALCULATE",
+    "correctAnswer": "10 + 12i",
+    "distractors": [
+      "10i",
+      "10 + 4i",
+      "3 + 12i"
+    ],
+    "allOptions": [
+      "3 + 12i",
+      "10 + 12i",
+      "10i",
+      "10 + 4i",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add real parts and imaginary parts separately: (3 + 7) + (4 + 8)i = 10 + 12i."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically accurate and clearly presented.\n\n**Analysis:**\n*   **Question:** $(3 + 4i) + (7 + 8i)$\n*   **Correct Calculation:** Add real parts $(3 + 7 = 10)$ and imaginary parts $(4i + 8i = 12i)$ to get **$10 + 12i$**.\n*   **Answer Key:** The option marked as correct ($10 + 12i$) matches the calculation.\n*   **Distractors:** The incorrect options represent common errors (forgetting to add the real parts, forgetting to add the imaginary parts, or conflating terms).\n*   **Notation:** Standard and unambiguous.",
+    "error": null
+  }
+}

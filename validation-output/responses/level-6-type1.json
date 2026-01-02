@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:53:58.802Z",
+  "level": 6,
+  "topic": "Simple Linear Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 6,
+    "topic": "Simple Linear Equations",
+    "questionType": 1,
+    "questionText": "2x = 10",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x=5",
+    "distractors": [
+      "x=6",
+      "x=2",
+      "x=4"
+    ],
+    "allOptions": [
+      "x=5",
+      "x=4",
+      "x=6",
+      "x=2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide both sides by 2 to isolate x: 2x ÷ 2 = 10 ÷ 2, which gives x = 5."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The equation $2x = 10$ is correctly solved by dividing both sides by 2, yielding $x = 5$.\n- **Correct Answer:** The option marked as correct ($x=5$) is indeed the correct solution.\n- **Distractors:** The distractors ($x=4, x=6, x=2$) are distinct integers and clearly incorrect, serving as plausible wrong answers for beginners.\n- **Clarity:** The notation is standard and unambiguous.\n- **Level Appropriateness:** Assuming \"Level 6\" corresponds to Grade 6 (IB MYP Year 1), this is an appropriate introductory question for simple linear equations. If \"Level 6\" refers to a difficulty tier within a high school curriculum, it would be considered very easy, but it is mathematically sound.",
+    "error": null
+  }
+}

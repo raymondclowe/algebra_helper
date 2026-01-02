@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:10:26.649Z",
+  "level": 23,
+  "topic": "Basic Probability",
+  "questionType": 2,
+  "metadata": {
+    "level": 23,
+    "topic": "Basic Probability",
+    "questionType": 2,
+    "questionText": "\\text{Choosing 2 balls from 9,}\\\\[0.5em]\\text{where 1 is black}",
+    "instruction": "THIS IS A PROBABILITY SETUP QUESTION",
+    "correctAnswer": "\\text{Use combinations: } C(9, 2)",
+    "distractors": [
+      "7",
+      "9 \\times 2",
+      "\\frac{9}{2}"
+    ],
+    "allOptions": [
+      "92",
+      "Use combinations: C(9, 2)",
+      "7",
+      "9 × 2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "The total number of ways to choose 2 balls from 9 is C(9,2) = 9!/((7)!×2!). This is a combination problem."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "This question has **ISSUES** and requires revision.\n\n**1. Missing Question / Ambiguity:**\nThe text \"Choosing 2 balls from 9, where 1 is black\" is a sentence fragment describing a scenario. It does not actually ask a question. The student does not know if they are supposed to find:\n- The total number of ways to choose 2 balls (Sample Space).\n- The number of ways to choose the black ball and one other.\n- The probability of choosing the black ball.\n\n**2. Misleading Information:**\nThe phrase \"**where 1 is black**\" is highly confusing given the correct answer.\n- The correct answer, \"Use combinations: $C(9, 2)$\", calculates the **total** number of ways to pick any 2 balls from 9. This calculation ignores the colors of the balls entirely.\n- By mentioning",
+    "error": null
+  }
+}

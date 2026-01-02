@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:48:28.685Z",
+  "level": 1,
+  "topic": "Basic Arithmetic",
+  "questionType": 3,
+  "metadata": {
+    "level": 1,
+    "topic": "Basic Arithmetic",
+    "questionType": 3,
+    "questionText": "? + 9 = 18",
+    "instruction": "FIND THE MISSING NUMBER",
+    "correctAnswer": "9",
+    "distractors": [
+      "10",
+      "18",
+      "2"
+    ],
+    "allOptions": [
+      "10",
+      "9",
+      "2",
+      "18",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "To find the missing number, subtract 9 from 18: 18 - 9 = 9. Check: 9 + 9 = 18 ✓"
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n\n*   **Equation:** $? + 9 = 18$\n*   **Solution:** $18 - 9 = 9$\n*   **Correct Answer:** The option \"9\" is correctly identified.\n*   **Distractors:** The incorrect options (10, 2, 18) are distinct and plausible for this level (e.g., 2 could result from confusing addition with multiplication/division: $2 \\times 9 = 18$).",
+    "error": null
+  }
+}

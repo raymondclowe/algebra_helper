@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:03:35.086Z",
+  "level": 17,
+  "topic": "Advanced Trigonometry",
+  "questionType": 1,
+  "metadata": {
+    "level": 17,
+    "topic": "Advanced Trigonometry",
+    "questionType": 1,
+    "questionText": "\\sin^2\\theta + \\cos^2\\theta",
+    "instruction": "SIMPLIFY USING TRIG IDENTITY",
+    "correctAnswer": "1",
+    "distractors": [
+      "\\sin\\theta",
+      "\\cos\\theta",
+      "2"
+    ],
+    "allOptions": [
+      "sin⁡𝜃",
+      "1",
+      "2",
+      "cos⁡𝜃",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Fundamental identity: sin²θ + cos²θ = 1 for all θ. This is derived from the Pythagorean theorem on the unit circle."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Note:** While mathematically perfect, the difficulty level is extremely low for a topic labeled \"Advanced Trigonometry\" (Level 17). This is the most fundamental Pythagorean identity and is typically considered introductory trigonometry. However, as an entry-level question for a new module on identities, it is acceptable.",
+    "error": null
+  }
+}

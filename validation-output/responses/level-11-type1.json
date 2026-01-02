@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:57:22.424Z",
+  "level": 11,
+  "topic": "Quadratic Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 11,
+    "topic": "Quadratic Equations",
+    "questionType": 1,
+    "questionText": "x^2 -5x + 6 = 0",
+    "instruction": "WRITE DOWN THE SMALLER VALUE OF X",
+    "correctAnswer": "x = 2",
+    "distractors": [
+      "x = 3",
+      "x = -3",
+      "x = 5"
+    ],
+    "allOptions": [
+      "x = 3",
+      "x = 2",
+      "x = -3",
+      "x = 5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "This expression factorizes as (x - 3)(x - 2) = 0. Therefore x = 3 or x = 2. The smaller value is 2."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The quadratic equation $x^2 - 5x + 6 = 0$ factors to $(x-2)(x-3) = 0$. The roots are $x=2$ and $x=3$. The smaller value is indeed 2.\n- **Answer Accuracy:** The option marked as correct ($x=2$) is mathematically correct based on the specific instruction to find the \"smaller value\".\n- **Distractors:**\n  - $x=3$ is the other valid root (tests reading comprehension).\n  - $x=5$ is the sum of the roots ($-b/a$).\n  - $x=-3$ tests for sign errors in factoring.\n  These are all good, plausible distractors.\n- **Difficulty:** Appropriate for a basic check on solving quadratics without a calculator.",
+    "error": null
+  }
+}

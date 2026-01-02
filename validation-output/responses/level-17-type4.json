@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:04:30.815Z",
+  "level": 17,
+  "topic": "Advanced Trigonometry",
+  "questionType": 4,
+  "metadata": {
+    "level": 17,
+    "topic": "Advanced Trigonometry",
+    "questionType": 4,
+    "questionText": "\\sin(x) = 0.5 \\\\[0.5em] 0° \\leq x < 360°",
+    "instruction": "WRITE DOWN THE SMALLEST VALUE OF X",
+    "correctAnswer": "30°",
+    "distractors": [
+      "45°",
+      "60°",
+      "90°"
+    ],
+    "allOptions": [
+      "90°",
+      "45°",
+      "60°",
+      "30°",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "sin(30°) = 1/2 = 0.5. In the interval [0°, 360°), the solutions are x = 30° and x = 150°. The smallest value is 30°."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Assessment:**\nThe question is mathematically correct, clearly worded, and the answer key is accurate.\n\n*   **Correctness:** $\\sin(30^\\circ) = 0.5$. Since the domain is $0^\\circ \\leq x < 360^\\circ$, the solutions are $30^\\circ$ and $150^\\circ$. The question asks for the \"smallest value\", making $30^\\circ$ the unique correct answer.\n*   **Distractors:** The distractors ($45^\\circ, 60^\\circ, 90^\\circ$) are plausible common errors involving standard unit circle values (e.g., confusing sine and cosine, where $\\cos(60^\\circ) = 0.5$).\n*   **Notation:** The use of degree symbols and interval notation is correct and standard.\n\n**Minor Note on Difficulty:**\nWhile the question is valid, labeling $\\sin(x) = 0.5$ as \"Advanced Trigonometry\" (Level 17) might be slightly misleading depending on the app's scale. In most curricula (including IB), exact values are considered fundamental/introductory trigonometry skills rather than advanced. However, this does not affect the validity of the question itself.",
+    "error": null
+  }
+}

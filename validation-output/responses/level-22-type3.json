@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:09:36.008Z",
+  "level": 22,
+  "topic": "Statistics",
+  "questionType": 3,
+  "metadata": {
+    "level": 22,
+    "topic": "Statistics",
+    "questionType": 3,
+    "questionText": "\\text{Data: } 23, 12, 23, 26, 23",
+    "instruction": "FIND THE MODE",
+    "correctAnswer": "23",
+    "distractors": [
+      "12",
+      "26",
+      "\\text{no mode}"
+    ],
+    "allOptions": [
+      "23",
+      "12",
+      "no mode",
+      "26",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Mode is the most frequent value. 23 appears 3 times, more than any other value."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Analysis:**\n- **Mathematical Correctness:** The question asks for the mode of the dataset $\\{23, 12, 23, 26, 23\\}$. The number $23$ appears three times, while $12$ and $26$ appear once. Therefore, $23$ is the correct mode.\n- **Clarity:** The question is concise and unambiguous.\n- **Options:**\n  - The correct answer ($23$) is present and marked.\n  - The distractors ($12$, $26$, \"no mode\") are plausible errors (confusing mode with min/max or misunderstanding the concept).\n- **Difficulty:** Appropriate for a basic statistics check.",
+    "error": null
+  }
+}

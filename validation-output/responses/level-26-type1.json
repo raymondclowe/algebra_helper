@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:13:17.325Z",
+  "level": 26,
+  "topic": "Proof by Induction",
+  "questionType": 1,
+  "metadata": {
+    "level": 26,
+    "topic": "Proof by Induction",
+    "questionType": 1,
+    "questionText": "\\text{Given: } 1+2+\\cdots+k = \\frac{k(k+1)}{2}",
+    "instruction": "𝑊⁢ℎ⁡𝑎⁢𝑡⁢𝑖⁢𝑠⁢1 +2 +⋯ +𝑘 +(𝑘 +1)⁢𝑖⁢𝑛⁢𝑠⁢𝑖⁢𝑚⁢𝑝⁢𝑙⁢𝑖⁢𝑓⁡𝑖⁢𝑒⁢𝑑⁢𝑓⁡𝑜⁢𝑟⁢𝑚?",
+    "correctAnswer": "\\frac{(k+1)(k+2)}{2}",
+    "distractors": [
+      "\\frac{k(k+1)}{2} + k",
+      "\\frac{k(k+2)}{2}",
+      "\\frac{(k+1)^2}{2}"
+    ],
+    "allOptions": [
+      "𝑘⁢(𝑘+1)2 +𝑘",
+      "(𝑘+1)⁢(𝑘+2)2",
+      "(𝑘+1)22",
+      "𝑘⁢(𝑘+2)2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add (k+1) to both sides: k(k+1)/2 + (k+1) = (k+1)[k/2 + 1] = (k+1)(k+2)/2. This shows the formula holds for n = k+1."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**ISSUES FOUND**\n\nWhile the mathematics behind the question is correct, there is a significant formatting error in the question prompt that needs to be fixed.\n\n**1. Formatting/Display Issue:**\n*   **Problem:** The question text at the top is missing spaces between words. It currently reads:\n    *\"Whatis1+2+...+k+(k+1)insimplifiedform?\"*\n*   **Cause:** This usually happens in LaTeX when writing normal text inside a math environment without using `\\text{}` or proper spacing, or simply by omitting spaces in the string generation.\n*   **Fix:** Ensure spaces are included in the string. It should read:\n    *\"What is $1 + 2 + \\cdots + k + (k+1)$ in simplified form?\"*\n\n**2. Mathematical Verification (for confirmation):**\n*   **Logic:** The question asks for the inductive step.\n    $$ \\text{Sum} = \\left(\\sum_{i=1}^{k} i\\right) + (k+1) $$\n    $$ \\text{Sum} = \\frac{k(k+1)}{2} + (k+1) $$\n    $$ \\text{Sum} = (k+1)\\left(\\frac{k}{2} + 1\\right) $$\n    $$ \\text{Sum} = (k+1)\\left(\\frac{k+2}{2}\\right) = \\frac{(k+1)(k+2)}{2} $$\n*   **Correct Answer:** The option marked as correct (top right) is $\\frac{(k+1)(k+2)}{2}$, which is mathematically accurate.\n*   **Distractors:** The distractors are distinct and incorrect.\n\n**Summary:** The question is mathematically valid, but the **text formatting in the prompt must be corrected** to be legible and professional.",
+    "error": null
+  }
+}

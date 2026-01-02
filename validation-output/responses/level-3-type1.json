@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:50:07.616Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 1,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 1,
+    "questionText": "7 \\times 2",
+    "instruction": "CALCULATE",
+    "correctAnswer": "14",
+    "distractors": [
+      "21",
+      "12",
+      "9"
+    ],
+    "allOptions": [
+      "21",
+      "9",
+      "14",
+      "12",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "7 × 2 = 14. You can think of this as 7 groups of 2, or 2 groups of 7."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID",
+    "error": null
+  }
+}

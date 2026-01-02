@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:07:14.505Z",
+  "level": 20,
+  "topic": "Basic Differentiation",
+  "questionType": 2,
+  "metadata": {
+    "level": 20,
+    "topic": "Basic Differentiation",
+    "questionType": 2,
+    "questionText": "𝑓(x) = 3x^{2} + 5x^{3}",
+    "instruction": "FIND 𝑓'(X)",
+    "correctAnswer": "6x^{1} + 15x^{2}",
+    "distractors": [
+      "3x^{1} + 5x^{2}",
+      "21x^{3}",
+      "6x^{2} + 15x^{3}"
+    ],
+    "allOptions": [
+      "6⁢𝑥2 +15⁢𝑥3",
+      "3⁢𝑥1 +5⁢𝑥2",
+      "21⁢𝑥3",
+      "6⁢𝑥1 +15⁢𝑥2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Differentiate each term separately using the power rule. For 3x^2: 3×2x^1 = 6x^1. For 5x^3: 5×3x^2 = 15x^2."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct.\n\n*   **Function:** $f(x) = 3x^2 + 5x^3$\n*   **Derivative:** Using the power rule ($nx^{n-1}$), the derivative is $2 \\cdot 3x^{(2-1)} + 3 \\cdot 5x^{(3-1)} = 6x^1 + 15x^2$.\n*   **Correct Answer:** The option marked correct ($6x^1 + 15x^2$) matches the derivative perfectly.\n*   **Distractors:** The incorrect options represent common student errors (e.g., reducing the power without multiplying the coefficient, or multiplying the coefficient without reducing the power).\n\n**Note:** While writing $x^1$ is mathematically correct, standard convention usually simplifies this to just $x$ (i.e., $6x + 15x^2$). However, in a \"Basic Calculus\" context, keeping the exponent visible can be helpful for learning the pattern.",
+    "error": null
+  }
+}

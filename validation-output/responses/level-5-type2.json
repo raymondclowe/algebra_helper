@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T01:53:08.856Z",
+  "level": 5,
+  "topic": "Decimals & Percentages",
+  "questionType": 2,
+  "metadata": {
+    "level": 5,
+    "topic": "Decimals & Percentages",
+    "questionType": 2,
+    "questionText": "0.1",
+    "instruction": "CONVERT TO PERCENTAGE",
+    "correctAnswer": "10\\%",
+    "distractors": [
+      "0.1\\%",
+      "1\\%",
+      "100\\%"
+    ],
+    "allOptions": [
+      "10%",
+      "0.1%",
+      "100%",
+      "1%",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiply by 100: 0.1 × 100 = 10%."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct.\n- **Conversion:** $0.1 \\times 100\\% = 10\\%$.\n- **Correct Answer:** The selected option (10%) is correct.\n- **Distractors:** The distractors (0.1%, 1%, 100%) represent common student errors (forgetting to multiply by 100, place value errors, etc.) and are appropriate.\n- **Clarity:** The instruction is unambiguous.",
+    "error": null
+  }
+}

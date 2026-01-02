@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:02:55.276Z",
+  "level": 16,
+  "topic": "Basic Trigonometry",
+  "questionType": 2,
+  "metadata": {
+    "level": 16,
+    "topic": "Basic Trigonometry",
+    "questionType": 2,
+    "questionText": "\\cos(30°)",
+    "instruction": "FIND THE EXACT VALUE",
+    "correctAnswer": "\\frac{\\sqrt{3}}{2}",
+    "distractors": [
+      "\\frac{1}{2}",
+      "\\frac{1}{\\sqrt{3}}",
+      "0.5"
+    ],
+    "allOptions": [
+      "0.5",
+      "√32",
+      "1√3",
+      "12",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "cos(30°) = \\frac{\\sqrt{3}}{2}. Note that cos(θ) represents the x-coordinate on the unit circle."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\n**Note:** The distractors include both $0.5$ and $\\frac{1}{2}$. Since these are mathematically identical, a student could logically eliminate both options immediately (as there can't be two correct answers). Consider changing $0.5$ to a different value like $\\frac{\\sqrt{2}}{2}$ or $1$.",
+    "error": null
+  }
+}

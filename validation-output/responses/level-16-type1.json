@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-02T02:02:34.795Z",
+  "level": 16,
+  "topic": "Basic Trigonometry",
+  "questionType": 1,
+  "metadata": {
+    "level": 16,
+    "topic": "Basic Trigonometry",
+    "questionType": 1,
+    "questionText": "\\sin(30°)",
+    "instruction": "FIND THE EXACT VALUE",
+    "correctAnswer": "\\frac{1}{2}",
+    "distractors": [
+      "\\frac{\\sqrt{3}}{2}",
+      "\\frac{1}{\\sqrt{3}}",
+      "0.3333333333"
+    ],
+    "allOptions": [
+      "1√3",
+      "√32",
+      "12",
+      "0.3333333333",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "sin(30°) = \\frac{1}{2}. This is a standard result for special angles."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "VALID\n\nThe question is mathematically correct.\n\n*   **Question:** Find the exact value of $\\sin(30^\\circ)$.\n*   **Correct Answer:** $\\frac{1}{2}$ (The option highlighted is correct).\n*   **Distractors:**\n    *   $\\frac{\\sqrt{3}}{2}$: Common error (value of $\\cos(30^\\circ)$ or $\\sin(60^\\circ)$).\n    *   $\\frac{1}{\\sqrt{3}}$: Common error (value of $\\tan(30^\\circ)$).\n    *   $0.333...$: Plausible guess for a student who doesn't know the unit circle values.\n\n**Minor Suggestion:**\nSince the prompt asks for the \"EXACT VALUE\", the distractor `0.3333333333` is stylistically inconsistent with the other options. A better distractor might be another exact form like $\\frac{\\sqrt{2}}{2}$ (for $45^\\circ$) or $1$, to keep the format uniform. However, the current question is perfectly solvable and valid.",
+    "error": null
+  }
+}
