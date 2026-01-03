@@ -2,6 +2,17 @@
 window.TimeTrackingModal = {
     isOpen: false,
     
+    // Format minutes with encouraging text for sub-minute durations
+    formatMinutes: function(minutes) {
+        if (minutes < 0.5) {
+            return "30 seconds or less";
+        } else if (minutes < 1) {
+            return "almost a minute";
+        } else {
+            return Math.round(minutes) + " min";
+        }
+    },
+    
     // Create and inject modal HTML into the page
     init: function() {
         const modalHTML = `
@@ -22,7 +33,7 @@ window.TimeTrackingModal = {
                         <div class="bg-gradient-to-r from-green-900 to-blue-900 p-6 rounded-xl border-2 border-green-400 shadow-lg">
                             <div class="text-center">
                                 <div class="text-gray-300 text-sm uppercase mb-2">Today's Practice Time</div>
-                                <div id="today-total-time" class="text-5xl font-bold text-green-300">0 min</div>
+                                <div id="today-total-time" class="text-5xl font-bold text-green-300">30 seconds or less</div>
                                 <div id="today-motivational-message" class="text-gray-300 text-sm mt-3 italic">Let's get started! 🚀</div>
                             </div>
                             
@@ -37,7 +48,7 @@ window.TimeTrackingModal = {
                             <div class="flex justify-between items-center mb-4">
                                 <div>
                                     <div class="text-gray-400 text-sm uppercase">Yesterday's Practice</div>
-                                    <div id="yesterday-total-time" class="text-3xl font-bold text-blue-300">0 min</div>
+                                    <div id="yesterday-total-time" class="text-3xl font-bold text-blue-300">30 seconds or less</div>
                                 </div>
                                 <div id="trend-indicator" class="text-2xl">
                                     <!-- Trend arrow populated dynamically -->
@@ -119,8 +130,8 @@ window.TimeTrackingModal = {
     
     // Display today's time data
     displayTodayData: function(todayData) {
-        const totalMinutes = Math.round(todayData.total);
-        document.getElementById('today-total-time').textContent = totalMinutes + ' min';
+        const totalMinutes = todayData.total;
+        document.getElementById('today-total-time').textContent = this.formatMinutes(totalMinutes);
         
         // Display motivational message
         const message = this.getMotivationalMessage(totalMinutes);
@@ -136,7 +147,7 @@ window.TimeTrackingModal = {
                 .map(([topic, minutes]) => `
                     <div class="flex justify-between items-center bg-gray-800 p-3 rounded-lg">
                         <div class="text-gray-300 text-sm font-medium">${topic}</div>
-                        <div class="text-green-400 font-bold">${Math.round(minutes)} min</div>
+                        <div class="text-green-400 font-bold">${this.formatMinutes(minutes)}</div>
                     </div>
                 `).join('');
             breakdownDiv.innerHTML = topicsHTML;
@@ -145,8 +156,8 @@ window.TimeTrackingModal = {
     
     // Display yesterday's time data
     displayYesterdayData: function(yesterdayData) {
-        const totalMinutes = Math.round(yesterdayData.total);
-        document.getElementById('yesterday-total-time').textContent = totalMinutes + ' min';
+        const totalMinutes = yesterdayData.total;
+        document.getElementById('yesterday-total-time').textContent = this.formatMinutes(totalMinutes);
         
         // Display topic breakdown
         const breakdownDiv = document.getElementById('yesterday-topic-breakdown');
@@ -158,7 +169,7 @@ window.TimeTrackingModal = {
                 .map(([topic, minutes]) => `
                     <div class="flex justify-between items-center text-sm">
                         <div class="text-gray-400">${topic}</div>
-                        <div class="text-blue-300">${Math.round(minutes)} min</div>
+                        <div class="text-blue-300">${this.formatMinutes(minutes)}</div>
                     </div>
                 `).join('');
             breakdownDiv.innerHTML = topicsHTML;
@@ -205,14 +216,15 @@ window.TimeTrackingModal = {
         const barsHTML = trendData.map(day => {
             const heightPercent = (day.minutes / maxMinutes) * 100;
             const barHeight = Math.max(heightPercent, 5); // Minimum 5% height for visibility
+            const formattedMinutes = this.formatMinutes(day.minutes);
             
             return `
                 <div class="flex flex-col items-center">
-                    <div class="text-xs text-gray-400 mb-2 h-6 flex items-end">${day.minutes > 0 ? Math.round(day.minutes) + 'm' : ''}</div>
+                    <div class="text-xs text-gray-400 mb-2 h-6 flex items-end">${day.minutes > 0 ? formattedMinutes : ''}</div>
                     <div class="w-full bg-gray-700 rounded-t-lg relative" style="height: 120px;">
                         <div class="absolute bottom-0 w-full bg-gradient-to-t from-blue-600 to-blue-400 rounded-t-lg transition-all" 
                              style="height: ${barHeight}%"
-                             title="${day.shortDate}: ${Math.round(day.minutes)} minutes">
+                             title="${day.shortDate}: ${formattedMinutes}">
                         </div>
                     </div>
                     <div class="text-xs text-gray-500 mt-2">${day.shortDate}</div>
