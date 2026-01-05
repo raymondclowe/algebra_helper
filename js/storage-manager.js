@@ -9,6 +9,10 @@ window.StorageManager = {
     MIN_SESSION_DURATION_MINUTES: 2,
     MIN_CORRECT_RATE: 0.5, // 50%
     SESSION_GAP_MS: 30 * 60 * 1000, // 30 minutes in milliseconds
+    
+    // Attempt tracking constants
+    DEFAULT_ATTEMPT_NUMBER: 1, // Default for legacy records without attemptNumber
+    
     // Helper function for rounding to 1 decimal place
     roundToOneDecimal: function(value) {
         return Math.round(value * 10) / 10;
@@ -89,6 +93,9 @@ window.StorageManager = {
                 }
                 if (!record.eventHash) {
                     record.eventHash = self.generateEventHash(record);
+                }
+                if (!record.attemptNumber) {
+                    record.attemptNumber = self.DEFAULT_ATTEMPT_NUMBER; // Use constant for consistency
                 }
                 
                 // Update the record
@@ -446,6 +453,77 @@ window.StorageManager = {
                 working: 0,
                 total: 0,
                 topReviewTopics: []
+            };
+        }
+    },
+    
+    // Get attempt statistics (right first time, second try, etc.)
+    getAttemptStats: async function() {
+        try {
+            const questions = await this.getAllQuestions();
+            
+            const stats = {
+                rightFirstTime: 0,      // Correct on 1st attempt
+                rightSecondTry: 0,      // Correct on 2nd attempt
+                rightThirdOrMore: 0,    // Correct on 3rd+ attempt
+                dontKnow: 0,            // Clicked "I don't know"
+                wrongMultipleTimes: 0,  // Wrong on 2+ attempts
+                totalAnswered: 0
+            };
+            
+            questions.forEach(q => {
+                stats.totalAnswered++;
+                
+                if (q.isDontKnow) {
+                    stats.dontKnow++;
+                } else if (q.isCorrect) {
+                    const attemptNum = q.attemptNumber || this.DEFAULT_ATTEMPT_NUMBER;
+                    if (attemptNum === 1) {
+                        stats.rightFirstTime++;
+                    } else if (attemptNum === 2) {
+                        stats.rightSecondTry++;
+                    } else {
+                        stats.rightThirdOrMore++;
+                    }
+                } else {
+                    // Wrong answer
+                    const attemptNum = q.attemptNumber || this.DEFAULT_ATTEMPT_NUMBER;
+                    if (attemptNum >= 2) {
+                        stats.wrongMultipleTimes++;
+                    }
+                }
+            });
+            
+            // Calculate percentages
+            if (stats.totalAnswered > 0) {
+                stats.rightFirstTimePercent = Math.round((stats.rightFirstTime / stats.totalAnswered) * 100);
+                stats.rightSecondTryPercent = Math.round((stats.rightSecondTry / stats.totalAnswered) * 100);
+                stats.rightThirdOrMorePercent = Math.round((stats.rightThirdOrMore / stats.totalAnswered) * 100);
+                stats.dontKnowPercent = Math.round((stats.dontKnow / stats.totalAnswered) * 100);
+                stats.wrongMultipleTimesPercent = Math.round((stats.wrongMultipleTimes / stats.totalAnswered) * 100);
+            } else {
+                stats.rightFirstTimePercent = 0;
+                stats.rightSecondTryPercent = 0;
+                stats.rightThirdOrMorePercent = 0;
+                stats.dontKnowPercent = 0;
+                stats.wrongMultipleTimesPercent = 0;
+            }
+            
+            return stats;
+        } catch (error) {
+            console.error('Error getting attempt stats:', error);
+            return {
+                rightFirstTime: 0,
+                rightSecondTry: 0,
+                rightThirdOrMore: 0,
+                dontKnow: 0,
+                wrongMultipleTimes: 0,
+                totalAnswered: 0,
+                rightFirstTimePercent: 0,
+                rightSecondTryPercent: 0,
+                rightThirdOrMorePercent: 0,
+                dontKnowPercent: 0,
+                wrongMultipleTimesPercent: 0
             };
         }
     },

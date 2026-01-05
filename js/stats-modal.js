@@ -54,6 +54,45 @@ window.StatsModal = {
                             <div id="top-review-topics" class="space-y-2"></div>
                         </div>
                         
+                        <!-- Attempt Statistics -->
+                        <div id="attempt-stats-container" class="hidden">
+                            <h3 class="text-xl font-bold text-gray-300 mb-4 flex items-center gap-2">
+                                <span>🎲</span>
+                                <span>Answer Patterns</span>
+                            </h3>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                <div class="bg-green-900 bg-opacity-20 border border-green-600 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-green-400" id="attempt-right-first">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">✓ Right First Time</div>
+                                    <div class="text-xs text-green-300 mt-1" id="attempt-right-first-percent">0%</div>
+                                </div>
+                                <div class="bg-blue-900 bg-opacity-20 border border-blue-600 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-blue-400" id="attempt-right-second">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">✓ Right Second Try</div>
+                                    <div class="text-xs text-blue-300 mt-1" id="attempt-right-second-percent">0%</div>
+                                </div>
+                                <div class="bg-purple-900 bg-opacity-20 border border-purple-600 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-purple-400" id="attempt-right-third">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">✓ Right 3rd+ Try</div>
+                                    <div class="text-xs text-purple-300 mt-1" id="attempt-right-third-percent">0%</div>
+                                </div>
+                                <div class="bg-yellow-900 bg-opacity-20 border border-yellow-600 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-yellow-400" id="attempt-dont-know">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">? Don't Know</div>
+                                    <div class="text-xs text-yellow-300 mt-1" id="attempt-dont-know-percent">0%</div>
+                                </div>
+                                <div class="bg-red-900 bg-opacity-20 border border-red-600 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-red-400" id="attempt-wrong-multiple">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">✗ Wrong 2+ Times</div>
+                                    <div class="text-xs text-red-300 mt-1" id="attempt-wrong-multiple-percent">0%</div>
+                                </div>
+                                <div class="bg-gray-700 bg-opacity-50 border border-gray-600 p-4 rounded-lg">
+                                    <div class="text-2xl font-bold text-gray-300" id="attempt-total">0</div>
+                                    <div class="text-xs text-gray-400 mt-1">Total Questions</div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <!-- Topic Progress -->
                         <div>
                             <h3 class="text-xl font-bold text-gray-300 mb-4 flex items-center gap-2">
@@ -143,6 +182,10 @@ window.StatsModal = {
             // Get and display mastery summary
             const masterySummary = await window.StorageManager.getMasterySummary();
             this.displayMasterySummary(masterySummary);
+            
+            // Get and display attempt statistics
+            const attemptStats = await window.StorageManager.getAttemptStats();
+            this.displayAttemptStats(attemptStats);
             
         } catch (error) {
             console.error('Error loading stats:', error);
@@ -368,6 +411,38 @@ window.StatsModal = {
                 ${topicsHTML}
             `;
         }
+    },
+    
+    // Display attempt statistics
+    displayAttemptStats: function(stats) {
+        const container = document.getElementById('attempt-stats-container');
+        if (!container) return;
+        
+        // Only show if there's meaningful data
+        if (stats.totalAnswered === 0) {
+            container.classList.add('hidden');
+            return;
+        }
+        
+        container.classList.remove('hidden');
+        
+        // Update counts
+        document.getElementById('attempt-right-first').textContent = stats.rightFirstTime;
+        document.getElementById('attempt-right-first-percent').textContent = stats.rightFirstTimePercent + '%';
+        
+        document.getElementById('attempt-right-second').textContent = stats.rightSecondTry;
+        document.getElementById('attempt-right-second-percent').textContent = stats.rightSecondTryPercent + '%';
+        
+        document.getElementById('attempt-right-third').textContent = stats.rightThirdOrMore;
+        document.getElementById('attempt-right-third-percent').textContent = stats.rightThirdOrMorePercent + '%';
+        
+        document.getElementById('attempt-dont-know').textContent = stats.dontKnow;
+        document.getElementById('attempt-dont-know-percent').textContent = stats.dontKnowPercent + '%';
+        
+        document.getElementById('attempt-wrong-multiple').textContent = stats.wrongMultipleTimes;
+        document.getElementById('attempt-wrong-multiple-percent').textContent = stats.wrongMultipleTimesPercent + '%';
+        
+        document.getElementById('attempt-total').textContent = stats.totalAnswered;
     },
     
     // Clear all data with confirmation
