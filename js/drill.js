@@ -124,7 +124,8 @@ window.Learning = {
             return;
         }
         
-        // Increment attempt counter (track which attempt this is: 1st, 2nd, 3rd, etc.)
+        // Increment attempt counter before processing answer (0 -> 1 on first try, 1 -> 2 on retry, etc.)
+        // This ensures attemptNumber represents the actual attempt count (1 = first attempt, 2 = second, etc.)
         window.APP.currentQ.attemptNumber = (window.APP.currentQ.attemptNumber || 0) + 1;
         
         // Store the chosen answer for tracking

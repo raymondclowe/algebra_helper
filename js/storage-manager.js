@@ -9,6 +9,10 @@ window.StorageManager = {
     MIN_SESSION_DURATION_MINUTES: 2,
     MIN_CORRECT_RATE: 0.5, // 50%
     SESSION_GAP_MS: 30 * 60 * 1000, // 30 minutes in milliseconds
+    
+    // Attempt tracking constants
+    DEFAULT_ATTEMPT_NUMBER: 1, // Default for legacy records without attemptNumber
+    
     // Helper function for rounding to 1 decimal place
     roundToOneDecimal: function(value) {
         return Math.round(value * 10) / 10;
@@ -91,7 +95,7 @@ window.StorageManager = {
                     record.eventHash = self.generateEventHash(record);
                 }
                 if (!record.attemptNumber) {
-                    record.attemptNumber = 1; // Default to 1st attempt for old records
+                    record.attemptNumber = self.DEFAULT_ATTEMPT_NUMBER; // Use constant for consistency
                 }
                 
                 // Update the record
@@ -473,7 +477,7 @@ window.StorageManager = {
                 if (q.isDontKnow) {
                     stats.dontKnow++;
                 } else if (q.isCorrect) {
-                    const attemptNum = q.attemptNumber || 1;
+                    const attemptNum = q.attemptNumber || this.DEFAULT_ATTEMPT_NUMBER;
                     if (attemptNum === 1) {
                         stats.rightFirstTime++;
                     } else if (attemptNum === 2) {
@@ -483,7 +487,7 @@ window.StorageManager = {
                     }
                 } else {
                     // Wrong answer
-                    const attemptNum = q.attemptNumber || 1;
+                    const attemptNum = q.attemptNumber || this.DEFAULT_ATTEMPT_NUMBER;
                     if (attemptNum >= 2) {
                         stats.wrongMultipleTimes++;
                     }

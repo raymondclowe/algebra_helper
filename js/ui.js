@@ -85,7 +85,7 @@ window.UI = {
         window.APP.currentQ = window.Generator.getQuestion(window.APP.level);
         window.APP.startTime = Date.now();
         
-        // Initialize attempt tracking for this question
+        // Initialize attempt tracking for this question (0-based, will be incremented to 1 on first answer)
         window.APP.currentQ.attemptNumber = 0;
         
         // Update UI with question level for accurate display (after question generation)
