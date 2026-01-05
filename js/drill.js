@@ -124,6 +124,9 @@ window.Learning = {
             return;
         }
         
+        // Increment attempt counter (track which attempt this is: 1st, 2nd, 3rd, etc.)
+        window.APP.currentQ.attemptNumber = (window.APP.currentQ.attemptNumber || 0) + 1;
+        
         // Store the chosen answer for tracking
         window.APP.currentQ.chosenAnswer = chosenAnswer;
         
@@ -337,6 +340,7 @@ window.Learning = {
             datetime: Date.now(),
             isCorrect: isCorrect,
             isDontKnow: isDontKnow,
+            attemptNumber: window.APP.currentQ.attemptNumber || 1, // Track which attempt (1st, 2nd, etc.)
             topic: window.APP.currentQ.topic || 'Unknown',
             level: window.APP.currentQ.questionLevel || window.APP.level,
             hintsUsed: 0 // For future feature

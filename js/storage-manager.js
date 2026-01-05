@@ -90,6 +90,9 @@ window.StorageManager = {
                 if (!record.eventHash) {
                     record.eventHash = self.generateEventHash(record);
                 }
+                if (!record.attemptNumber) {
+                    record.attemptNumber = 1; // Default to 1st attempt for old records
+                }
                 
                 // Update the record
                 objectStore.put(record);
@@ -446,6 +449,77 @@ window.StorageManager = {
                 working: 0,
                 total: 0,
                 topReviewTopics: []
+            };
+        }
+    },
+    
+    // Get attempt statistics (right first time, second try, etc.)
+    getAttemptStats: async function() {
+        try {
+            const questions = await this.getAllQuestions();
+            
+            const stats = {
+                rightFirstTime: 0,      // Correct on 1st attempt
+                rightSecondTry: 0,      // Correct on 2nd attempt
+                rightThirdOrMore: 0,    // Correct on 3rd+ attempt
+                dontKnow: 0,            // Clicked "I don't know"
+                wrongMultipleTimes: 0,  // Wrong on 2+ attempts
+                totalAnswered: 0
+            };
+            
+            questions.forEach(q => {
+                stats.totalAnswered++;
+                
+                if (q.isDontKnow) {
+                    stats.dontKnow++;
+                } else if (q.isCorrect) {
+                    const attemptNum = q.attemptNumber || 1;
+                    if (attemptNum === 1) {
+                        stats.rightFirstTime++;
+                    } else if (attemptNum === 2) {
+                        stats.rightSecondTry++;
+                    } else {
+                        stats.rightThirdOrMore++;
+                    }
+                } else {
+                    // Wrong answer
+                    const attemptNum = q.attemptNumber || 1;
+                    if (attemptNum >= 2) {
+                        stats.wrongMultipleTimes++;
+                    }
+                }
+            });
+            
+            // Calculate percentages
+            if (stats.totalAnswered > 0) {
+                stats.rightFirstTimePercent = Math.round((stats.rightFirstTime / stats.totalAnswered) * 100);
+                stats.rightSecondTryPercent = Math.round((stats.rightSecondTry / stats.totalAnswered) * 100);
+                stats.rightThirdOrMorePercent = Math.round((stats.rightThirdOrMore / stats.totalAnswered) * 100);
+                stats.dontKnowPercent = Math.round((stats.dontKnow / stats.totalAnswered) * 100);
+                stats.wrongMultipleTimesPercent = Math.round((stats.wrongMultipleTimes / stats.totalAnswered) * 100);
+            } else {
+                stats.rightFirstTimePercent = 0;
+                stats.rightSecondTryPercent = 0;
+                stats.rightThirdOrMorePercent = 0;
+                stats.dontKnowPercent = 0;
+                stats.wrongMultipleTimesPercent = 0;
+            }
+            
+            return stats;
+        } catch (error) {
+            console.error('Error getting attempt stats:', error);
+            return {
+                rightFirstTime: 0,
+                rightSecondTry: 0,
+                rightThirdOrMore: 0,
+                dontKnow: 0,
+                wrongMultipleTimes: 0,
+                totalAnswered: 0,
+                rightFirstTimePercent: 0,
+                rightSecondTryPercent: 0,
+                rightThirdOrMorePercent: 0,
+                dontKnowPercent: 0,
+                wrongMultipleTimesPercent: 0
             };
         }
     },
