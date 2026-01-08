@@ -105,14 +105,30 @@ window.Generator = {
         
         const rand = Math.random() * 100;
         
-        if (rand < 1) {
+        // 10% chance to select from levels 5 to current level (with heavy weighting to 15-17)
+        // This ensures students see new diagram-style trig questions from levels 15-17
+        if (rand < 10 && currentLevel > 5) {
+            // Within this 10%, we want 50% to be levels 15-17 (resulting in 5% overall)
+            const selectSpecialLevels = Math.random() < 0.5;
+            
+            if (selectSpecialLevels && currentLevel >= 15) {
+                // Randomly select from levels 15, 16, or 17
+                const specialLevel = 15 + Math.floor(Math.random() * 3);
+                return Math.min(specialLevel, currentLevel);
+            } else {
+                // Select from range [5, currentLevel] with uniform distribution
+                const minLevel = 5;
+                const range = currentLevel - minLevel + 1;
+                return minLevel + Math.floor(Math.random() * range);
+            }
+        } else if (rand < 11) {
             const levelDrop = Math.min(4 + Math.floor(Math.random() * 2), currentLevel - 1);
             return Math.max(1, currentLevel - levelDrop);
-        } else if (rand < 3) {
+        } else if (rand < 13) {
             return Math.max(1, currentLevel - 3);
-        } else if (rand < 8) {
-            return Math.max(1, currentLevel - 2);
         } else if (rand < 18) {
+            return Math.max(1, currentLevel - 2);
+        } else if (rand < 28) {
             return Math.max(1, currentLevel - 1);
         } else {
             return currentLevel;
