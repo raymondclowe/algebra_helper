@@ -12,7 +12,8 @@ window.QuestionTemplates.FinancialApplications = {
             const principal = [1000, 2000, 5000, 10000][utils.rInt(0, 3)];
             const rate = [2, 3, 5, 8][utils.rInt(0, 3)];
             const years = utils.rInt(2, 5);
-            const multiplier = 1 + rate / 100;
+            const rateDecimal = rate / 100;
+            const multiplier = 1 + rateDecimal;
             const finalValue = Math.round(principal * Math.pow(multiplier, years));
             const correctAnswer = `\\$${finalValue}`;
             
@@ -37,7 +38,7 @@ window.QuestionTemplates.FinancialApplications = {
                 instruction: "Calculate final value",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
-                explanation: `Use the compound interest formula: A = P(1 + r)^n. Here, A = ${principal}(1 + ${rate/100})^${years} = ${principal}(${multiplier})^${years} = \\$${finalValue}. Note that compound interest means the interest is calculated on the accumulated amount each year.`,
+                explanation: `Use the compound interest formula: A = P(1 + r)^n. Here, A = ${principal}(1 + ${rateDecimal})^${years} = ${principal}(${multiplier})^${years} = \\$${finalValue}. Note that compound interest means the interest is calculated on the accumulated amount each year.`,
                 calc: true
             };
         } else if (questionType === 2) {

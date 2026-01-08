@@ -75,7 +75,7 @@ window.QuestionTemplates.QuadraticInequalities = {
             const root2 = utils.rInt(5, 8);
             const b = -(root1 + root2);
             const c = root1 * root2;
-            const bDisplay = b >= 0 ? `+ ${b}` : `- ${-b}`;
+            const bDisplay = b >= 0 ? `+ ${b}` : `- ${Math.abs(b)}`;
             // For x² + bx + c > 0, solution is x < root1 or x > root2
             const correctAnswer = `x < ${root1} \\text{ or } x > ${root2}`;
             

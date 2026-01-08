@@ -70,7 +70,7 @@ window.QuestionTemplates.Lines = {
             const c1 = utils.rInt(1, 8);
             const c2 = utils.rInt(1, 8);
             // Ensure c1 ≠ c2
-            const c2Adjusted = c1 === c2 ? c2 + 1 : c2;
+            const c2Final = c1 === c2 ? c2 + 1 : c2;
             const correctAnswer = `\\text{Yes, parallel}`;
             
             const wrongM = m + utils.rInt(1, 3);
@@ -89,11 +89,11 @@ window.QuestionTemplates.Lines = {
             );
             
             return {
-                tex: `\\text{Are the lines } y = ${m}x + ${c1} \\text{ and } y = ${m}x + ${c2Adjusted} \\text{ parallel?}`,
+                tex: `\\text{Are the lines } y = ${m}x + ${c1} \\text{ and } y = ${m}x + ${c2Final} \\text{ parallel?}`,
                 instruction: "Determine relationship",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
-                explanation: `Compare the gradients: both lines have gradient ${m}. Since the gradients are equal and the y-intercepts are different (${c1} ≠ ${c2Adjusted}), the lines are parallel.`,
+                explanation: `Compare the gradients: both lines have gradient ${m}. Since the gradients are equal and the y-intercepts are different (${c1} ≠ ${c2Final}), the lines are parallel.`,
                 calc: false
             };
         } else if (questionType === 4) {
