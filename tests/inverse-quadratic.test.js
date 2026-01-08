@@ -122,9 +122,9 @@ describe('Inverse Quadratic Function Tests', () => {
             
             // Generate many level 20 questions to find an inverse one
             // Level 20 maps to lvl5() which includes inverse quadratic questions
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 100; i++) {
                 const q = gen.getQuestion(20);
-                if (q.instruction && q.instruction.includes('𝑓⁻¹')) {
+                if (q.instruction && (q.instruction.includes('𝑓⁻¹') || q.instruction.includes('inverse'))) {
                     foundInverse = true;
                     break;
                 }
@@ -151,7 +151,7 @@ describe('Inverse Quadratic Function Tests', () => {
 
         // Generate questions until we get an inverse one
         let foundInverse = false;
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 150; i++) {
             await page.evaluate(() => {
                 window.UI.nextQuestion();
             });

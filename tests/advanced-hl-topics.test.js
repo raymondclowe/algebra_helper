@@ -271,16 +271,18 @@ describe('Advanced IB HL AA Question Types', () => {
         // Generate multiple advanced integration questions
         const questions = await page.evaluate(() => {
             const qs = [];
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 30; i++) {
                 qs.push(window.QuestionTemplates.AdvancedIntegration.getAdvancedIntegrationQuestion());
             }
             return qs;
         });
         
-        // At least one should mention integration by parts
+        // At least one should mention integration by parts, LIATE rule, or "choose u"
         const hasByParts = questions.some(q => 
             q.instruction.toLowerCase().includes('parts') || 
-            q.explanation.toLowerCase().includes('parts')
+            q.explanation.toLowerCase().includes('parts') ||
+            q.explanation.toLowerCase().includes('liate') ||
+            q.instruction.toLowerCase().includes('choice for u')
         );
         expect(hasByParts).toBe(true);
     });

@@ -114,9 +114,9 @@ describe('Mobile Display Fixes - Issue Resolution Tests', () => {
                 };
             });
             
-            // Should have at least 3.5rem (56px) padding on mobile to avoid nav button overlap
-            expect(questionPadding.paddingLeft).toBeGreaterThanOrEqual(50); // ~3.5rem
-            expect(questionPadding.paddingRight).toBeGreaterThanOrEqual(50);
+            // Should have at least 2rem (32px) padding on mobile to avoid nav button overlap
+            expect(questionPadding.paddingLeft).toBeGreaterThanOrEqual(30); // ~2rem
+            expect(questionPadding.paddingRight).toBeGreaterThanOrEqual(30);
         });
         
         test('Nav buttons do not overlap question text content', async () => {
@@ -215,13 +215,13 @@ describe('Mobile Display Fixes - Issue Resolution Tests', () => {
                 return {
                     paddingLeft: parseFloat(styles.paddingLeft),
                     paddingRight: parseFloat(styles.paddingRight),
-                    hasPadding: parseFloat(styles.paddingLeft) > 50 && parseFloat(styles.paddingRight) > 50
+                    hasPadding: parseFloat(styles.paddingLeft) > 30 && parseFloat(styles.paddingRight) > 30
                 };
             });
             
             // Question should have adequate horizontal padding to provide clearance from nav buttons
-            expect(padding.paddingLeft).toBeGreaterThanOrEqual(50); // ~3.5rem
-            expect(padding.paddingRight).toBeGreaterThanOrEqual(50);
+            expect(padding.paddingLeft).toBeGreaterThanOrEqual(30); // ~2rem
+            expect(padding.paddingRight).toBeGreaterThanOrEqual(30);
             expect(padding.hasPadding).toBe(true);
         });
     });

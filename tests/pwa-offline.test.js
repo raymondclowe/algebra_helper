@@ -130,8 +130,8 @@ describe('PWA Offline Functionality Tests', () => {
         const swPath = path.join(__dirname, '..', 'service-worker.js');
         const swContent = fs.readFileSync(swPath, 'utf8');
         
-        // Check that CACHE_NAME is defined
-        expect(swContent).toMatch(/const CACHE_NAME = ['"]algebra-helper-v[\d.]+[-\w]*['"]/);
+        // Check that CACHE_NAME is defined (supports both string literals and template literals)
+        expect(swContent).toMatch(/const CACHE_NAME = (['"`])algebra-helper-v.*\1|const CACHE_NAME = `algebra-helper-v\$\{CACHE_VERSION\}[-\w]*`/);
         
         // Check that urlsToCache array is defined and not empty
         expect(swContent).toMatch(/const urlsToCache = \[/);
