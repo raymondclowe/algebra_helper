@@ -693,22 +693,17 @@ window.GeneratorUtils = {
         
         // Pattern to match natural break points:
         // - Period followed by space and capital letter or \text{
-        // - Comma followed by space and capital letter or \text{
         // - Question mark followed by space
-        // - Exclamation mark followed by space
-        // But only within \text{} blocks to avoid breaking math formulas
+        // We replace ". " with ". \\[0.5em]" (keeping the space after period)
         
         let result = tex;
         
         // Match pattern: ". " followed by capital letter or \text{
-        // Match pattern: ", " followed by capital letter or \text{
-        // We need to be careful to only break within \text{} blocks
+        // Keep the space after the period, insert line break before next word
+        result = result.replace(/\.\s+(\\text\{|[A-Z])/g, '. \\\\[0.5em]$1');
         
-        // Simple approach: replace ". " with ".\\[0.5em]" if followed by \text{ or capital
-        result = result.replace(/\.\s+(\\text\{|[A-Z])/g, '.\\\\[0.5em]$1');
-        
-        // Replace "? " with "?\\[0.5em]" if followed by \text{ or capital
-        result = result.replace(/\?\s+(\\text\{|[A-Z])/g, '?\\\\[0.5em]$1');
+        // Replace "? " with "? \\[0.5em]" if followed by \text{ or capital
+        result = result.replace(/\?\s+(\\text\{|[A-Z])/g, '? \\\\[0.5em]$1');
         
         return result;
     }
