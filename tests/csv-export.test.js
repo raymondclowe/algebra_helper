@@ -46,8 +46,11 @@ describe('CSV Export for Google Sheets Integration', () => {
             });
         });
         
+        // Wait a bit to ensure evaluation completes
+        await wait(500);
+        
         // Reload to initialize fresh  
-        await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 });
+        await page.reload({ waitUntil: 'networkidle0', timeout: 30000 });
         
         // Wait for essential scripts to load after reload
         try {

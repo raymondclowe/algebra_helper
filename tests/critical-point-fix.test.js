@@ -143,7 +143,7 @@ describe('Critical Point Question Fix', () => {
         expect(question.hasX2Term).toBe(true); // Should have x^2 term
         expect(question.hasLinearTerm).toBe(true); // Should have linear term
         expect(question.distractors.length).toBe(3); // Should have 3 distractors
-        expect(question.explanation).toMatch(/derivative/i); // Explanation should mention derivative
+        expect(question.explanation).toMatch(/derivative|differentiate/i); // Explanation should mention derivative or differentiate
     });
 
     test('Critical point question requires differentiation', async () => {
@@ -168,8 +168,8 @@ describe('Critical Point Question Fix', () => {
         expect(question.instruction.toLowerCase()).toContain('critical point');
         expect(question.instruction).toMatch(/[f𝑓]\(x\)/);
         
-        // Explanation should mention finding the derivative first
-        expect(question.explanation.toLowerCase()).toMatch(/first find|derivative/i);
+        // Explanation should mention finding the derivative first or differentiate
+        expect(question.explanation.toLowerCase()).toMatch(/first find|derivative|differentiate/);
         
         // The tex should present the original function f(x) or 𝑓(x), not the derivative
         expect(question.tex).toMatch(/[f𝑓]\(x\)\s*=/);

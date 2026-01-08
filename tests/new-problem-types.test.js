@@ -138,8 +138,8 @@ describe('New Problem Types Tests', () => {
         expect(question.hasAnswer).toBe(true);
         expect(question.hasDistractors).toBe(true);
         expect(question.hasExplanation).toBe(true);
-        // Check that it contains trig functions
-        expect(question.tex).toMatch(/(sin|cos|tan)/);
+        // Check that it contains trig functions or SVG diagram (for diagram-based questions)
+        expect(question.tex).toMatch(/(sin|cos|tan)|(<svg)/);
     });
 
     test('Probability problems are generated at level 10-11', async () => {

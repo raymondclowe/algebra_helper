@@ -44,8 +44,11 @@ describe('Spaced Repetition Tracking Tests', () => {
             });
         });
         
+        // Wait for async operations to complete before reload
+        await wait(1000);
+        
         // Reload to initialize fresh
-        await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 });
+        await page.reload({ waitUntil: 'networkidle0', timeout: 30000 });
         
         // Wait for essential scripts after reload
         try {
