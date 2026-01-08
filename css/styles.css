@@ -848,9 +848,10 @@ Removed, not necessary in MathJax 4
         font-size: 0.75em !important; /* More aggressive reduction for small phones */
     }
     
+    /* Maintain navigation button clearance on small screens */
     #question-math {
-        padding-left: 2.5rem !important;
-        padding-right: 2.5rem !important;
+        padding-left: 3.5rem !important;
+        padding-right: 3.5rem !important;
     }
     
     #mc-options mjx-container {
@@ -864,9 +865,10 @@ Removed, not necessary in MathJax 4
         font-size: 0.65em !important;
     }
     
+    /* Maintain navigation button clearance even on very small screens */
     #question-math {
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
+        padding-left: 3.5rem !important;
+        padding-right: 3.5rem !important;
     }
 }
 

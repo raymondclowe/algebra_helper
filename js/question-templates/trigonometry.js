@@ -5,6 +5,23 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.Trigonometry = {
     getTrigonometry: function() {
         const utils = window.GeneratorUtils;
+        
+        // Check if diagram mode is forced via testing parameters
+        let shouldGenerateDiagram;
+        if (window.FORCED_DIAGRAM_MODE !== null && window.FORCED_DIAGRAM_MODE !== undefined) {
+            // Force diagram or text/formula based on URL parameter
+            shouldGenerateDiagram = window.FORCED_DIAGRAM_MODE;
+        } else {
+            // About 50% of the time, generate a diagram-based question instead
+            shouldGenerateDiagram = Math.random() < 0.5;
+        }
+        
+        if (shouldGenerateDiagram && window.QuestionTemplates.TrigDiagramGenerator) {
+            // Randomly choose calculator or non-calculator mode for diagram questions
+            const isCalc = Math.random() < 0.5;
+            return window.QuestionTemplates.TrigDiagramGenerator.getTrigDiagramQuestion(isCalc);
+        }
+        
         const questionType = utils.getQuestionType(1, 3);
                 
                 // Common angles in degrees and their trig values

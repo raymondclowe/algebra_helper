@@ -5,6 +5,7 @@ window.DEBUG_MODE = false;
 window.TESTING_MODE = false;
 window.FORCED_TEST_LEVEL = null;
 window.FORCED_QUESTION_TYPE = null; // Force specific question type within a level
+window.FORCED_DIAGRAM_MODE = null; // Force diagram (true) or text/formula (false) for trig questions
 
 window.DebugCheatCode = {
     // Configuration
@@ -26,12 +27,20 @@ window.DebugCheatCode = {
     },
     
     /**
-     * Check for testing mode URL parameters
+     * Check for testing mode URL parameters (bypasses calibration, name prompt, spaced repetition)
+     * 
      * ?testLevel=N - Forces questions to be generated at level N (1-34)
      * ?testType=M - Forces specific question type M within the level
      * ?testMode=true - Enables testing mode (skips calibration, shows level info)
+     * ?forceDiagram=true|false - For trig levels (15-17), force diagram (true) or text/formula (false)
+     * ?skipCalibration=true - Skip calibration and go straight to learning mode at current level
      * 
-     * Example: ?testLevel=4&testType=2 forces level 4 (Fractions) question type 2 (multiply fractions)
+     * Examples:
+     * - ?testLevel=4&testType=2 → Level 4 (Fractions), type 2 (multiply fractions)
+     * - ?testLevel=16&forceDiagram=true → Level 16 (Trigonometry) with diagram questions only
+     * - ?testLevel=16&forceDiagram=false → Level 16 (Trigonometry) with text/formula questions only
+     * - ?testLevel=17&forceDiagram=true → Level 17 (Advanced Trig) with diagram questions
+     * - ?skipCalibration=true → Jump straight to learning mode
      */
     checkTestingModeParams: function() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -39,6 +48,8 @@ window.DebugCheatCode = {
         const testLevel = urlParams.get('testLevel');
         const testType = urlParams.get('testType');
         const testMode = urlParams.get('testMode');
+        const forceDiagram = urlParams.get('forceDiagram');
+        const skipCalibration = urlParams.get('skipCalibration');
         
         if (testLevel !== null) {
             const level = parseInt(testLevel, 10);
@@ -48,20 +59,38 @@ window.DebugCheatCode = {
                 window.DEBUG_MODE = true;
                 this.debugModeActive = true;
                 
-                // Also check for forced question type
+                let logMessage = `🧪 Testing Mode: Forcing level ${level}`;
+                
+                // Check for forced question type
                 if (testType !== null) {
                     const qType = parseInt(testType, 10);
                     if (!isNaN(qType) && qType >= 1) {
                         window.FORCED_QUESTION_TYPE = qType;
-                        console.log(`🧪 Testing Mode: Forcing level ${level}, question type ${qType}`);
+                        logMessage += `, question type ${qType}`;
                     }
-                } else {
-                    console.log(`🧪 Testing Mode: Forcing level ${level}`);
                 }
                 
+                // Check for forced diagram mode (for trig questions)
+                if (forceDiagram !== null) {
+                    if (forceDiagram === 'true') {
+                        window.FORCED_DIAGRAM_MODE = true;
+                        logMessage += `, DIAGRAM ONLY`;
+                    } else if (forceDiagram === 'false') {
+                        window.FORCED_DIAGRAM_MODE = false;
+                        logMessage += `, TEXT/FORMULA ONLY`;
+                    }
+                }
+                
+                console.log(logMessage);
+                
                 // Show a testing mode indicator
-                this.showTestingModeIndicator(level, window.FORCED_QUESTION_TYPE);
+                this.showTestingModeIndicator(level, window.FORCED_QUESTION_TYPE, window.FORCED_DIAGRAM_MODE);
             }
+        } else if (skipCalibration === 'true') {
+            window.TESTING_MODE = true;
+            window.DEBUG_MODE = true;
+            this.debugModeActive = true;
+            console.log('🧪 Testing Mode: Skip calibration enabled');
         } else if (testMode === 'true') {
             window.TESTING_MODE = true;
             window.DEBUG_MODE = true;
@@ -73,7 +102,7 @@ window.DebugCheatCode = {
     /**
      * Show testing mode indicator in the UI
      */
-    showTestingModeIndicator: function(level, questionType) {
+    showTestingModeIndicator: function(level, questionType, diagramMode) {
         // Create and show a testing mode banner
         const indicator = document.createElement('div');
         indicator.id = 'testing-mode-indicator';
@@ -83,6 +112,9 @@ window.DebugCheatCode = {
         if (questionType !== null) {
             labelText += ` | Type: <strong>${questionType}</strong>`;
         }
+        if (diagramMode !== null) {
+            labelText += ` | <strong>${diagramMode ? '📐 DIAGRAM' : '📝 TEXT'}</strong>`;
+        }
         indicator.innerHTML = labelText;
         document.body.insertBefore(indicator, document.body.firstChild);
         
@@ -91,6 +123,9 @@ window.DebugCheatCode = {
         document.body.setAttribute('data-forced-level', level);
         if (questionType !== null) {
             document.body.setAttribute('data-forced-type', questionType);
+        }
+        if (diagramMode !== null) {
+            document.body.setAttribute('data-forced-diagram', diagramMode);
         }
     },
 
