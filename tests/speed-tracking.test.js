@@ -7,8 +7,11 @@ const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 describe('Speed Tracking Tests', () => {
     beforeEach(async () => {
-        await page.goto('http://localhost:8000/algebra-helper.html');
-        await page.waitForSelector('#question-math');
+        await page.goto('http://localhost:8000/algebra-helper.html', { 
+            waitUntil: 'networkidle0',
+            timeout: 30000
+        });
+        await page.waitForSelector('#question-math', { timeout: 15000 });
         await page.evaluate(() => {
             window.APP.mode = 'learning';
             window.APP.level = 5;

@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const baseUrl = process.env.TEST_URL || 'http://localhost:8000';
 
@@ -11,8 +12,18 @@ describe('Fraction Equivalence in Probability Questions', () => {
             headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
+    });
+
+    afterAll(async () => {
+        await browser.close();
+    });
+
+    beforeEach(async () => {
         page = await browser.newPage();
-        await page.goto(`${baseUrl}/algebra-helper.html`);
+        await page.goto(`${baseUrl}/algebra-helper.html`, { 
+            waitUntil: 'networkidle0',
+            timeout: 30000
+        });
         
         // Wait for the app to initialize
         await page.waitForFunction(() => {
@@ -20,8 +31,10 @@ describe('Fraction Equivalence in Probability Questions', () => {
         }, { timeout: 10000 });
     });
 
-    afterAll(async () => {
-        await browser.close();
+    afterEach(async () => {
+        if (page) {
+            await page.close();
+        }
     });
 
     test('parseFraction should correctly parse LaTeX fractions', async () => {

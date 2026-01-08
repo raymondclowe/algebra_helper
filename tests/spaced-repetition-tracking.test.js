@@ -44,8 +44,8 @@ describe('Spaced Repetition Tracking Tests', () => {
             });
         });
         
-        // Wait a bit to ensure evaluation completes
-        await wait(500);
+        // Wait for async operations to complete before reload
+        await wait(1000);
         
         // Reload to initialize fresh
         await page.reload({ waitUntil: 'networkidle0', timeout: 30000 });
