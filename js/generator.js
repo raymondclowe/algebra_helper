@@ -261,7 +261,14 @@ window.Generator = {
     
     // Delegate to question template modules
     lvl1: function() { return window.QuestionTemplates.BasicEquations.lvl1(); },
-    lvl2: function() { return window.QuestionTemplates.BasicEquations.lvl2(); },
+    lvl2: function() { 
+        // Mix basic equations and parallel/perpendicular lines (Level 6-7)
+        const questionType = this.rInt(1, 3);
+        if (questionType === 1 && window.QuestionTemplates.Lines) {
+            return window.QuestionTemplates.Lines.getParallelPerpendicularLines();
+        }
+        return window.QuestionTemplates.BasicEquations.lvl2(); 
+    },
     lvl3: function() { return window.QuestionTemplates.BasicEquations.lvl3(); },
     lvl4: function() { return window.QuestionTemplates.BasicEquations.lvl4(); },
     lvl5: function() { return window.QuestionTemplates.BasicEquations.lvl5(); },
@@ -276,10 +283,24 @@ window.Generator = {
     getFractions: function() { return window.QuestionTemplates.Fractions.getFractions(); },
     getDecimalsPercentages: function() { return window.QuestionTemplates.DecimalsPercentages.getDecimalsPercentages(); },
     getInequalities: function() { return window.QuestionTemplates.Inequalities.getInequalities(); },
-    getQuadratics: function() { return window.QuestionTemplates.Quadratics.getQuadratics(); },
+    getQuadratics: function() { 
+        // Mix quadratics and quadratic inequalities (Level 10-11)
+        const questionType = this.rInt(1, 4);
+        if (questionType === 1 && window.QuestionTemplates.QuadraticInequalities) {
+            return window.QuestionTemplates.QuadraticInequalities.getQuadraticInequalities();
+        }
+        return window.QuestionTemplates.Quadratics.getQuadratics(); 
+    },
     getPolynomials: function() { return window.QuestionTemplates.Polynomials.getPolynomials(); },
     getExponentialsLogs: function() { return window.QuestionTemplates.ExponentialsLogs.getExponentialsLogs(); },
-    getSequencesSeries: function() { return window.QuestionTemplates.SequencesSeries.getSequencesSeries(); },
+    getSequencesSeries: function() { 
+        // Mix sequences/series and financial applications (Level 13-14)
+        const questionType = this.rInt(1, 3);
+        if (questionType === 1 && window.QuestionTemplates.FinancialApplications) {
+            return window.QuestionTemplates.FinancialApplications.getFinancialApplications();
+        }
+        return window.QuestionTemplates.SequencesSeries.getSequencesSeries(); 
+    },
     getAdvancedTrig: function() { return window.QuestionTemplates.AdvancedTrig.getAdvancedTrig(); },
     getVectors: function() { return window.QuestionTemplates.Vectors.getVectors(); },
     getComplexNumbers: function() { return window.QuestionTemplates.ComplexNumbers.getComplexNumbers(); },
