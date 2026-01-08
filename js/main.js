@@ -29,15 +29,28 @@ window.APP.init = async function() {
         // Initialize scroll indicator behavior
         window.UI.initScrollIndicator();
         
+        // Check if testing mode should bypass calibration
+        if (window.TESTING_MODE && window.FORCED_TEST_LEVEL) {
+            // Skip calibration, go directly to learning mode at specified level
+            window.APP.mode = 'learning';
+            window.APP.level = window.FORCED_TEST_LEVEL;
+            window.APP.cMin = window.FORCED_TEST_LEVEL;
+            window.APP.cMax = window.FORCED_TEST_LEVEL;
+            
+            console.log(`🧪 Testing Mode: Bypassing calibration, starting at level ${window.FORCED_TEST_LEVEL}`);
+        }
+        
         // Start first question
         window.UI.nextQuestion();
         
-        // Check if we need to prompt for student name (after UI is ready)
-        setTimeout(() => {
-            if (window.NameModal) {
-                window.NameModal.checkAndPromptForName();
-            }
-        }, 500);
+        // Check if we need to prompt for student name (skip in testing mode)
+        if (!window.TESTING_MODE) {
+            setTimeout(() => {
+                if (window.NameModal) {
+                    window.NameModal.checkAndPromptForName();
+                }
+            }, 500);
+        }
     } else {
         setTimeout(() => this.init(), 100);
     }

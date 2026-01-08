@@ -6,8 +6,17 @@ window.QuestionTemplates.Trigonometry = {
     getTrigonometry: function() {
         const utils = window.GeneratorUtils;
         
-        // About 50% of the time, generate a diagram-based question instead
-        if (Math.random() < 0.5 && window.QuestionTemplates.TrigDiagramGenerator) {
+        // Check if diagram mode is forced via testing parameters
+        let shouldGenerateDiagram;
+        if (window.FORCED_DIAGRAM_MODE !== null && window.FORCED_DIAGRAM_MODE !== undefined) {
+            // Force diagram or text/formula based on URL parameter
+            shouldGenerateDiagram = window.FORCED_DIAGRAM_MODE;
+        } else {
+            // About 50% of the time, generate a diagram-based question instead
+            shouldGenerateDiagram = Math.random() < 0.5;
+        }
+        
+        if (shouldGenerateDiagram && window.QuestionTemplates.TrigDiagramGenerator) {
             // Randomly choose calculator or non-calculator mode for diagram questions
             const isCalc = Math.random() < 0.5;
             return window.QuestionTemplates.TrigDiagramGenerator.getTrigDiagramQuestion(isCalc);

@@ -6,9 +6,18 @@ window.QuestionTemplates.AdvancedTrig = {
     getAdvancedTrig: function() {
         const utils = window.GeneratorUtils;
         
-        // About 50% of the time, generate a diagram-based question instead
+        // Check if diagram mode is forced via testing parameters
+        let shouldGenerateDiagram;
+        if (window.FORCED_DIAGRAM_MODE !== null && window.FORCED_DIAGRAM_MODE !== undefined) {
+            // Force diagram or text/formula based on URL parameter
+            shouldGenerateDiagram = window.FORCED_DIAGRAM_MODE;
+        } else {
+            // About 50% of the time, generate a diagram-based question instead
+            shouldGenerateDiagram = Math.random() < 0.5;
+        }
+        
         // Advanced trig typically uses calculator mode more often (70% calc, 30% non-calc)
-        if (Math.random() < 0.5 && window.QuestionTemplates.TrigDiagramGenerator) {
+        if (shouldGenerateDiagram && window.QuestionTemplates.TrigDiagramGenerator) {
             const isCalc = Math.random() < 0.7; // 70% calculator mode for advanced
             return window.QuestionTemplates.TrigDiagramGenerator.getTrigDiagramQuestion(isCalc);
         }
