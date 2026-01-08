@@ -105,14 +105,38 @@ window.Generator = {
         
         const rand = Math.random() * 100;
         
-        if (rand < 1) {
+        // Probability thresholds for spaced repetition
+        const SPECIAL_LEVEL_PROB = 10;      // 10% chance for levels 15-17 trig emphasis
+        const DEEP_DROP_PROB = 11;           // +1% for deep level drops (4-5 levels)
+        const MID_DROP_PROB = 13;            // +2% for medium drops (3 levels)
+        const SMALL_DROP_PROB = 18;          // +5% for small drops (2 levels)
+        const ADJACENT_DROP_PROB = 28;       // +10% for adjacent level (1 level)
+        // Remaining 72% stay at current level
+        
+        // 10% chance to select from levels 5 to current level (with heavy weighting to 15-17)
+        // This ensures students see new diagram-style trig questions from levels 15-17
+        if (rand < SPECIAL_LEVEL_PROB && currentLevel > 5) {
+            // Within this 10%, we want 50% to be levels 15-17 (resulting in 5% overall)
+            const selectSpecialLevels = Math.random() < 0.5;
+            
+            if (selectSpecialLevels && currentLevel >= 15) {
+                // Randomly select from levels 15, 16, or 17
+                const specialLevel = 15 + Math.floor(Math.random() * 3);
+                return Math.min(specialLevel, currentLevel);
+            } else {
+                // Select from range [5, currentLevel] with uniform distribution
+                const minLevel = 5;
+                const range = currentLevel - minLevel + 1;
+                return minLevel + Math.floor(Math.random() * range);
+            }
+        } else if (rand < DEEP_DROP_PROB) {
             const levelDrop = Math.min(4 + Math.floor(Math.random() * 2), currentLevel - 1);
             return Math.max(1, currentLevel - levelDrop);
-        } else if (rand < 3) {
+        } else if (rand < MID_DROP_PROB) {
             return Math.max(1, currentLevel - 3);
-        } else if (rand < 8) {
+        } else if (rand < SMALL_DROP_PROB) {
             return Math.max(1, currentLevel - 2);
-        } else if (rand < 18) {
+        } else if (rand < ADJACENT_DROP_PROB) {
             return Math.max(1, currentLevel - 1);
         } else {
             return currentLevel;

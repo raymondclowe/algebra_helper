@@ -64,17 +64,18 @@ describe('Spaced Repetition Tests', () => {
 
         const total = Object.values(results).reduce((a, b) => a + b, 0);
         
-        // Check that level 8 (current) appears most frequently (~82%)
-        expect(results[8] / total).toBeGreaterThan(0.75);
-        expect(results[8] / total).toBeLessThan(0.90);
+        // Check that level 8 (current) appears most frequently
+        // Previously ~82%, now ~72% due to 10% going to special lower levels (5-8 range)
+        expect(results[8] / total).toBeGreaterThan(0.65);
+        expect(results[8] / total).toBeLessThan(0.80);
         
         // Check that lower levels appear
         expect(results[7]).toBeGreaterThan(0); // Level 7 should appear ~10%
         expect(results[6]).toBeGreaterThan(0); // Level 6 should appear ~5%
         
-        // Check approximate distributions
+        // Check approximate distributions (adjusted for new logic)
         expect(results[7] / total).toBeGreaterThan(0.05);
-        expect(results[7] / total).toBeLessThan(0.15);
+        expect(results[7] / total).toBeLessThan(0.20);
     });
 
     test('Questions are tagged with questionLevel property', async () => {
@@ -304,18 +305,18 @@ describe('Spaced Repetition Tests', () => {
 
         const total = Object.values(distribution).reduce((a, b) => a + b, 0);
         
-        // Verify logarithmic distribution
-        // Most questions should be at current level (7)
-        // Lowered threshold slightly to account for random variance
-        expect(distribution[7] / total).toBeGreaterThan(0.68);
+        // Verify logarithmic distribution with new level 5-17 weighting
+        // Most questions should be at current level (7), but reduced due to new special level logic
+        // Previously ~82%, now ~72% due to 10% going to special lower levels
+        expect(distribution[7] / total).toBeGreaterThan(0.60);
         
-        // Lower levels should appear with decreasing frequency
-        // Note: These thresholds account for random variance in distribution
+        // Lower levels should appear, accounting for new distribution logic
+        // With the new logic adding 10% for level 5-7 range, thresholds need adjustment
         if (distribution[6]) {
-            expect(distribution[6] / total).toBeLessThanOrEqual(0.16);
+            expect(distribution[6] / total).toBeLessThanOrEqual(0.25);
         }
         if (distribution[5]) {
-            expect(distribution[5] / total).toBeLessThanOrEqual(0.09);
+            expect(distribution[5] / total).toBeLessThanOrEqual(0.15);
         }
     });
 
