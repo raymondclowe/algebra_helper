@@ -5,6 +5,14 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.Trigonometry = {
     getTrigonometry: function() {
         const utils = window.GeneratorUtils;
+        
+        // About 50% of the time, generate a diagram-based question instead
+        if (Math.random() < 0.5 && window.QuestionTemplates.TrigDiagramGenerator) {
+            // Randomly choose calculator or non-calculator mode for diagram questions
+            const isCalc = Math.random() < 0.5;
+            return window.QuestionTemplates.TrigDiagramGenerator.getTrigDiagramQuestion(isCalc);
+        }
+        
         const questionType = utils.getQuestionType(1, 3);
                 
                 // Common angles in degrees and their trig values

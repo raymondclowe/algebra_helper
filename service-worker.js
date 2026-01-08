@@ -63,6 +63,7 @@ const urlsToCache = [
   './js/question-templates/sequences-series.js',
   './js/question-templates/squares-roots.js',
   './js/question-templates/statistics.js',
+  './js/question-templates/trig-diagram-generator.js',
   './js/question-templates/trigonometry.js',
   './js/question-templates/vectors-3d.js',
   './js/question-templates/vectors.js',

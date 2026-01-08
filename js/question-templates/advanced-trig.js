@@ -5,6 +5,14 @@ window.QuestionTemplates = window.QuestionTemplates || {};
 window.QuestionTemplates.AdvancedTrig = {
     getAdvancedTrig: function() {
         const utils = window.GeneratorUtils;
+        
+        // About 50% of the time, generate a diagram-based question instead
+        // Advanced trig typically uses calculator mode more often (70% calc, 30% non-calc)
+        if (Math.random() < 0.5 && window.QuestionTemplates.TrigDiagramGenerator) {
+            const isCalc = Math.random() < 0.7; // 70% calculator mode for advanced
+            return window.QuestionTemplates.TrigDiagramGenerator.getTrigDiagramQuestion(isCalc);
+        }
+        
         const questionType = utils.getQuestionType(1, 4);
                 
                 if (questionType === 1) {
