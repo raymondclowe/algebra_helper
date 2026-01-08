@@ -1,8 +1,25 @@
 // Topic Definitions - Maps levels to curriculum topics
 // Based on IB Math HL AA curriculum coverage
+// 
+// ⚠️ DATA INTEGRITY WARNING ⚠️
+// The level-to-topic mappings below are PROTECTED and must remain stable.
+// Student data is stored with level numbers and topic names.
+// 
+// DO NOT:
+// - Renumber existing levels (breaks historical data)
+// - Rename topics (makes historical stats unmatchable)
+// - Remove level ranges (orphans historical data)
+// 
+// SAFE TO DO:
+// - Add new levels at the end (35, 36, etc.)
+// - Add new question types within existing levels
+// - Add display name mappings for UI (without changing stored names)
+// 
+// See AGENTS.md for detailed guidelines on preserving student data.
 
 window.TopicDefinitions = {
     // Map level bands to topic names
+    // ⚠️ These mappings are stored in student data - do not change without migration
     getTopicForLevel: function(level) {
         const band = Math.round(level);
         

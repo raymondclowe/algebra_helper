@@ -1,8 +1,23 @@
 // Storage Manager - Handles data persistence with IndexedDB and localStorage
+// 
+// ⚠️ DATA INTEGRITY WARNING ⚠️
+// Changes to this file can affect student data that has been collected over time.
+// Before making changes, read AGENTS.md and DATA_MODEL.md to understand:
+// - Schema versioning and migration requirements
+// - Protected data structures (level numbers, topic names)
+// - Backward compatibility constraints
+//
+// Key principle: Student data is irreplaceable - preserve it at all costs.
+//
 window.StorageManager = {
     db: null,
     DB_NAME: 'AlgebraHelperDB',
-    DB_VERSION: 2, // Upgraded to support enhanced question tracking
+    
+    // ⚠️ INCREMENT THIS when changing the schema (add fields, indexes, etc.)
+    // When incrementing, add migration logic in onupgradeneeded event handler
+    // See DATA_MODEL.md for migration guidelines
+    DB_VERSION: 2, // Current: v2 adds eventHash, allAnswers, chosenAnswer, hintsUsed, attemptNumber
+    
     STORE_NAME: 'questions',
     
     // Session export filtering constants
@@ -75,13 +90,19 @@ window.StorageManager = {
     },
     
     // Migrate existing data to add missing fields
+    // ⚠️ CRITICAL: This function preserves backward compatibility with old data
+    // When adding new fields, always provide sensible defaults here
+    // DO NOT remove or rename existing fields - only add new ones
+    // See AGENTS.md for migration guidelines
     migrateExistingData: function(objectStore) {
         const self = this; // Capture reference to StorageManager
         const getAllRequest = objectStore.getAll();
         getAllRequest.onsuccess = () => {
             const records = getAllRequest.result;
+            console.log(`Migrating ${records.length} existing records to DB version ${self.DB_VERSION}`);
             records.forEach(record => {
                 // Add missing fields with default values
+                // These defaults ensure v1 data works with v2+ schema
                 if (!record.allAnswers) {
                     record.allAnswers = [record.correctAnswer]; // Only have correct answer from old schema
                 }
@@ -98,9 +119,10 @@ window.StorageManager = {
                     record.attemptNumber = self.DEFAULT_ATTEMPT_NUMBER; // Use constant for consistency
                 }
                 
-                // Update the record
+                // Update the record in the database
                 objectStore.put(record);
             });
+            console.log('Migration complete');
         };
     },
     

@@ -330,6 +330,15 @@ The deployment workflow:
 
 To deploy to other static hosting services (Netlify, Vercel, etc.), simply upload the HTML files—no build step required!
 
+### Data Model and Integrity
+
+Student data is stored locally using IndexedDB and localStorage. See comprehensive documentation:
+
+- **[DATA_MODEL.md](DATA_MODEL.md)** - Complete data structure documentation, schema versions, and migration guidelines
+- **[AGENTS.md](AGENTS.md)** - Guidelines for AI agents and developers on preserving student data integrity
+
+**Key principle**: Student data is irreplaceable. All changes to data structures, level mappings, or topic names must maintain backward compatibility.
+
 ### Contributing
 
 This is an open-source educational tool. Contributions welcome! Some ideas:
