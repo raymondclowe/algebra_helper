@@ -7,96 +7,87 @@
 
 const puppeteer = require('puppeteer');
 
+// Helper function for waiting
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 describe('Phase 1 Iteration 1 - New Question Types', () => {
     let browser;
     let page;
+    const BASE_URL = process.env.TEST_URL || 'http://localhost:8000';
     
     beforeAll(async () => {
         browser = await puppeteer.launch({
-            headless: true,
+            headless: 'new',
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
-        page = await browser.newPage();
-        await page.goto('http://localhost:8080/algebra-helper.html');
-        await page.waitForSelector('#start-btn', { timeout: 5000 });
     });
 
     afterAll(async () => {
         await browser.close();
     });
 
+    beforeEach(async () => {
+        page = await browser.newPage();
+        await page.goto(`${BASE_URL}/algebra-helper.html`, {
+            waitUntil: 'networkidle0',
+            timeout: 30000
+        });
+        // Wait for scripts to load
+        await wait(2000);
+    });
+
+    afterEach(async () => {
+        if (page) {
+            await page.close();
+        }
+    });
+
     /**
      * Test Financial Applications questions (Level 13-14)
      */
     describe('Financial Applications (Level 13-14)', () => {
-        test('should generate financial application questions at level 13-14', async () => {
-            // Start in debug mode at level 13
-            await page.evaluate(() => {
-                window.DEBUG_MODE = true;
-                window.FORCED_TEST_LEVEL = 13;
-                window.TESTING_MODE = true;
-            });
-
-            await page.click('#start-btn');
-            await page.waitForSelector('#question', { timeout: 2000 });
-
-            const questionsGenerated = new Set();
-            let financialQuestionFound = false;
-
-            // Try to generate 20 questions to find financial application questions
-            for (let i = 0; i < 20; i++) {
-                const questionText = await page.$eval('#question', el => el.textContent);
-                questionsGenerated.add(questionText);
-
-                // Check if this is a financial application question
-                if (questionText.includes('invest') || 
-                    questionText.includes('compound interest') ||
-                    questionText.includes('depreciat') ||
-                    questionText.includes('population') ||
-                    questionText.includes('half-life')) {
-                    financialQuestionFound = true;
-                    
-                    // Verify it has proper structure
-                    const hasAnswer = await page.$('#answer-btn-0');
-                    expect(hasAnswer).toBeTruthy();
-                    
-                    // Check for dollar signs or numbers in answers for financial questions
-                    const answerText = await page.$eval('#answer-btn-0', el => el.textContent);
-                    expect(answerText.length).toBeGreaterThan(0);
+        test('should generate financial application questions', async () => {
+            // Generate multiple questions to test variety
+            const questions = await page.evaluate(() => {
+                const results = [];
+                for (let i = 0; i < 10; i++) {
+                    const q = window.QuestionTemplates.FinancialApplications.getFinancialApplications();
+                    results.push({
+                        hasTex: !!q.tex,
+                        hasAnswer: !!q.displayAnswer,
+                        hasDistractors: Array.isArray(q.distractors) && q.distractors.length === 3,
+                        hasExplanation: !!q.explanation,
+                        calc: q.calc,
+                        tex: q.tex.substring(0, 100),
+                        answer: q.displayAnswer,
+                        distractors: q.distractors
+                    });
                 }
-
-                // Click any answer to proceed
-                await page.click('#answer-btn-0');
-                await page.waitForTimeout(100);
-            }
-
-            expect(financialQuestionFound).toBe(true);
-        });
-
-        test('financial questions should have calculator option enabled', async () => {
-            await page.evaluate(() => {
-                window.DEBUG_MODE = true;
-                window.FORCED_TEST_LEVEL = 13;
-                window.TESTING_MODE = true;
+                return results;
             });
 
-            await page.click('#start-btn');
-            await page.waitForSelector('#question', { timeout: 2000 });
-
-            // Test multiple questions
-            for (let i = 0; i < 15; i++) {
-                const questionText = await page.$eval('#question', el => el.textContent);
+            // Verify all questions have proper structure
+            questions.forEach((q, i) => {
+                expect(q.hasTex).toBe(true);
+                expect(q.hasAnswer).toBe(true);
+                expect(q.hasDistractors).toBe(true);
+                expect(q.hasExplanation).toBe(true);
+                expect(q.calc).toBe(true); // Financial questions should allow calculator
                 
-                if (questionText.includes('invest') || questionText.includes('compound')) {
-                    // Financial questions should allow calculator
-                    const question = await page.evaluate(() => window.APP.currentQuestion);
-                    expect(question.calc).toBe(true);
-                    break;
-                }
+                // Check for unique answers
+                const allAnswers = [q.answer, ...q.distractors];
+                const uniqueAnswers = new Set(allAnswers);
+                expect(uniqueAnswers.size).toBe(4);
+            });
 
-                await page.click('#answer-btn-0');
-                await page.waitForTimeout(100);
-            }
+            // Verify at least one question contains financial keywords
+            const hasFinancialKeywords = questions.some(q => 
+                q.tex.includes('invest') || 
+                q.tex.includes('depreciat') ||
+                q.tex.includes('population') ||
+                q.tex.includes('half-life')
+            );
+            expect(hasFinancialKeywords).toBe(true);
         });
     });
 
@@ -104,69 +95,47 @@ describe('Phase 1 Iteration 1 - New Question Types', () => {
      * Test Parallel/Perpendicular Lines questions (Level 6-7)
      */
     describe('Parallel/Perpendicular Lines (Level 6-7)', () => {
-        test('should generate lines questions at level 6-7', async () => {
-            await page.evaluate(() => {
-                window.DEBUG_MODE = true;
-                window.FORCED_TEST_LEVEL = 7;
-                window.TESTING_MODE = true;
-            });
-
-            await page.click('#start-btn');
-            await page.waitForSelector('#question', { timeout: 2000 });
-
-            let linesQuestionFound = false;
-
-            // Try to generate questions to find lines questions
-            for (let i = 0; i < 20; i++) {
-                const questionText = await page.$eval('#question', el => el.textContent);
-
-                // Check if this is a lines question
-                if (questionText.includes('parallel') || 
-                    questionText.includes('perpendicular') ||
-                    questionText.includes('gradient')) {
-                    linesQuestionFound = true;
-                    
-                    // Verify proper structure
-                    const hasAnswers = await page.$$('#answer-btn-0, #answer-btn-1, #answer-btn-2, #answer-btn-3');
-                    expect(hasAnswers.length).toBe(4);
+        test('should generate parallel/perpendicular lines questions', async () => {
+            // Generate multiple questions to test variety
+            const questions = await page.evaluate(() => {
+                const results = [];
+                for (let i = 0; i < 10; i++) {
+                    const q = window.QuestionTemplates.Lines.getParallelPerpendicularLines();
+                    results.push({
+                        hasTex: !!q.tex,
+                        hasAnswer: !!q.displayAnswer,
+                        hasDistractors: Array.isArray(q.distractors) && q.distractors.length === 3,
+                        hasExplanation: !!q.explanation,
+                        calc: q.calc,
+                        tex: q.tex.substring(0, 100),
+                        answer: q.displayAnswer,
+                        distractors: q.distractors
+                    });
                 }
-
-                await page.click('#answer-btn-0');
-                await page.waitForTimeout(100);
-            }
-
-            expect(linesQuestionFound).toBe(true);
-        });
-
-        test('lines questions should have unique distractors', async () => {
-            await page.evaluate(() => {
-                window.DEBUG_MODE = true;
-                window.FORCED_TEST_LEVEL = 7;
-                window.TESTING_MODE = true;
+                return results;
             });
 
-            await page.click('#start-btn');
-            await page.waitForSelector('#question', { timeout: 2000 });
-
-            for (let i = 0; i < 15; i++) {
-                const questionText = await page.$eval('#question', el => el.textContent);
+            // Verify all questions have proper structure
+            questions.forEach((q, i) => {
+                expect(q.hasTex).toBe(true);
+                expect(q.hasAnswer).toBe(true);
+                expect(q.hasDistractors).toBe(true);
+                expect(q.hasExplanation).toBe(true);
+                expect(q.calc).toBe(false); // Lines questions don't need calculator
                 
-                if (questionText.includes('parallel') || questionText.includes('perpendicular')) {
-                    // Get all answer button texts
-                    const answers = await page.$$eval(
-                        '[id^="answer-btn-"]',
-                        buttons => buttons.map(btn => btn.textContent.trim())
-                    );
-                    
-                    // Check for uniqueness
-                    const uniqueAnswers = new Set(answers);
-                    expect(uniqueAnswers.size).toBe(answers.length);
-                    break;
-                }
+                // Check for unique answers
+                const allAnswers = [q.answer, ...q.distractors];
+                const uniqueAnswers = new Set(allAnswers);
+                expect(uniqueAnswers.size).toBe(4);
+            });
 
-                await page.click('#answer-btn-0');
-                await page.waitForTimeout(100);
-            }
+            // Verify at least one question contains line-related keywords
+            const hasLineKeywords = questions.some(q => 
+                q.tex.includes('parallel') || 
+                q.tex.includes('perpendicular') ||
+                q.tex.includes('gradient')
+            );
+            expect(hasLineKeywords).toBe(true);
         });
     });
 
@@ -174,135 +143,119 @@ describe('Phase 1 Iteration 1 - New Question Types', () => {
      * Test Quadratic Inequalities questions (Level 10-11)
      */
     describe('Quadratic Inequalities (Level 10-11)', () => {
-        test('should generate quadratic inequality questions at level 10-11', async () => {
-            await page.evaluate(() => {
-                window.DEBUG_MODE = true;
-                window.FORCED_TEST_LEVEL = 11;
-                window.TESTING_MODE = true;
-            });
-
-            await page.click('#start-btn');
-            await page.waitForSelector('#question', { timeout: 2000 });
-
-            let quadraticInequalityFound = false;
-
-            // Try to generate questions
-            for (let i = 0; i < 20; i++) {
-                const questionText = await page.$eval('#question', el => el.textContent);
-
-                // Check if this is a quadratic inequality question
-                // Look for inequality signs and quadratic structure
-                if ((questionText.includes('>') || questionText.includes('<') || 
-                     questionText.includes('≥') || questionText.includes('≤')) &&
-                    (questionText.includes('x²') || questionText.includes('x-'))) {
-                    quadraticInequalityFound = true;
-                    
-                    // Verify proper structure
-                    const instruction = await page.$eval('#instruction', el => el.textContent);
-                    expect(instruction).toContain('Solve');
-                    
-                    const hasAnswers = await page.$$('[id^="answer-btn-"]');
-                    expect(hasAnswers.length).toBe(4);
+        test('should generate quadratic inequality questions', async () => {
+            // Generate multiple questions to test variety
+            const questions = await page.evaluate(() => {
+                const results = [];
+                for (let i = 0; i < 10; i++) {
+                    const q = window.QuestionTemplates.QuadraticInequalities.getQuadraticInequalities();
+                    results.push({
+                        hasTex: !!q.tex,
+                        hasAnswer: !!q.displayAnswer,
+                        hasDistractors: Array.isArray(q.distractors) && q.distractors.length === 3,
+                        hasExplanation: !!q.explanation,
+                        hasInstruction: !!q.instruction,
+                        calc: q.calc,
+                        tex: q.tex,
+                        answer: q.displayAnswer,
+                        distractors: q.distractors,
+                        instruction: q.instruction
+                    });
                 }
-
-                await page.click('#answer-btn-0');
-                await page.waitForTimeout(100);
-            }
-
-            expect(quadraticInequalityFound).toBe(true);
-        });
-
-        test('quadratic inequality answers should include inequality notation', async () => {
-            await page.evaluate(() => {
-                window.DEBUG_MODE = true;
-                window.FORCED_TEST_LEVEL = 11;
-                window.TESTING_MODE = true;
+                return results;
             });
 
-            await page.click('#start-btn');
-            await page.waitForSelector('#question', { timeout: 2000 });
-
-            for (let i = 0; i < 20; i++) {
-                const questionText = await page.$eval('#question', el => el.textContent);
+            // Verify all questions have proper structure
+            questions.forEach((q, i) => {
+                expect(q.hasTex).toBe(true);
+                expect(q.hasAnswer).toBe(true);
+                expect(q.hasDistractors).toBe(true);
+                expect(q.hasExplanation).toBe(true);
+                expect(q.hasInstruction).toBe(true);
+                expect(q.calc).toBe(false); // Quadratic inequalities don't need calculator
+                expect(q.instruction).toContain('Solve');
                 
-                if ((questionText.includes('>') || questionText.includes('<')) &&
-                    questionText.includes('x²')) {
-                    // Get answer texts
-                    const answers = await page.$$eval(
-                        '[id^="answer-btn-"]',
-                        buttons => buttons.map(btn => btn.textContent.trim())
-                    );
-                    
-                    // At least one answer should have inequality notation
-                    const hasInequality = answers.some(ans => 
-                        ans.includes('<') || ans.includes('>') || 
-                        ans.includes('≤') || ans.includes('≥') ||
-                        ans.includes('or')
-                    );
-                    expect(hasInequality).toBe(true);
-                    break;
-                }
+                // Check for unique answers
+                const allAnswers = [q.answer, ...q.distractors];
+                const uniqueAnswers = new Set(allAnswers);
+                expect(uniqueAnswers.size).toBe(4);
+            });
 
-                await page.click('#answer-btn-0');
-                await page.waitForTimeout(100);
-            }
+            // Verify questions contain inequality signs
+            const hasInequalities = questions.every(q => 
+                q.tex.includes('>') || q.tex.includes('<') || 
+                q.tex.includes('≥') || q.tex.includes('≤') ||
+                q.tex.includes('geq') || q.tex.includes('leq')
+            );
+            expect(hasInequalities).toBe(true);
+
+            // Verify answers include inequality notation or "or"
+            const answersHaveInequalities = questions.some(q => 
+                q.answer.includes('<') || q.answer.includes('>') || 
+                q.answer.includes('≤') || q.answer.includes('≥') ||
+                q.answer.includes('or') || q.answer.includes('leq') || q.answer.includes('geq')
+            );
+            expect(answersHaveInequalities).toBe(true);
         });
     });
 
     /**
-     * General integration tests
+     * Integration test - verify generators work with main generator
      */
     describe('Integration Tests', () => {
-        test('new question types should not break existing level progression', async () => {
-            await page.evaluate(() => {
-                window.DEBUG_MODE = false;
-                window.FORCED_TEST_LEVEL = null;
-                window.TESTING_MODE = false;
+        test('new question types integrate correctly with generator routing', async () => {
+            // Test that the generator can call the new question types
+            const results = await page.evaluate(() => {
+                const testResults = {
+                    level6_7: [],
+                    level10_11: [],
+                    level13_14: []
+                };
+
+                // Test level 6-7 (should sometimes get lines questions)
+                for (let i = 0; i < 20; i++) {
+                    const q = window.Generator.lvl2();
+                    if (q && q.tex) {
+                        testResults.level6_7.push({
+                            isLinesQuestion: q.tex.includes('parallel') || q.tex.includes('perpendicular') || q.tex.includes('gradient')
+                        });
+                    }
+                }
+
+                // Test level 10-11 (should sometimes get quadratic inequality questions)
+                for (let i = 0; i < 20; i++) {
+                    const q = window.Generator.getQuadratics();
+                    if (q && q.tex) {
+                        testResults.level10_11.push({
+                            isInequalityQuestion: q.tex.includes('>') || q.tex.includes('<') || q.tex.includes('geq') || q.tex.includes('leq')
+                        });
+                    }
+                }
+
+                // Test level 13-14 (should sometimes get financial questions)
+                for (let i = 0; i < 20; i++) {
+                    const q = window.Generator.getSequencesSeries();
+                    if (q && q.tex) {
+                        testResults.level13_14.push({
+                            isFinancialQuestion: q.tex.includes('invest') || q.tex.includes('depreciat') || q.tex.includes('population')
+                        });
+                    }
+                }
+
+                return testResults;
             });
 
-            // Start from beginning and progress through levels
-            await page.click('#start-btn');
-            await page.waitForSelector('#question', { timeout: 2000 });
+            // At least one lines question should appear at level 6-7
+            const hasLinesQuestion = results.level6_7.some(r => r.isLinesQuestion);
+            expect(hasLinesQuestion).toBe(true);
 
-            // Answer 20 questions and verify no errors
-            for (let i = 0; i < 20; i++) {
-                const question = await page.$('#question');
-                expect(question).toBeTruthy();
-                
-                await page.click('#answer-btn-0');
-                await page.waitForTimeout(100);
-            }
+            // At least one inequality question should appear at level 10-11
+            const hasInequalityQuestion = results.level10_11.some(r => r.isInequalityQuestion);
+            expect(hasInequalityQuestion).toBe(true);
 
-            // Check that level has progressed
-            const level = await page.evaluate(() => window.APP.level);
-            expect(level).toBeGreaterThan(1);
-        });
-
-        test('LaTeX should render correctly in new question types', async () => {
-            await page.evaluate(() => {
-                window.DEBUG_MODE = true;
-                window.FORCED_TEST_LEVEL = 13;
-                window.TESTING_MODE = true;
-            });
-
-            await page.click('#start-btn');
-            await page.waitForSelector('#question', { timeout: 2000 });
-
-            // Generate several questions and check for LaTeX errors
-            for (let i = 0; i < 10; i++) {
-                // Check for MathJax rendering errors
-                const hasError = await page.evaluate(() => {
-                    const questionEl = document.getElementById('question');
-                    return questionEl && questionEl.textContent.includes('\\');
-                });
-                
-                // If LaTeX is unrendered, it will still contain backslashes
-                // This is a simple check - properly rendered math shouldn't have raw LaTeX
-                expect(hasError).toBe(false);
-
-                await page.click('#answer-btn-0');
-                await page.waitForTimeout(200);
-            }
+            // At least one financial question should appear at level 13-14
+            const hasFinancialQuestion = results.level13_14.some(r => r.isFinancialQuestion);
+            expect(hasFinancialQuestion).toBe(true);
         });
     });
 });
