@@ -115,18 +115,25 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 
 ---
 
-#### Level 6-7: Two-Step Equations
+#### Level 6-7: Two-Step Equations & Parallel/Perpendicular Lines
 **Topics:**
 - Linear equations (ax + b = c)
 - Order of operations in reverse
 - Balancing equations
+- **NEW: Parallel lines and gradients**
+- **NEW: Perpendicular lines and gradients**
+- **NEW: Line equations from points and gradients**
 
 **Example Problems:**
 - `3x + 5 = 20` → x = 5
 - `2x + 7 = 21` → x = 7
+- **NEW: Line L₁ has equation y = 3x + 2. What is the gradient of a line parallel to L₁?** → 3
+- **NEW: Line L₁ has equation y = 4x + 1. What is the gradient of a line perpendicular to L₁?** → -1/4
+- **NEW: Find the equation of the line with gradient 2 passing through (3, 5)** → y = 2x - 1
 
 **IB Curriculum:**
 - SL/HL Topic 2.1: Linear equations and inequalities
+- **NEW: SL/HL Topic 2.1: Parallel and perpendicular lines (m₁ = m₂ for parallel; m₁ × m₂ = -1 for perpendicular)**
 
 ---
 
@@ -182,22 +189,29 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 
 ### Quadratics and Polynomials (Levels 10-12)
 
-#### Level 10-11: Quadratic Equations
+#### Level 10-11: Quadratic Equations & Inequalities
 **Topics:**
 - Solving quadratics by factoring
 - Completing the square
 - Discriminant (b² - 4ac)
 - Nature of roots
+- **NEW: Quadratic inequalities (ax² + bx + c > 0, < 0, ≥ 0, ≤ 0)**
+- **NEW: Factored form inequalities ((x-a)(x-b) > 0, < 0)**
+- **NEW: Using test values and sign analysis**
 
 **Example Problems:**
 - `x² - 5x + 6 = 0` → x = 2 or x = 3
 - `Complete the square: x² + 6x + ?` → 9
 - `Find discriminant of x² + 3x + 5 = 0` → -11 (no real roots)
+- **NEW: Solve (x - 2)(x - 5) > 0** → x < 2 or x > 5
+- **NEW: Solve x² - 7x + 10 < 0** → 2 < x < 5
+- **NEW: Solve x² - 9x + 18 ≥ 0** → x ≤ 3 or x ≥ 6
 
 **IB Curriculum:**
 - SL/HL Topic 2.3: The quadratic formula
 - SL/HL Topic 2.3: The discriminant and nature of roots
 - HL Topic: Completing the square applications
+- **NEW: SL/HL Topic 2.7: Solving quadratic inequalities**
 
 ---
 
@@ -243,13 +257,18 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 
 ---
 
-#### Level 13-14: Sequences & Series
+#### Level 13-14: Sequences, Series & Financial Applications
 **Topics:**
 - Arithmetic sequences (nth term)
 - Geometric sequences (nth term)
 - Sum of arithmetic series
 - Sigma notation
 - Binomial theorem (binomial coefficients)
+- **NEW: Compound interest (A = P(1 + r)^n)**
+- **NEW: Depreciation (A = P(1 - r)^n)**
+- **NEW: Population growth**
+- **NEW: Exponential decay and half-life**
+- **NEW: Finding initial values and rates**
 
 **Example Problems:**
 - `Arithmetic: a₁ = 3, d = 4, find a₈` → 31
@@ -257,12 +276,18 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - `Sum: S₁₀ for a₁ = 2, d = 3` → 155
 - `Σ(k=1 to 5) k = ?` → 15
 - `In (a + b)⁵, find coefficient of a⁴b¹` → C(5,4) = 5
+- **NEW: If $5000 is invested at 3% per year compound interest, what is the value after 4 years?** → $5627
+- **NEW: A car worth $30,000 depreciates at 15% per year. Value after 3 years?** → $18,476
+- **NEW: A population of 10,000 grows at 2% per year. Population after 5 years?** → 11,041
+- **NEW: A substance has 800g initially. After 10 years (2 half-lives), how much remains?** → 200g
 
 **IB Curriculum:**
 - SL/HL Topic 1.2: Arithmetic sequences and series
 - SL/HL Topic 1.2: Geometric sequences and series
 - SL/HL Topic 1.2: Sigma notation
 - HL Topic 1.3: Binomial theorem
+- **NEW: SL/HL Topic 1.4: Financial applications of geometric sequences**
+- **NEW: SL/HL Topic 1.4: Compound interest, depreciation, and population models**
 
 ---
 
