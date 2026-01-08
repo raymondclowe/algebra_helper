@@ -345,15 +345,51 @@ This is an open-source educational tool. Contributions welcome! Some ideas:
 
 We're committed to making Algebra Helper even better. Here's what's planned:
 
+### 📋 IB Syllabus Coverage Enhancement
+
+We've completed a comprehensive review of IB Math AA syllabus coverage and identified **35 enhancement opportunities** across four priority phases. See detailed documentation:
+
+- **[SYLLABUS_COVERAGE_REVIEW.md](SYLLABUS_COVERAGE_REVIEW.md)** - Complete analysis of all gaps and priorities
+- **[SYLLABUS_GAP_SUMMARY.md](SYLLABUS_GAP_SUMMARY.md)** - Quick reference guide with implementation plan
+- **[SYLLABUS_IMPLEMENTATION_TRACKER.md](SYLLABUS_IMPLEMENTATION_TRACKER.md)** - Progress tracking and status
+- **[SYLLABUS_COVERAGE_MATRIX.md](SYLLABUS_COVERAGE_MATRIX.md)** - Visual mapping of IB topics to levels
+
+**Key Insight:** Graphing questions are now feasible using SVG/JavaScript (same approach as the existing trig diagram generator).
+
+**Phase 1 Priorities (12 High-Priority Core Topics):**
+- [ ] Financial applications (compound interest, depreciation)
+- [ ] Parallel/perpendicular lines
+- [ ] Quadratic inequalities
+- [ ] Rational functions & asymptotes
+- [ ] Graph transformations
+- [ ] Sine and cosine rule
+- [ ] Arc length and sector area
+- [ ] Tangent and normal lines
+- [ ] Definite integrals & area calculations
+- [ ] Standard deviation & variance
+- [ ] Linear regression & correlation
+- [ ] Quadratic vertex form
+
+**Phase 3 Priorities (5 Visual/Graphing Topics using SVG):**
+- [ ] Function graphing & reading (identify intercepts, turning points)
+- [ ] Trig function graphs (amplitude, period, transformations)
+- [ ] Data visualization (histograms, box plots, scatter plots)
+- [ ] Graphical equation solving (find intersections)
+- [ ] Derivative graph relationships (f and f' connections)
+
+**Quick Wins (Low Effort, High Impact):**
+- Arc length and sector area (5-6 questions)
+- Tangent and normal lines (4-6 questions)
+- Standard deviation (5-8 questions)
+
 ### Short Term (Next 3 Months)
-- [ ] **More Problem Types**: Add inequalities, simultaneous equations, and word problems
+- [ ] **Syllabus Gap Phase 1**: Implement high-priority core topics (see above)
 - [ ] **Better Mobile UX**: Optimize touch targets and layout for smartphones
 - [ ] **Performance Metrics**: Track average time per problem and learning velocity
-- [ ] **Explanation Improvements**: More detailed step-by-step breakdowns for wrong answers - more steps for more complex problems
-- [ ] **Spaced Repetition**: Intelligently resurface problems students struggled with
+- [ ] **Explanation Improvements**: More detailed step-by-step breakdowns for wrong answers
 
 ### Medium Term (6 Months)
-- [ ] **AI-Generated Problems**: Use LLMs to create diverse problems (with human verification)
+- [ ] **Syllabus Gap Phase 2**: Add HL-specific topics (permutations, Bayes, L'Hôpital, etc.)
 - [ ] **Topic Selection**: Let students choose specific algebra topics to practice
 - [ ] **Export Results**: Download practice session summaries as PDF/CSV
 - [ ] **Advanced Pedagogy**: 
@@ -362,6 +398,8 @@ We're committed to making Algebra Helper even better. Here's what's planned:
   - Personalized study plans
 
 ### Long Term (12+ Months)
+- [ ] **Syllabus Gap Phase 3**: Visual/graphing topics using SVG (function graphs, data viz, etc.)
+- [ ] **Syllabus Gap Phase 4**: Lower-priority enhancements
 - [ ] **User Accounts**: Backend storage for progress tracking across devices
 - [ ] **Google One-Tap Login**: Seamless authentication for saving scores
 - [ ] **Multi-Language Support**: Translate into Spanish, French, Mandarin, etc.
