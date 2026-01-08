@@ -33,8 +33,8 @@ describe('Squares and Roots Expanded Range Tests', () => {
         await page.close();
     });
 
-    describe('Square Numbers (1-20)', () => {
-        test('Can generate square questions for all numbers 1-20', async () => {
+    describe('Square Numbers (1-15)', () => {
+        test('Can generate square questions for all numbers 1-15', async () => {
             const foundNumbers = await page.evaluate(() => {
                 const numbersFound = new Set();
                 // Generate 500 questions to ensure we hit all numbers
@@ -70,13 +70,13 @@ describe('Squares and Roots Expanded Range Tests', () => {
                 return Array.from(numbersFound).sort((a, b) => a - b);
             });
 
-            // Check we found numbers in the range 1-20
-            expect(foundNumbers.length).toBeGreaterThan(15);
+            // Check we found numbers in the range 1-15
+            expect(foundNumbers.length).toBeGreaterThan(10);
             expect(foundNumbers.some(n => n <= 5)).toBe(true); // Low range
-            expect(foundNumbers.some(n => n >= 15 && n <= 20)).toBe(true); // High range
+            expect(foundNumbers.some(n => n >= 12 && n <= 15)).toBe(true); // High range
         });
 
-        test('Square questions include values up to 400', async () => {
+        test('Square questions include values up to 225', async () => {
             const results = await page.evaluate(() => {
                 const values = [];
                 for (let i = 0; i < 200; i++) {
@@ -90,16 +90,17 @@ describe('Squares and Roots Expanded Range Tests', () => {
                 }
                 return {
                     maxValue: Math.max(...values),
-                    hasLargeValues: values.some(v => v > 144) // 12^2 was the old max
+                    hasLargeValues: values.some(v => v > 100 && v <= 225) // Should have values in 100-225 range
                 };
             });
 
             expect(results.hasLargeValues).toBe(true);
+            expect(results.maxValue).toBeLessThanOrEqual(225);
         });
     });
 
-    describe('Cube Numbers (1-20)', () => {
-        test('Can generate cube questions for all numbers 1-20', async () => {
+    describe('Cube Numbers (1-10)', () => {
+        test('Can generate cube questions for all numbers 1-10', async () => {
             const foundNumbers = await page.evaluate(() => {
                 const numbersFound = new Set();
                 // Generate 500 questions to ensure we hit all numbers
@@ -134,10 +135,10 @@ describe('Squares and Roots Expanded Range Tests', () => {
                 return Array.from(numbersFound).sort((a, b) => a - b);
             });
 
-            // Check we found numbers in the range 1-20
-            expect(foundNumbers.length).toBeGreaterThan(10);
+            // Check we found numbers in the range 1-10
+            expect(foundNumbers.length).toBeGreaterThan(7);
             expect(foundNumbers.some(n => n <= 5)).toBe(true); // Low range
-            expect(foundNumbers.some(n => n >= 10 && n <= 20)).toBe(true); // High range
+            expect(foundNumbers.some(n => n >= 8 && n <= 10)).toBe(true); // High range
         });
 
         test('Cube root notation uses proper LaTeX', async () => {

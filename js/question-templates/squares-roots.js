@@ -8,15 +8,15 @@ window.QuestionTemplates.SquaresRoots = {
         const questionType = utils.getQuestionType(1, 8);
                 
                 if (questionType === 1) {
-                    // Forward: "What is the square of n?" - expanded range to 1-20
-                    const n = utils.rInt(1, 20);
+                    // Forward: "What is the square of n?" - range 1-15 for no calculator
+                    const n = utils.rInt(1, 15);
                     const answer = n * n;
                     const correctAnswer = `${answer}`;
                     const candidateDistractors = [`${n * 2}`, `${answer + n}`, `${answer - n}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 400)}`
+                        () => `${utils.rInt(1, 225)}`
                     );
                     return {
                         tex: `\\text{What is } ${n}^2?`,
@@ -27,15 +27,15 @@ window.QuestionTemplates.SquaresRoots = {
                         calc: false
                     };
                 } else if (questionType === 2) {
-                    // Reverse: "n² = answer, find n" - expanded range to 1-20
-                    const n = utils.rInt(1, 20);
+                    // Reverse: "n² = answer, find n" - range 1-15 for no calculator
+                    const n = utils.rInt(1, 15);
                     const square = n * n;
                     const correctAnswer = `${n}`;
                     const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(square / 2)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 20)}`
+                        () => `${utils.rInt(1, 15)}`
                     );
                     return {
                         tex: `${square} \\text{ is the square of what number?}`,
@@ -46,15 +46,15 @@ window.QuestionTemplates.SquaresRoots = {
                         calc: false
                     };
                 } else if (questionType === 3) {
-                    // Forward: "What is the cube of n?" - expanded range to 1-20
-                    const n = utils.rInt(1, 20);
+                    // Forward: "What is the cube of n?" - range 1-10 for no calculator
+                    const n = utils.rInt(1, 10);
                     const answer = n * n * n;
                     const correctAnswer = `${answer}`;
                     const candidateDistractors = [`${n * 3}`, `${n * n}`, `${answer + n}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 8000)}`
+                        () => `${utils.rInt(1, 1000)}`
                     );
                     return {
                         tex: `\\text{What is } ${n}^3?`,
@@ -65,15 +65,15 @@ window.QuestionTemplates.SquaresRoots = {
                         calc: false
                     };
                 } else if (questionType === 4) {
-                    // Reverse: "n³ = answer, find n" - expanded range to 1-20
-                    const n = utils.rInt(1, 20);
+                    // Reverse: "n³ = answer, find n" - range 1-10 for no calculator
+                    const n = utils.rInt(1, 10);
                     const cube = n * n * n;
                     const correctAnswer = `${n}`;
                     const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(cube / 3)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 20)}`
+                        () => `${utils.rInt(1, 10)}`
                     );
                     return {
                         tex: `${cube} \\text{ is the cube of what number?}`,
@@ -84,15 +84,15 @@ window.QuestionTemplates.SquaresRoots = {
                         calc: false
                     };
                 } else if (questionType === 5) {
-                    // Square root - expanded range to 1-20
-                    const n = utils.rInt(1, 20);
+                    // Square root - range 1-15 for no calculator
+                    const n = utils.rInt(1, 15);
                     const square = n * n;
                     const correctAnswer = `${n}`;
                     const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(square / 2)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 20)}`
+                        () => `${utils.rInt(1, 15)}`
                     );
                     return {
                         tex: `\\sqrt{${square}}`,
@@ -103,15 +103,15 @@ window.QuestionTemplates.SquaresRoots = {
                         calc: false
                     };
                 } else if (questionType === 6) {
-                    // Cube root - expanded range to 1-20
-                    const n = utils.rInt(1, 20);
+                    // Cube root - range 1-10 for no calculator
+                    const n = utils.rInt(1, 10);
                     const cube = n * n * n;
                     const correctAnswer = `${n}`;
                     const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${Math.floor(cube / 3)}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 20)}`
+                        () => `${utils.rInt(1, 10)}`
                     );
                     return {
                         tex: `\\sqrt[3]{${cube}}`,
@@ -145,13 +145,13 @@ window.QuestionTemplates.SquaresRoots = {
                     };
                 } else {
                     // Inverse square root: √(n²) = n
-                    const n = utils.rInt(1, 20);
+                    const n = utils.rInt(1, 15);
                     const correctAnswer = `${n}`;
                     const candidateDistractors = [`${n + 1}`, `${n - 1}`, `${n * 2}`];
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 20)}`
+                        () => `${utils.rInt(1, 15)}`
                     );
                     return {
                         tex: `\\sqrt{${n}^2}`,
