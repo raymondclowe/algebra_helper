@@ -56,7 +56,7 @@ window.QuestionTemplates.Quadratics = {
     },
     getQuadratics: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.getQuestionType(1, 3);
+        const questionType = utils.getQuestionType(1, 4);
                 
                 if (questionType === 1) {
                     // Solving using quadratic formula (simple cases)
@@ -103,7 +103,7 @@ window.QuestionTemplates.Quadratics = {
                         explanation: `To complete the square for x² + ${2 * b}x: take half the coefficient of x, which is (${2 * b})/2 = ${b}, then square it: ${b}² = ${square}. Therefore x² + ${2 * b}x + ${square} = (x + ${b})².`,
                         calc: false
                     };
-                } else {
+                } else if (questionType === 3) {
                     // Discriminant and nature of roots
                     const discriminants = [
                         { b: 4, c: 4, disc: 0, nature: 'one repeated root' },
@@ -128,6 +128,9 @@ window.QuestionTemplates.Quadratics = {
                         explanation: `For the quadratic equation ax² + bx + c = 0, the discriminant Δ = b² - 4ac. Here: Δ = ${q.b}² - 4(1)(${q.c}) = ${q.b * q.b} - ${4 * q.c} = ${disc}. Since Δ ${disc === 0 ? '= 0' : disc > 0 ? '> 0' : '< 0'}, the equation has ${q.nature}.`,
                         calc: false
                     };
+                } else {
+                    // Inverse quadratic function
+                    return this.getInverseQuadraticQuestion();
                 }
     }
 };

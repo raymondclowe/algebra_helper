@@ -120,11 +120,11 @@ describe('Inverse Quadratic Function Tests', () => {
             const gen = window.Generator;
             let foundInverse = false;
             
-            // Generate many level 20 questions to find an inverse one
-            // Level 20 maps to lvl5() which includes inverse quadratic questions
-            // Increased to 100 iterations as these questions are randomly selected from a pool
+            // Generate many level 11 questions to find an inverse one
+            // Level 11 maps to getQuadratics() which now includes inverse quadratic questions (1 in 4 chance)
+            // Increased to 100 iterations to ensure we find one given the 25% probability
             for (let i = 0; i < 100; i++) {
-                const q = gen.getQuestion(20);
+                const q = gen.getQuestion(11);
                 if (q.instruction && (q.instruction.includes('𝑓⁻¹') || q.instruction.includes('inverse'))) {
                     foundInverse = true;
                     break;
@@ -138,10 +138,10 @@ describe('Inverse Quadratic Function Tests', () => {
     });
 
     test('Inverse quadratic question renders in UI correctly', async () => {
-        // Switch to drill mode and set to level 20
+        // Switch to drill mode and set to level 11 (quadratics)
         await page.evaluate(() => {
             window.APP.mode = 'drill';
-            window.APP.level = 20;
+            window.APP.level = 11;
         });
 
         // Wait for MathJax
@@ -151,7 +151,8 @@ describe('Inverse Quadratic Function Tests', () => {
         );
 
         // Generate questions until we get an inverse one
-        // Increased to 150 iterations as inverse questions are one type among many at this level
+        // Level 11 includes inverse quadratic with 1 in 4 probability
+        // Increased to 150 iterations to ensure we find one
         let foundInverse = false;
         for (let i = 0; i < 150; i++) {
             await page.evaluate(() => {
