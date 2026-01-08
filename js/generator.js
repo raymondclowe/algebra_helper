@@ -113,21 +113,26 @@ window.Generator = {
         const ADJACENT_DROP_PROB = 28;       // +10% for adjacent level (1 level)
         // Remaining 72% stay at current level
         
+        // Special level range constants (new diagram-style trig questions)
+        const SPECIAL_LEVEL_START = 15;
+        const SPECIAL_LEVEL_END = 17;
+        const SPECIAL_LEVELS_COUNT = SPECIAL_LEVEL_END - SPECIAL_LEVEL_START + 1;
+        const MIN_SPECIAL_RANGE = 5;         // Minimum level for special range selection
+        
         // 10% chance to select from levels 5 to current level (with heavy weighting to 15-17)
         // This ensures students see new diagram-style trig questions from levels 15-17
-        if (rand < SPECIAL_LEVEL_PROB && currentLevel > 5) {
+        if (rand < SPECIAL_LEVEL_PROB && currentLevel > MIN_SPECIAL_RANGE) {
             // Within this 10%, we want 50% to be levels 15-17 (resulting in 5% overall)
             const selectSpecialLevels = Math.random() < 0.5;
             
-            if (selectSpecialLevels && currentLevel >= 15) {
+            if (selectSpecialLevels && currentLevel >= SPECIAL_LEVEL_START) {
                 // Randomly select from levels 15, 16, or 17
-                const specialLevel = 15 + Math.floor(Math.random() * 3);
+                const specialLevel = SPECIAL_LEVEL_START + Math.floor(Math.random() * SPECIAL_LEVELS_COUNT);
                 return Math.min(specialLevel, currentLevel);
             } else {
                 // Select from range [5, currentLevel] with uniform distribution
-                const minLevel = 5;
-                const range = currentLevel - minLevel + 1;
-                return minLevel + Math.floor(Math.random() * range);
+                const range = currentLevel - MIN_SPECIAL_RANGE + 1;
+                return MIN_SPECIAL_RANGE + Math.floor(Math.random() * range);
             }
         } else if (rand < DEEP_DROP_PROB) {
             const levelDrop = Math.min(4 + Math.floor(Math.random() * 2), currentLevel - 1);
