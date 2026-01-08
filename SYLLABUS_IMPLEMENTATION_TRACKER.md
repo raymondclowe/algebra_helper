@@ -10,8 +10,11 @@
 
 **Phase 1:** 0/12 topics complete (0%)  
 **Phase 2:** 0/14 topics complete (0%)  
-**Phase 3:** 0/9 topics complete (0%)  
+**Phase 3:** 0/5 topics complete (0%) - Visual/Graphing using SVG  
+**Phase 4:** 0/4 topics complete (0%)  
 **Overall:** 0/35 topics complete (0%)
+
+**Note:** Phase 3 previously marked as "text-based limitations" is now feasible using SVG (like trig diagrams)
 
 ---
 
@@ -135,24 +138,38 @@
 
 ---
 
-## Phase 3: Lower Priority Enhancements
+## Phase 3: Visual/Graphing Topics (Using SVG)
 
-### Iteration 10+: As Resources Permit
+### Iteration 10: Function & Data Visualization
 
 | Topic | Status | Questions Added | Level | PR/Issue | Completed |
 |-------|--------|-----------------|-------|----------|-----------|
-| Counterexample proofs | 🔴 Not Started | 0/3 | 26-27 | - | - |
-| 3D solid geometry | 🔴 Not Started | 0/4 | 17, 17.5 | - | - |
-| Ambiguous case (sine rule) | 🔴 Not Started | 0/3 | 16-17 | - | - |
-| Quadratic trig equations | 🔴 Not Started | 0/4 | 16-17 | - | - |
-| Trig function symmetry | 🔴 Not Started | 0/3 | 16-17 | - | - |
-| Kinematics with calculus | 🔴 Not Started | 0/4 | 20-21, 28-29 | - | - |
+| Function graphing & reading | 🔴 Not Started | 0/5 | 14-15 | - | - |
+| Trig function graphs | 🔴 Not Started | 0/5 | 16-17 | - | - |
+| Data visualization | 🔴 Not Started | 0/5 | 21-22 | - | - |
+| Graphical equation solving | 🔴 Not Started | 0/5 | 14-15 | - | - |
+| Derivative graph relationships | 🔴 Not Started | 0/5 | 20-21 | - | - |
+
+**Target:** 2027 Q3  
+**Progress:** 0/25 questions (0%)
+
+**Implementation Note:** Use SVG approach from trig-diagram-generator.js
+
+---
+
+## Phase 4: Lower Priority Enhancements
+
+### Iteration 11+: As Resources Permit
+
+| Topic | Status | Questions Added | Level | PR/Issue | Completed |
+|-------|--------|-----------------|-------|----------|-----------|
+| Counterexample proofs | 🔴 Not Started | 0/4 | 26-27 | - | - |
+| Ambiguous case (sine rule) | 🔴 Not Started | 0/4 | 16-17 | - | - |
 | Continuous random variables | 🔴 Not Started | 0/4 | 32-33 | - | - |
-| Euler's method for DEs | 🔴 Not Started | 0/3 | 31-32 | - | - |
-| Line-plane intersections | 🔴 Not Started | 0/3 | 28-29 | - | - |
+| Euler's method for DEs | 🔴 Not Started | 0/4 | 31-32 | - | - |
 
 **Target:** As needed  
-**Progress:** 0/31 questions (0%)
+**Progress:** 0/16 questions (0%)
 
 ---
 
@@ -184,16 +201,18 @@ These low-effort, high-impact items can be fast-tracked:
 
 ### Question Count by Phase
 
-- **Phase 1 Target:** 75-90 questions
-- **Phase 2 Target:** 50-65 questions  
-- **Phase 3 Target:** 25-35 questions
-- **Total Target:** 150-190 questions
+- **Phase 1 Target:** 75-90 questions (algebraic)
+- **Phase 2 Target:** 50-65 questions (HL-specific)
+- **Phase 3 Target:** 20-30 questions (visual/graphing using SVG)
+- **Phase 4 Target:** 15-20 questions (enhancements)
+- **Total Target:** 160-205 questions
 
 ### Current Totals
 
 - **Phase 1 Actual:** 0 questions (0% of target)
 - **Phase 2 Actual:** 0 questions (0% of target)
-- **Phase 3 Actual:** 0 questions (0% of target)
+- **Phase 3 Actual:** 0 questions (0% of target - SVG implementation)
+- **Phase 4 Actual:** 0 questions (0% of target)
 - **Total Actual:** 0 questions (0% of target)
 
 ### Implementation Velocity
@@ -209,9 +228,12 @@ These low-effort, high-impact items can be fast-tracked:
 ### 2026-01-08
 - ✅ Created comprehensive syllabus coverage review
 - ✅ Identified 35 enhancement opportunities
-- ✅ Established 3-phase implementation plan
+- ✅ Established 4-phase implementation plan
 - ✅ Prioritized topics by importance and effort
 - ✅ Created tracking documents
+- ✅ **Updated:** Reconsidered graphing questions - now feasible using SVG (like trig diagrams)
+- ✅ **Reorganized:** Phase 3 now focuses on visual/graphing topics (5 items)
+- ✅ **Created:** Phase 4 for lower-priority enhancements (4 items)
 - 🔴 No implementation work started yet
 
 ---

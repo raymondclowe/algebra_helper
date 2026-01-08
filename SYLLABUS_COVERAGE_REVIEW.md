@@ -11,7 +11,13 @@ The Algebra Helper app currently provides **excellent coverage** of the IB Math 
 - Basic calculus (differentiation, integration)
 - Probability distributions and hypothesis testing
 
-This review identifies **35 topic areas** for potential enhancement, prioritized by importance to the IB curriculum and alignment with the app's focus on algebraic drill and common operations.
+This review identifies **35 topic areas** for potential enhancement, organized into 4 priority phases:
+- **Phase 1:** 12 high-priority algebraic topics
+- **Phase 2:** 14 HL-specific topics
+- **Phase 3:** 5 graphing/visual topics (using SVG like the trig diagram generator)
+- **Phase 4:** 4 lower-priority enhancements
+
+**Note on Graphing:** The app already demonstrates successful SVG visualization with the trigonometry diagram generator. This same approach can be extended to function graphs, statistical charts, and other visual topics previously considered impractical.
 
 ---
 
@@ -103,13 +109,13 @@ This review identifies **35 topic areas** for potential enhancement, prioritized
 |----------|------------------|--------------|----------|
 | **2.1 Straight lines** | ⚠️ Partial | **Add parallel/perpendicular** | **HIGH** |
 | 2.2 Function concepts | ✅ Level 14-15 | None | - |
-| 2.3 Graphing | ❌ N/A (text-based) | Not applicable | - |
+| **2.3 Graphing** | ❌ Missing | **Add using SVG (like trig diagrams)** | **MEDIUM** |
 | **2.4 Key graph features** | ⚠️ Partial | **Add domain, range, intercepts** | **MEDIUM** |
 | **2.6 Quadratic forms** | ⚠️ Partial | **Add vertex form, axis of symmetry** | **MEDIUM** |
 | **2.7 Quadratic inequalities** | ❌ Missing | **Add x² + bx + c < 0 solving** | **HIGH** |
 | **2.8 Rational functions** | ❌ Missing | **Add f(x)=(ax+b)/(cx+d), asymptotes** | **HIGH** |
 | 2.9 Exponential/log functions | ✅ Level 12-13 | None | - |
-| 2.10 Solving equations | ✅ Good (analytical) | None | - |
+| 2.10 Solving equations | ⚠️ Partial | Add graphical intersection questions (SVG) | MEDIUM |
 | **2.11 Graph transformations** | ❌ Missing | **Add f(x)+k, f(x+h), af(x), etc.** | **HIGH** |
 | **2.12 (HL) Sum/product of roots** | ⚠️ Partial | **Add to polynomials** | **MEDIUM** |
 | **2.13 (HL) Rational functions** | ❌ Missing | **Same as 2.8** | **HIGH** |
@@ -145,7 +151,7 @@ This review identifies **35 topic areas** for potential enhancement, prioritized
 | Subtopic | Current Coverage | Gap Analysis | Priority |
 |----------|------------------|--------------|----------|
 | **4.1 Data concepts** | ❌ Missing | **Add sampling, bias, outliers** | **MEDIUM** |
-| **4.2 Data presentation** | ❌ N/A (text-based) | **Add interpretation questions** | **LOW** |
+| **4.2 Data presentation** | ❌ Missing | **Add using SVG (histograms, box plots)** | **MEDIUM** |
 | **4.3 Dispersion measures** | ⚠️ Partial | **Add σ, σ², IQR, effect of changes** | **HIGH** |
 | **4.4 Correlation & regression** | ❌ Missing | **Add Pearson's r, y=ax+b** | **HIGH** |
 | 4.5 Probability concepts | ✅ Level 22-23 | None | - |
@@ -326,19 +332,48 @@ These enhance HL coverage and align well with algebraic operations:
     - Linking rates of change using chain rule
     - Application problems (e.g., expanding circle)
 
-### Phase 3: Lower-Priority Enhancements (9 items)
+### Phase 3: Visual/Graphing Topics (5 items - using SVG)
 
-These add completeness but are less central or harder to implement in text format:
+These require SVG visualization similar to the existing trig diagram generator:
 
-27. **Counterexample Proofs** (Level 26-27)
-28. **3D Solid Geometry** (Level 17 or new 17.5)
-29. **Ambiguous Case of Sine Rule** (Level 16-17)
-30. **Quadratic Trigonometric Equations** (Level 16-17)
-31. **Trig Function Symmetry** (Level 16-17)
-32. **Kinematics with Calculus** (Level 20-21 or 28-29)
-33. **Continuous Random Variables** (Level 32-33)
-34. **Euler's Method for DEs** (Level 31-32)
-35. **Line-Plane Intersections** (Level 28-29)
+27. **Function Graphing and Reading** (Level 14-15)
+    - Display function graphs with SVG
+    - Identify key features (intercepts, turning points, asymptotes)
+    - Multiple-choice questions about graph properties
+    - Similar approach to trig diagrams
+
+28. **Trig Function Graphs** (Level 16-17)
+    - SVG rendering of sin, cos, tan graphs
+    - Identify amplitude, period, phase shift
+    - Transformations a·sin(b(x + c)) + d
+    - Read values from graph
+
+29. **Data Visualization** (Level 21-22)
+    - SVG histograms, box plots, scatter plots
+    - Read and interpret statistical displays
+    - Identify median, quartiles, outliers from box plots
+    - Correlation from scatter plots
+
+30. **Graphical Equation Solving** (Level 14-15)
+    - Display two function graphs
+    - Find intersection points visually
+    - Solve inequalities from graphs
+    - Multiple-choice based on graph features
+
+31. **Derivative Graph Relationships** (Level 20-21)
+    - Display f(x) or f'(x) graph
+    - Identify f'(x) from f(x) or vice versa
+    - Recognize increasing/decreasing regions
+    - Link graph features to derivative values
+
+### Phase 4: Lower-Priority Enhancements (4 items)
+
+These add completeness but are less frequently tested:
+
+32. **Counterexample Proofs** (Level 26-27)
+33. **Ambiguous Case of Sine Rule** (Level 16-17)
+34. **Continuous Random Variables** (Level 32-33)
+35. **Euler's Method for DEs** (Level 31-32)
 
 ---
 
@@ -346,11 +381,12 @@ These add completeness but are less central or harder to implement in text forma
 
 ### Guiding Principles
 
-1. **Focus on Algebraic Operations**: Prioritize topics that involve manipulation and calculation rather than graphical interpretation
-2. **Multiple-Choice Format**: All questions must work in MC format with LaTeX rendering
+1. **Focus on Algebraic Operations**: Prioritize topics that involve manipulation and calculation; for graphical topics, use SVG visualization (like the existing trig diagram generator)
+2. **Multiple-Choice Format**: All questions must work in MC format with LaTeX rendering or SVG diagrams
 3. **Common Operations**: Emphasize frequently-used techniques that students need fluency in
 4. **Incremental Addition**: Add 3-5 new question types per level to avoid overwhelming students
 5. **Maintain Balance**: Keep spaced repetition and "why" question features intact
+6. **SVG for Visual Questions**: Use JavaScript SVG generation for graphing, diagrams, and data visualization (proven approach with trig diagrams)
 
 ### Recommended Workflow
 

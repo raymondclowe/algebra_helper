@@ -45,14 +45,14 @@
 |--------|-------|-------|----------|--------|-------|
 | 2.1 | Straight lines | SL | 🔧 Phase 1 | 6-7 | Has equations; **TO ADD: parallel/perpendicular** |
 | 2.2 | Function concepts | SL | ✅ Full | 14-15 | Notation, domain, range, inverse |
-| 2.3 | Graphing functions | SL | ❌ N/A | - | Text-based limitation |
+| 2.3 | Graphing functions | SL | 🔧 Phase 3 | 14-15 | Using SVG (like trig diagrams) |
 | 2.4 | Key features of graphs | SL | ⚠️ Partial | 14-15 | Has composite; **TO ADD: domain/range/intercepts** |
 | 2.5 | *(Not used in syllabus)* | - | - | - | - |
 | 2.6 | Quadratic functions | SL | 🔧 Phase 1 | 10-11 | Has standard form; **TO ADD: vertex form** |
 | 2.7 | Quadratic equations | SL | 🔧 Phase 1 | 10-11 | Has discriminant; **TO ADD: inequalities** |
 | 2.8 | Reciprocal/rational functions | SL | 🔧 Phase 1 | 14-15 | **TO ADD: f(x)=(ax+b)/(cx+d), asymptotes** |
 | 2.9 | Exponential/log functions | SL | ✅ Full | 12-13 | Solving equations |
-| 2.10 | Solving equations | SL | ✅ Full | Various | Analytical methods |
+| 2.10 | Solving equations | SL | ⚠️ Partial | Various | Analytical good; **TO ADD: graphical (SVG)** |
 | 2.11 | Graph transformations | SL | 🔧 Phase 1 | 14-15 | **TO ADD: translations, reflections, stretches** |
 | 2.12 | Polynomials | HL | ⚠️ Partial | 11-12 | Has factor/remainder; **TO ADD: sum/product roots** |
 | 2.13 | Rational functions | HL | 🔧 Phase 1 | 14-15 | Same as 2.8 |
@@ -96,7 +96,7 @@
 | IB Ref | Topic | SL/HL | Coverage | Levels | Notes |
 |--------|-------|-------|----------|--------|-------|
 | 4.1 | Data concepts | SL | 🔧 Phase 2 | 21-22 | **TO ADD: sampling, bias, outliers** |
-| 4.2 | Data presentation | SL | ❌ N/A | - | Text-based limitation |
+| 4.2 | Data presentation | SL | 🔧 Phase 3 | 21-22 | Using SVG (histograms, box plots) |
 | 4.3 | Measures of dispersion | SL | 🔧 Phase 1 | 21-22 | Has mean/median/mode; **TO ADD: σ, σ², IQR** |
 | 4.4 | Correlation & regression | SL | 🔧 Phase 1 | 21-22 | **TO ADD: Pearson's r, y=ax+b** |
 | 4.5 | Probability concepts | SL | ✅ Full | 22-23 | Trial, outcome, events |
@@ -146,14 +146,16 @@
 
 ### By Topic Area
 
-| Topic | Full | Partial | Planned | Not Covered | Total | Coverage % |
-|-------|------|---------|---------|-------------|-------|------------|
-| 1. Number & Algebra | 12 | 2 | 2 | 0 | 16 | 75% |
-| 2. Functions | 4 | 2 | 8 | 0 | 14 | 29% |
-| 3. Geometry & Trig | 4 | 4 | 10 | 0 | 18 | 22% |
-| 4. Statistics & Prob | 6 | 2 | 4 | 1 | 13 | 46% |
-| 5. Calculus | 4 | 7 | 8 | 0 | 19 | 21% |
-| **TOTAL** | **30** | **17** | **32** | **1** | **80** | **38%** |
+| Topic | Full | Partial | Planned | Total | Coverage % |
+|-------|------|---------|---------|-------|------------|
+| 1. Number & Algebra | 12 | 2 | 2 | 16 | 75% |
+| 2. Functions | 4 | 3 | 7 | 14 | 29% |
+| 3. Geometry & Trig | 4 | 4 | 10 | 18 | 22% |
+| 4. Statistics & Prob | 6 | 2 | 5 | 13 | 46% |
+| 5. Calculus | 4 | 8 | 7 | 19 | 21% |
+| **TOTAL** | **30** | **19** | **31** | **80** | **38%** |
+
+**Note:** Previously marked as "N/A (text-based)" topics are now "Planned" using SVG visualization (similar to trig diagrams).
 
 ### By Level Type
 
@@ -166,9 +168,10 @@
 
 ### Implementation Priority Distribution
 
-- **Phase 1 (High Priority):** 12 topics across Topics 2, 3, 4, 5
-- **Phase 2 (Medium Priority):** 14 topics across Topics 1, 2, 3, 4, 5
-- **Phase 3 (Lower Priority):** 9 topics across Topics 3, 4, 5
+- **Phase 1 (High Priority):** 12 algebraic topics across Topics 1, 2, 3, 4, 5
+- **Phase 2 (Medium Priority):** 14 HL-specific topics across Topics 1, 2, 3, 4, 5
+- **Phase 3 (Visual/Graphing):** 5 topics using SVG (function graphs, trig graphs, data viz, graphical solving, derivative graphs)
+- **Phase 4 (Lower Priority):** 4 enhancement topics
 
 ---
 

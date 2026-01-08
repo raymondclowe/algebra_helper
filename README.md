@@ -347,11 +347,14 @@ We're committed to making Algebra Helper even better. Here's what's planned:
 
 ### 📋 IB Syllabus Coverage Enhancement
 
-We've completed a comprehensive review of IB Math AA syllabus coverage and identified **35 enhancement opportunities** across three priority phases. See detailed documentation:
+We've completed a comprehensive review of IB Math AA syllabus coverage and identified **35 enhancement opportunities** across four priority phases. See detailed documentation:
 
 - **[SYLLABUS_COVERAGE_REVIEW.md](SYLLABUS_COVERAGE_REVIEW.md)** - Complete analysis of all gaps and priorities
 - **[SYLLABUS_GAP_SUMMARY.md](SYLLABUS_GAP_SUMMARY.md)** - Quick reference guide with implementation plan
 - **[SYLLABUS_IMPLEMENTATION_TRACKER.md](SYLLABUS_IMPLEMENTATION_TRACKER.md)** - Progress tracking and status
+- **[SYLLABUS_COVERAGE_MATRIX.md](SYLLABUS_COVERAGE_MATRIX.md)** - Visual mapping of IB topics to levels
+
+**Key Insight:** Graphing questions are now feasible using SVG/JavaScript (same approach as the existing trig diagram generator).
 
 **Phase 1 Priorities (12 High-Priority Core Topics):**
 - [ ] Financial applications (compound interest, depreciation)
@@ -366,6 +369,13 @@ We've completed a comprehensive review of IB Math AA syllabus coverage and ident
 - [ ] Standard deviation & variance
 - [ ] Linear regression & correlation
 - [ ] Quadratic vertex form
+
+**Phase 3 Priorities (5 Visual/Graphing Topics using SVG):**
+- [ ] Function graphing & reading (identify intercepts, turning points)
+- [ ] Trig function graphs (amplitude, period, transformations)
+- [ ] Data visualization (histograms, box plots, scatter plots)
+- [ ] Graphical equation solving (find intersections)
+- [ ] Derivative graph relationships (f and f' connections)
 
 **Quick Wins (Low Effort, High Impact):**
 - Arc length and sector area (5-6 questions)
@@ -388,7 +398,8 @@ We've completed a comprehensive review of IB Math AA syllabus coverage and ident
   - Personalized study plans
 
 ### Long Term (12+ Months)
-- [ ] **Syllabus Gap Phase 3**: Enhanced coverage (counterexamples, Maclaurin series, etc.)
+- [ ] **Syllabus Gap Phase 3**: Visual/graphing topics using SVG (function graphs, data viz, etc.)
+- [ ] **Syllabus Gap Phase 4**: Lower-priority enhancements
 - [ ] **User Accounts**: Backend storage for progress tracking across devices
 - [ ] **Google One-Tap Login**: Seamless authentication for saving scores
 - [ ] **Multi-Language Support**: Translate into Spanish, French, Mandarin, etc.

@@ -8,8 +8,10 @@
 ## Overview
 
 **Current Status:** ✅ Strong core coverage across 34 levels  
-**Identified Gaps:** 35 enhancement opportunities  
-**Priority Items:** 12 high-priority core topics
+**Identified Gaps:** 35 enhancement opportunities (31 now implementable using SVG)  
+**Priority Items:** 12 high-priority core topics + 5 graphing topics
+
+**Key Insight:** Graphing questions are now feasible using SVG/JavaScript (same approach as trig diagram generator)
 
 ---
 
@@ -68,23 +70,36 @@
 
 ---
 
-## Phase 3: Lower Priority Enhancements
+## Phase 3: Visual/Graphing Topics (Using SVG)
+
+### Topics to Add
+
+| # | Topic | Target Level | Implementation |
+|---|-------|--------------|----------------|
+| 27 | Function graphing & reading | 14-15 | SVG like trig diagrams |
+| 28 | Trig function graphs | 16-17 | SVG rendering of sin/cos/tan |
+| 29 | Data visualization | 21-22 | SVG histograms, box plots |
+| 30 | Graphical equation solving | 14-15 | Display function intersections |
+| 31 | Derivative graph relationships | 20-21 | f(x) and f'(x) connections |
+
+**Total Estimated Questions:** 20-30 new question types
+
+**Implementation Note:** These use the same SVG approach as the existing trig diagram generator (js/question-templates/trig-diagram-generator.js), which successfully creates interactive visual problems.
+
+---
+
+## Phase 4: Lower Priority Enhancements
 
 ### Topics to Add
 
 | # | Topic | Target Level | Priority Reason |
 |---|-------|--------------|-----------------|
-| 27 | Counterexample proofs | 26-27 | Less frequently tested |
-| 28 | 3D solid geometry | 17, 17.5 | Less algebraic |
-| 29 | Ambiguous case (sine rule) | 16-17 | Narrow application |
-| 30 | Quadratic trig equations | 16-17 | Covered in other contexts |
-| 31 | Trig function symmetry | 16-17 | More conceptual |
-| 32 | Kinematics with calculus | 20-21, 28-29 | Specialized application |
-| 33 | Continuous random variables | 32-33 | Advanced HL |
-| 34 | Euler's method for DEs | 31-32 | Numerical, less algebraic |
-| 35 | Line-plane intersections | 28-29 | Advanced HL |
+| 32 | Counterexample proofs | 26-27 | Less frequently tested |
+| 33 | Ambiguous case (sine rule) | 16-17 | Narrow application |
+| 34 | Continuous random variables | 32-33 | Advanced HL |
+| 35 | Euler's method for DEs | 31-32 | Numerical, less algebraic |
 
-**Total Estimated Questions:** 25-35 new question types
+**Total Estimated Questions:** 15-20 new question types
 
 ---
 
