@@ -42,7 +42,7 @@ window.QuestionTemplates.Quadratics = {
                 
                 // Ensure we have exactly 3 distractors (fallback if equivalence check filtered too many)
                 while (wrongAnswers.length < 3) {
-                    wrongAnswers.push(`y = \\sqrt{${utils.rInt(1, this.FALLBACK_DISTRACTOR_MAX_COEFFICIENT)}x}`);
+                    wrongAnswers.push(`y = \\sqrt{${utils.rInt(1, 15)}x}`);
                 }
                 
                 return {
