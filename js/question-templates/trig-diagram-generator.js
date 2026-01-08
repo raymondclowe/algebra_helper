@@ -57,7 +57,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 sides: {opp: sideA, adj: sideB, hyp: sideC}, 
                 known: problem.known, 
                 find: problem.find,
-                question: problem.find === 'angle' ? "Find θ" : "Find x",
+                question: problem.find === 'angle' ? "FIND θ" : "FIND x",
                 correct: problem.correct
             };
             
@@ -78,7 +78,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 // Cosine Rule: Find side a
                 return {
                     type: 'scalene',
-                    question: "Find side x",
+                    question: "FIND SIDE x",
                     display: { angleA: A, sideB: b, sideC: c, sideA: 'x' },
                     angles: [A, B, C],
                     sides: [a, b, c],
@@ -88,7 +88,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 // Sine Rule: Find side b given A, a, B
                 return {
                     type: 'scalene',
-                    question: "Find side x",
+                    question: "FIND SIDE x",
                     display: { angleA: A, sideA: a, angleB: B, sideB: 'x' },
                     angles: [A, B, C],
                     sides: [a, b, c],
@@ -124,12 +124,12 @@ window.QuestionTemplates.TrigDiagramGenerator = {
             };
 
             if (subType === 0) {
-                q.question = "Find side x";
+                q.question = "FIND SIDE x";
                 q.find = 'hyp';
                 q.known = ['opp', 'adj'];
                 q.correct = hyp;
             } else {
-                q.question = "Find side x";
+                q.question = "FIND SIDE x";
                 q.find = 'opp';
                 q.known = ['hyp', 'adj'];
                 q.correct = opp;
@@ -148,7 +148,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 q.sides = { hyp: 2*k, opp: k, adj: Math.sqrt(3)*k };
                 q.find = 'opp';
                 q.known = ['angle', 'hyp'];
-                q.question = "Find side x";
+                q.question = "FIND SIDE x";
                 q.correct = k;
             }
             else if (setIdx === 2) { // 60 deg, find Adj
@@ -156,7 +156,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 q.sides = { hyp: 2*k, adj: k, opp: Math.sqrt(3)*k };
                 q.find = 'adj';
                 q.known = ['angle', 'hyp'];
-                q.question = "Find side x";
+                q.question = "FIND SIDE x";
                 q.correct = k;
             }
             else if (setIdx === 3) { // 45 deg, find Adj given Opp
@@ -164,7 +164,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 q.sides = { opp: k, adj: k, hyp: Math.sqrt(2)*k };
                 q.find = 'adj';
                 q.known = ['angle', 'opp'];
-                q.question = "Find side x";
+                q.question = "FIND SIDE x";
                 q.correct = k;
             } 
             else { // Find Angle
@@ -172,7 +172,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 q.angle = angleAns;
                 q.correct = angleAns;
                 q.find = 'angle';
-                q.question = "Find angle θ";
+                q.question = "FIND ANGLE θ";
                 
                 if (angleAns === 30) {
                     q.sides = { opp: k, hyp: 2*k };
@@ -209,6 +209,21 @@ window.QuestionTemplates.TrigDiagramGenerator = {
             t.textContent = txt;
             svg.appendChild(t);
         };
+
+        // Add calculator/no-calculator indicator in top right
+        const indicatorText = isCalc ? "🖩 CALC" : "NO CALC";
+        const indicator = this.createSvgElement("text", {
+            x: 360,
+            y: 20,
+            "text-anchor": "end",
+            "dominant-baseline": "middle",
+            "fill": isCalc ? "#60a5fa" : "#fbbf24",
+            "font-size": "16",
+            "font-weight": "bold",
+            "font-family": "sans-serif"
+        });
+        indicator.textContent = indicatorText;
+        svg.appendChild(indicator);
 
         if (qData.type === 'right') {
             // Right Triangle Drawing
@@ -392,9 +407,12 @@ window.QuestionTemplates.TrigDiagramGenerator = {
             explanation += `Non-calculator mode: answer should be exact.`;
         }
         
+        // Add calculator/no-calculator prefix to instruction
+        const instructionPrefix = isCalc ? "WITH CALCULATOR, " : "WITHOUT CALCULATOR, ";
+        
         return {
             tex: svgString, // SVG embedded as "tex" field for rendering
-            instruction: qData.question,
+            instruction: instructionPrefix + qData.question,
             displayAnswer: correctAnswer,
             distractors: distractors,
             explanation: explanation,
