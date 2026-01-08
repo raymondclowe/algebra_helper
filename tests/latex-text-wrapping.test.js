@@ -5,10 +5,11 @@
 
 describe('LaTeX Text Wrapping', () => {
     let page;
+    const BASE_URL = process.env.TEST_URL || 'http://localhost:8000';
     
     beforeAll(async () => {
         page = await browser.newPage();
-        await page.goto('http://localhost:8080/algebra-helper.html');
+        await page.goto(`${BASE_URL}/algebra-helper.html`);
         
         // Wait for app and utilities to be ready
         await page.waitForFunction(
@@ -75,7 +76,7 @@ describe('LaTeX Text Wrapping', () => {
     describe('Level 7 Lines questions', () => {
         test('parallel lines question wraps correctly', async () => {
             // Force level 7, question type 1 (parallel lines)
-            await page.goto('http://localhost:8080/algebra-helper.html?testLevel=7&testType=1');
+            await page.goto(`${BASE_URL}/algebra-helper.html?testLevel=7&testType=1`);
             
             await page.waitForFunction(
                 () => window.MathJax && window.MathJax.typesetPromise && window.APP,
@@ -100,7 +101,7 @@ describe('LaTeX Text Wrapping', () => {
         
         test('perpendicular lines question wraps correctly', async () => {
             // Force level 7, question type 2 (perpendicular lines)
-            await page.goto('http://localhost:8080/algebra-helper.html?testLevel=7&testType=2');
+            await page.goto(`${BASE_URL}/algebra-helper.html?testLevel=7&testType=2`);
             
             await page.waitForFunction(
                 () => window.MathJax && window.MathJax.typesetPromise && window.APP,
@@ -124,7 +125,7 @@ describe('LaTeX Text Wrapping', () => {
     describe('Financial applications questions', () => {
         test('compound interest question wraps correctly', async () => {
             // Force level 14, question type 2
-            await page.goto('http://localhost:8080/algebra-helper.html?testLevel=14&testType=2');
+            await page.goto(`${BASE_URL}/algebra-helper.html?testLevel=14&testType=2`);
             
             await page.waitForFunction(
                 () => window.MathJax && window.MathJax.typesetPromise && window.APP,

@@ -673,7 +673,7 @@ window.GeneratorUtils = {
     },
     
     /**
-     * Wrap long LaTeX text at natural break points (periods, commas, question marks)
+     * Wrap long LaTeX text at natural break points (periods, question marks)
      * to improve readability on mobile devices by splitting into multiple lines.
      * 
      * @param {string} tex - The LaTeX string to wrap
