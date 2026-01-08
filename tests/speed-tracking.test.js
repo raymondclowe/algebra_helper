@@ -111,6 +111,7 @@ describe('Speed Tracking Tests', () => {
         const levelIncrease = levelAfter - levelBefore;
 
         // Slow answer (>20s) should get reduced delta (around 0.1-0.15)
+        // Base delta is 0.2, reduced by 0.5-0.75 speed multiplier = 0.1-0.15
         expect(levelIncrease).toBeGreaterThanOrEqual(0.08);
         expect(levelIncrease).toBeLessThanOrEqual(0.2);
     });

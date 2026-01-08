@@ -13,10 +13,6 @@ describe('Verify Uniqueness Fix in Previously Problematic Templates', () => {
         });
     });
 
-    afterAll(async () => {
-        await browser.close();
-    });
-    
     beforeEach(async () => {
         page = await browser.newPage();
         await page.goto(`${baseUrl}/algebra-helper.html`, { 
@@ -32,6 +28,10 @@ describe('Verify Uniqueness Fix in Previously Problematic Templates', () => {
     
     afterEach(async () => {
         await page.close();
+    });
+    
+    afterAll(async () => {
+        await browser.close();
     });
 
     test('Calculus questions have unique distractors', async () => {
