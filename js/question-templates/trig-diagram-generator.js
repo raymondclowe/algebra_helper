@@ -5,6 +5,10 @@
 window.QuestionTemplates = window.QuestionTemplates || {};
 
 window.QuestionTemplates.TrigDiagramGenerator = {
+    // Constants
+    EPSILON: 0.0001,
+    MIN_TRIANGLE_DIMENSION: 50,
+    
     // Math Helpers
     radToDeg: (rad) => rad * (180 / Math.PI),
     degToRad: (deg) => deg * (Math.PI / 180),
@@ -13,7 +17,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
     toSigFig: function(num) {
         if (num === 0) return 0;
         // If it's effectively an integer, return integer
-        if (Math.abs(num - Math.round(num)) < 0.0001) return Math.round(num);
+        if (Math.abs(num - Math.round(num)) < this.EPSILON) return Math.round(num);
         return parseFloat(Number(num).toPrecision(3));
     },
     
@@ -229,8 +233,8 @@ window.QuestionTemplates.TrigDiagramGenerator = {
             let w = scale * Math.cos(rad);
             let h = scale * Math.sin(rad);
             
-            if (w < 50) w = 50; 
-            if (h < 50) h = 50; 
+            if (w < this.MIN_TRIANGLE_DIMENSION) w = this.MIN_TRIANGLE_DIMENSION; 
+            if (h < this.MIN_TRIANGLE_DIMENSION) h = this.MIN_TRIANGLE_DIMENSION; 
             
             const x0 = 100, y0 = 250;
 
@@ -335,8 +339,6 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 // CALCULATOR logic with variations
                 const variance = (Math.random() - 0.5) * correct * 0.5;
                 fake = correct + variance;
-                // Common trig errors
-                if (Math.random() < 0.2) fake = correct / Math.sin(this.degToRad(30)); 
             }
 
             // Format it
@@ -349,9 +351,12 @@ window.QuestionTemplates.TrigDiagramGenerator = {
             }
         }
 
-        // Convert to array and shuffle
+        // Convert to array and shuffle using Fisher-Yates algorithm
         let arr = Array.from(opts);
-        arr.sort(() => Math.random() - 0.5);
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
         
         // Format for display
         const suffix = (qData.find === 'angle' || qData.question.includes('angle')) ? "°" : "";
