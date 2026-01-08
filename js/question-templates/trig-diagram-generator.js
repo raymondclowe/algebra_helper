@@ -43,38 +43,23 @@ window.QuestionTemplates.TrigDiagramGenerator = {
             // 0=FindOpp, 1=FindAdj, 2=FindHyp, 3=FindAngle
             const type = utils.rInt(0, 3);
             
+            const problemTypes = [
+                { find: 'opp', known: ['angle', 'hyp'], correct: sideA },
+                { find: 'adj', known: ['angle', 'hyp'], correct: sideB },
+                { find: 'hyp', known: ['angle', 'adj'], correct: sideC },
+                { find: 'angle', known: ['opp', 'adj'], correct: angleA }
+            ];
+            const problem = problemTypes[type];
+            
             let q = { 
                 type: 'right', 
                 angle: angleA, 
                 sides: {opp: sideA, adj: sideB, hyp: sideC}, 
-                known: [], 
-                find: '' 
+                known: problem.known, 
+                find: problem.find,
+                question: problem.find === 'angle' ? "Find θ" : "Find x",
+                correct: problem.correct
             };
-            
-            if (type === 0) { 
-                q.question = "Find x"; 
-                q.find = 'opp'; 
-                q.known = ['angle', 'hyp']; 
-                q.correct = sideA; 
-            }
-            else if (type === 1) { 
-                q.question = "Find x"; 
-                q.find = 'adj'; 
-                q.known = ['angle', 'hyp']; 
-                q.correct = sideB; 
-            }
-            else if (type === 2) { 
-                q.question = "Find x"; 
-                q.find = 'hyp'; 
-                q.known = ['angle', 'adj']; 
-                q.correct = sideC; 
-            }
-            else { 
-                q.question = "Find θ"; 
-                q.find = 'angle'; 
-                q.known = ['opp', 'adj']; 
-                q.correct = angleA; 
-            }
             
             return q;
         } else {
@@ -190,13 +175,13 @@ window.QuestionTemplates.TrigDiagramGenerator = {
                 q.question = "Find angle θ";
                 
                 if (angleAns === 30) {
-                    q.sides = { opp: k, hyp: 2*k, adj: 0 };
+                    q.sides = { opp: k, hyp: 2*k };
                     q.known = ['opp', 'hyp'];
                 } else if (angleAns === 60) {
-                    q.sides = { adj: k, hyp: 2*k, opp: 0};
+                    q.sides = { adj: k, hyp: 2*k };
                     q.known = ['adj', 'hyp'];
                 } else { // 45
-                    q.sides = { opp: k, adj: k, hyp: 0};
+                    q.sides = { opp: k, adj: k };
                     q.known = ['opp', 'adj'];
                 }
             }
@@ -384,7 +369,7 @@ window.QuestionTemplates.TrigDiagramGenerator = {
         const options = this.generateOptions(qData, isCalc);
         const correctAnswer = options.find(opt => {
             const val = parseFloat(opt);
-            const tolerance = isCalc ? 0.1 : 0.001;
+            const tolerance = 1e-9; // Use small epsilon for float comparison after toSigFig
             return Math.abs(val - qData.correct) < tolerance;
         });
         
