@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-02T01:48:07.672Z",
+  "timestamp": "2026-01-09T01:57:13.670Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 1,
-    "questionText": "13 + 3",
+    "questionText": "6 + 14",
     "instruction": "CALCULATE",
-    "correctAnswer": "16",
+    "correctAnswer": "20",
     "distractors": [
-      "17",
-      "15",
-      "10"
+      "21",
+      "19",
+      "-8"
     ],
     "allOptions": [
-      "17",
-      "15",
-      "16",
-      "10",
+      "20",
+      "-8",
+      "21",
+      "19",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Adding 13 and 3 gives 16. You can verify by counting up from 13 by 3 steps."
+    "explanation": "Adding 6 and 14 gives 20. You can verify by counting up from 6 by 14 steps."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n- **Calculation:** $6 + 14 = 20$.\n- **Correct Answer:** The highlighted option ($20$) is correct.\n- **Distractors:** The incorrect options ($-8$, $21$, $19$) are distinct and plausible errors (subtraction instead of addition, or off-by-one errors).\n- **Clarity:** The notation is standard and unambiguous.",
     "error": null
   }
 }

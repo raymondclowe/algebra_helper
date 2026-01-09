@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-02T01:49:00.015Z",
+  "timestamp": "2026-01-09T01:58:10.822Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 2,
@@ -13,12 +13,12 @@
     "distractors": [
       "4",
       "2",
-      "6"
+      "9"
     ],
     "allOptions": [
-      "3",
-      "6",
+      "9",
       "2",
+      "3",
       "4",
       "I don't know\n                    (no penalty)"
     ],
@@ -26,7 +26,7 @@
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the stated difficulty level.\n\n*   **Question:** \"9 is the square of what number?\" asks for $x$ where $x^2 = 9$.\n*   **Correct Answer:** 3 is correct ($3^2 = 9$).\n*   **Distractors:** 6, 2, and 4 are all incorrect.\n*   **Ambiguity:** While $(-3)^2$ is also 9, negative numbers are not included in the options, making 3 the single distinct correct choice.",
+    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for the stated difficulty level (Level 2: Squares & Roots).\n\n*   **Mathematical Correctness:** The question asks to identify the number which, when squared, equals 9. Since $3^2 = 9$, the answer is correct.\n*   **Clarity:** While technically $(-3)^2$ is also 9, the absence of negative numbers in the options removes ambiguity for this difficulty level.\n*   **Distractors:** The distractors (9, 2, 4) are plausible errors for beginners (e.g., confusing the operation with doubling, or confusing the input/output).",
     "error": null
   }
 }

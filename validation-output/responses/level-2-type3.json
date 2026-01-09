@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-02T01:49:10.794Z",
+  "timestamp": "2026-01-09T01:58:23.353Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 3,
-    "questionText": "\\text{What is } 5^3?",
+    "questionText": "\\text{What is } 6^3?",
     "instruction": "CALCULATE THE CUBE",
-    "correctAnswer": "125",
+    "correctAnswer": "216",
     "distractors": [
-      "15",
-      "25",
-      "130"
+      "18",
+      "36",
+      "222"
     ],
     "allOptions": [
-      "15",
-      "125",
-      "130",
-      "25",
+      "222",
+      "216",
+      "18",
+      "36",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "5^3 = 5 × 5 × 5 = 125. Cubing means multiplying a number by itself three times."
+    "explanation": "6^3 = 6 × 6 × 6 = 216. Cubing means multiplying a number by itself three times."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the difficulty level.\n\n*   **Question:** $5^3$ asks for $5 \\times 5 \\times 5$, which equals $125$.\n*   **Correct Answer:** The option \"125\" is correctly identified.\n*   **Distractors:**\n    *   \"15\" is a good distractor (common error: $5 \\times 3$).\n    *   \"25\" is a good distractor (common error: $5^2$).\n    *   \"130\" is a plausible incorrect value close to the answer.\n*   **Clarity:** The notation and wording are unambiguous.",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the level.\n\n*   **Calculation:** $6^3 = 6 \\times 6 \\times 6 = 36 \\times 6 = 216$. The marked correct answer is accurate.\n*   **Distractors:**\n    *   **18:** Catches the common error of multiplying base by exponent ($6 \\times 3$).\n    *   **36:** Catches the error of squaring instead of cubing ($6^2$).\n    *   **222:** A plausible magnitude estimate or calculation error.\n*   **Clarity:** The notation and wording are unambiguous.",
     "error": null
   }
 }

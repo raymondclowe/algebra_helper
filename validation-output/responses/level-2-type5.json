@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-02T01:49:36.073Z",
+  "timestamp": "2026-01-09T01:58:49.403Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 5,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 5,
-    "questionText": "\\sqrt{49}",
+    "questionText": "\\sqrt{64}",
     "instruction": "CALCULATE",
-    "correctAnswer": "7",
+    "correctAnswer": "8",
     "distractors": [
-      "8",
-      "6",
-      "24"
+      "9",
+      "7",
+      "32"
     ],
     "allOptions": [
-      "24",
-      "8",
+      "32",
       "7",
-      "6",
+      "8",
+      "9",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "The square root of 49 is 7 because 7 × 7 = 49."
+    "explanation": "The square root of 64 is 8 because 8 × 8 = 64."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\n**Assessment:**\n- **Mathematical Correctness:** The question asks for the principal square root of 49. Since $7^2 = 49$, $\\sqrt{49} = 7$. The math is correct.\n- **Difficulty:** Level 2 is appropriate for basic perfect square roots.\n- **Clarity:** The notation is standard and unambiguous.\n- **Distractors:**\n  - 6 and 8 are good distractors as they are the integers adjacent to the correct answer (and correspond to $\\sqrt{36}$ and $\\sqrt{64}$).\n  - 24 is likely a distractor based on halving 49 (approx 24.5), which is a common misconception for students confusing square roots with division by 2.",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 2.\n\n*   **Calculation:** $\\sqrt{64} = 8$, because $8 \\times 8 = 64$. The marked correct answer is 8.\n*   **Distractors:** The distractors are plausible.\n    *   **32:** Catches students who divide by 2 instead of taking the square root.\n    *   **7 and 9:** Are the roots of nearby perfect squares (49 and 81), serving as reasonable estimates for a student who is unsure.\n*   **Notation:** The LaTeX rendering is clear.",
     "error": null
   }
 }
