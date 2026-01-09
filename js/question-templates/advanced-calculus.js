@@ -562,23 +562,23 @@ window.QuestionTemplates.AdvancedCalculus = {
             const candidateDistractors = [
                 `\\frac{y}{x}`,  // Wrong sign
                 `-\\frac{x}{y}`,  // Inverted
-                `-\\frac{1}{x^2}`  // Alternative form but not in terms of x and y
+                `\\frac{1}{xy}`  // Wrong formula
             ];
             const distractors = utils.ensureUniqueDistractors(
                 correctAnswer,
                 candidateDistractors,
                 () => {
-                    const opts = ['\\frac{x}{y}', '-x', '-y', '\\frac{1}{x}'];
+                    const opts = ['\\frac{x}{y}', '-x', '-y', '\\frac{1}{x}', '-xy'];
                     return opts[utils.rInt(0, opts.length - 1)];
                 }
             );
             
             return {
                 tex: utils.toUnicodeFunction(`\\text{For } xy = 1, \\text{ find } \\frac{dy}{dx}`),
-                instruction: "Use implicit differentiation",
+                instruction: "Use implicit differentiation (give answer in terms of x and y)",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
-                explanation: `Use product rule on left side: y + x(dy/dx) = 0. Solve for dy/dx: x(dy/dx) = -y, so dy/dx = -y/x. Alternative: since y = 1/x, dy/dx = -1/x² = -y/x (equivalent).`,
+                explanation: `Use product rule on left side: y + x(dy/dx) = 0. Solve for dy/dx: x(dy/dx) = -y, so dy/dx = -y/x. This is the answer in terms of x and y as requested.`,
                 calc: false
             };
         }

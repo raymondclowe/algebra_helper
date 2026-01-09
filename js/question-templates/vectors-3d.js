@@ -266,9 +266,9 @@ window.QuestionTemplates.Vectors3D = {
             
             const correctAnswer = `\\begin{pmatrix} ${a} \\\\ ${b} \\\\ ${c} \\end{pmatrix}`;
             const candidateDistractors = [
-                `\\begin{pmatrix} ${d} \\\\ ${d} \\\\ ${d} \\end{pmatrix}`,  // Wrong
-                `\\begin{pmatrix} ${a} \\\\ ${b} \\\\ ${d} \\end{pmatrix}`,  // Used d instead of c
-                `\\begin{pmatrix} ${-a} \\\\ ${-b} \\\\ ${-c} \\end{pmatrix}`  // Negative (also valid but not expected answer)
+                `\\begin{pmatrix} ${d} \\\\ ${d} \\\\ ${d} \\end{pmatrix}`,  // Using d (wrong)
+                `\\begin{pmatrix} ${a} \\\\ ${b} \\\\ ${d} \\end{pmatrix}`,  // Using d instead of c (wrong)
+                `\\begin{pmatrix} ${a + 1} \\\\ ${b + 1} \\\\ ${c + 1} \\end{pmatrix}`  // Off by one (wrong)
             ];
             const distractors = utils.ensureUniqueDistractors(
                 correctAnswer,
@@ -277,11 +277,11 @@ window.QuestionTemplates.Vectors3D = {
             );
             
             return {
-                tex: utils.toUnicodeFunction(`\\text{Plane: } ${a}x + ${b}y + ${c}z = ${d}\\\\[0.5em]\\text{What is the normal vector?}`),
-                instruction: "Identify the normal vector",
+                tex: utils.toUnicodeFunction(`\\text{Plane: } ${a}x + ${b}y + ${c}z = ${d}\\\\[0.5em]\\text{What is a normal vector?}`),
+                instruction: "Identify a normal vector",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
-                explanation: `For plane ax + by + cz = d, the normal vector is n = (a, b, c). So normal = (${a}, ${b}, ${c}). The constant d doesn't appear in the normal vector.`,
+                explanation: `For plane ax + by + cz = d, a normal vector is n = (a, b, c). So a normal vector is (${a}, ${b}, ${c}). The constant d doesn't appear in the normal vector. Note: (-${a}, -${b}, -${c}) would also be a valid normal vector.`,
                 calc: false
             };
         } else if (questionType === 5) {

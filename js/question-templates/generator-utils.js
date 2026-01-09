@@ -684,6 +684,10 @@ window.GeneratorUtils = {
      *   "Line L₁ has equation y=9x+5. What is the gradient?"
      *   becomes:
      *   "Line L₁ has equation y=9x+5.\\[0.5em]What is the gradient?"
+     *
+     * IMPORTANT: \\[0.5em] is a display math command and CANNOT be used inside \text{} blocks.
+     * If the input is wrapped in \text{}, we need to break out of text mode, insert the line break,
+     * and re-enter text mode.
      */
     wrapLongLatexText: function(tex, minLength = 50) {
         // Skip if already has manual line breaks or is short enough
@@ -691,19 +695,25 @@ window.GeneratorUtils = {
             return tex;
         }
         
-        // Pattern to match natural break points:
-        // - Period followed by space and capital letter or \text{
-        // - Question mark followed by space
-        // We replace ". " with ". \\[0.5em]" (keeping the space after period)
+        // Check if the entire expression is wrapped in a single \text{...}
+        const isWrappedInText = tex.trim().startsWith('\\text{') && tex.trim().endsWith('}');
         
         let result = tex;
         
-        // Match pattern: ". " followed by capital letter or \text{
-        // Keep the space after the period, insert line break before next word
-        result = result.replace(/\.\s+(\\text\{|[A-Z])/g, '. \\\\[0.5em]$1');
-        
-        // Replace "? " with "? \\[0.5em]" if followed by \text{ or capital
-        result = result.replace(/\?\s+(\\text\{|[A-Z])/g, '? \\\\[0.5em]$1');
+        if (isWrappedInText) {
+            // If wrapped in \text{}, we need to break out of text mode for line breaks
+            // Match pattern: ". " or "? " followed by capital letter
+            // Replace with: .}\\[0.5em]\text{ (closing current text, line break, opening new text)
+            // We don't capture \text{ here since we're already inside one
+            result = result.replace(/\.\s+([A-Z])/g, '.}\\\\[0.5em]\\text{$1');
+            result = result.replace(/\?\s+([A-Z])/g, '?}\\\\[0.5em]\\text{$1');
+        } else {
+            // Not wrapped in \text{}, use simpler replacement
+            // Match pattern: ". " or "? " followed by capital letter or \text{
+            // Keep the space after the punctuation, insert line break before next word
+            result = result.replace(/\.\s+(\\text\{|[A-Z])/g, '. \\\\[0.5em]$1');
+            result = result.replace(/\?\s+(\\text\{|[A-Z])/g, '? \\\\[0.5em]$1');
+        }
         
         return result;
     }

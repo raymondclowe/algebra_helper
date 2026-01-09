@@ -40,7 +40,7 @@ window.QuestionTemplates.ArcSector = {
             );
             
             return {
-                tex: utils.wrapLongLatexText(`\\text{Find the arc length of a circle with radius ${radius} cm and angle ${angle.display} radians.}`),
+                tex: `\\text{Find the arc length of a circle with radius ${radius} cm and angle } ${angle.display} \\text{ radians.}`,
                 instruction: "Use L = rθ (give answer to 2 d.p.)",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
