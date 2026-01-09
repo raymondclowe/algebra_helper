@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-02T01:48:28.685Z",
+  "timestamp": "2026-01-09T01:57:36.983Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 3,
-    "questionText": "? + 9 = 18",
+    "questionText": "? + 6 = 12",
     "instruction": "FIND THE MISSING NUMBER",
-    "correctAnswer": "9",
+    "correctAnswer": "6",
     "distractors": [
-      "10",
-      "18",
-      "2"
+      "7",
+      "12",
+      "15"
     ],
     "allOptions": [
-      "10",
-      "9",
-      "2",
-      "18",
+      "15",
+      "6",
+      "12",
+      "7",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "To find the missing number, subtract 9 from 18: 18 - 9 = 9. Check: 9 + 9 = 18 ✓"
+    "explanation": "To find the missing number, subtract 6 from 12: 12 - 6 = 6. Check: 6 + 6 = 12 ✓"
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n\n*   **Equation:** $? + 9 = 18$\n*   **Solution:** $18 - 9 = 9$\n*   **Correct Answer:** The option \"9\" is correctly identified.\n*   **Distractors:** The incorrect options (10, 2, 18) are distinct and plausible for this level (e.g., 2 could result from confusing addition with multiplication/division: $2 \\times 9 = 18$).",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n\n*   **Calculation:** $12 - 6 = 6$.\n*   **Correct Answer:** The option \"6\" is correctly identified.\n*   **Distractors:** The incorrect options (15, 12, 7) are distinct and unambiguous.",
     "error": null
   }
 }

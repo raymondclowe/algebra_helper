@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-02T01:48:18.242Z",
+  "timestamp": "2026-01-09T01:57:26.032Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 2,
-    "questionText": "19 - 15",
+    "questionText": "27 - 15",
     "instruction": "CALCULATE",
-    "correctAnswer": "4",
+    "correctAnswer": "12",
     "distractors": [
-      "5",
-      "3",
-      "34"
+      "13",
+      "11",
+      "42"
     ],
     "allOptions": [
-      "34",
-      "5",
-      "4",
-      "3",
+      "12",
+      "42",
+      "11",
+      "13",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Subtracting 15 from 19 gives 4. You can verify by adding: 4 + 15 = 19."
+    "explanation": "Subtracting 15 from 27 gives 12. You can verify by adding: 12 + 15 = 27."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for a Level 1 Basic Arithmetic task.\n\n*   **Calculation:** $19 - 15 = 4$.\n*   **Correct Answer:** The option \"4\" is correctly identified.\n*   **Distractors:**\n    *   34 (Result of adding: $19 + 15$)\n    *   5 (Close value / calculation error)\n    *   3 (Close value / calculation error)\n    These are reasonable distractors for this level.",
+    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n- **Calculation:** $27 - 15 = 12$.\n- **Distractors:**\n  - $42$ is the result of addition ($27 + 15$), checking for sign errors.\n  - $11$ and $13$ are close values, checking for precision.",
     "error": null
   }
 }

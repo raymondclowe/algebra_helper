@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-02T01:48:47.809Z",
+  "timestamp": "2026-01-09T01:57:58.453Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 1,
-    "questionText": "\\text{What is } 8^2?",
+    "questionText": "\\text{What is } 4^2?",
     "instruction": "CALCULATE THE SQUARE",
-    "correctAnswer": "64",
+    "correctAnswer": "16",
     "distractors": [
-      "16",
-      "72",
-      "56"
+      "8",
+      "20",
+      "12"
     ],
     "allOptions": [
+      "12",
+      "20",
+      "8",
       "16",
-      "56",
-      "64",
-      "72",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "8^2 = 8 × 8 = 64. Squaring means multiplying a number by itself."
+    "explanation": "4^2 = 4 × 4 = 16. Squaring means multiplying a number by itself."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the stated difficulty level.\n\n*   **Calculation:** $8^2 = 8 \\times 8 = 64$.\n*   **Correct Answer:** The option \"64\" is correctly identified.\n*   **Distractors:**\n    *   \"16\" is a good distractor (common error of doing $8 \\times 2$).\n    *   \"56\" and \"72\" are plausible multiplication errors ($8 \\times 7$ and $8 \\times 9$).\n*   **Notation:** Clear and standard.",
+    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the stated level.\n- **Calculation:** $4^2 = 4 \\times 4 = 16$.\n- **Correct Answer:** The option \"16\" is correctly identified.\n- **Distractors:** \"8\" is a good distractor (common error of doing $4 \\times 2$), and the others are plausible incorrect values.",
     "error": null
   }
 }

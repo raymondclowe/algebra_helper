@@ -249,7 +249,14 @@ window.Generator = {
         if (band <= 25) return this.getCalculus();
         // Advanced HL Topics
         if (band <= 26) return this.getInductionProof();
-        if (band <= 27) return this.getContradictionProof();
+        if (band <= 27) {
+            // Mix contradiction proofs and counterexample proofs
+            const proofType = this.rInt(1, 3);
+            if (proofType === 1 && window.QuestionTemplates.CounterexampleProofs) {
+                return window.QuestionTemplates.CounterexampleProofs.getCounterexampleProofQuestion();
+            }
+            return this.getContradictionProof();
+        }
         if (band <= 28) return this.getMatrixAlgebra();
         if (band <= 29) return this.getVectors3D();
         if (band <= 30) return this.getComplexPolar();
@@ -316,7 +323,21 @@ window.Generator = {
     getVectors3D: function() { return window.QuestionTemplates.Vectors3D.get3DVectorQuestion(); },
     getComplexPolar: function() { return window.QuestionTemplates.ComplexPolar.getComplexPolarQuestion(); },
     getAdvancedIntegration: function() { return window.QuestionTemplates.AdvancedIntegration.getAdvancedIntegrationQuestion(); },
-    getDifferentialEquations: function() { return window.QuestionTemplates.DifferentialEquations.getDifferentialEquationQuestion(); },
-    getProbabilityDistributions: function() { return window.QuestionTemplates.ProbabilityDistributions.getProbabilityDistributionQuestion(); },
+    getDifferentialEquations: function() { 
+        // Mix standard differential equations and Euler's method
+        const questionType = this.rInt(1, 4);
+        if (questionType === 1 && window.QuestionTemplates.DifferentialEquations.getEulersMethod) {
+            return window.QuestionTemplates.DifferentialEquations.getEulersMethod();
+        }
+        return window.QuestionTemplates.DifferentialEquations.getDifferentialEquationQuestion(); 
+    },
+    getProbabilityDistributions: function() { 
+        // Mix standard distributions and continuous random variables
+        const questionType = this.rInt(1, 4);
+        if (questionType === 1 && window.QuestionTemplates.ProbabilityDistributions.getContinuousRandomVariable) {
+            return window.QuestionTemplates.ProbabilityDistributions.getContinuousRandomVariable();
+        }
+        return window.QuestionTemplates.ProbabilityDistributions.getProbabilityDistributionQuestion(); 
+    },
     getHypothesisTesting: function() { return window.QuestionTemplates.HypothesisTesting.getHypothesisTestingQuestion(); }
 };
