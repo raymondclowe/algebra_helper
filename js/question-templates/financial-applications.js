@@ -67,7 +67,7 @@ window.QuestionTemplates.FinancialApplications = {
             );
             
             return {
-                tex: `\\text{An investment grows to \\$${finalValue} after ${years} years at ${rate}\\% per year compound interest. What was the initial investment?}`,
+                tex: utils.wrapLongLatexText(`\\text{An investment grows to \\$${finalValue} after ${years} years at ${rate}\\% per year compound interest. What was the initial investment?}`),
                 instruction: "Calculate initial value",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
@@ -100,7 +100,7 @@ window.QuestionTemplates.FinancialApplications = {
             );
             
             return {
-                tex: `\\text{A car worth \\$${initialValue} depreciates at ${rate}\\% per year. What is its value after ${years} years?}`,
+                tex: utils.wrapLongLatexText(`\\text{A car worth \\$${initialValue} depreciates at ${rate}\\% per year. What is its value after ${years} years?}`),
                 instruction: "Calculate depreciated value",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
@@ -133,7 +133,7 @@ window.QuestionTemplates.FinancialApplications = {
             );
             
             return {
-                tex: `\\text{An asset worth \\$${initial} increases to \\$${final} after ${years} years. What is the annual growth rate (compound)?}`,
+                tex: utils.wrapLongLatexText(`\\text{An asset worth \\$${initial} increases to \\$${final} after ${years} years. What is the annual growth rate (compound)?}`),
                 instruction: "Find the annual rate",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
@@ -166,7 +166,7 @@ window.QuestionTemplates.FinancialApplications = {
             );
             
             return {
-                tex: `\\text{A population of ${initial} grows at ${rate}\\% per year. What is the population after ${years} years?}`,
+                tex: utils.wrapLongLatexText(`\\text{A population of ${initial} grows at ${rate}\\% per year. What is the population after ${years} years?}`),
                 instruction: "Calculate population",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
@@ -198,7 +198,7 @@ window.QuestionTemplates.FinancialApplications = {
             );
             
             return {
-                tex: `\\text{A substance has ${initial} grams initially. After ${years} years (${halfLives} half-lives), how much remains?}`,
+                tex: utils.wrapLongLatexText(`\\text{A substance has ${initial} grams initially. After ${years} years (${halfLives} half-lives), how much remains?}`),
                 instruction: "Calculate remaining amount",
                 displayAnswer: correctAnswer,
                 distractors: distractors,

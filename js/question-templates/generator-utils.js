@@ -670,5 +670,41 @@ window.GeneratorUtils = {
      */
     processExplanationText: function(text) {
         return this.processTextContent(text);
+    },
+    
+    /**
+     * Wrap long LaTeX text at natural break points (periods, question marks)
+     * to improve readability on mobile devices by splitting into multiple lines.
+     * 
+     * @param {string} tex - The LaTeX string to wrap
+     * @param {number} minLength - Minimum length before wrapping (default: 50 characters)
+     * @returns {string} LaTeX with line breaks inserted at natural break points
+     * 
+     * Examples:
+     *   "Line L₁ has equation y=9x+5. What is the gradient?"
+     *   becomes:
+     *   "Line L₁ has equation y=9x+5.\\[0.5em]What is the gradient?"
+     */
+    wrapLongLatexText: function(tex, minLength = 50) {
+        // Skip if already has manual line breaks or is short enough
+        if (tex.includes('\\\\[') || tex.length < minLength) {
+            return tex;
+        }
+        
+        // Pattern to match natural break points:
+        // - Period followed by space and capital letter or \text{
+        // - Question mark followed by space
+        // We replace ". " with ". \\[0.5em]" (keeping the space after period)
+        
+        let result = tex;
+        
+        // Match pattern: ". " followed by capital letter or \text{
+        // Keep the space after the period, insert line break before next word
+        result = result.replace(/\.\s+(\\text\{|[A-Z])/g, '. \\\\[0.5em]$1');
+        
+        // Replace "? " with "? \\[0.5em]" if followed by \text{ or capital
+        result = result.replace(/\?\s+(\\text\{|[A-Z])/g, '? \\\\[0.5em]$1');
+        
+        return result;
     }
 };

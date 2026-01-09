@@ -27,7 +27,7 @@ window.QuestionTemplates.Lines = {
             );
             
             return {
-                tex: `\\text{Line } L_1 \\text{ has equation } y = ${m}x + ${c1}. \\text{ What is the gradient of a line parallel to } L_1?`,
+                tex: utils.wrapLongLatexText(`\\text{Line } L_1 \\text{ has equation } y = ${m}x + ${c1}. \\text{ What is the gradient of a line parallel to } L_1?`),
                 instruction: "Find the gradient",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
@@ -57,7 +57,7 @@ window.QuestionTemplates.Lines = {
             );
             
             return {
-                tex: `\\text{Line } L_1 \\text{ has equation } y = ${m}x + ${c}. \\text{ What is the gradient of a line perpendicular to } L_1?`,
+                tex: utils.wrapLongLatexText(`\\text{Line } L_1 \\text{ has equation } y = ${m}x + ${c}. \\text{ What is the gradient of a line perpendicular to } L_1?`),
                 instruction: "Find the gradient",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
