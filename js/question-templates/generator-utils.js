@@ -695,24 +695,23 @@ window.GeneratorUtils = {
             return tex;
         }
         
-        // Check if the entire expression is wrapped in \text{}
+        // Check if the entire expression is wrapped in a single \text{...}
         const isWrappedInText = tex.trim().startsWith('\\text{') && tex.trim().endsWith('}');
         
         let result = tex;
         
         if (isWrappedInText) {
             // If wrapped in \text{}, we need to break out of text mode for line breaks
-            // Match pattern: ". " or "? " followed by capital letter or \text{
-            // Replace with: }\\[0.5em]\text{
-            result = result.replace(/\.\s+(\\text\{)?([A-Z])/g, '.}\\\\[0.5em]\\text{$2');
-            result = result.replace(/\?\s+(\\text\{)?([A-Z])/g, '?}\\\\[0.5em]\\text{$2');
+            // Match pattern: ". " or "? " followed by capital letter
+            // Replace with: .}\\[0.5em]\text{ (closing current text, line break, opening new text)
+            // We don't capture \text{ here since we're already inside one
+            result = result.replace(/\.\s+([A-Z])/g, '.}\\\\[0.5em]\\text{$1');
+            result = result.replace(/\?\s+([A-Z])/g, '?}\\\\[0.5em]\\text{$1');
         } else {
             // Not wrapped in \text{}, use simpler replacement
-            // Match pattern: ". " followed by capital letter or \text{
-            // Keep the space after the period, insert line break before next word
+            // Match pattern: ". " or "? " followed by capital letter or \text{
+            // Keep the space after the punctuation, insert line break before next word
             result = result.replace(/\.\s+(\\text\{|[A-Z])/g, '. \\\\[0.5em]$1');
-            
-            // Replace "? " with "? \\[0.5em]" if followed by \text{ or capital
             result = result.replace(/\?\s+(\\text\{|[A-Z])/g, '? \\\\[0.5em]$1');
         }
         
