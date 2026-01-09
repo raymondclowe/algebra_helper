@@ -13,7 +13,9 @@ window.QuestionTemplates.Functions = {
             const b = utils.rInt(-8, 8);
             const c = utils.rInt(1, 4);
             let d = utils.rInt(-8, 8);
-            if (d === 0) d = 3;
+            if (d === 0) {
+                d = 3;
+            }
             const asymptote = -d / c;
             
             const correctAnswer = `x = ${asymptote}`;
@@ -67,8 +69,10 @@ window.QuestionTemplates.Functions = {
         } else if (questionType === 3) {
             // Simplify rational expression (cancel common factors)
             const factor = utils.rInt(2, 6);
-            const root = utils.rInt(-5, 5);
-            if (root === 0) root = 2;
+            let root = utils.rInt(-5, 5);
+            if (root === 0) {
+                root = 2;
+            }
             // (x² - root²)/(x - root) = (x+root)(x-root)/(x-root) = x+root
             const rootSquared = root * root;
             const correctAnswer = `x ${root >= 0 ? '+' : ''}${root}`;
@@ -94,8 +98,10 @@ window.QuestionTemplates.Functions = {
         } else if (questionType === 4) {
             // Domain of rational function
             const c = utils.rInt(1, 4);
-            const d = utils.rInt(-8, 8);
-            if (d === 0) d = 4;
+            let d = utils.rInt(-8, 8);
+            if (d === 0) {
+                d = 4;
+            }
             const restriction = -d / c;
             
             const correctAnswer = utils.toUnicodePlainText(`x ≠ ${restriction}`);
