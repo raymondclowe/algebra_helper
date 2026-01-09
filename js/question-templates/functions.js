@@ -43,7 +43,8 @@ window.QuestionTemplates.Functions = {
             const a = utils.rInt(2, 6);
             const b = utils.rInt(-8, 8);
             const c = utils.rInt(2, 5);
-            const d = utils.rInt(-8, 8);
+            let d = utils.rInt(-8, 8);
+            if (d === 0) { d = 1; } // Avoid division by zero in distractor
             const asymptote = a / c;
             
             const correctAnswer = `y = ${asymptote}`;
