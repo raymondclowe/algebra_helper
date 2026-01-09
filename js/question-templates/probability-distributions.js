@@ -140,5 +140,99 @@ window.QuestionTemplates.ProbabilityDistributions = {
                 calc: false
             };
         }
+    },
+    
+    // Continuous Random Variables - PDF, CDF, Expected Value, Variance
+    getContinuousRandomVariable: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.getQuestionType(1, 4);
+        
+        if (questionType === 1) {
+            // Identify PDF property: ∫f(x)dx = 1
+            return {
+                tex: utils.wrapLongLatexText(`\\text{For a continuous random variable } X \\text{ with PDF } f(x)`),
+                instruction: `\\text{What must } \\int_{-\\infty}^{\\infty} f(x) \\, dx \\text{ equal?}`,
+                displayAnswer: `1`,
+                distractors: utils.ensureUniqueDistractors(
+                    `1`,
+                    [
+                        `0`,
+                        `E(X)`,
+                        `\\text{Var}(X)`
+                    ],
+                    () => `${utils.rInt(2, 10)}`
+                ),
+                explanation: `For any probability density function (PDF), the total area under the curve must equal 1: ∫_{-∞}^{∞} f(x) dx = 1. This ensures all probabilities sum to 1.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Find constant k in a simple PDF: f(x) = k for a ≤ x ≤ b (uniform)
+            const a = 0;
+            const b = [4, 5, 8, 10][utils.rInt(0, 3)];
+            const k = utils.roundToClean(1 / b, 4);
+            
+            return {
+                tex: utils.wrapLongLatexText(`f(x) = \\begin{cases} k & ${a} \\leq x \\leq ${b} \\\\ 0 & \\text{otherwise} \\end{cases}`),
+                instruction: `\\text{Find } k \\text{ if } f(x) \\text{ is a valid PDF}`,
+                displayAnswer: `\\frac{1}{${b}}`,
+                distractors: utils.ensureUniqueDistractors(
+                    `\\frac{1}{${b}}`,
+                    [
+                        `${b}`,
+                        `\\frac{1}{${b * 2}}`,
+                        `\\frac{${b}}{2}`
+                    ],
+                    () => `\\frac{1}{${utils.rInt(2, 12)}}`
+                ),
+                explanation: `For a valid PDF, ∫f(x)dx = 1. Here: ∫₀^${b} k dx = k·${b} = 1, so k = 1/${b}. This is the uniform distribution on [0, ${b}].`,
+                calc: true
+            };
+        } else if (questionType === 3) {
+            // Expected value of uniform distribution
+            const a = 0;
+            const b = [4, 6, 8, 10][utils.rInt(0, 3)];
+            const expectedValue = (a + b) / 2;
+            
+            return {
+                tex: utils.wrapLongLatexText(`X \\sim U(${a}, ${b}) \\text{ (uniform distribution)}`),
+                instruction: `\\text{Find } E(X)`,
+                displayAnswer: `${expectedValue}`,
+                distractors: utils.ensureUniqueDistractors(
+                    `${expectedValue}`,
+                    [
+                        `${b}`,
+                        `${a}`,
+                        `${b - a}`
+                    ],
+                    () => `${utils.rInt(1, 15)}`
+                ),
+                explanation: `For uniform distribution U(a, b), the expected value is E(X) = (a + b)/2 = (${a} + ${b})/2 = ${expectedValue}. The mean is at the midpoint.`,
+                calc: true
+            };
+        } else {
+            // P(a ≤ X ≤ b) using PDF
+            // Simple case: uniform distribution f(x) = 1/c on [0, c]
+            const c = 10;
+            const a = 2;
+            const b = 5;
+            const probability = (b - a) / c;
+            
+            return {
+                tex: utils.wrapLongLatexText(`X \\sim U(0, ${c}). \\text{ Find } P(${a} \\leq X \\leq ${b})`),
+                instruction: "Calculate the probability",
+                displayAnswer: `${probability}`,
+                distractors: utils.ensureUniqueDistractors(
+                    `${probability}`,
+                    [
+                        `${b / c}`,
+                        `${a / c}`,
+                        `${(b + a) / c}`
+                    ],
+                    () => `${utils.roundToClean(utils.rInt(1, 10) / 10, 2)}`
+                ),
+                explanation: `For uniform distribution, P(a ≤ X ≤ b) = (b - a)/c = (${b} - ${a})/${c} = ${b - a}/${c} = ${probability}. This is the area under f(x) = 1/${c} from ${a} to ${b}.`,
+                calc: true
+            };
+        }
     }
 };

@@ -153,5 +153,110 @@ window.QuestionTemplates.DifferentialEquations = {
                 calc: false
             };
         }
+    },
+    
+    // Euler's Method for numerical solution of differential equations
+    getEulersMethod: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.getQuestionType(1, 4);
+        
+        if (questionType === 1) {
+            // Identify Euler's method formula
+            return {
+                tex: utils.wrapLongLatexText(`\\text{Euler's method uses the formula:}`),
+                instruction: "Which formula represents Euler's method?",
+                displayAnswer: `y_{n+1} = y_n + h \\cdot f(x_n, y_n)`,
+                distractors: utils.ensureUniqueDistractors(
+                    `y_{n+1} = y_n + h \\cdot f(x_n, y_n)`,
+                    [
+                        `y_{n+1} = y_n + f(x_n, y_n)`,
+                        `y_{n+1} = h \\cdot f(x_n, y_n)`,
+                        `y_{n+1} = y_n \\cdot h \\cdot f(x_n, y_n)`
+                    ],
+                    () => {
+                        const options = [
+                            `y_{n+1} = f(x_n, y_n)`,
+                            `y_{n+1} = y_n + x_n`,
+                            `y_{n+1} = y_n + h`
+                        ];
+                        return options[utils.rInt(0, options.length - 1)];
+                    }
+                ),
+                explanation: `Euler's method approximates y(x+h) using: y_{n+1} = y_n + h·f(x_n, y_n), where h is the step size and dy/dx = f(x, y).`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Apply Euler's method - simple case with dy/dx = x
+            const x0 = 0;
+            const y0 = 1;
+            const h = 0.5;
+            const f_x0_y0 = x0; // f(x,y) = x, so f(0,1) = 0
+            const y1 = y0 + h * f_x0_y0;
+            
+            return {
+                tex: utils.wrapLongLatexText(`\\frac{dy}{dx} = x, \\quad y(${x0}) = ${y0}, \\quad h = ${h}`),
+                instruction: `\\text{Use Euler's method to find } y(${x0 + h})`,
+                displayAnswer: `${y1}`,
+                distractors: utils.ensureUniqueDistractors(
+                    `${y1}`,
+                    [
+                        `${y0}`,
+                        `${y0 + h}`,
+                        `${h}`
+                    ],
+                    () => `${utils.roundToClean(utils.rInt(0, 4) * 0.5 + 0.5, 2)}`
+                ),
+                explanation: `Euler's method: y₁ = y₀ + h·f(x₀, y₀). Here f(x,y) = x, so f(0, 1) = 0. Thus y₁ = ${y0} + ${h}·0 = ${y1}.`,
+                calc: true
+            };
+        } else if (questionType === 3) {
+            // Apply Euler's method - dy/dx = y
+            const x0 = 0;
+            const y0 = 2;
+            const h = 0.5;
+            const f_x0_y0 = y0; // f(x,y) = y, so f(0,2) = 2
+            const y1 = y0 + h * f_x0_y0; // 2 + 0.5*2 = 3
+            
+            return {
+                tex: utils.wrapLongLatexText(`\\frac{dy}{dx} = y, \\quad y(${x0}) = ${y0}, \\quad h = ${h}`),
+                instruction: `\\text{Use Euler's method to find } y(${x0 + h})`,
+                displayAnswer: `${y1}`,
+                distractors: utils.ensureUniqueDistractors(
+                    `${y1}`,
+                    [
+                        `${y0}`,
+                        `${y0 * 2}`,
+                        `${y0 + h}`
+                    ],
+                    () => `${utils.roundToClean(utils.rInt(1, 6) * 0.5, 2)}`
+                ),
+                explanation: `Euler's method: y₁ = y₀ + h·f(x₀, y₀). Here f(x,y) = y, so f(0, 2) = 2. Thus y₁ = ${y0} + ${h}·${y0} = ${y1}.`,
+                calc: true
+            };
+        } else {
+            // Apply Euler's method - dy/dx = x + y
+            const x0 = 0;
+            const y0 = 1;
+            const h = 1;
+            const f_x0_y0 = x0 + y0; // f(x,y) = x + y, so f(0,1) = 1
+            const y1 = y0 + h * f_x0_y0; // 1 + 1*1 = 2
+            
+            return {
+                tex: utils.wrapLongLatexText(`\\frac{dy}{dx} = x + y, \\quad y(${x0}) = ${y0}, \\quad h = ${h}`),
+                instruction: `\\text{Use Euler's method to estimate } y(${x0 + h})`,
+                displayAnswer: `${y1}`,
+                distractors: utils.ensureUniqueDistractors(
+                    `${y1}`,
+                    [
+                        `${y0}`,
+                        `${x0 + y0}`,
+                        `${h}`
+                    ],
+                    () => `${utils.rInt(0, 5)}`
+                ),
+                explanation: `Euler's method: y₁ = y₀ + h·f(x₀, y₀). Here f(x,y) = x + y, so f(0, 1) = 0 + 1 = 1. Thus y₁ = ${y0} + ${h}·1 = ${y1}.`,
+                calc: true
+            };
+        }
     }
 };
