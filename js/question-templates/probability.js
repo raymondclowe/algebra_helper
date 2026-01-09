@@ -3,9 +3,127 @@
 window.QuestionTemplates = window.QuestionTemplates || {};
 
 window.QuestionTemplates.Probability = {
+    getPermutationQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const permType = utils.rInt(1, 4);
+        
+        if (permType === 1) {
+            // Calculate P(n,r)
+            const n = utils.rInt(5, 10);
+            const r = utils.rInt(2, 4);
+            const factorial = (num) => {
+                let result = 1;
+                for (let i = 2; i <= num; i++) result *= i;
+                return result;
+            };
+            const answer = factorial(n) / factorial(n - r);
+            const correctAnswer = `${answer}`;
+            
+            const candidateDistractors = [
+                `${factorial(n)}`,  // Just n!
+                `${factorial(r)}`,  // Just r!
+                `${factorial(n) / (factorial(r) * factorial(n-r))}`  // Used combination formula
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(10, 1000)}`
+            );
+            
+            return {
+                tex: `P(${n}, ${r}) = ?`,
+                instruction: "Calculate the number of permutations",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `P(n,r) = n!/(n-r)!. So P(${n},${r}) = ${n}!/(${n}-${r})! = ${n}!/${n-r}! = ${answer}. This counts the number of ways to arrange ${r} items chosen from ${n} items where order matters.`,
+                calc: true
+            };
+        } else if (permType === 2) {
+            // When to use permutations vs combinations
+            const correctAnswer = `\\text{When order matters}`;
+            const candidateDistractors = [
+                `\\text{When order doesn't matter}`,
+                `\\text{When selecting all items}`,
+                `\\text{When probability is involved}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\text{Random condition}`
+            );
+            
+            return {
+                tex: `\\text{When do we use permutations}\\\\[0.5em]\\text{instead of combinations?}`,
+                instruction: "Select the correct condition",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Permutations are used when the order of selection matters. For example, arranging 3 books from 5 books uses permutations because the order matters. Choosing 3 books from 5 without caring about order uses combinations. Key difference: ABC ≠ BAC for permutations, but ABC = BAC for combinations.`,
+                calc: false
+            };
+        } else if (permType === 3) {
+            // Real-world permutation problem
+            const items = utils.rInt(6, 10);
+            const positions = utils.rInt(2, 4);
+            const factorial = (num) => {
+                let result = 1;
+                for (let i = 2; i <= num; i++) result *= i;
+                return result;
+            };
+            const answer = factorial(items) / factorial(items - positions);
+            
+            const correctAnswer = `P(${items}, ${positions}) = ${answer}`;
+            const candidateDistractors = [
+                `C(${items}, ${positions}) = ${factorial(items) / (factorial(positions) * factorial(items - positions))}`,
+                `${items} \\times ${positions}`,
+                `${factorial(items)}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `P(${utils.rInt(5, 12)}, ${utils.rInt(2, 4)}) = ${utils.rInt(100, 1000)}`
+            );
+            
+            const itemName = ['runners', 'students', 'contestants', 'players'][utils.rInt(0, 3)];
+            const prizeType = ['medals', 'prizes', 'awards', 'positions'][utils.rInt(0, 3)];
+            
+            return {
+                tex: `\\text{${items} ${itemName}, ${positions} ${prizeType}.}\\\\[0.5em]\\text{How many possible outcomes?}`,
+                instruction: "Select the correct calculation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Order matters here (1st place ≠ 2nd place), so use permutations: P(${items},${positions}) = ${items}!/(${items}-${positions})! = ${answer} possible outcomes.`,
+                calc: true
+            };
+        } else {
+            // Permutation formula recognition
+            const n = utils.rInt(6, 9);
+            const r = utils.rInt(2, 4);
+            
+            const correctAnswer = `P(n,r) = \\frac{n!}{(n-r)!}`;
+            const candidateDistractors = [
+                `P(n,r) = \\frac{n!}{r!(n-r)!}`,  // Combination formula
+                `P(n,r) = n \\times r`,
+                `P(n,r) = n! - r!`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `P(n,r) = n^r`
+            );
+            
+            return {
+                tex: `\\text{State the permutation formula}`,
+                instruction: "Select the correct formula",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `The permutation formula is P(n,r) = n!/(n-r)!, which calculates the number of ways to arrange r items selected from n items where order matters. This is different from combinations C(n,r) = n!/(r!(n-r)!) where order doesn't matter.`,
+                calc: false
+            };
+        }
+    },
     getProbability: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.getQuestionType(1, 9);
+        const questionType = utils.getQuestionType(1, 10);
                 
                 if (questionType === 1) {
                     // Simple probability: choosing from a bag
@@ -218,7 +336,7 @@ window.QuestionTemplates.Probability = {
                         explanation: `When order doesn't matter, use combinations: C(n,r) = n!/(r!(n-r)!). This is also written as "n choose r" or (n r). For C(${n},${r}), calculate ${n}!/(${r}!×${n - r}!). Combinations are used when selecting subsets where order is irrelevant.`,
                         calc: true
                     };
-                } else {
+                } else if (questionType === 9) {
                     // Sample space definition
                     const correctAnswer = `\\text{The set of all possible outcomes}`;
                     const candidateDistractors = [
@@ -240,6 +358,9 @@ window.QuestionTemplates.Probability = {
                         explanation: `The sample space is the set of all possible outcomes of an experiment. For example, when rolling a die, the sample space is {1, 2, 3, 4, 5, 6}. When flipping a coin, it's {Heads, Tails}. Understanding the sample space is essential for calculating probabilities.`,
                         calc: false
                     };
+                } else {
+                    // Permutation questions
+                    return this.getPermutationQuestion();
                 }
     }
 };

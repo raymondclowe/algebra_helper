@@ -8,11 +8,11 @@
 
 ## Current Implementation Status
 
-**Phase 1:** 6/12 topics complete (50%)  
-**Phase 2:** 0/14 topics complete (0%)  
+**Phase 1:** 7/12 topics complete (58%)  
+**Phase 2:** 4/14 topics complete (29%)  
 **Phase 3:** 0/5 topics complete (0%) - Visual/Graphing using SVG  
 **Phase 4:** 4/4 topics complete (100%) ✅  
-**Overall:** 10/35 topics complete (29%)
+**Overall:** 15/35 topics complete (43%)
 
 **Note:** Phase 3 previously marked as "text-based limitations" is now feasible using SVG (like trig diagrams)
 
@@ -39,10 +39,10 @@
 |-------|--------|-----------------|-------|----------|-----------|
 | Rational functions | 🔴 Not Started | 0/7 | 14-15 | - | - |
 | Graph transformations | 🔴 Not Started | 0/8 | 14-15 | - | - |
-| Quadratic vertex form | 🔴 Not Started | 0/5 | 10-11 | - | - |
+| Quadratic vertex form | 🟢 Complete | 5/5 | 10-11 | - | 2026-01-09 |
 
 **Target:** Q2 2026  
-**Progress:** 0/20 questions (0%)
+**Progress:** 5/20 questions (25%)
 
 ---
 
@@ -78,13 +78,13 @@
 
 | Topic | Status | Questions Added | Level | PR/Issue | Completed |
 |-------|--------|-----------------|-------|----------|-----------|
-| Permutations P(n,r) | 🔴 Not Started | 0/4 | 22-23 | - | - |
-| Sum/product of roots | 🔴 Not Started | 0/5 | 11-12 | - | - |
+| Permutations P(n,r) | 🟢 Complete | 4/4 | 22-23 | - | 2026-01-09 |
+| Sum/product of roots | 🟢 Complete | 5/5 | 11-12 | - | 2026-01-09 |
 | Modulus equations | 🔴 Not Started | 0/6 | 7-8, 14-15 | - | - |
 | 3×3 linear systems | 🔴 Not Started | 0/5 | 28 | - | - |
 
 **Target:** Q4 2026  
-**Progress:** 0/20 questions (0%)
+**Progress:** 9/20 questions (45%)
 
 ---
 
@@ -104,13 +104,13 @@
 
 | Topic | Status | Questions Added | Level | PR/Issue | Completed |
 |-------|--------|-----------------|-------|----------|-----------|
-| Quotient rule | 🔴 Not Started | 0/4 | 20-21 | - | - |
-| L'Hôpital's rule | 🔴 Not Started | 0/4 | 20-21 | - | - |
+| Quotient rule | 🟢 Complete | 4/4 | 20-21 | - | 2026-01-09 |
+| L'Hôpital's rule | 🟢 Complete | 4/4 | 20-21 | - | 2026-01-09 |
 | Implicit differentiation | 🔴 Not Started | 0/5 | 20-21 | - | - |
 | Related rates | 🔴 Not Started | 0/5 | 20-21 | - | - |
 
 **Target:** 2027 Q1  
-**Progress:** 0/18 questions (0%)
+**Progress:** 8/18 questions (44%)
 
 ---
 
@@ -226,6 +226,26 @@ These low-effort, high-impact items can be fast-tracked:
 ## Recent Updates
 
 ### 2026-01-09
+- ✅ **IMPLEMENTED:** Quotient rule (4 questions) + L'Hôpital's rule (4 questions)
+  - Quotient rule: State formula, applications, when to use
+  - L'Hôpital's rule: Indeterminate forms, lim sin(x)/x, lim (e^x-1)/x
+- ✅ **IMPLEMENTED:** Sum/product of roots (5 questions)
+  - Finding sum of roots: α + β = -b/a
+  - Finding product of roots: αβ = c/a
+  - Forming equations from given roots
+  - Forming equations from given sum and product
+  - Vieta's formulas recognition
+- ✅ **IMPLEMENTED:** Permutations P(n,r) (4 questions)
+  - Calculating P(n,r) = n!/(n-r)!
+  - When to use permutations vs combinations
+  - Real-world permutation problems (medals, prizes)
+  - Permutation formula recognition
+- ✅ **IMPLEMENTED:** Quadratic vertex form (5 questions)
+  - Converting standard form to vertex form: x² + bx + c → (x+h)² + k
+  - Finding vertex coordinates from standard form
+  - Identifying axis of symmetry from vertex form
+  - Converting vertex form to standard form
+  - Writing equation given vertex coordinates
 - ✅ **IMPLEMENTED:** Phase 4 complete (16 questions)
   - Counterexample proofs (4 questions): disproving universal statements with counterexamples
   - Ambiguous case of sine rule (4 questions): SSA triangle scenarios (0, 1, or 2 solutions)

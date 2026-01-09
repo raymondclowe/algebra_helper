@@ -195,6 +195,11 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Completing the square
 - Discriminant (b² - 4ac)
 - Nature of roots
+- **NEW: Quadratic vertex form (y = (x-h)² + k)**
+- **NEW: Converting standard form to vertex form**
+- **NEW: Finding vertex coordinates from equation**
+- **NEW: Axis of symmetry (x = h)**
+- **NEW: Converting vertex form to standard form**
 - **NEW: Quadratic inequalities (ax² + bx + c > 0, < 0, ≥ 0, ≤ 0)**
 - **NEW: Factored form inequalities ((x-a)(x-b) > 0, < 0)**
 - **NEW: Using test values and sign analysis**
@@ -203,6 +208,11 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - `x² - 5x + 6 = 0` → x = 2 or x = 3
 - `Complete the square: x² + 6x + ?` → 9
 - `Find discriminant of x² + 3x + 5 = 0` → -11 (no real roots)
+- **NEW: `Convert y = x² + 6x + 5 to vertex form` → (x+3)² - 4**
+- **NEW: `Find the vertex of y = x² - 4x + 7` → (2, 3)**
+- **NEW: `What is the axis of symmetry of y = (x-5)² + 3?` → x = 5**
+- **NEW: `Convert y = (x+1)² - 3 to standard form` → x² + 2x - 2**
+- **NEW: `Write equation with vertex (3, -2) in vertex form (a=1)` → (x-3)² - 2**
 - **NEW: Solve (x - 2)(x - 5) > 0** → x < 2 or x > 5
 - **NEW: Solve x² - 7x + 10 < 0** → 2 < x < 5
 - **NEW: Solve x² - 9x + 18 ≥ 0** → x ≤ 3 or x ≥ 6
@@ -211,6 +221,8 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - SL/HL Topic 2.3: The quadratic formula
 - SL/HL Topic 2.3: The discriminant and nature of roots
 - HL Topic: Completing the square applications
+- **NEW: SL/HL Topic 2.6: Vertex form of quadratic functions**
+- **NEW: SL/HL Topic 2.6: Identifying key features from vertex form**
 - **NEW: SL/HL Topic 2.7: Solving quadratic inequalities**
 
 ---
@@ -221,17 +233,29 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Factor theorem
 - Remainder theorem
 - Polynomial division (long division)
+- **NEW: Sum of roots (α + β = -b/a)**
+- **NEW: Product of roots (αβ = c/a)**
+- **NEW: Forming equations from given roots**
+- **NEW: Vieta's formulas**
+- **NEW: Using sum and product to form quadratics**
 
 **Example Problems:**
 - `(3x + 5) + (2x + 7) = ?` → 5x + 12
 - `Is (x - 2) a factor of x² - 3x + 2?` → Yes (f(2) = 0)
 - `Find remainder when x² + 3x + 5 is divided by (x - 2)` → f(2) = 15
 - `Divide (x² + 2x - 18) by (x - 4)` → quotient: x + 6, remainder: 6
+- **NEW: `For x² + 5x + 6 = 0, find sum of roots` → -5**
+- **NEW: `For x² + 5x + 6 = 0, find product of roots` → 6**
+- **NEW: `Roots are 3 and 4. Form quadratic equation` → x² - 7x + 12 = 0**
+- **NEW: `If α + β = 5 and αβ = 6, form equation` → x² - 5x + 6 = 0**
+- **NEW: `State the formula for sum of roots` → α + β = -b/a**
 
 **IB Curriculum:**
 - HL Topic 2.5: The factor and remainder theorems
 - HL Topic: Polynomial functions and equations
 - HL Topic: Polynomial division
+- **NEW: HL Topic 2.12: Sum and product of roots**
+- **NEW: HL Topic 2.12: Vieta's formulas**
 
 ---
 
@@ -441,17 +465,32 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Product rule
 - Second derivatives
 - Critical points (f'(x) = 0)
+- **NEW: Quotient rule (d/dx[u/v] = (v·u' - u·v')/v²)**
+- **NEW: When to use quotient rule**
+- **NEW: Quotient rule applications**
+- **NEW: L'Hôpital's rule for indeterminate forms**
+- **NEW: Indeterminate forms 0/0 and ∞/∞**
+- **NEW: L'Hôpital's rule applications**
 
 **Example Problems:**
 - `f(x) = (2x + 3)⁴, find f'(x)` using chain rule → 8(2x + 3)³
 - `f(x) = x · 3x², find f'(x)` using product rule → 9x²
 - `f(x) = 2x³, find f''(x)` → 12x
 - `f'(x) = 3x - 6 = 0, find critical point` → x = 2
+- **NEW: `State the quotient rule` → d/dx[u/v] = (v·u' - u·v')/v²**
+- **NEW: `Differentiate f(x) = (2x)/(x+1)` → (2x+2)/(x+1)²**
+- **NEW: `When to use quotient rule?` → When differentiating u(x)/v(x)**
+- **NEW: `Evaluate lim[x→0] (sin x)/x` → 1 (using L'Hôpital)**
+- **NEW: `Evaluate lim[x→0] (e^x - 1)/x` → 1 (using L'Hôpital)**
+- **NEW: `When can L'Hôpital's rule be used?` → 0/0 or ∞/∞ forms**
 
 **IB Curriculum:**
 - HL Topic 6.1: Chain rule, product rule, quotient rule
 - SL/HL Topic 6.2: Stationary points
 - HL Topic 6.3: Optimization
+- **NEW: HL Topic 6.1: Quotient rule formula and applications**
+- **NEW: HL Topic 5.13: L'Hôpital's rule for limits**
+- **NEW: HL Topic 5.13: Indeterminate forms**
 
 ---
 
@@ -512,17 +551,27 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 **Topics:**
 - Simple probability (favorable/total)
 - Complementary probability
-- Combinations setup
+- Combinations C(n,r) = n!/(r!(n-r)!)
+- **NEW: Permutations P(n,r) = n!/(n-r)!**
+- **NEW: When to use permutations vs combinations**
+- **NEW: Order matters vs order doesn't matter**
+- **NEW: Real-world permutation problems**
 
 **Example Problems:**
 - `Bag has 12 balls, 5 are red. P(red) = ?` → 5/12
 - `P(success) = 0.6, find P(failure)` → 0.4
 - `Choose 2 from 6 balls` → C(6,2) = 15
+- **NEW: `Calculate P(7, 3)` → 210**
+- **NEW: `10 runners, 3 medals. How many outcomes?` → P(10,3) = 720**
+- **NEW: `When do we use permutations?` → When order matters**
+- **NEW: `State the permutation formula` → P(n,r) = n!/(n-r)!**
 
 **IB Curriculum:**
 - SL/HL Topic 5.2: Probability concepts
 - SL/HL Topic 5.2: Complementary events
 - SL/HL Topic 5.3: Combinatorics
+- **NEW: HL Topic 1.10: Permutations and combinations**
+- **NEW: HL Topic 1.10: Distinguishing permutations from combinations**
 
 ---
 

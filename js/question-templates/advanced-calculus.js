@@ -3,9 +3,200 @@
 window.QuestionTemplates = window.QuestionTemplates || {};
 
 window.QuestionTemplates.AdvancedCalculus = {
+    getQuotientRuleQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const qType = utils.rInt(1, 4);
+        
+        if (qType === 1) {
+            // State the quotient rule
+            const correctAnswer = `\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{v\\frac{du}{dx} - u\\frac{dv}{dx}}{v^2}`;
+            const candidateDistractors = [
+                `\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{u\\frac{dv}{dx} - v\\frac{du}{dx}}{v^2}`,  // Wrong order
+                `\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{\\frac{du}{dx}}{\\frac{dv}{dx}}`,  // Wrong formula
+                `\\frac{d}{dx}\\left[\\frac{u}{v}\\right] = \\frac{v\\frac{du}{dx} - u\\frac{dv}{dx}}{v}`  // Missing v²
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\frac{du}{dx} \\cdot \\frac{dv}{dx}`
+            );
+            
+            return {
+                tex: `\\text{State the quotient rule}`,
+                instruction: "Select the correct formula",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `The quotient rule is: d/dx[u/v] = (v·du/dx - u·dv/dx)/v². Remember: "low d-high minus high d-low, over the square of what's below" or "bottom times derivative of top minus top times derivative of bottom, all over bottom squared".`,
+                calc: false
+            };
+        } else if (qType === 2) {
+            // Simple quotient rule application
+            const a = utils.rInt(2, 5);
+            const b = utils.rInt(1, 4);
+            
+            const correctAnswer = `\\frac{${a}x + ${b}}{(x + ${b})^2}`;
+            const candidateDistractors = [
+                `\\frac{${a}}{x + ${b}}`,  // Didn't apply rule properly
+                `\\frac{${a}x}{(x + ${b})^2}`,  // Forgot constant
+                `\\frac{${a}}{(x + ${b})^2}`  // Wrong numerator
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\frac{${utils.rInt(1, 10)}x}{(x + ${utils.rInt(1, 5)})^2}`
+            );
+            
+            return {
+                tex: `f(x) = \\frac{${a}x}{x + ${b}}`,
+                instruction: "Find f'(x) using the quotient rule",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Using quotient rule: f'(x) = [(x+${b})·${a} - ${a}x·1]/(x+${b})² = [${a}x + ${a*b} - ${a}x]/(x+${b})² = ${a*b}/(x+${b})² = (${a}x + ${b})/(x+${b})².`,
+                calc: false
+            };
+        } else if (qType === 3) {
+            // When to use quotient rule
+            const correctAnswer = `\\text{When differentiating } \\frac{u(x)}{v(x)}`;
+            const candidateDistractors = [
+                `\\text{When differentiating } u(x) \\cdot v(x)`,  // That's product rule
+                `\\text{When differentiating } u(v(x))`,  // That's chain rule
+                `\\text{When integrating fractions}`  // Wrong operation
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\text{When differentiating } x^n`
+            );
+            
+            return {
+                tex: `\\text{When should you use the quotient rule?}`,
+                instruction: "Select the correct situation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Use the quotient rule when differentiating a fraction u(x)/v(x) where both numerator and denominator are functions of x. Alternative: rewrite as u(x)·[v(x)]⁻¹ and use product rule, but quotient rule is often more direct.`,
+                calc: false
+            };
+        } else {
+            // Quotient rule vs product rule
+            const correctAnswer = `\\text{Use quotient rule: } \\frac{v·u' - u·v'}{v^2}`;
+            const candidateDistractors = [
+                `\\text{Use product rule: } u'v + uv'`,
+                `\\text{Use chain rule: } f'(g(x))·g'(x)`,
+                `\\text{Use power rule: } nx^{n-1}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\text{Use quotient rule: } \\frac{u'}{v'}`
+            );
+            
+            return {
+                tex: `\\text{Differentiate } \\frac{\\sin(x)}{x}`,
+                instruction: "Which rule should you use?",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `This is a quotient (fraction), so use the quotient rule: d/dx[sin(x)/x] = [x·cos(x) - sin(x)·1]/x² = (x·cos(x) - sin(x))/x².`,
+                calc: false
+            };
+        }
+    },
+    getLHopitalRuleQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const hType = utils.rInt(1, 4);
+        
+        if (hType === 1) {
+            // When to use L'Hôpital's rule
+            const correctAnswer = `\\text{When limit gives } \\frac{0}{0} \\text{ or } \\frac{\\infty}{\\infty}`;
+            const candidateDistractors = [
+                `\\text{When limit gives } \\frac{0}{\\infty}`,
+                `\\text{When limit gives a finite number}`,
+                `\\text{Always when finding limits}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\text{When limit gives } \\frac{1}{0}`
+            );
+            
+            return {
+                tex: `\\text{When can L'Hôpital's rule be used?}`,
+                instruction: "Select the correct condition",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `L'Hôpital's rule applies to indeterminate forms 0/0 and ∞/∞. The rule states: if lim[f(x)/g(x)] gives 0/0 or ∞/∞, then lim[f(x)/g(x)] = lim[f'(x)/g'(x)] (if the latter limit exists). Do NOT use for determinate forms like 1/0.`,
+                calc: false
+            };
+        } else if (hType === 2) {
+            // Simple L'Hôpital application: lim x→0 (sin x)/x
+            const correctAnswer = `1`;
+            const candidateDistractors = [
+                `0`,
+                `\\infty`,
+                `\\text{undefined}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(-5, 5)}`
+            );
+            
+            return {
+                tex: `\\lim_{x \\to 0} \\frac{\\sin(x)}{x}`,
+                instruction: "Evaluate using L'Hôpital's rule",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Direct substitution gives 0/0 (indeterminate). Apply L'Hôpital's rule: lim[sin(x)/x] = lim[cos(x)/1] as x→0 = cos(0)/1 = 1. This is a famous limit.`,
+                calc: false
+            };
+        } else if (hType === 3) {
+            // L'Hôpital with e^x: lim x→0 (e^x - 1)/x
+            const correctAnswer = `1`;
+            const candidateDistractors = [
+                `0`,
+                `e`,
+                `\\text{undefined}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(-3, 5)}`
+            );
+            
+            return {
+                tex: `\\lim_{x \\to 0} \\frac{e^x - 1}{x}`,
+                instruction: "Evaluate using L'Hôpital's rule",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Direct substitution gives (e⁰-1)/0 = 0/0 (indeterminate). Apply L'Hôpital's rule: lim[(e^x - 1)/x] = lim[e^x/1] as x→0 = e⁰ = 1.`,
+                calc: false
+            };
+        } else {
+            // Which indeterminate forms allow L'Hôpital
+            const correctAnswer = `\\frac{0}{0} \\text{ and } \\frac{\\infty}{\\infty}`;
+            const candidateDistractors = [
+                `\\frac{0}{\\infty} \\text{ and } \\frac{\\infty}{0}`,
+                `\\text{All fractions with limits}`,
+                `0 \\cdot \\infty \\text{ only}`
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\frac{1}{0}`
+            );
+            
+            return {
+                tex: `\\text{Which forms allow L'Hôpital's rule?}`,
+                instruction: "Select the indeterminate forms",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `L'Hôpital's rule applies to indeterminate forms 0/0 and ∞/∞. Other indeterminate forms (0·∞, ∞-∞, 0⁰, 1^∞, ∞⁰) can sometimes be rewritten as 0/0 or ∞/∞ forms to apply the rule. Forms like 1/0 are NOT indeterminate.`,
+                calc: false
+            };
+        }
+    },
     getAdvancedCalculus: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.getQuestionType(1, 12);
+        const questionType = utils.getQuestionType(1, 14);
                 
                 if (questionType === 1) {
                     // Chain rule: d/dx[f(g(x))]
@@ -230,7 +421,7 @@ window.QuestionTemplates.AdvancedCalculus = {
                         explanation: utils.toUnicodeFunction(`Apply chain rule: f'(x) = -1 × (${a}x + ${b})^(-2) × ${a} = -${a}/(${a}x + ${b})^2. The negative comes from the exponent, and we multiply by ${a} (the derivative of the inner function).`),
                         calc: false
                     };
-                } else {
+                } else if (questionType === 12) {
                     // Second derivative and concavity
                     const a = utils.rInt(2, 4);
                     const n = utils.rInt(3, 5);
@@ -247,6 +438,12 @@ window.QuestionTemplates.AdvancedCalculus = {
                         explanation: `When f''(x) > 0, the second derivative is positive, meaning the function is concave up (convex). The graph curves upward like a smile. If f''(x) < 0, the function would be concave down.`,
                         calc: false
                     };
+                } else if (questionType === 13) {
+                    // Quotient rule questions
+                    return this.getQuotientRuleQuestion();
+                } else {
+                    // L'Hôpital's rule questions
+                    return this.getLHopitalRuleQuestion();
                 }
     }
 };
