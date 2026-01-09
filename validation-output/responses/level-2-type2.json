@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:58:10.822Z",
+  "timestamp": "2026-01-09T08:03:32.651Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 2,
-    "questionText": "9 \\text{ is the square of what number?}",
+    "questionText": "36 \\text{ is the square of what number?}",
     "instruction": "FIND THE NUMBER",
-    "correctAnswer": "3",
+    "correctAnswer": "6",
     "distractors": [
-      "4",
-      "2",
-      "9"
+      "7",
+      "5",
+      "18"
     ],
     "allOptions": [
-      "9",
-      "2",
-      "3",
-      "4",
+      "7",
+      "6",
+      "18",
+      "5",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Since 3 × 3 = 9, the answer is 3. This is finding the square root: $\\sqrt{9} = 3$."
+    "explanation": "Since 6 × 6 = 36, the answer is 6. This is finding the square root: $\\sqrt{36} = 6$."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically accurate and appropriate for the stated difficulty level (Level 2: Squares & Roots).\n\n*   **Mathematical Correctness:** The question asks to identify the number which, when squared, equals 9. Since $3^2 = 9$, the answer is correct.\n*   **Clarity:** While technically $(-3)^2$ is also 9, the absence of negative numbers in the options removes ambiguity for this difficulty level.\n*   **Distractors:** The distractors (9, 2, 4) are plausible errors for beginners (e.g., confusing the operation with doubling, or confusing the input/output).",
+    "validationText": "OK",
     "error": null
   }
 }

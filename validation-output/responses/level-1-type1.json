@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:57:13.670Z",
+  "timestamp": "2026-01-09T08:02:08.974Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 1,
-    "questionText": "6 + 14",
+    "questionText": "10 + 1",
     "instruction": "CALCULATE",
-    "correctAnswer": "20",
+    "correctAnswer": "11",
     "distractors": [
-      "21",
-      "19",
-      "-8"
+      "12",
+      "10",
+      "9"
     ],
     "allOptions": [
-      "20",
-      "-8",
-      "21",
-      "19",
+      "11",
+      "12",
+      "10",
+      "9",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Adding 6 and 14 gives 20. You can verify by counting up from 6 by 14 steps."
+    "explanation": "Adding 10 and 1 gives 11. You can verify by counting up from 10 by 1 steps."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n- **Calculation:** $6 + 14 = 20$.\n- **Correct Answer:** The highlighted option ($20$) is correct.\n- **Distractors:** The incorrect options ($-8$, $21$, $19$) are distinct and plausible errors (subtraction instead of addition, or off-by-one errors).\n- **Clarity:** The notation is standard and unambiguous.",
+    "validationText": "OK",
     "error": null
   }
 }

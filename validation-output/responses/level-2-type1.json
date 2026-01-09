@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:57:58.453Z",
+  "timestamp": "2026-01-09T08:03:22.374Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 1,
-    "questionText": "\\text{What is } 4^2?",
+    "questionText": "\\text{What is } 14^2?",
     "instruction": "CALCULATE THE SQUARE",
-    "correctAnswer": "16",
+    "correctAnswer": "196",
     "distractors": [
-      "8",
-      "20",
-      "12"
+      "28",
+      "210",
+      "182"
     ],
     "allOptions": [
-      "12",
-      "20",
-      "8",
-      "16",
+      "196",
+      "28",
+      "182",
+      "210",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "4^2 = 4 × 4 = 16. Squaring means multiplying a number by itself."
+    "explanation": "14^2 = 14 × 14 = 196. Squaring means multiplying a number by itself."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the stated level.\n- **Calculation:** $4^2 = 4 \\times 4 = 16$.\n- **Correct Answer:** The option \"16\" is correctly identified.\n- **Distractors:** \"8\" is a good distractor (common error of doing $4 \\times 2$), and the others are plausible incorrect values.",
+    "validationText": "OK",
     "error": null
   }
 }

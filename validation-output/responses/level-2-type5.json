@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:58:49.403Z",
+  "timestamp": "2026-01-09T08:04:16.330Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 5,
@@ -16,17 +16,17 @@
       "32"
     ],
     "allOptions": [
-      "32",
       "7",
-      "8",
       "9",
+      "32",
+      "8",
       "I don't know\n                    (no penalty)"
     ],
     "explanation": "The square root of 64 is 8 because 8 × 8 = 64."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 2.\n\n*   **Calculation:** $\\sqrt{64} = 8$, because $8 \\times 8 = 64$. The marked correct answer is 8.\n*   **Distractors:** The distractors are plausible.\n    *   **32:** Catches students who divide by 2 instead of taking the square root.\n    *   **7 and 9:** Are the roots of nearby perfect squares (49 and 81), serving as reasonable estimates for a student who is unsure.\n*   **Notation:** The LaTeX rendering is clear.",
+    "validationText": "OK",
     "error": null
   }
 }

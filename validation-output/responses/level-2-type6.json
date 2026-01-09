@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:59:03.555Z",
+  "timestamp": "2026-01-09T08:04:28.532Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 6,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 6,
-    "questionText": "\\sqrt[3]{1000}",
+    "questionText": "\\sqrt[3]{27}",
     "instruction": "CALCULATE",
-    "correctAnswer": "10",
+    "correctAnswer": "3",
     "distractors": [
-      "11",
-      "9",
-      "333"
+      "4",
+      "2",
+      "9"
     ],
     "allOptions": [
-      "11",
-      "10",
+      "2",
       "9",
-      "333",
+      "4",
+      "3",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "The cube root of 1000 is 10 because 10 × 10 × 10 = 1000."
+    "explanation": "The cube root of 27 is 3 because 3 × 3 × 3 = 27."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct.\n- **Calculation:** $\\sqrt[3]{1000} = 10$ (since $10 \\times 10 \\times 10 = 1000$).\n- **Difficulty:** Appropriate for Level 2 (basic roots).\n- **Distractors:**\n  - $333$ is a good distractor for students who confuse cube root with dividing by 3.\n  - $9$ and $11$ are reasonable close estimates.\n- **Notation:** Clear and standard.",
+    "validationText": "OK",
     "error": null
   }
 }

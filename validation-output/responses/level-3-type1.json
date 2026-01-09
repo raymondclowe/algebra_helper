@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:59:20.213Z",
+  "timestamp": "2026-01-09T08:04:43.251Z",
   "level": 3,
   "topic": "Multiplication and Division",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 3,
     "topic": "Multiplication and Division",
     "questionType": 1,
-    "questionText": "10 \\times 8",
+    "questionText": "8 \\times 5",
     "instruction": "CALCULATE",
-    "correctAnswer": "80",
+    "correctAnswer": "40",
     "distractors": [
-      "90",
-      "72",
-      "18"
+      "48",
+      "35",
+      "13"
     ],
     "allOptions": [
-      "72",
-      "90",
-      "18",
-      "80",
+      "35",
+      "40",
+      "48",
+      "13",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "10 × 8 = 80. You can think of this as 10 groups of 8, or 8 groups of 10."
+    "explanation": "8 × 5 = 40. You can think of this as 8 groups of 5, or 5 groups of 8."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct ($10 \\times 8 = 80$), clear, and unambiguous. The correct answer is identified properly, and the distractors are plausible for this level of arithmetic (confusing addition for multiplication or miscalculating by one unit).",
+    "validationText": "OK",
     "error": null
   }
 }

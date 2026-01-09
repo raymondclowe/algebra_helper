@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:58:23.353Z",
+  "timestamp": "2026-01-09T08:03:44.194Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 3,
-    "questionText": "\\text{What is } 6^3?",
+    "questionText": "\\text{What is } 4^3?",
     "instruction": "CALCULATE THE CUBE",
-    "correctAnswer": "216",
+    "correctAnswer": "64",
     "distractors": [
-      "18",
-      "36",
-      "222"
+      "12",
+      "16",
+      "68"
     ],
     "allOptions": [
-      "222",
-      "216",
-      "18",
-      "36",
+      "16",
+      "68",
+      "12",
+      "64",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "6^3 = 6 × 6 × 6 = 216. Cubing means multiplying a number by itself three times."
+    "explanation": "4^3 = 4 × 4 × 4 = 64. Cubing means multiplying a number by itself three times."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for the level.\n\n*   **Calculation:** $6^3 = 6 \\times 6 \\times 6 = 36 \\times 6 = 216$. The marked correct answer is accurate.\n*   **Distractors:**\n    *   **18:** Catches the common error of multiplying base by exponent ($6 \\times 3$).\n    *   **36:** Catches the error of squaring instead of cubing ($6^2$).\n    *   **222:** A plausible magnitude estimate or calculation error.\n*   **Clarity:** The notation and wording are unambiguous.",
+    "validationText": "OK",
     "error": null
   }
 }

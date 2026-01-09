@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:57:26.032Z",
+  "timestamp": "2026-01-09T08:02:29.470Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 2,
-    "questionText": "27 - 15",
+    "questionText": "26 - 10",
     "instruction": "CALCULATE",
-    "correctAnswer": "12",
+    "correctAnswer": "16",
     "distractors": [
-      "13",
-      "11",
-      "42"
+      "17",
+      "15",
+      "36"
     ],
     "allOptions": [
-      "12",
-      "42",
-      "11",
-      "13",
+      "17",
+      "36",
+      "15",
+      "16",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Subtracting 15 from 27 gives 12. You can verify by adding: 12 + 15 = 27."
+    "explanation": "Subtracting 10 from 26 gives 16. You can verify by adding: 16 + 10 = 26."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n- **Calculation:** $27 - 15 = 12$.\n- **Distractors:**\n  - $42$ is the result of addition ($27 + 15$), checking for sign errors.\n  - $11$ and $13$ are close values, checking for precision.",
+    "validationText": "OK",
     "error": null
   }
 }
