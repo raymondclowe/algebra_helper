@@ -338,18 +338,22 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Double angle formulas
 - Degrees to radians conversion
 - Solving trig equations
+- **NEW: Ambiguous Case of Sine Rule (SSA)**
 
 **Example Problems:**
 - `sin²θ + cos²θ = ?` → 1
 - `sin(2θ) in terms of sinθ and cosθ` → 2sinθcosθ
 - `Convert 60° to radians` → π/3
 - `sin(x) = 0.5, find smallest x` → 30°
+- **`Triangle: A=30°, a=4cm, b=10cm. How many triangles?` → 0**
+- **`Triangle: A=30°, a=8cm, b=12cm. How many triangles?` → 2**
 
 **IB Curriculum:**
 - SL/HL Topic 3.3: Trigonometric identities
 - HL Topic 3.3: Double angle identities
 - SL/HL Topic 3.1: Radian measure
 - HL Topic: Solving trigonometric equations
+- **SL/HL Topic 3.5: Ambiguous case of sine rule**
 
 ---
 
@@ -547,16 +551,20 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Conclude original statement is true
 - Irrationality proofs (√2, √3)
 - Infinitude of primes
+- **NEW: Counterexample Proofs** (disproving universal statements)
 
 **Example Problems:**
 - `Prove √2 is irrational. What do we assume?` → Assume √2 = a/b in lowest terms
 - `From 2b² = a², what can we conclude?` → a is even
 - `Prove infinitely many primes. Consider N = (product of all primes) + 1`
+- **`Disprove: "If n is prime, then n is odd"` → Counterexample: n = 2**
+- **`Disprove: "For all x, x² > x"` → Counterexample: x = 0.5**
 
 **IB Curriculum:**
 - HL Topic 1.3: Proof techniques
 - HL Topic: Mathematical reasoning
 - HL Topic: Number theory
+- HL Topic 1.15: Counterexamples for disproving statements
 
 ---
 
@@ -654,17 +662,21 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Direct integration
 - Exponential growth/decay (dy/dx = ky)
 - Initial value problems
+- **NEW: Euler's Method for numerical solutions**
 
 **Example Problems:**
 - `dy/dx = xy, separate variables` → (1/y) dy = x dx
 - `dy/dx = 3y, general solution` → y = Ae^(3x)
 - `dy/dx = 2x², solve` → y = (2x³)/3 + C
 - `dy/dx = 2y, y(0) = 5` → y = 5e^(2x)
+- **`Euler's method formula?` → y_{n+1} = y_n + h·f(x_n, y_n)**
+- **`dy/dx = y, y(0) = 2, h = 0.5, find y(0.5)` → 3**
 
 **IB Curriculum:**
 - HL Topic 6.5: First-order differential equations
 - HL Topic 6.5: Separation of variables
 - HL Topic: Exponential models
+- **HL Topic 5.18: Euler's method for numerical approximation**
 
 ---
 
@@ -675,18 +687,23 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Mean and variance of distributions
 - Standard normal distribution
 - Standardizing (Z = (X - μ)/σ)
+- **NEW: Continuous Random Variables**
 
 **Example Problems:**
 - `X ~ B(10, 0.3), find E(X)` → 3
 - `X ~ B(20, 0.4), find Var(X)` → 4.8
 - `N(50, 100), standardize X` → Z = (X - 50)/10
 - `Heights N(170, 25). What notation?` → N(170, 25)
+- **`For PDF f(x), what must ∫f(x)dx equal?` → 1**
+- **`f(x) = k for 0 ≤ x ≤ 5, find k` → 1/5**
+- **`X ~ U(0, 10), find E(X)` → 5**
 
 **IB Curriculum:**
 - HL Topic 5.5: Binomial distribution
 - HL Topic 5.5: Normal distribution
 - HL Topic 5.5: Mean, variance, standard deviation
 - HL Topic 5.5: Standardization
+- **HL Topic 4.14: Continuous random variables, PDF, CDF**
 
 ---
 

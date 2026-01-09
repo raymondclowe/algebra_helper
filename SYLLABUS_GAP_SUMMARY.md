@@ -268,6 +268,8 @@ These can be implemented quickly with immediate benefit:
 - [ ] Euler's method
 - [ ] Line-plane intersections
 
+**Note:** Several items from previous "Phase 3" have been reassigned to Phase 4 and completed.
+
 ---
 
 ## Contact
