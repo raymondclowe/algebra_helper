@@ -131,9 +131,7 @@ The validator now properly leverages these built-in debugging features:
    - Used with testLevel
    - Ensures consistent question generation for validation
 
-3. **`forceDiagram=true|false`** - Available for trigonometry levels (15-17)
-   - Forces diagram-based or formula-based questions
-   - Can be used for targeted validation of specific question variants
+**Note:** The `forceDiagram` parameter is documented in DEBUG_PARAMETERS.md for manual testing of trigonometry diagrams, but is not currently integrated into the validator tool. This could be added in future if more targeted validation of diagram vs. formula questions is needed.
 
 ### Automatic Behaviors
 

@@ -219,6 +219,9 @@ Question Text: ${questionMetadata.questionText}`
         const text = validationText.trim();
         const upperText = text.toUpperCase();
         
+        // Constants for validation parsing
+        const MIN_FEEDBACK_LENGTH = 10; // Minimum length to consider for review
+        
         // New format: Check for exact "OK" response (valid question with no issues)
         const isExactOK = upperText === 'OK';
         
@@ -247,7 +250,7 @@ Question Text: ${questionMetadata.questionText}`
             isValid: isValid,
             hasIssues: hasProblems,
             feedback: validationText,
-            needsReview: hasProblems || (!isValid && validationText.length > 10)
+            needsReview: hasProblems || (!isValid && validationText.length > MIN_FEEDBACK_LENGTH)
         };
     }
 }

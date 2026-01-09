@@ -62,6 +62,10 @@ class ScreenshotGenerator {
             throw new Error('Screenshot generator not initialized');
         }
         
+        // Constants for logging
+        const FILE_PROTOCOL_PREFIX = 'file://';
+        const PATH_REPLACEMENT = '...';
+        
         // Build URL with test parameters
         // The app's debug-mode.js will automatically handle these parameters:
         // - Skip calibration and name prompt
@@ -73,7 +77,7 @@ class ScreenshotGenerator {
             url += `&testType=${questionType}`;
         }
         
-        console.log(`   📍 Navigating to: ${url.replace('file://', '...')}`);
+        console.log(`   📍 Navigating to: ${url.replace(FILE_PROTOCOL_PREFIX, PATH_REPLACEMENT)}`);
         
         // Navigate to the app
         await this.page.goto(url, {
