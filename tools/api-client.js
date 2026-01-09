@@ -219,16 +219,20 @@ Question Text: ${questionMetadata.questionText}`
         const text = validationText.trim();
         const upperText = text.toUpperCase();
         
-        // Check for explicit positive indicators at the start or in a clear verdict section
-        // Using word boundaries to avoid false positives (e.g., INVALID matching VALID)
+        // Constants for validation parsing
+        const MIN_FEEDBACK_LENGTH = 10; // Minimum length to consider for review
+        
+        // New format: Check for exact "OK" response (valid question with no issues)
+        const isExactOK = upperText === 'OK';
+        
+        // Check for "not OK" response (indicates problems)
+        const startsWithNotOK = upperText.startsWith('NOT OK');
+        
+        // Also support legacy format for backward compatibility
+        // Check for explicit positive indicators at the start
         const startsWithValid = /^(OK|VALID|LOOKS GOOD|CORRECT)\b/.test(upperText);
         
-        // Also check if there's a clear "VALID" verdict after reasoning
-        const hasValidVerdict = /\n\s*VALID\b/.test(upperText) || 
-                               /\n\s*OK\b/.test(upperText);
-        
-        // Check for negative indicators that suggest actual problems (not just suggestions)
-        // Using consistent patterns with word boundaries or specific delimiters
+        // Check for negative indicators that suggest actual problems
         const hasIncorrect = /\bINCORRECT\b/.test(upperText) && 
                            (upperText.includes('INCORRECT:') || upperText.includes('IS INCORRECT'));
         const hasError = /\bERROR\b/.test(upperText) && 
@@ -237,16 +241,16 @@ Question Text: ${questionMetadata.questionText}`
         const hasFix = /\b(MUST FIX|NEEDS TO BE FIXED)\b/.test(upperText);
         const hasInvalid = /\bINVALID\b/.test(upperText) && !upperText.includes('NOT INVALID');
         
-        const hasProblems = hasIncorrect || hasError || hasWrong || hasFix || hasInvalid;
+        const hasProblems = startsWithNotOK || hasIncorrect || hasError || hasWrong || hasFix || hasInvalid;
         
-        // Consider valid if it starts with VALID/OK or has a clear verdict, and no serious problems
-        const isValid = (startsWithValid || hasValidVerdict) && !hasProblems;
+        // Consider valid if it's exactly "OK" or starts with positive indicator and no problems
+        const isValid = isExactOK || (startsWithValid && !hasProblems);
         
         return {
             isValid: isValid,
             hasIssues: hasProblems,
             feedback: validationText,
-            needsReview: hasProblems || (!isValid && validationText.length > 50)
+            needsReview: hasProblems || (!isValid && validationText.length > MIN_FEEDBACK_LENGTH)
         };
     }
 }

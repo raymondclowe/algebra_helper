@@ -86,15 +86,9 @@ Your task is to verify if the question is:
 5. Has plausible distractors (incorrect answers) that are genuinely incorrect
 6. Free from mathematical errors or confusing notation
 
-If the question is VALID and CORRECT:
-- Respond with "OK" or "VALID" (be very brief and concise)
-- Optionally add a short note if you have minor suggestions
-
-If the question has ISSUES or is INCORRECT:
-- Clearly explain what is wrong (be detailed and specific)
-- Provide the correct approach or solution
-- Suggest how to fix the problem
-- Be thorough in your explanation
+IMPORTANT - Response Format:
+- If the question is VALID and has NO problems: Reply with ONLY the single word "OK" and nothing else.
+- If the question has ANY issues: Reply with "not OK" on the first line, then explain in detail what is wrong, how to fix it, and provide the correct approach or solution.
 
 Context:
 - This is an IB Math curriculum aligned practice tool

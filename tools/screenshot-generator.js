@@ -1,6 +1,16 @@
 /**
  * Screenshot generator for question validation
- * Uses the actual algebra-helper app with URL parameters for accurate rendering
+ * 
+ * Uses the actual algebra-helper app with URL parameters for accurate rendering.
+ * 
+ * The app's built-in debugging features (see DEBUG_PARAMETERS.md) automatically:
+ * - Skip calibration and name prompts when testLevel parameter is present
+ * - Enter testing mode with visual indicators (purple banner)
+ * - Generate questions at the specified level and type
+ * - Show debug markers on correct answers
+ * 
+ * This ensures that screenshots capture the exact question rendering that students see,
+ * including proper MathJax formatting, SVG diagrams, and all visual elements.
  */
 const puppeteer = require('puppeteer');
 const path = require('path');
@@ -52,12 +62,22 @@ class ScreenshotGenerator {
             throw new Error('Screenshot generator not initialized');
         }
         
+        // Constants for logging
+        const FILE_PROTOCOL_PREFIX = 'file://';
+        const PATH_REPLACEMENT = '...';
+        
         // Build URL with test parameters
+        // The app's debug-mode.js will automatically handle these parameters:
+        // - Skip calibration and name prompt
+        // - Enter testing mode with debug markers
+        // - Force the specified level and question type
         let url = config.appUrl;
         url += `?testLevel=${level}`;
         if (questionType !== null) {
             url += `&testType=${questionType}`;
         }
+        
+        console.log(`   📍 Navigating to: ${url.replace(FILE_PROTOCOL_PREFIX, PATH_REPLACEMENT)}`);
         
         // Navigate to the app
         await this.page.goto(url, {
@@ -71,34 +91,19 @@ class ScreenshotGenerator {
             { timeout: 15000 }
         );
         
-        // Skip the Welcome dialog and set up learning mode to see the full question UI
-        await this.page.evaluate((testLevel) => {
-            // Close the welcome modal if present
-            const welcomeModal = document.getElementById('name-modal');
-            if (welcomeModal) {
-                welcomeModal.style.display = 'none';
-            }
-            
-            // Set app to learning mode (skip calibration)
-            window.APP.mode = 'learning';
-            window.APP.level = testLevel;
-            window.APP.userName = 'Validator';
-            
-            // Hide calibration-specific elements
-            const calibrationElements = document.querySelectorAll('.calibration-only, #timeout-bar-container');
-            calibrationElements.forEach(el => el.style.display = 'none');
-            
-            // Show learning mode elements
-            const learningElements = document.querySelectorAll('.learning-only, #mc-options');
-            learningElements.forEach(el => el.style.display = '');
-            
-            // Trigger a new question to get the UI in the right state
-            if (window.UI && window.UI.nextQuestion) {
-                window.UI.nextQuestion();
-            }
-        }, level);
+        // The app should automatically be in testing mode now
+        // Verify testing mode is active
+        const testingModeActive = await this.page.evaluate(() => {
+            return window.TESTING_MODE === true && 
+                   window.FORCED_TEST_LEVEL !== null;
+        });
+        
+        if (!testingModeActive) {
+            throw new Error('Testing mode did not activate correctly');
+        }
         
         // Wait for the question to be generated and rendered
+        // Testing mode automatically generates a question on load
         await this.page.waitForFunction(
             () => {
                 const questionMath = document.getElementById('question-math');
@@ -116,7 +121,7 @@ class ScreenshotGenerator {
             }
         });
         
-        // Additional wait for rendering to complete
+        // Additional wait for rendering to complete (especially for SVG diagrams)
         await new Promise(resolve => setTimeout(resolve, 1000));
     }
     
