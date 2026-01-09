@@ -110,7 +110,11 @@ window.QuestionTemplates.Trigonometry = {
             // Sine rule: find side using a/sin(A) = b/sin(B)
             const A = [30, 45, 60][utils.rInt(0, 2)];
             let B = [30, 45, 60][utils.rInt(0, 2)];
-            if (A === B) B = (B === 30) ? 45 : 30;
+            if (A === B) {
+                // Pick a different angle
+                const angles = [30, 45, 60].filter(angle => angle !== A);
+                B = angles[utils.rInt(0, angles.length - 1)];
+            }
             const a = utils.rInt(5, 12);
             // b = a * sin(B) / sin(A)
             const sinA = Math.sin(A * Math.PI / 180);
