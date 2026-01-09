@@ -465,17 +465,32 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Product rule
 - Second derivatives
 - Critical points (f'(x) = 0)
+- **NEW: Quotient rule (d/dx[u/v] = (v·u' - u·v')/v²)**
+- **NEW: When to use quotient rule**
+- **NEW: Quotient rule applications**
+- **NEW: L'Hôpital's rule for indeterminate forms**
+- **NEW: Indeterminate forms 0/0 and ∞/∞**
+- **NEW: L'Hôpital's rule applications**
 
 **Example Problems:**
 - `f(x) = (2x + 3)⁴, find f'(x)` using chain rule → 8(2x + 3)³
 - `f(x) = x · 3x², find f'(x)` using product rule → 9x²
 - `f(x) = 2x³, find f''(x)` → 12x
 - `f'(x) = 3x - 6 = 0, find critical point` → x = 2
+- **NEW: `State the quotient rule` → d/dx[u/v] = (v·u' - u·v')/v²**
+- **NEW: `Differentiate f(x) = (2x)/(x+1)` → (2x+2)/(x+1)²**
+- **NEW: `When to use quotient rule?` → When differentiating u(x)/v(x)**
+- **NEW: `Evaluate lim[x→0] (sin x)/x` → 1 (using L'Hôpital)**
+- **NEW: `Evaluate lim[x→0] (e^x - 1)/x` → 1 (using L'Hôpital)**
+- **NEW: `When can L'Hôpital's rule be used?` → 0/0 or ∞/∞ forms**
 
 **IB Curriculum:**
 - HL Topic 6.1: Chain rule, product rule, quotient rule
 - SL/HL Topic 6.2: Stationary points
 - HL Topic 6.3: Optimization
+- **NEW: HL Topic 6.1: Quotient rule formula and applications**
+- **NEW: HL Topic 5.13: L'Hôpital's rule for limits**
+- **NEW: HL Topic 5.13: Indeterminate forms**
 
 ---
 

@@ -9,10 +9,10 @@
 ## Current Implementation Status
 
 **Phase 1:** 7/12 topics complete (58%)  
-**Phase 2:** 2/14 topics complete (14%)  
+**Phase 2:** 4/14 topics complete (29%)  
 **Phase 3:** 0/5 topics complete (0%) - Visual/Graphing using SVG  
 **Phase 4:** 4/4 topics complete (100%) ✅  
-**Overall:** 13/35 topics complete (37%)
+**Overall:** 15/35 topics complete (43%)
 
 **Note:** Phase 3 previously marked as "text-based limitations" is now feasible using SVG (like trig diagrams)
 
@@ -104,13 +104,13 @@
 
 | Topic | Status | Questions Added | Level | PR/Issue | Completed |
 |-------|--------|-----------------|-------|----------|-----------|
-| Quotient rule | 🔴 Not Started | 0/4 | 20-21 | - | - |
-| L'Hôpital's rule | 🔴 Not Started | 0/4 | 20-21 | - | - |
+| Quotient rule | 🟢 Complete | 4/4 | 20-21 | - | 2026-01-09 |
+| L'Hôpital's rule | 🟢 Complete | 4/4 | 20-21 | - | 2026-01-09 |
 | Implicit differentiation | 🔴 Not Started | 0/5 | 20-21 | - | - |
 | Related rates | 🔴 Not Started | 0/5 | 20-21 | - | - |
 
 **Target:** 2027 Q1  
-**Progress:** 0/18 questions (0%)
+**Progress:** 8/18 questions (44%)
 
 ---
 
@@ -226,6 +226,9 @@ These low-effort, high-impact items can be fast-tracked:
 ## Recent Updates
 
 ### 2026-01-09
+- ✅ **IMPLEMENTED:** Quotient rule (4 questions) + L'Hôpital's rule (4 questions)
+  - Quotient rule: State formula, applications, when to use
+  - L'Hôpital's rule: Indeterminate forms, lim sin(x)/x, lim (e^x-1)/x
 - ✅ **IMPLEMENTED:** Sum/product of roots (5 questions)
   - Finding sum of roots: α + β = -b/a
   - Finding product of roots: αβ = c/a
