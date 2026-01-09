@@ -45,17 +45,17 @@ An intelligent, adaptive math practice tool that helps students master mathemati
   - **Level 3-4**: Fractions (addition, subtraction, multiplication, division, simplification)
   - **Level 4-5**: Decimals & percentages (conversion, ordering, operations)
   - **Level 5-6**: Simple linear equations (one variable)
-  - **Level 6-7**: Two-step equations
+  - **Level 6-7**: Two-step equations, parallel/perpendicular lines
   - **Level 7-8**: Inequalities (solving, sign rules)
   - **Level 8-9**: Expanding expressions (distributive property)
   - **Level 9-10**: Factorising quadratics
-  - **Level 10-11**: Quadratics (solving, completing the square, discriminant)
+  - **Level 10-11**: Quadratics (solving, completing the square, discriminant, inequalities)
   - **Level 11-12**: Polynomials (operations, factor theorem, remainder theorem, polynomial division)
   - **Level 12-13**: Exponentials & logarithms (properties, equations, log laws)
-  - **Level 13-14**: Sequences & series (arithmetic, geometric, sigma notation, binomial theorem)
+  - **Level 13-14**: Sequences & series (arithmetic, geometric, sigma notation, binomial theorem, financial applications)
   - **Level 14-15**: Functions (evaluation, composition, inverse)
   - **Level 15-16**: Trigonometry (standard angles, exact values)
-  - **Level 16-17**: Advanced trigonometry (identities, radians, double angle formulas)
+  - **Level 16-17**: Advanced trigonometry (identities, radians, double angle formulas, ambiguous case of sine rule)
   - **Level 17-18**: Vectors (2D operations, magnitude, dot product)
   - **Level 18-19**: Complex numbers (operations, modulus, powers of i)
   - **Level 19-20**: Basic differentiation (power rule, inverse functions)
@@ -65,13 +65,13 @@ An intelligent, adaptive math practice tool that helps students master mathemati
   - **Level 23-24**: Advanced probability (conditional, independence, expected value)
   - **Level 24-25**: Integration & series (power rule, geometric series, partial fractions)
   - **Level 25-26**: Proof by induction (sequences, series, divisibility)
-  - **Level 26-27**: Proof by contradiction (irrationality, infinite primes)
+  - **Level 26-27**: Proof by contradiction (irrationality, infinite primes, counterexamples)
   - **Level 27-28**: Matrix algebra (operations, determinants, inverses)
   - **Level 28-29**: 3D vectors (cross product, vector equations)
   - **Level 29-30**: Complex numbers polar form (De Moivre's theorem, conversions)
   - **Level 30-31**: Advanced integration (substitution, integration by parts)
-  - **Level 31-32**: Differential equations (separation of variables, first-order)
-  - **Level 32-33**: Probability distributions (binomial, normal, mean & variance)
+  - **Level 31-32**: Differential equations (separation of variables, first-order, Euler's method)
+  - **Level 32-33**: Probability distributions (binomial, normal, continuous random variables, mean & variance)
   - **Level 33+**: Hypothesis testing (null/alternative hypotheses, Type I/II errors)
 
 ### How to Use
