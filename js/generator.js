@@ -372,7 +372,16 @@ window.Generator = {
     },
     getVectors: function() { return window.QuestionTemplates.Vectors.getVectors(); },
     getComplexNumbers: function() { return window.QuestionTemplates.ComplexNumbers.getComplexNumbers(); },
-    getAdvancedCalculus: function() { return window.QuestionTemplates.AdvancedCalculus.getAdvancedCalculus(); },
+    getAdvancedCalculus: function() { 
+        // Mix advanced calculus, implicit differentiation, and related rates (Level 20-21)
+        const questionType = this.rInt(1, 5);
+        if (questionType === 1 && window.QuestionTemplates.AdvancedCalculus.getImplicitDifferentiationQuestion) {
+            return window.QuestionTemplates.AdvancedCalculus.getImplicitDifferentiationQuestion();
+        } else if (questionType === 2 && window.QuestionTemplates.AdvancedCalculus.getRelatedRatesQuestion) {
+            return window.QuestionTemplates.AdvancedCalculus.getRelatedRatesQuestion();
+        }
+        return window.QuestionTemplates.AdvancedCalculus.getAdvancedCalculus(); 
+    },
     getStatistics: function() { 
         // Mix statistics and linear regression (Level 21-22)
         const questionType = this.rInt(1, 4);
@@ -381,7 +390,14 @@ window.Generator = {
         }
         return window.QuestionTemplates.Statistics.getStatistics(); 
     },
-    getAdvancedProbability: function() { return window.QuestionTemplates.AdvancedProbability.getAdvancedProbability(); },
+    getAdvancedProbability: function() { 
+        // Mix advanced probability and Bayes' theorem (Level 23-24)
+        const questionType = this.rInt(1, 3);
+        if (questionType === 1 && window.QuestionTemplates.AdvancedProbability.getBayesTheoremQuestion) {
+            return window.QuestionTemplates.AdvancedProbability.getBayesTheoremQuestion();
+        }
+        return window.QuestionTemplates.AdvancedProbability.getAdvancedProbability(); 
+    },
     getWhyQuestion: function(level) { return window.QuestionTemplates.WhyQuestions.getWhyQuestion(level); },
     
     // Advanced HL Topics
@@ -395,13 +411,24 @@ window.Generator = {
         }
         return window.QuestionTemplates.MatrixAlgebra.getMatrixQuestion(); 
     },
-    getVectors3D: function() { return window.QuestionTemplates.Vectors3D.get3DVectorQuestion(); },
+    getVectors3D: function() { 
+        // Mix 3D vectors and vector/plane equations (Level 28-29)
+        const questionType = this.rInt(1, 3);
+        if (questionType === 1 && window.QuestionTemplates.Vectors3D.getVectorPlaneEquationQuestion) {
+            return window.QuestionTemplates.Vectors3D.getVectorPlaneEquationQuestion();
+        }
+        return window.QuestionTemplates.Vectors3D.get3DVectorQuestion(); 
+    },
     getComplexPolar: function() { return window.QuestionTemplates.ComplexPolar.getComplexPolarQuestion(); },
     getAdvancedIntegration: function() { 
-        // Mix advanced integration techniques and definite integrals (Level 30-31)
-        const questionType = this.rInt(1, 3);
+        // Mix advanced integration techniques, definite integrals, Maclaurin series, and volumes of revolution (Level 30-31)
+        const questionType = this.rInt(1, 6);
         if (questionType === 1 && window.QuestionTemplates.AdvancedIntegration.getDefiniteIntegralQuestion) {
             return window.QuestionTemplates.AdvancedIntegration.getDefiniteIntegralQuestion();
+        } else if (questionType === 2 && window.QuestionTemplates.AdvancedIntegration.getMaclaurinSeriesQuestion) {
+            return window.QuestionTemplates.AdvancedIntegration.getMaclaurinSeriesQuestion();
+        } else if (questionType === 3 && window.QuestionTemplates.AdvancedIntegration.getVolumesOfRevolutionQuestion) {
+            return window.QuestionTemplates.AdvancedIntegration.getVolumesOfRevolutionQuestion();
         }
         return window.QuestionTemplates.AdvancedIntegration.getAdvancedIntegrationQuestion(); 
     },

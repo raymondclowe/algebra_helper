@@ -412,5 +412,303 @@ window.QuestionTemplates.AdvancedIntegration = {
                 calc: false
             };
         }
+    },
+    
+    getMaclaurinSeriesQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 6);
+        
+        if (questionType === 1) {
+            // First 3 terms of e^x
+            const correctAnswer = `1 + x + \\frac{x^2}{2}`;
+            const candidateDistractors = [
+                `1 + x + x^2`,  // Forgot factorial
+                `x + \\frac{x^2}{2} + \\frac{x^3}{6}`,  // Missing constant term
+                `1 + x + \\frac{x^2}{2!}`  // Factorial notation (equivalent but not simplified)
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['1 + x', '1 + x + x^2 + x^3', 'x + x^2'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{First 3 terms of } e^x\\\\[0.5em]\\text{Maclaurin series?}`),
+                instruction: "Write the series expansion",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Maclaurin series for e^x: e^x = 1 + x + x²/2! + x³/3! + ... First 3 terms: 1 + x + x²/2. Each term is x^n/n!.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // First 2 non-zero terms of sin(x)
+            const correctAnswer = `x - \\frac{x^3}{6}`;
+            const candidateDistractors = [
+                `x + \\frac{x^3}{6}`,  // Wrong sign
+                `x - x^3`,  // Forgot factorial
+                `1 + x - \\frac{x^3}{6}`  // sin(0) ≠ 1
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['x + x^3', 'x - x^2', '1 - x'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Maclaurin series for } \\sin(x)\\\\[0.5em]\\text{(first 2 non-zero terms)?}`),
+                instruction: "Write the series expansion",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Maclaurin series for sin(x): sin(x) = x - x³/3! + x⁵/5! - ... First 2 non-zero terms: x - x³/6. Note: alternating signs, only odd powers.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // First 2 non-zero terms of cos(x)
+            const correctAnswer = `1 - \\frac{x^2}{2}`;
+            const candidateDistractors = [
+                `1 + \\frac{x^2}{2}`,  // Wrong sign
+                `1 - x^2`,  // Forgot factorial
+                `x - \\frac{x^3}{6}`  // sin(x) series
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['1 + x', '1 - x', 'x + x^2'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Maclaurin series for } \\cos(x)\\\\[0.5em]\\text{(first 2 non-zero terms)?}`),
+                instruction: "Write the series expansion",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Maclaurin series for cos(x): cos(x) = 1 - x²/2! + x⁴/4! - ... First 2 non-zero terms: 1 - x²/2. Note: alternating signs, only even powers, starts with 1.`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // What is f(0) in Maclaurin series?
+            const correctAnswer = `\\text{The constant term}`;
+            const candidateDistractors = [
+                `\\text{The coefficient of x}`,  // That's f'(0)
+                `\\text{The coefficient of } x^2`,  // That's f''(0)/2
+                `\\text{Always 1}`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\text{Always 0}', '\\text{The sum of all terms}', '\\text{Cannot be determined}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{In the Maclaurin series}\\\\[0.5em]f(x) = f(0) + f'(0)x + ...,\\\\[0.5em]\\text{what is } f(0)?`),
+                instruction: "Identify the relationship",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `In Maclaurin series f(x) = f(0) + f'(0)x + f''(0)x²/2! + ..., f(0) is the constant term (the value of the function at x=0). For e^x, f(0)=1. For sin(x), f(0)=0.`,
+                calc: false
+            };
+        } else if (questionType === 5) {
+            // Approximate e^0.1
+            const x = 0.1;
+            const approx = 1 + x + (x * x) / 2;
+            const approxRounded = Math.round(approx * 1000) / 1000;
+            
+            const correctAnswer = `${approxRounded}`;
+            const candidateDistractors = [
+                `${1 + x}`,  // Only 2 terms
+                `${Math.round((1 + x + x*x) * 1000) / 1000}`,  // Forgot factorial
+                `${Math.round(Math.exp(x) * 1000) / 1000}`  // Exact value (close but different)
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round((1 + Math.random() * 0.2) * 1000) / 1000}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Use Maclaurin series}\\\\[0.5em]\\text{to approximate } e^{${x}}`),
+                instruction: "Calculate (3 dp, use 1+x+x²/2)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Using e^x ≈ 1 + x + x²/2: e^${x} ≈ 1 + ${x} + (${x})²/2 = 1 + ${x} + ${x*x/2} = ${approxRounded}. (Actual value: ${Math.round(Math.exp(x) * 1000) / 1000})`,
+                calc: true
+            };
+        } else {
+            // General Maclaurin series definition
+            const correctAnswer = `f(x) = f(0) + f'(0)x + \\frac{f''(0)}{2!}x^2 + ...`;
+            const candidateDistractors = [
+                `f(x) = f(a) + f'(a)(x-a) + ...`,  // Taylor series (not Maclaurin)
+                `f(x) = 1 + x + x^2 + x^3 + ...`,  // Geometric series
+                `f(x) = f(0) + f(0)x + f(0)x^2 + ...`  // Wrong (not derivatives)
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['f(x) = \\sum x^n', 'f(x) = e^x + \\sin(x)', 'f(x) = 1/(1-x)'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{What is the general form}\\\\[0.5em]\\text{of a Maclaurin series?}`),
+                instruction: "Select the correct formula",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Maclaurin series (Taylor series at a=0): f(x) = f(0) + f'(0)x + f''(0)x²/2! + f'''(0)x³/3! + ... It represents a function as an infinite sum of terms calculated from derivatives at x=0.`,
+                calc: false
+            };
+        }
+    },
+    
+    getVolumesOfRevolutionQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 5);
+        
+        if (questionType === 1) {
+            // Rotate y = x from 0 to 2 about x-axis, volume integral?
+            const b = utils.rInt(2, 5);
+            
+            const correctAnswer = `\\pi \\int_0^{${b}} x^2 \\, dx`;
+            const candidateDistractors = [
+                `\\int_0^{${b}} x^2 \\, dx`,  // Forgot π
+                `\\pi \\int_0^{${b}} x \\, dx`,  // Forgot to square
+                `\\pi \\int_0^{${b}} 2x \\, dx`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const randB = utils.rInt(1, 6);
+                    const opts = [`\\pi \\int_0^{${randB}} x \\, dx`, `\\int_0^{${randB}} \\pi x^2 \\, dx`, `\\pi x^2`];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Rotate } y = x \\text{ from } x = 0\\\\[0.5em]\\text{to } x = ${b} \\text{ about x-axis}\\\\[0.5em]\\text{Volume integral?}`),
+                instruction: "Write the integral",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Volume of revolution about x-axis: V = π∫[a,b] y² dx. Here y = x, so V = π∫₀^${b} x² dx. Don't forget π and to square the function.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Volume of cone: rotate y = x from 0 to h
+            const h = utils.rInt(3, 6);
+            const volume = Math.PI * h * h * h / 3;
+            const volumeFormatted = `\\frac{\\pi ${h}^3}{3}`;
+            
+            const correctAnswer = volumeFormatted;
+            const candidateDistractors = [
+                `\\pi ${h}^3`,  // Forgot 1/3
+                `\\frac{${h}^3}{3}`,  // Forgot π
+                `\\frac{\\pi ${h}^2}{2}`  // Wrong formula
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const randH = utils.rInt(2, 8);
+                    return `\\frac{\\pi ${randH}^3}{${utils.rInt(2, 5)}}`;
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Rotate } y = x \\text{ from } x = 0\\\\[0.5em]\\text{to } x = ${h} \\text{ about x-axis}\\\\[0.5em]\\text{Volume?}`),
+                instruction: "Calculate the volume",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `V = π∫₀^${h} x² dx = π[x³/3]₀^${h} = π·${h}³/3. This is the volume of a cone with radius and height both equal to ${h}.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Rotate y = √x from 0 to 4 about x-axis
+            const b = 4;
+            const volume = Math.PI * b * b / 2;
+            
+            const correctAnswer = `${volume}\\pi`;
+            const candidateDistractors = [
+                `${b * b}\\pi`,  // Forgot 1/2
+                `${volume}`,  // Forgot π
+                `${b}\\pi`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(5, 30)}\\pi`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Rotate } y = \\sqrt{x} \\text{ from } x = 0\\\\[0.5em]\\text{to } x = ${b} \\text{ about x-axis}\\\\[0.5em]\\text{Volume?}`),
+                instruction: "Calculate the volume",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `V = π∫₀^${b} (√x)² dx = π∫₀^${b} x dx = π[x²/2]₀^${b} = π·${b}²/2 = ${volume}π = ${volume}π.`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // Formula for volume about x-axis
+            const correctAnswer = `\\pi \\int_a^b y^2 \\, dx`;
+            const candidateDistractors = [
+                `\\int_a^b y^2 \\, dx`,  // Forgot π
+                `\\pi \\int_a^b y \\, dx`,  // Forgot to square
+                `\\pi \\int_c^d x^2 \\, dy`  // Wrong axis
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['2\\pi \\int_a^b y \\, dx', '\\pi \\int_a^b x^2 \\, dx', '\\int_a^b \\pi y \\, dx'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Formula for volume of revolution}\\\\[0.5em]\\text{about the x-axis?}`),
+                instruction: "Select the correct formula",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Volume of revolution about x-axis: V = π∫ₐ^b y² dx. Rotate curve y=f(x) from x=a to x=b. Each cross-section is a circle with radius y, area πy².`,
+                calc: false
+            };
+        } else {
+            // Rotate y = r (constant) from 0 to h, volume = cylinder
+            const r = utils.rInt(2, 5);
+            const h = utils.rInt(3, 7);
+            const volume = Math.PI * r * r * h;
+            
+            const correctAnswer = `${volume}\\pi`;
+            const candidateDistractors = [
+                `${r * r * h}`,  // Forgot π
+                `${r * h}\\pi`,  // Forgot to square r
+                `${2 * r * h}\\pi`  // Surface area formula
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(10, 100)}\\pi`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Rotate } y = ${r} \\text{ (constant)}\\\\[0.5em]\\text{from } x = 0 \\text{ to } x = ${h}\\\\[0.5em]\\text{about x-axis. Volume?}`),
+                instruction: "Calculate the volume",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `V = π∫₀^${h} (${r})² dx = π·${r}²∫₀^${h} dx = π·${r}²·${h} = ${volume}π. This is a cylinder with radius ${r} and height ${h}.`,
+                calc: false
+            };
+        }
     }
 };
