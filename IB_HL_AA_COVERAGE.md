@@ -195,6 +195,11 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Completing the square
 - Discriminant (b² - 4ac)
 - Nature of roots
+- **NEW: Quadratic vertex form (y = (x-h)² + k)**
+- **NEW: Converting standard form to vertex form**
+- **NEW: Finding vertex coordinates from equation**
+- **NEW: Axis of symmetry (x = h)**
+- **NEW: Converting vertex form to standard form**
 - **NEW: Quadratic inequalities (ax² + bx + c > 0, < 0, ≥ 0, ≤ 0)**
 - **NEW: Factored form inequalities ((x-a)(x-b) > 0, < 0)**
 - **NEW: Using test values and sign analysis**
@@ -203,6 +208,11 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - `x² - 5x + 6 = 0` → x = 2 or x = 3
 - `Complete the square: x² + 6x + ?` → 9
 - `Find discriminant of x² + 3x + 5 = 0` → -11 (no real roots)
+- **NEW: `Convert y = x² + 6x + 5 to vertex form` → (x+3)² - 4**
+- **NEW: `Find the vertex of y = x² - 4x + 7` → (2, 3)**
+- **NEW: `What is the axis of symmetry of y = (x-5)² + 3?` → x = 5**
+- **NEW: `Convert y = (x+1)² - 3 to standard form` → x² + 2x - 2**
+- **NEW: `Write equation with vertex (3, -2) in vertex form (a=1)` → (x-3)² - 2**
 - **NEW: Solve (x - 2)(x - 5) > 0** → x < 2 or x > 5
 - **NEW: Solve x² - 7x + 10 < 0** → 2 < x < 5
 - **NEW: Solve x² - 9x + 18 ≥ 0** → x ≤ 3 or x ≥ 6
@@ -211,6 +221,8 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - SL/HL Topic 2.3: The quadratic formula
 - SL/HL Topic 2.3: The discriminant and nature of roots
 - HL Topic: Completing the square applications
+- **NEW: SL/HL Topic 2.6: Vertex form of quadratic functions**
+- **NEW: SL/HL Topic 2.6: Identifying key features from vertex form**
 - **NEW: SL/HL Topic 2.7: Solving quadratic inequalities**
 
 ---
