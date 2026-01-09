@@ -10,7 +10,7 @@
 
 **Phase 1:** 12/12 topics complete (100%) ✅  
 **Phase 2:** 14/14 topics complete (100%) ✅  
-**Phase 3:** 4/4 topics complete (100%) ✅ - Visual/Graphing using SVG  
+**Phase 3:** 4/4 topics complete (100%) ✅  
 **Phase 4:** 4/4 topics complete (100%) ✅  
 **Overall:** 34/34 topics complete (100%) ✅
 
@@ -147,7 +147,7 @@
 | Function graphing & reading | 🟢 Complete | 4/4 | 14-15 | - | 2026-01-09 |
 | Trig function graphs | 🟢 Complete | 4/4 | 16-17 | - | 2026-01-09 |
 | Data visualization | 🟢 Complete | 4/4 | 21-22 | - | 2026-01-09 |
-| Graphical equation solving | 🟢 Complete | (integrated) | 14-15 | - | 2026-01-09 |
+| Graphical equation solving | 🟢 Complete | (part of function graphing) | 14-15 | - | 2026-01-09 |
 | Derivative graph relationships | 🟢 Complete | 4/4 | 20-21 | - | 2026-01-09 |
 
 **Target:** 2027 Q3  
