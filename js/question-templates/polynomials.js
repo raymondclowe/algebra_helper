@@ -3,9 +3,144 @@
 window.QuestionTemplates = window.QuestionTemplates || {};
 
 window.QuestionTemplates.Polynomials = {
+    getSumProductRootsQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const rootType = utils.rInt(1, 5);
+        
+        if (rootType === 1) {
+            // Find sum of roots from quadratic
+            let b = utils.rInt(-8, 8);
+            if (b === 0) b = 3;
+            const c = utils.rInt(-10, 10);
+            const sum = -b; // For x² + bx + c, sum = -b
+            
+            const correctAnswer = `${sum}`;
+            const candidateDistractors = [
+                `${b}`,  // Forgot negative sign
+                `${c}`,  // Used c instead
+                `${b + c}`  // Added b and c
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(-15, 15)}`
+            );
+            
+            return {
+                tex: `x^2 ${b >= 0 ? '+' : ''}${b}x + ${c} = 0`,
+                instruction: "Find the sum of roots (α + β)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `For ax² + bx + c = 0, the sum of roots α + β = -b/a. Here a = 1, b = ${b}, so sum = -${b}/1 = ${sum}. This comes from Vieta's formulas.`,
+                calc: false
+            };
+        } else if (rootType === 2) {
+            // Find product of roots from quadratic
+            const b = utils.rInt(-8, 8);
+            let c = utils.rInt(-10, 10);
+            if (c === 0) c = 4;
+            const product = c; // For x² + bx + c, product = c
+            
+            const correctAnswer = `${product}`;
+            const candidateDistractors = [
+                `${-c}`,  // Wrong sign
+                `${b}`,  // Used b instead
+                `${b * c}`  // Multiplied b and c
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(-15, 15)}`
+            );
+            
+            return {
+                tex: `x^2 ${b >= 0 ? '+' : ''}${b}x + ${c} = 0`,
+                instruction: "Find the product of roots (αβ)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `For ax² + bx + c = 0, the product of roots αβ = c/a. Here a = 1, c = ${c}, so product = ${c}/1 = ${product}. This comes from Vieta's formulas.`,
+                calc: false
+            };
+        } else if (rootType === 3) {
+            // Form equation from given roots
+            const alpha = utils.rInt(-5, 5);
+            let beta = utils.rInt(-5, 5);
+            if (alpha === beta) beta = alpha + 2;
+            const sum = alpha + beta;
+            const product = alpha * beta;
+            
+            const correctAnswer = `x^2 ${-sum >= 0 ? '+' : ''}${-sum}x + ${product}`;
+            const candidateDistractors = [
+                `x^2 ${sum >= 0 ? '+' : ''}${sum}x + ${product}`,  // Wrong sign on sum
+                `x^2 ${-sum >= 0 ? '+' : ''}${-sum}x ${-product >= 0 ? '+' : ''}${-product}`,  // Wrong sign on product
+                `x^2 + ${alpha}x + ${beta}`  // Used roots directly
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `x^2 ${utils.rInt(-15, 15) >= 0 ? '+' : ''}${utils.rInt(-15, 15)}x + ${utils.rInt(-15, 15)}`
+            );
+            
+            return {
+                tex: `\\text{Roots: } \\alpha = ${alpha}, \\beta = ${beta}`,
+                instruction: "Form the quadratic equation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `If α and β are roots, the equation is x² - (α+β)x + αβ = 0. Sum = ${alpha} + ${beta} = ${sum}, product = ${alpha} × ${beta} = ${product}. Equation: x² - ${sum}x + ${product} = x² ${-sum >= 0 ? '+' : ''}${-sum}x + ${product}.`,
+                calc: false
+            };
+        } else if (rootType === 4) {
+            // Given sum and product, form equation
+            const sum = utils.rInt(-8, 8);
+            const product = utils.rInt(-12, 12);
+            
+            const correctAnswer = `x^2 ${-sum >= 0 ? '+' : ''}${-sum}x + ${product}`;
+            const candidateDistractors = [
+                `x^2 ${sum >= 0 ? '+' : ''}${sum}x + ${product}`,  // Wrong sign on sum
+                `x^2 ${-sum >= 0 ? '+' : ''}${-sum}x ${-product >= 0 ? '+' : ''}${-product}`,  // Wrong sign on product
+                `x^2 + ${sum}x + ${product}`  // Didn't negate sum
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `x^2 ${utils.rInt(-15, 15) >= 0 ? '+' : ''}${utils.rInt(-15, 15)}x + ${utils.rInt(-15, 15)}`
+            );
+            
+            return {
+                tex: `\\alpha + \\beta = ${sum},\\quad \\alpha\\beta = ${product}`,
+                instruction: "Form the quadratic equation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Using Vieta's formulas: if α + β = ${sum} and αβ = ${product}, the equation is x² - (α+β)x + αβ = 0, which gives x² - ${sum}x + ${product} = x² ${-sum >= 0 ? '+' : ''}${-sum}x + ${product}.`,
+                calc: false
+            };
+        } else {
+            // What is the formula for sum of roots?
+            const correctAnswer = `\\alpha + \\beta = -\\frac{b}{a}`;
+            const candidateDistractors = [
+                `\\alpha + \\beta = \\frac{b}{a}`,  // Wrong sign
+                `\\alpha + \\beta = \\frac{c}{a}`,  // Used c
+                `\\alpha + \\beta = -\\frac{c}{a}`  // Wrong coefficient
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\alpha + \\beta = ${utils.rInt(-5, 5)}`
+            );
+            
+            return {
+                tex: `\\text{For } ax^2 + bx + c = 0`,
+                instruction: "State the formula for sum of roots",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Vieta's formulas: For ax² + bx + c = 0, sum of roots α + β = -b/a, and product of roots αβ = c/a. These come from factoring: a(x - α)(x - β) = ax² - a(α+β)x + aαβ.`,
+                calc: false
+            };
+        }
+    },
     getPolynomials: function() {
         const utils = window.GeneratorUtils;
-        const questionType = utils.getQuestionType(1, 4);
+        const questionType = utils.getQuestionType(1, 5);
                 
                 if (questionType === 1) {
                     // Polynomial addition - avoid coefficient of 1 showing as "1x"
@@ -82,7 +217,7 @@ window.QuestionTemplates.Polynomials = {
                         explanation: utils.toUnicodeFunction(`By the remainder theorem, when f(x) is divided by (x - ${a}), the remainder is f(${a}). Calculate f(${a}) = ${a}² + ${b}(${a}) + ${c} = ${remainder}.`),
                         calc: false
                     };
-                } else {
+                } else if (questionType === 4) {
                     // Polynomial long division - quotient
                     // Divide (x^2 + bx + c) by (x - a) to get quotient (x + q) with remainder r
                     const a = utils.rInt(1, 5);
@@ -116,6 +251,9 @@ window.QuestionTemplates.Polynomials = {
                         explanation: utils.toUnicodeFunction(`Divide x² ${bTerm}${cTerm} by (x - ${a}) using polynomial long division. The quotient is x + ${q}${r !== 0 ? ` with remainder ${r}` : ''}.`),
                         calc: false
                     };
+                } else {
+                    // Sum and product of roots
+                    return this.getSumProductRootsQuestion();
                 }
     }
 };

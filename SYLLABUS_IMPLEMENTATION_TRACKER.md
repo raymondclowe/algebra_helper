@@ -9,10 +9,10 @@
 ## Current Implementation Status
 
 **Phase 1:** 7/12 topics complete (58%)  
-**Phase 2:** 1/14 topics complete (7%)  
+**Phase 2:** 2/14 topics complete (14%)  
 **Phase 3:** 0/5 topics complete (0%) - Visual/Graphing using SVG  
 **Phase 4:** 4/4 topics complete (100%) ✅  
-**Overall:** 12/35 topics complete (34%)
+**Overall:** 13/35 topics complete (37%)
 
 **Note:** Phase 3 previously marked as "text-based limitations" is now feasible using SVG (like trig diagrams)
 
@@ -79,12 +79,12 @@
 | Topic | Status | Questions Added | Level | PR/Issue | Completed |
 |-------|--------|-----------------|-------|----------|-----------|
 | Permutations P(n,r) | 🟢 Complete | 4/4 | 22-23 | - | 2026-01-09 |
-| Sum/product of roots | 🔴 Not Started | 0/5 | 11-12 | - | - |
+| Sum/product of roots | 🟢 Complete | 5/5 | 11-12 | - | 2026-01-09 |
 | Modulus equations | 🔴 Not Started | 0/6 | 7-8, 14-15 | - | - |
 | 3×3 linear systems | 🔴 Not Started | 0/5 | 28 | - | - |
 
 **Target:** Q4 2026  
-**Progress:** 4/20 questions (20%)
+**Progress:** 9/20 questions (45%)
 
 ---
 
@@ -226,6 +226,12 @@ These low-effort, high-impact items can be fast-tracked:
 ## Recent Updates
 
 ### 2026-01-09
+- ✅ **IMPLEMENTED:** Sum/product of roots (5 questions)
+  - Finding sum of roots: α + β = -b/a
+  - Finding product of roots: αβ = c/a
+  - Forming equations from given roots
+  - Forming equations from given sum and product
+  - Vieta's formulas recognition
 - ✅ **IMPLEMENTED:** Permutations P(n,r) (4 questions)
   - Calculating P(n,r) = n!/(n-r)!
   - When to use permutations vs combinations

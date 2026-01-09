@@ -233,17 +233,29 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Factor theorem
 - Remainder theorem
 - Polynomial division (long division)
+- **NEW: Sum of roots (α + β = -b/a)**
+- **NEW: Product of roots (αβ = c/a)**
+- **NEW: Forming equations from given roots**
+- **NEW: Vieta's formulas**
+- **NEW: Using sum and product to form quadratics**
 
 **Example Problems:**
 - `(3x + 5) + (2x + 7) = ?` → 5x + 12
 - `Is (x - 2) a factor of x² - 3x + 2?` → Yes (f(2) = 0)
 - `Find remainder when x² + 3x + 5 is divided by (x - 2)` → f(2) = 15
 - `Divide (x² + 2x - 18) by (x - 4)` → quotient: x + 6, remainder: 6
+- **NEW: `For x² + 5x + 6 = 0, find sum of roots` → -5**
+- **NEW: `For x² + 5x + 6 = 0, find product of roots` → 6**
+- **NEW: `Roots are 3 and 4. Form quadratic equation` → x² - 7x + 12 = 0**
+- **NEW: `If α + β = 5 and αβ = 6, form equation` → x² - 5x + 6 = 0**
+- **NEW: `State the formula for sum of roots` → α + β = -b/a**
 
 **IB Curriculum:**
 - HL Topic 2.5: The factor and remainder theorems
 - HL Topic: Polynomial functions and equations
 - HL Topic: Polynomial division
+- **NEW: HL Topic 2.12: Sum and product of roots**
+- **NEW: HL Topic 2.12: Vieta's formulas**
 
 ---
 
