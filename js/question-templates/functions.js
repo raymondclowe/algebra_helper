@@ -130,9 +130,11 @@ window.QuestionTemplates.Functions = {
             const b = utils.rInt(-5, 5);
             const c = utils.rInt(1, 3);
             const d = utils.rInt(-5, 5);
-            const x = utils.rInt(1, 5);
+            let x = utils.rInt(1, 5);
             // Ensure denominator isn't zero
-            if (c * x + d === 0) x = x + 2;
+            if (c * x + d === 0) {
+                x = x + 2;
+            }
             const numerator = a * x + b;
             const denominator = c * x + d;
             
@@ -164,8 +166,10 @@ window.QuestionTemplates.Functions = {
         } else if (questionType === 6) {
             // Hole vs asymptote
             const root = utils.rInt(2, 6);
-            const otherRoot = utils.rInt(-5, 5);
-            if (otherRoot === root || otherRoot === 0) otherRoot = root + 3;
+            let otherRoot = utils.rInt(-5, 5);
+            if (otherRoot === root || otherRoot === 0) {
+                otherRoot = root + 3;
+            }
             
             const correctAnswer = `Hole at x = ${root}`;
             const candidateDistractors = [
