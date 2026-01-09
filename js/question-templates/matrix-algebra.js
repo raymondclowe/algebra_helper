@@ -188,5 +188,124 @@ window.QuestionTemplates.MatrixAlgebra = {
                 calc: false
             };
         }
+    },
+    
+    get3x3SystemQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 5);
+        
+        if (questionType === 1) {
+            // Simple: given x+y+z=sum, what is x+y+z?
+            const sum = utils.rInt(5, 12);
+            
+            const correctAnswer = `${sum}`;
+            const candidateDistractors = [
+                `${sum * 2}`,  // Doubled
+                `${sum - 1}`,  // Off by one
+                `0`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(3, 20)}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{System: } x + y + z = ${sum}\\\\[0.5em]2x + y + z = ${sum + utils.rInt(1, 3)}\\\\[0.5em]x + 2y + z = ${sum + utils.rInt(1, 3)}\\\\[0.5em]\\text{What is } x + y + z?`),
+                instruction: "Find the value",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `From the first equation, x + y + z = ${sum}. This is directly given, regardless of the other equations.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Determinant interpretation: det(A) ≠ 0 means?
+            const correctAnswer = `Unique solution`;
+            const candidateDistractors = [
+                `No solution`,  // Wrong
+                `Infinite solutions`,  // Wrong
+                `No solution or infinite solutions`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => [`Multiple solutions`, `Exactly two solutions`, `Cannot be determined`][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{For a 3×3 system with}\\\\[0.5em]\\text{coefficient matrix A,}\\\\[0.5em]\\text{if det(A) ≠ 0, what does this mean?}`),
+                instruction: "Select the correct interpretation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `If det(A) ≠ 0, the coefficient matrix is invertible, which means the system has a unique solution. The matrix has full rank and the equations are linearly independent.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Determinant zero: det(A) = 0 means?
+            const correctAnswer = `No solution or infinite solutions`;
+            const candidateDistractors = [
+                `Unique solution`,  // Wrong
+                `Exactly no solution`,  // Too specific
+                `Exactly infinite solutions`  // Too specific
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => [`Two solutions`, `Multiple solutions`, `Cannot be determined`][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{For a 3×3 system with}\\\\[0.5em]\\text{coefficient matrix A,}\\\\[0.5em]\\text{if det(A) = 0, what are}\\\\[0.5em]\\text{the possibilities?}`),
+                instruction: "Select the correct interpretation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `If det(A) = 0, the matrix is singular (not invertible). The system is either inconsistent (no solution) or has infinitely many solutions (dependent equations). Which case depends on whether the right-hand side is consistent with the equations.`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // Infinite solutions example
+            const correctAnswer = `Infinite solutions`;
+            const candidateDistractors = [
+                `Unique solution`,  // Wrong
+                `No solution`,  // Wrong
+                `Exactly two solutions`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => [`Three solutions`, `Cannot be determined`, `One solution`][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{System:}\\\\[0.5em]x + y + z = 1\\\\[0.5em]2x + 2y + 2z = 2\\\\[0.5em]3x + 3y + 3z = 3\\\\[0.5em]\\text{How many solutions?}`),
+                instruction: "Determine the number of solutions",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `All three equations are multiples of each other (the second is 2× the first, third is 3× the first). They represent the same plane in 3D space, so there are infinitely many solutions along this plane. det(A) = 0 and the system is consistent.`,
+                calc: false
+            };
+        } else {
+            // Gaussian elimination concept
+            const correctAnswer = `Row reduction (Gaussian elimination)`;
+            const candidateDistractors = [
+                `Cross multiplication`,  // Wrong method
+                `Substitution only`,  // Limited method
+                `Graphing in 3D`  // Impractical
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => [`Matrix inversion`, `Determinant method`, `Cramer's rule`][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{What is the standard method}\\\\[0.5em]\\text{for solving 3×3 linear}\\\\[0.5em]\\text{systems by hand?}`),
+                instruction: "Select the most systematic method",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Row reduction (Gaussian elimination) is the standard systematic method. It transforms the augmented matrix [A|b] into row echelon form, making it easy to solve by back-substitution. This method works for systems of any size and reveals whether there's a unique solution, no solution, or infinite solutions.`,
+                calc: false
+            };
+        }
     }
 };

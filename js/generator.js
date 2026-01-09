@@ -236,7 +236,18 @@ window.Generator = {
         if (band <= 12) return this.getPolynomials();
         if (band <= 13) return this.getExponentialsLogs();
         if (band <= 14) return this.getSequencesSeries();
-        if (band <= 15) return this.getFunctionProblems();
+        if (band <= 15) {
+            // Mix functions, rational functions, graph transformations, and modulus equations (Level 14-15)
+            const questionType = this.rInt(1, 7);
+            if (questionType === 1 && window.QuestionTemplates.Functions.getRationalFunctionQuestion) {
+                return window.QuestionTemplates.Functions.getRationalFunctionQuestion();
+            } else if (questionType === 2 && window.QuestionTemplates.Functions.getGraphTransformationQuestion) {
+                return window.QuestionTemplates.Functions.getGraphTransformationQuestion();
+            } else if (questionType === 3 && window.QuestionTemplates.Inequalities && window.QuestionTemplates.Inequalities.getModulusEquation) {
+                return window.QuestionTemplates.Inequalities.getModulusEquation();
+            }
+            return this.getFunctionProblems();
+        }
         if (band <= 16) {
             // Mix trigonometry, arc/sector questions, and sine/cosine law (Level 15-16)
             const questionType = this.rInt(1, 5);
@@ -307,13 +318,6 @@ window.Generator = {
     getSquaresAndRoots: function() { return window.QuestionTemplates.SquaresRoots.getSquaresAndRoots(); },
     getMultiplicationTables: function() { return window.QuestionTemplates.MultiplicationTables.getMultiplicationTables(); },
     getFunctionProblems: function() { 
-        // Mix regular functions, rational functions, and graph transformations (Level 14-15)
-        const questionType = this.rInt(1, 5);
-        if (questionType === 1 && window.QuestionTemplates.Functions.getRationalFunctionQuestion) {
-            return window.QuestionTemplates.Functions.getRationalFunctionQuestion();
-        } else if (questionType === 2 && window.QuestionTemplates.Functions.getGraphTransformationQuestion) {
-            return window.QuestionTemplates.Functions.getGraphTransformationQuestion();
-        }
         return window.QuestionTemplates.Functions.getFunctionProblems(); 
     },
     getTrigonometry: function() { return window.QuestionTemplates.Trigonometry.getTrigonometry(); },
@@ -328,7 +332,14 @@ window.Generator = {
     },
     getFractions: function() { return window.QuestionTemplates.Fractions.getFractions(); },
     getDecimalsPercentages: function() { return window.QuestionTemplates.DecimalsPercentages.getDecimalsPercentages(); },
-    getInequalities: function() { return window.QuestionTemplates.Inequalities.getInequalities(); },
+    getInequalities: function() { 
+        // Mix inequalities and modulus equations (Level 7-8, also at 14-15)
+        const questionType = this.rInt(1, 4);
+        if (questionType === 1 && window.QuestionTemplates.Inequalities.getModulusEquation) {
+            return window.QuestionTemplates.Inequalities.getModulusEquation();
+        }
+        return window.QuestionTemplates.Inequalities.getInequalities(); 
+    },
     getQuadratics: function() { 
         // Mix quadratics and quadratic inequalities (Level 10-11)
         const questionType = this.rInt(1, 4);
@@ -348,10 +359,14 @@ window.Generator = {
         return window.QuestionTemplates.SequencesSeries.getSequencesSeries(); 
     },
     getAdvancedTrig: function() { 
-        // Mix advanced trig and arc/sector questions (Level 16-17)
-        const questionType = this.rInt(1, 3);
+        // Mix advanced trig, arc/sector, reciprocal trig, and compound angles (Level 16-17)
+        const questionType = this.rInt(1, 6);
         if (questionType === 1 && window.QuestionTemplates.ArcSector) {
             return window.QuestionTemplates.ArcSector.getArcSectorQuestion();
+        } else if (questionType === 2 && window.QuestionTemplates.AdvancedTrig.getReciprocalTrigQuestion) {
+            return window.QuestionTemplates.AdvancedTrig.getReciprocalTrigQuestion();
+        } else if (questionType === 3 && window.QuestionTemplates.AdvancedTrig.getCompoundAngleQuestion) {
+            return window.QuestionTemplates.AdvancedTrig.getCompoundAngleQuestion();
         }
         return window.QuestionTemplates.AdvancedTrig.getAdvancedTrig(); 
     },
@@ -372,7 +387,14 @@ window.Generator = {
     // Advanced HL Topics
     getInductionProof: function() { return window.QuestionTemplates.ProofsInduction.getInductionProofQuestion(); },
     getContradictionProof: function() { return window.QuestionTemplates.ProofsContradiction.getContradictionProofQuestion(); },
-    getMatrixAlgebra: function() { return window.QuestionTemplates.MatrixAlgebra.getMatrixQuestion(); },
+    getMatrixAlgebra: function() { 
+        // Mix matrix operations and 3×3 systems (Level 28)
+        const questionType = this.rInt(1, 3);
+        if (questionType === 1 && window.QuestionTemplates.MatrixAlgebra.get3x3SystemQuestion) {
+            return window.QuestionTemplates.MatrixAlgebra.get3x3SystemQuestion();
+        }
+        return window.QuestionTemplates.MatrixAlgebra.getMatrixQuestion(); 
+    },
     getVectors3D: function() { return window.QuestionTemplates.Vectors3D.get3DVectorQuestion(); },
     getComplexPolar: function() { return window.QuestionTemplates.ComplexPolar.getComplexPolarQuestion(); },
     getAdvancedIntegration: function() { 
