@@ -445,5 +445,281 @@ window.QuestionTemplates.AdvancedCalculus = {
                     // L'Hôpital's rule questions
                     return this.getLHopitalRuleQuestion();
                 }
+    },
+    
+    getImplicitDifferentiationQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 5);
+        
+        if (questionType === 1) {
+            // Basic circle: x² + y² = r²
+            const r = utils.rInt(3, 7);
+            const rSquared = r * r;
+            
+            const correctAnswer = `-\\frac{x}{y}`;
+            const candidateDistractors = [
+                `\\frac{x}{y}`,  // Wrong sign
+                `-\\frac{y}{x}`,  // Inverted
+                `-x - y`  // Wrong approach
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['-x', '-y', '\\frac{-y}{x}', '\\frac{y}{x}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{For } x^2 + y^2 = ${rSquared},\\\\[0.5em]\\text{find } \\frac{dy}{dx}`),
+                instruction: "Use implicit differentiation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Differentiate both sides with respect to x: 2x + 2y(dy/dx) = 0. Solve for dy/dx: 2y(dy/dx) = -2x, so dy/dx = -2x/(2y) = -x/y. Remember: d/dx[y²] = 2y·dy/dx (chain rule).`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Find dy/dx at a specific point on circle
+            const x = utils.rInt(2, 4);
+            const y = utils.rInt(2, 4);
+            const rSquared = x * x + y * y;
+            const slope = -x / y;
+            
+            const correctAnswer = `${slope}`;
+            const candidateDistractors = [
+                `${-slope}`,  // Wrong sign
+                `${y / x}`,  // Reciprocal wrong
+                `${x / y}`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(-5, 5)}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Circle: } x^2 + y^2 = ${rSquared}\\\\[0.5em]\\text{Find } \\frac{dy}{dx} \\text{ at } (${x}, ${y})`),
+                instruction: "Calculate the gradient (2 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `From x² + y² = ${rSquared}, we get dy/dx = -x/y. At (${x}, ${y}): dy/dx = -${x}/${y} = ${slope}. This is the gradient of the tangent line at that point.`,
+                calc: true
+            };
+        } else if (questionType === 3) {
+            // When to use implicit differentiation
+            const correctAnswer = `\\text{When y cannot be isolated}`;
+            const candidateDistractors = [
+                `\\text{For all equations}`,  // Not necessary
+                `\\text{Only for circles}`,  // Too specific
+                `\\text{Never needed}`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\text{For linear equations}', '\\text{For explicit functions}', '\\text{Only in 3D}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Implicit differentiation}\\\\[0.5em]\\text{is used when...}`),
+                instruction: "Select the correct condition",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Implicit differentiation is used when y cannot easily be isolated (solved explicitly). For equations like x² + y² = 25 or x³ + y³ = 6xy, it's easier to differentiate both sides than to solve for y first.`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // First step in implicit differentiation
+            const correctAnswer = `\\text{Differentiate both sides with respect to x}`;
+            const candidateDistractors = [
+                `\\text{Solve for y first}`,  // Opposite of implicit method
+                `\\text{Factor both sides}`,  // Wrong first step
+                `\\text{Set the equation to zero}`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\text{Substitute values}', '\\text{Take the square root}', '\\text{Add dy/dx to both sides}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{For } x^3 + y^3 = 6xy,\\\\[0.5em]\\text{what is the first step to find } \\frac{dy}{dx}?`),
+                instruction: "Select the correct first step",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `First step: differentiate both sides with respect to x. For x³ + y³ = 6xy, get: 3x² + 3y²(dy/dx) = 6y + 6x(dy/dx). Then collect dy/dx terms and solve.`,
+                calc: false
+            };
+        } else {
+            // For xy = 1, find dy/dx
+            const correctAnswer = `-\\frac{y}{x}`;
+            const candidateDistractors = [
+                `\\frac{y}{x}`,  // Wrong sign
+                `-\\frac{x}{y}`,  // Inverted
+                `-\\frac{1}{x^2}`  // Alternative form but not in terms of x and y
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\frac{x}{y}', '-x', '-y', '\\frac{1}{x}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{For } xy = 1, \\text{ find } \\frac{dy}{dx}`),
+                instruction: "Use implicit differentiation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Use product rule on left side: y + x(dy/dx) = 0. Solve for dy/dx: x(dy/dx) = -y, so dy/dx = -y/x. Alternative: since y = 1/x, dy/dx = -1/x² = -y/x (equivalent).`,
+                calc: false
+            };
+        }
+    },
+    
+    getRelatedRatesQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 5);
+        
+        if (questionType === 1) {
+            // Circle area: if dr/dt = 2, find dA/dt when r = 3
+            const drdt = utils.rInt(1, 3);
+            const r = utils.rInt(3, 6);
+            const dAdt = 2 * Math.PI * r * drdt;
+            const dAdtRounded = Math.round(dAdt * 10) / 10;
+            
+            const correctAnswer = `${dAdtRounded}`;
+            const candidateDistractors = [
+                `${Math.round(Math.PI * r * r * 10) / 10}`,  // Just area
+                `${drdt}`,  // Used dr/dt
+                `${2 * r * drdt}`  // Forgot π
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round(utils.rInt(10, 100) * 10) / 10}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{If } \\frac{dr}{dt} = ${drdt} \\text{ and } A = \\pi r^2,\\\\[0.5em]\\text{find } \\frac{dA}{dt} \\text{ when } r = ${r}`),
+                instruction: "Calculate the rate (1 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `From A = πr², differentiate with respect to t: dA/dt = 2πr·dr/dt. When r = ${r} and dr/dt = ${drdt}: dA/dt = 2π(${r})(${drdt}) = ${2 * r * drdt}π ≈ ${dAdtRounded}.`,
+                calc: true
+            };
+        } else if (questionType === 2) {
+            // Sphere volume: V = (4/3)πr³, find dV/dt when r = 6, dr/dt = 0.5
+            const drdt = 0.5;
+            const r = 6;
+            const dVdt = 4 * Math.PI * r * r * drdt;
+            const dVdtRounded = Math.round(dVdt * 10) / 10;
+            
+            const correctAnswer = `${dVdtRounded}`;
+            const candidateDistractors = [
+                `${Math.round((4/3) * Math.PI * r * r * r * 10) / 10}`,  // Just volume
+                `${drdt}`,  // Used dr/dt
+                `${Math.round(4 * r * r * 10) / 10}`  // Forgot π and dr/dt
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round(utils.rInt(20, 200) * 10) / 10}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Sphere: } V = \\frac{4}{3}\\pi r^3\\\\[0.5em]\\text{If } \\frac{dr}{dt} = ${drdt}, \\text{ find } \\frac{dV}{dt}\\\\[0.5em]\\text{when } r = ${r}`),
+                instruction: "Calculate the rate (1 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `From V = (4/3)πr³, differentiate: dV/dt = 4πr²·dr/dt. When r = ${r} and dr/dt = ${drdt}: dV/dt = 4π(${r})²(${drdt}) = ${4 * r * r * drdt}π ≈ ${dVdtRounded}.`,
+                calc: true
+            };
+        } else if (questionType === 3) {
+            // Ladder sliding: x² + y² = 25, dx/dt = 3, find dy/dt when x = 3, y = 4
+            const L = 5;
+            const x = 3;
+            const y = 4;
+            const dxdt = 3;
+            const dydt = -(x * dxdt) / y;
+            
+            const correctAnswer = `${dydt}`;
+            const candidateDistractors = [
+                `${-dydt}`,  // Wrong sign
+                `${dxdt}`,  // Used dx/dt
+                `${x * dxdt}`  // Missing division
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(-10, 10) * 0.25}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Ladder: } x^2 + y^2 = ${L*L}\\\\[0.5em]\\text{If } \\frac{dx}{dt} = ${dxdt}, \\text{ find } \\frac{dy}{dt}\\\\[0.5em]\\text{when } x = ${x}, y = ${y}`),
+                instruction: "Calculate the rate (2 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `From x² + y² = ${L*L}, differentiate: 2x·dx/dt + 2y·dy/dt = 0. Solve for dy/dt: dy/dt = -(x·dx/dt)/y = -(${x}·${dxdt})/${y} = ${dydt}. Negative means y is decreasing.`,
+                calc: true
+            };
+        } else if (questionType === 4) {
+            // Which rule for related rates?
+            const correctAnswer = `\\text{Chain rule}`;
+            const candidateDistractors = [
+                `\\text{Product rule}`,  // Sometimes used but not main
+                `\\text{Quotient rule}`,  // Wrong
+                `\\text{Power rule only}`  // Insufficient
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\text{L\'Hôpital\'s rule}', '\\text{Integration}', '\\text{Implicit differentiation}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Related rates problems}\\\\[0.5em]\\text{primarily use which rule?}`),
+                instruction: "Select the main technique",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Related rates problems use the chain rule with time derivatives: dV/dt = dV/dr · dr/dt. We differentiate with respect to time, connecting rates of change of different quantities.`,
+                calc: false
+            };
+        } else {
+            // Setup equation for cone
+            const correctAnswer = `\\frac{dV}{dt} = \\frac{1}{3}\\pi r^2 \\frac{dh}{dt}`;
+            const candidateDistractors = [
+                `\\frac{dV}{dt} = \\pi r^2 h`,  // Missing derivative
+                `\\frac{dV}{dt} = \\frac{1}{3}\\pi r^2 h`,  // No dh/dt
+                `V = \\frac{1}{3}\\pi r^2 h`  // Original formula
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\frac{dV}{dt} = \\pi r h', '\\frac{dh}{dt} = \\frac{1}{3}\\pi r^2', 'V = \\pi r^2 h'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Water flows into cone:}\\\\[0.5em]V = \\frac{1}{3}\\pi r^2 h\\\\[0.5em]\\text{If } r \\text{ is constant, relate}\\\\[0.5em]\\frac{dV}{dt} \\text{ and } \\frac{dh}{dt}`),
+                instruction: "Write the rate equation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `If r is constant, differentiate V = (1/3)πr²h with respect to t: dV/dt = (1/3)πr²·dh/dt. This relates the rate of volume change to the rate of height change.`,
+                calc: false
+            };
+        }
     }
 };

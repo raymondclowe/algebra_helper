@@ -235,5 +235,143 @@ window.QuestionTemplates.AdvancedProbability = {
                         calc: false
                     };
                 }
+    },
+    
+    getBayesTheoremQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 5);
+        
+        if (questionType === 1) {
+            // Bayes' theorem formula recognition
+            const correctAnswer = `P(A|B) = \\frac{P(B|A) \\cdot P(A)}{P(B)}`;
+            const candidateDistractors = [
+                `P(A|B) = P(A) \\cdot P(B)`,  // Wrong (independence)
+                `P(A|B) = \\frac{P(A)}{P(B)}`,  // Missing P(B|A)
+                `P(A|B) = P(B|A)`  // Common mistake
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['P(A|B) = P(A) + P(B)', 'P(A|B) = \\frac{P(A) + P(B)}{2}', 'P(A|B) = 1 - P(B)'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{What is Bayes' theorem?}`),
+                instruction: "Select the correct formula",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Bayes' theorem: P(A|B) = [P(B|A)·P(A)]/P(B). It allows us to reverse conditional probabilities: if we know P(B|A), we can find P(A|B). The denominator P(B) can be found using the law of total probability.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // When to use Bayes' theorem
+            const correctAnswer = `\\text{To reverse conditional probability}`;
+            const candidateDistractors = [
+                `\\text{To find joint probability}`,  // Wrong
+                `\\text{To find marginal probability}`,  // Wrong
+                `\\text{To test independence}`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\text{To add probabilities}', '\\text{To multiply probabilities}', '\\text{To find expected value}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{When should we use}\\\\[0.5em]\\text{Bayes' theorem?}`),
+                instruction: "Select the main application",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Bayes' theorem is used to reverse conditional probability. If we know P(B|A) but need P(A|B), we use Bayes' theorem. Example: knowing P(symptoms|disease), find P(disease|symptoms).`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Simple Bayes calculation
+            const pA = 0.3;
+            const pBgivenA = 0.8;
+            const pBgivenNotA = 0.2;
+            // P(B) = P(B|A)·P(A) + P(B|A')·P(A')
+            const pB = pBgivenA * pA + pBgivenNotA * (1 - pA);
+            // P(A|B) = P(B|A)·P(A) / P(B)
+            const pAgivenB = (pBgivenA * pA) / pB;
+            const result = Math.round(pAgivenB * 100) / 100;
+            
+            const correctAnswer = `${result}`;
+            const candidateDistractors = [
+                `${pA}`,  // Just P(A)
+                `${pBgivenA}`,  // Just P(B|A)
+                `${Math.round((pA * pBgivenA) * 100) / 100}`  // Numerator only
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round(Math.random() * 90 + 10) / 100}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`P(A) = ${pA}, \\; P(B|A) = ${pBgivenA}\\\\[0.5em]P(B|A') = ${pBgivenNotA}\\\\[0.5em]\\text{Find } P(A|B)`),
+                instruction: "Calculate using Bayes' theorem (2 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `First find P(B) = P(B|A)·P(A) + P(B|A')·P(A') = ${pBgivenA}·${pA} + ${pBgivenNotA}·${1-pA} = ${pB.toFixed(3)}. Then P(A|B) = P(B|A)·P(A)/P(B) = (${pBgivenA}·${pA})/${pB.toFixed(3)} ≈ ${result}.`,
+                calc: true
+            };
+        } else if (questionType === 4) {
+            // Medical test scenario (conceptual)
+            const correctAnswer = `\\text{Calculate using } P(D|+) = \\frac{P(+|D) \\cdot P(D)}{P(+)}`;
+            const candidateDistractors = [
+                `P(D|+) = P(+|D)`,  // Common mistake
+                `P(D|+) = P(D) \\cdot P(+)`,  // Wrong
+                `P(D|+) = 1 - P(+|D)`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\text{Use } P(D) \\text{ directly}', '\\text{Cannot be determined}', '\\text{Add all probabilities}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Given:}\\\\[0.5em]P(\\text{Disease}) = 0.01\\\\[0.5em]P(+ | \\text{Disease}) = 0.95\\\\[0.5em]P(+ | \\text{No Disease}) = 0.05\\\\[0.5em]\\text{Find } P(\\text{Disease} | +)`),
+                instruction: "What is the correct approach?",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Use Bayes' theorem: P(Disease|+) = [P(+|Disease)·P(Disease)]/P(+). Need to find P(+) = P(+|Disease)·P(Disease) + P(+|No Disease)·P(No Disease) = 0.95·0.01 + 0.05·0.99 = 0.059. Then P(Disease|+) = (0.95·0.01)/0.059 ≈ 0.16 or 16%.`,
+                calc: false
+            };
+        } else {
+            // Common mistake: confusing P(A|B) with P(B|A)
+            const correctAnswer = `\\text{No, they are generally different}`;
+            const candidateDistractors = [
+                `\\text{Yes, they are always equal}`,  // Wrong
+                `\\text{Yes, if A and B are independent}`,  // Still wrong
+                `\\text{Only if P(A) = P(B)}`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\text{Sometimes}', '\\text{Cannot determine}', '\\text{Only for disjoint events}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Is } P(A|B) \\text{ equal to } P(B|A)?`),
+                instruction: "Select the correct answer",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `P(A|B) and P(B|A) are generally different. P(A|B) = "probability of A given B" while P(B|A) = "probability of B given A". Bayes' theorem shows their relationship: P(A|B) = [P(B|A)·P(A)]/P(B). They're only equal in special cases, not generally.`,
+                calc: false
+            };
+        }
     }
 };

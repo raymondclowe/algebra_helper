@@ -162,5 +162,187 @@ window.QuestionTemplates.Vectors3D = {
                 calc: true
             };
         }
+    },
+    
+    getVectorPlaneEquationQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 6);
+        
+        if (questionType === 1) {
+            // Vector equation of line through point in direction
+            const x = utils.rInt(1, 5);
+            const y = utils.rInt(1, 5);
+            const z = utils.rInt(1, 5);
+            const dx = utils.rInt(1, 4);
+            const dy = utils.rInt(1, 4);
+            const dz = utils.rInt(1, 4);
+            
+            const correctAnswer = `\\mathbf{r} = \\begin{pmatrix} ${x} \\\\ ${y} \\\\ ${z} \\end{pmatrix} + \\lambda\\begin{pmatrix} ${dx} \\\\ ${dy} \\\\ ${dz} \\end{pmatrix}`;
+            const candidateDistractors = [
+                `\\mathbf{r} = \\begin{pmatrix} ${dx} \\\\ ${dy} \\\\ ${dz} \\end{pmatrix} + \\lambda\\begin{pmatrix} ${x} \\\\ ${y} \\\\ ${z} \\end{pmatrix}`,  // Swapped
+                `\\mathbf{r} = \\begin{pmatrix} ${x + dx} \\\\ ${y + dy} \\\\ ${z + dz} \\end{pmatrix}`,  // No parameter
+                `\\lambda = \\begin{pmatrix} ${x} \\\\ ${y} \\\\ ${z} \\end{pmatrix} + \\mathbf{r}\\begin{pmatrix} ${dx} \\\\ ${dy} \\\\ ${dz} \\end{pmatrix}`  // Wrong form
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\mathbf{r} = \\begin{pmatrix} ${utils.rInt(1, 9)} \\\\ ${utils.rInt(1, 9)} \\\\ ${utils.rInt(1, 9)} \\end{pmatrix} + \\lambda\\begin{pmatrix} ${utils.rInt(1, 9)} \\\\ ${utils.rInt(1, 9)} \\\\ ${utils.rInt(1, 9)} \\end{pmatrix}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Line through point } (${x}, ${y}, ${z})\\\\[0.5em]\\text{in direction } (${dx}, ${dy}, ${dz})\\\\[0.5em]\\text{Vector equation?}`),
+                instruction: "Write the vector equation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Vector equation of line: r = a + λb where a is position vector of point on line, b is direction vector, λ is parameter. So r = (${x}, ${y}, ${z}) + λ(${dx}, ${dy}, ${dz}).`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Given vector equation, find direction vector
+            const x = utils.rInt(1, 5);
+            const y = utils.rInt(1, 5);
+            const z = utils.rInt(1, 5);
+            const dx = utils.rInt(1, 4);
+            const dy = utils.rInt(1, 4);
+            const dz = utils.rInt(1, 4);
+            
+            const correctAnswer = `\\begin{pmatrix} ${dx} \\\\ ${dy} \\\\ ${dz} \\end{pmatrix}`;
+            const candidateDistractors = [
+                `\\begin{pmatrix} ${x} \\\\ ${y} \\\\ ${z} \\end{pmatrix}`,  // Position vector
+                `\\begin{pmatrix} ${x + dx} \\\\ ${y + dy} \\\\ ${z + dz} \\end{pmatrix}`,  // Sum
+                `\\begin{pmatrix} ${dx * 2} \\\\ ${dy * 2} \\\\ ${dz * 2} \\end{pmatrix}`  // Scaled
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\begin{pmatrix} ${utils.rInt(1, 9)} \\\\ ${utils.rInt(1, 9)} \\\\ ${utils.rInt(1, 9)} \\end{pmatrix}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\mathbf{r} = \\begin{pmatrix} ${x} \\\\ ${y} \\\\ ${z} \\end{pmatrix} + t\\begin{pmatrix} ${dx} \\\\ ${dy} \\\\ ${dz} \\end{pmatrix}\\\\[0.5em]\\text{What is the direction vector?}`),
+                instruction: "Identify the direction vector",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `In vector equation r = a + tb, the direction vector is b = (${dx}, ${dy}, ${dz}). The parameter t scales this direction vector.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Plane with normal vector through origin
+            const a = utils.rInt(1, 5);
+            const b = utils.rInt(1, 5);
+            const c = utils.rInt(1, 5);
+            
+            const correctAnswer = `${a}x + ${b}y + ${c}z = 0`;
+            const candidateDistractors = [
+                `${a}x + ${b}y + ${c}z = 1`,  // Wrong constant
+                `x + y + z = ${a + b + c}`,  // Wrong equation
+                `\\begin{pmatrix} ${a} \\\\ ${b} \\\\ ${c} \\end{pmatrix} \\cdot \\mathbf{r} = 0`  // Vector form (equivalent but not Cartesian)
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const randA = utils.rInt(1, 6);
+                    const randB = utils.rInt(1, 6);
+                    const randC = utils.rInt(1, 6);
+                    return `${randA}x + ${randB}y + ${randC}z = 0`;
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Plane with normal vector}\\\\[0.5em]\\mathbf{n} = \\begin{pmatrix} ${a} \\\\ ${b} \\\\ ${c} \\end{pmatrix}\\\\[0.5em]\\text{through origin}\\\\[0.5em]\\text{Cartesian equation?}`),
+                instruction: "Write the equation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Plane equation: r · n = d. Through origin means d = 0. With normal (${a}, ${b}, ${c}), equation is ${a}x + ${b}y + ${c}z = 0.`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // Given plane equation, find normal vector
+            const a = utils.rInt(1, 5);
+            const b = utils.rInt(1, 5);
+            const c = utils.rInt(1, 5);
+            const d = utils.rInt(1, 9);
+            
+            const correctAnswer = `\\begin{pmatrix} ${a} \\\\ ${b} \\\\ ${c} \\end{pmatrix}`;
+            const candidateDistractors = [
+                `\\begin{pmatrix} ${d} \\\\ ${d} \\\\ ${d} \\end{pmatrix}`,  // Wrong
+                `\\begin{pmatrix} ${a} \\\\ ${b} \\\\ ${d} \\end{pmatrix}`,  // Used d instead of c
+                `\\begin{pmatrix} ${-a} \\\\ ${-b} \\\\ ${-c} \\end{pmatrix}`  // Negative (also valid but not expected answer)
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `\\begin{pmatrix} ${utils.rInt(1, 9)} \\\\ ${utils.rInt(1, 9)} \\\\ ${utils.rInt(1, 9)} \\end{pmatrix}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Plane: } ${a}x + ${b}y + ${c}z = ${d}\\\\[0.5em]\\text{What is the normal vector?}`),
+                instruction: "Identify the normal vector",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `For plane ax + by + cz = d, the normal vector is n = (a, b, c). So normal = (${a}, ${b}, ${c}). The constant d doesn't appear in the normal vector.`,
+                calc: false
+            };
+        } else if (questionType === 5) {
+            // Is point on plane?
+            const a = 1;
+            const b = 1;
+            const c = 1;
+            const d = 3;
+            const px = 1;
+            const py = 1;
+            const pz = 1;
+            // Check: 1 + 1 + 1 = 3, so yes
+            
+            const correctAnswer = `\\text{Yes}`;
+            const candidateDistractors = [
+                `\\text{No}`,  // Wrong
+                `\\text{Cannot determine}`,  // Wrong
+                `\\text{Only if } x = y = z`  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\text{Sometimes}', '\\text{Not enough information}', '\\text{Maybe}'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Is point } (${px}, ${py}, ${pz})\\\\[0.5em]\\text{on plane } x + y + z = ${d}?`),
+                instruction: "Check if point satisfies equation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Substitute (${px}, ${py}, ${pz}) into x + y + z = ${d}: ${px} + ${py} + ${pz} = ${px + py + pz} = ${d}. Since this is true, the point is on the plane.`,
+                calc: false
+            };
+        } else {
+            // Parametric vs vector equation
+            const correctAnswer = `\\mathbf{r} = \\mathbf{a} + \\lambda\\mathbf{b}`;
+            const candidateDistractors = [
+                `x = x_0 + \\lambda a, y = y_0 + \\lambda b, z = z_0 + \\lambda c`,  // Parametric (alternative form)
+                `ax + by + cz = d`,  // Plane equation
+                `\\mathbf{r} \\cdot \\mathbf{n} = d`  // Plane in vector form
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = ['\\mathbf{r} = \\lambda\\mathbf{a}', '\\mathbf{r} = \\mathbf{a} + \\mathbf{b}', '\\mathbf{r} \\times \\mathbf{b} = 0'];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{What is the vector form}\\\\[0.5em]\\text{of a line equation?}`),
+                instruction: "Select the general form",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Vector equation of line: r = a + λb where a is position vector of a point on the line, b is direction vector, λ is parameter. This can be expanded to parametric form: x = x₀ + λb₁, y = y₀ + λb₂, z = z₀ + λb₃.`,
+                calc: false
+            };
+        }
     }
 };

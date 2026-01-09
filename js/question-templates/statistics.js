@@ -288,5 +288,223 @@ window.QuestionTemplates.Statistics = {
                         calc: false
                     };
                 }
+    },
+    
+    getLinearRegressionQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 8);
+        
+        if (questionType === 1) {
+            // Interpret correlation coefficient r
+            const r = [0.95, 0.85, 0.50, -0.80, -0.95, 0.10][utils.rInt(0, 5)];
+            let description;
+            if (Math.abs(r) >= 0.9) {
+                description = Math.sign(r) > 0 ? "Strong positive correlation" : "Strong negative correlation";
+            } else if (Math.abs(r) >= 0.7) {
+                description = Math.sign(r) > 0 ? "Moderate positive correlation" : "Moderate negative correlation";
+            } else if (Math.abs(r) >= 0.3) {
+                description = Math.sign(r) > 0 ? "Weak positive correlation" : "Weak negative correlation";
+            } else {
+                description = "Little to no correlation";
+            }
+            
+            const correctAnswer = description;
+            const candidateDistractors = [
+                Math.sign(r) > 0 ? "Strong negative correlation" : "Strong positive correlation",  // Opposite
+                "Perfect correlation",  // Exaggeration
+                "Causation"  // Confusing correlation with causation
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => ["Weak correlation", "No relationship", "Moderate correlation"][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{If the correlation coefficient } r = ${r},\\\\[0.5em]\\text{what does this indicate?}`),
+                instruction: "Interpret the correlation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `r = ${r} indicates ${description}. The correlation coefficient r ranges from -1 to 1. Values near ±1 indicate strong linear relationships, while values near 0 indicate weak or no linear relationship. Positive r means as x increases, y tends to increase; negative r means as x increases, y tends to decrease.`,
+                calc: false
+            };
+        } else if (questionType === 2) {
+            // Strongest correlation by magnitude
+            const correlations = [
+                { value: 0.3, label: "r = 0.3" },
+                { value: -0.7, label: "r = -0.7" },
+                { value: 0.5, label: "r = 0.5" },
+                { value: -0.2, label: "r = -0.2" }
+            ];
+            const strongest = correlations.reduce((a, b) => Math.abs(a.value) > Math.abs(b.value) ? a : b);
+            
+            const correctAnswer = strongest.label;
+            const candidateDistractors = correlations
+                .filter(c => c.label !== strongest.label)
+                .map(c => c.label);
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors.slice(0, 3),
+                () => `r = ${(utils.rInt(-10, 10) / 10).toFixed(1)}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Which correlation coefficient}\\\\[0.5em]\\text{indicates the strongest relationship?}`),
+                instruction: "Select the strongest correlation",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `${strongest.label} has the largest absolute value (|${strongest.value}| = ${Math.abs(strongest.value)}). The strength of correlation is determined by |r|, not by sign. |r| closer to 1 means stronger linear relationship.`,
+                calc: false
+            };
+        } else if (questionType === 3) {
+            // Use regression line for prediction
+            const a = utils.rInt(1, 5);
+            const b = utils.rInt(1, 6);
+            const x = utils.rInt(3, 8);
+            const y = a * x + b;
+            
+            const correctAnswer = `${y}`;
+            const candidateDistractors = [
+                `${a * x}`,  // Forgot constant
+                `${x + b}`,  // Added instead of multiplied
+                `${y + a}`  // Calculation error
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(10, 50)}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Regression line: } y = ${a}x + ${b}\\\\[0.5em]\\text{Predict y when x = ${x}}`),
+                instruction: "Calculate using the regression line",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Substitute x = ${x} into y = ${a}x + ${b}: y = ${a}(${x}) + ${b} = ${a * x} + ${b} = ${y}. The regression line is used to predict y values for given x values.`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // r = 0 interpretation
+            const correctAnswer = "No linear correlation";
+            const candidateDistractors = [
+                "Perfect positive correlation",  // Opposite
+                "Strong negative correlation",  // Wrong
+                "Variables are independent"  // Too strong (could be nonlinear)
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => ["Weak correlation", "Moderate correlation", "No relationship"][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{If } r = 0, \\text{ what does this mean?}`),
+                instruction: "Interpret r = 0",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `r = 0 means there is no linear correlation between the variables. However, this doesn't necessarily mean the variables are independent - there could be a nonlinear relationship. r only measures linear correlation.`,
+                calc: false
+            };
+        } else if (questionType === 5) {
+            // Coefficient of determination r²
+            const r = [0.6, 0.7, 0.8, 0.9][utils.rInt(0, 3)];
+            const rSquared = r * r;
+            const percentage = Math.round(rSquared * 100);
+            
+            const correctAnswer = `${percentage}%`;
+            const candidateDistractors = [
+                `${Math.round(r * 100)}%`,  // Used r instead of r²
+                `${Math.round((1 - rSquared) * 100)}%`,  // Used 1-r²
+                `${Math.round(rSquared * 50)}%`  // Calculation error
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(10, 95)}%`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{If } r = ${r}, \\text{ what percentage}\\\\[0.5em]\\text{of variation is explained by the model?}`),
+                instruction: "Calculate r² as percentage",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `r² = (${r})² = ${rSquared.toFixed(2)} = ${percentage}%. The coefficient of determination r² represents the proportion of variance in the dependent variable explained by the independent variable. ${percentage}% of the variation in y is explained by its linear relationship with x.`,
+                calc: false
+            };
+        } else if (questionType === 6) {
+            // Correlation vs causation
+            const correctAnswer = "Correlation does not imply causation";
+            const candidateDistractors = [
+                "Strong correlation proves causation",  // Common misconception
+                "Correlation always implies causation",  // Wrong
+                "r > 0.8 proves causation"  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => ["They are the same concept", "Causation implies correlation", "Neither exists"][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{What is the relationship between}\\\\[0.5em]\\text{correlation and causation?}`),
+                instruction: "Select the correct statement",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Correlation does not imply causation. Two variables can be correlated without one causing the other - they might both be influenced by a third variable (confounding), or the relationship might be coincidental. Strong correlation indicates association, but additional evidence is needed to establish causation.`,
+                calc: false
+            };
+        } else if (questionType === 7) {
+            // Regression equation form
+            const correctAnswer = `y = ax + b`;
+            const candidateDistractors = [
+                `x = ay + b`,  // Wrong direction (x as dependent variable)
+                `y = ax^2 + bx + c`,  // Quadratic, not linear
+                `y = a \\cdot b \\cdot x`  // Wrong (multiplication of parameters)
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => {
+                    const opts = [`y = ax^3 + b`, `y = \\frac{a}{x} + b`, `xy = a + b`];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{What is the general form of}\\\\[0.5em]\\text{a linear regression equation?}`),
+                instruction: "Select the standard form",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `The linear regression equation is y = ax + b, where a is the slope (rate of change), b is the y-intercept (value when x=0), x is the independent variable, and y is the dependent variable being predicted. This is also written as y = mx + c or ŷ = a + bx (equivalent forms with different parameter notation).`,
+                calc: false
+            };
+        } else {
+            // Predict with given regression line
+            const a = utils.rInt(2, 4) * 0.5;  // Use 0.5 increments for variety
+            const b = utils.rInt(1, 8);
+            const x = utils.rInt(8, 15);
+            const y = a * x + b;
+            
+            const correctAnswer = `${y}`;
+            const candidateDistractors = [
+                `${a * x}`,  // Forgot intercept
+                `${Math.round(y + a)}`,  // Calculation error
+                `${Math.round(x * b + a)}`  // Wrong order
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${utils.rInt(10, 60)}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Regression equation: } y = ${a}x + ${b}\\\\[0.5em]\\text{Find y when x = ${x}}`),
+                instruction: "Make a prediction",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Substitute x = ${x}: y = ${a}(${x}) + ${b} = ${a * x} + ${b} = ${y}. The regression line allows us to predict y values for given x values based on the linear relationship found in the data.`,
+                calc: true
+            };
+        }
     }
 };
