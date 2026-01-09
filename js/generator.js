@@ -318,7 +318,14 @@ window.Generator = {
     },
     getTrigonometry: function() { return window.QuestionTemplates.Trigonometry.getTrigonometry(); },
     getProbability: function() { return window.QuestionTemplates.Probability.getProbability(); },
-    getCalculus: function() { return window.QuestionTemplates.Calculus.getCalculus(); },
+    getCalculus: function() { 
+        // Mix basic calculus and definite integrals (Level 24-25)
+        const questionType = this.rInt(1, 4);
+        if (questionType === 1 && window.QuestionTemplates.AdvancedIntegration && window.QuestionTemplates.AdvancedIntegration.getDefiniteIntegralQuestion) {
+            return window.QuestionTemplates.AdvancedIntegration.getDefiniteIntegralQuestion();
+        }
+        return window.QuestionTemplates.Calculus.getCalculus(); 
+    },
     getFractions: function() { return window.QuestionTemplates.Fractions.getFractions(); },
     getDecimalsPercentages: function() { return window.QuestionTemplates.DecimalsPercentages.getDecimalsPercentages(); },
     getInequalities: function() { return window.QuestionTemplates.Inequalities.getInequalities(); },
@@ -351,7 +358,14 @@ window.Generator = {
     getVectors: function() { return window.QuestionTemplates.Vectors.getVectors(); },
     getComplexNumbers: function() { return window.QuestionTemplates.ComplexNumbers.getComplexNumbers(); },
     getAdvancedCalculus: function() { return window.QuestionTemplates.AdvancedCalculus.getAdvancedCalculus(); },
-    getStatistics: function() { return window.QuestionTemplates.Statistics.getStatistics(); },
+    getStatistics: function() { 
+        // Mix statistics and linear regression (Level 21-22)
+        const questionType = this.rInt(1, 4);
+        if (questionType === 1 && window.QuestionTemplates.Statistics.getLinearRegressionQuestion) {
+            return window.QuestionTemplates.Statistics.getLinearRegressionQuestion();
+        }
+        return window.QuestionTemplates.Statistics.getStatistics(); 
+    },
     getAdvancedProbability: function() { return window.QuestionTemplates.AdvancedProbability.getAdvancedProbability(); },
     getWhyQuestion: function(level) { return window.QuestionTemplates.WhyQuestions.getWhyQuestion(level); },
     
@@ -361,7 +375,14 @@ window.Generator = {
     getMatrixAlgebra: function() { return window.QuestionTemplates.MatrixAlgebra.getMatrixQuestion(); },
     getVectors3D: function() { return window.QuestionTemplates.Vectors3D.get3DVectorQuestion(); },
     getComplexPolar: function() { return window.QuestionTemplates.ComplexPolar.getComplexPolarQuestion(); },
-    getAdvancedIntegration: function() { return window.QuestionTemplates.AdvancedIntegration.getAdvancedIntegrationQuestion(); },
+    getAdvancedIntegration: function() { 
+        // Mix advanced integration techniques and definite integrals (Level 30-31)
+        const questionType = this.rInt(1, 3);
+        if (questionType === 1 && window.QuestionTemplates.AdvancedIntegration.getDefiniteIntegralQuestion) {
+            return window.QuestionTemplates.AdvancedIntegration.getDefiniteIntegralQuestion();
+        }
+        return window.QuestionTemplates.AdvancedIntegration.getAdvancedIntegrationQuestion(); 
+    },
     getDifferentialEquations: function() { 
         // Mix standard differential equations and Euler's method
         const questionType = this.rInt(1, 4);
