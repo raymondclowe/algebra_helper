@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:20:10.059Z",
+  "level": 23,
+  "topic": "Basic Probability",
+  "questionType": 1,
+  "metadata": {
+    "level": 23,
+    "topic": "Basic Probability",
+    "questionType": 1,
+    "questionText": "\\text{Bag has 9 balls,}\\\\[0.5em]\\text{6 are red.}\\\\[0.5em]\\text{P(red) = ?}",
+    "instruction": "CALCULATE THE PROBABILITY",
+    "correctAnswer": "\\frac{6}{9}",
+    "distractors": [
+      "\\frac{3}{9}",
+      "\\frac{6}{3}",
+      "\\frac{9}{6}"
+    ],
+    "allOptions": [
+      "39",
+      "69",
+      "96",
+      "63",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Probability = (number of favorable outcomes)/(total number of outcomes) = 6/9."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

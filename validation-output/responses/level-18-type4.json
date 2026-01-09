@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:14:25.702Z",
+  "level": 18,
+  "topic": "Vectors",
+  "questionType": 4,
+  "metadata": {
+    "level": 18,
+    "topic": "Vectors",
+    "questionType": 4,
+    "questionText": "\\begin{pmatrix} 3 \\\\ 1 \\end{pmatrix} \\cdot \\begin{pmatrix} 3 \\\\ 2 \\end{pmatrix}",
+    "instruction": "CALCULATE THE DOT PRODUCT",
+    "correctAnswer": "11",
+    "distractors": [
+      "6",
+      "9",
+      "12"
+    ],
+    "allOptions": [
+      "11",
+      "12",
+      "9",
+      "6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Dot product = (3)(3) + (1)(2) = 9 + 2 = 11."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

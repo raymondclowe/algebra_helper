@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:05:14.526Z",
+  "level": 11,
+  "topic": "Quadratic Equations",
+  "questionType": 3,
+  "metadata": {
+    "level": 11,
+    "topic": "Quadratic Equations",
+    "questionType": 3,
+    "questionText": "x^2 + 5x + 6 = 0",
+    "instruction": "CALCULATE THE VALUE OF THE DISCRIMINANT",
+    "correctAnswer": "1",
+    "distractors": [
+      "25",
+      "24",
+      "-19"
+    ],
+    "allOptions": [
+      "1",
+      "-19",
+      "25",
+      "24",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For the quadratic equation ax² + bx + c = 0, the discriminant Δ = b² - 4ac. Here: Δ = 5² - 4(1)(6) = 25 - 24 = 1. Since Δ > 0, the equation has two distinct real roots."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

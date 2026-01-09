@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:16:27.732Z",
+  "level": 20,
+  "topic": "Basic Differentiation",
+  "questionType": 1,
+  "metadata": {
+    "level": 20,
+    "topic": "Basic Differentiation",
+    "questionType": 1,
+    "questionText": "𝑓(x) = 5x^{4}",
+    "instruction": "FIND 𝑓'(X)",
+    "correctAnswer": "20x^{3}",
+    "distractors": [
+      "20x^{4}",
+      "5x^{3}",
+      "4x^{5}"
+    ],
+    "allOptions": [
+      "20⁢𝑥3",
+      "4⁢𝑥5",
+      "20⁢𝑥4",
+      "5⁢𝑥3",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Apply the power rule: multiply the coefficient by the exponent, then reduce the exponent by 1. Therefore 𝑓'(x) = 5 × 4 × x^3 = 20x^3."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

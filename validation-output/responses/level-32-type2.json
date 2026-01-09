@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:33:49.028Z",
+  "level": 32,
+  "topic": "Differential Equations",
+  "questionType": 2,
+  "metadata": {
+    "level": 32,
+    "topic": "Differential Equations",
+    "questionType": 2,
+    "questionText": "\\frac{dy}{dx} = 3y",
+    "instruction": "WHAT IS THE GENERAL SOLUTION?",
+    "correctAnswer": "y = Ae^{3x}",
+    "distractors": [
+      "y = 3e^{x}",
+      "y = Ae^{x}",
+      "y = A3x"
+    ],
+    "allOptions": [
+      "𝑦 =3⁢𝑒𝑥",
+      "𝑦 =𝐴⁢𝑒𝑥",
+      "y = A3x",
+      "𝑦 =𝐴⁢𝑒3⁢𝑥",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For dy/dx = 3y, separate variables: (1/y) dy = 3 dx. Integrate: ln|y| = 3x + C. Exponentiating: y = Ae^(3x) where A = e^C."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

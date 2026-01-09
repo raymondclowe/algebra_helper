@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:01:44.227Z",
+  "level": 6,
+  "topic": "Simple Linear Equations",
+  "questionType": 2,
+  "metadata": {
+    "level": 6,
+    "topic": "Simple Linear Equations",
+    "questionType": 2,
+    "questionText": "4x = 36",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x=9",
+    "distractors": [
+      "x=10",
+      "x=4",
+      "x=8"
+    ],
+    "allOptions": [
+      "x=10",
+      "x=4",
+      "x=9",
+      "x=8",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide both sides by 4 to isolate x: 4x ÷ 4 = 36 ÷ 4, which gives x = 9."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:36:14.713Z",
+  "level": 33,
+  "topic": "Probability Distributions",
+  "questionType": 5,
+  "metadata": {
+    "level": 33,
+    "topic": "Probability Distributions",
+    "questionType": 5,
+    "questionText": "Z \\sim N(0, 1)",
+    "instruction": "WHAT IS THIS DISTRIBUTION CALLED?",
+    "correctAnswer": "Standard normal distribution",
+    "distractors": [
+      "Binomial distribution",
+      "Poisson distribution",
+      "Uniform distribution"
+    ],
+    "allOptions": [
+      "Poisson distribution",
+      "Uniform distribution",
+      "Standard normal distribution",
+      "Binomial distribution",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "N(0, 1) is the standard normal distribution with mean 0 and variance 1. We standardize: Z = (X - μ)/σ."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**Assessing Question's Core**\n\nI'm currently focused on the mathematics question, starting with its textual and symbolic components. My initial analysis is centered on the question's core - understanding the intent behind it. Further breakdown of the provided options is needed.\n\n\n**Evaluating the Options**\n\nMy analysis of the question has moved beyond the core intent and now addresses each option. I'm confirming the provided \"DEBUG\" tag for the \"Standard normal distribution,\" which appears valid given the notation. Then, I'm verifying the other options as incorrect. This will allow for more thorough evaluation.\n\n\n**Refining Distractor Analysis**\n\nNow, I'm examining the distractors in detail. Evaluating Poisson, Uniform, and Binomial against the Standard Normal Distribution. I've confirmed their distinct characteristics and notations, which supports the question's learning objective. I'm focusing on the suitability of these distractors for the specified IB Math curriculum and level.\n\n\n**Validating Question's Structure**\n\nI'm now focusing on evaluating the question itself, based on its mathematical integrity and educational suitability. My review indicates the question's content is valid. While I've flagged a potential metadata mismatch, the core problem is clear, mathematically sound, and aligns with IB Math curriculum objectives.\n\n\n**Reviewing the Metadata Conflict**\n\nI'm now prioritizing the metadata mismatch. While the question's content and mathematical accuracy are confirmed, I'm concerned about the discrepancy between the displayed topic (\"Integration & Series\") and the intended topic (\"Probability Distributions\"). This miscategorization, if present in the app's structure, could impact user experience and learning.\n\n\n**Concluding Question Review**\n\nThe final evaluation confirms the mathematical accuracy, appropriate difficulty, and clarity of the question. The distractors are plausible. However, a significant metadata mismatch exists, as the displayed topic (\"Integration & Series\") contradicts the intended topic (\"Probability Distributions\"). This miscategorization could negatively impact user experience, but it doesn't affect the question's core mathematical validity.\n\n\n**Concluding UI Considerations**\n\nI've now considered the context of the user's prompt alongside the provided screenshot. While the question itself is mathematically sound, a UI element mismatch persists. The presented question content aligns with \"Probability Distributions,\" but the screenshot displays \"Integration & Series.\" I feel that the question is fine.\n\n\n**Concluding, Considering UI Context**\n\nNow, I'm integrating the user's prompt and screenshot. The core question regarding the distribution is mathematically sound and suitable for the IB curriculum. However, the UI displays a topic (\"Integration & Series\") that contradicts the intended topic (\"Probability Distributions\"). This UI mismatch doesn't invalidate the question itself, only the categorization.\n\n\n",
+    "error": null
+  }
+}

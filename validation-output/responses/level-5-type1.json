@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:00:20.210Z",
+  "level": 5,
+  "topic": "Decimals & Percentages",
+  "questionType": 1,
+  "metadata": {
+    "level": 5,
+    "topic": "Decimals & Percentages",
+    "questionType": 1,
+    "questionText": "\\frac{2}{5}",
+    "instruction": "CONVERT TO DECIMAL",
+    "correctAnswer": "0.4",
+    "distractors": [
+      "0.5",
+      "0.8",
+      "0.6"
+    ],
+    "allOptions": [
+      "0.5",
+      "0.8",
+      "0.4",
+      "0.6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide the numerator by the denominator to get 0.4."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:58:36.569Z",
+  "timestamp": "2026-01-09T08:57:06.981Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 4,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 4,
-    "questionText": "216 \\text{ is the cube of what number?}",
+    "questionText": "1 \\text{ is the cube of what number?}",
     "instruction": "FIND THE NUMBER",
-    "correctAnswer": "6",
+    "correctAnswer": "1",
     "distractors": [
-      "7",
-      "5",
-      "72"
+      "2",
+      "0",
+      "7"
     ],
     "allOptions": [
-      "72",
       "7",
-      "5",
-      "6",
+      "2",
+      "0",
+      "1",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Since 6 × 6 × 6 = 216, the answer is 6. This is finding the cube root: $\\sqrt[3]{216} = 6$."
+    "explanation": "Since 1 × 1 × 1 = 1, the answer is 1. This is finding the cube root: $\\sqrt[3]{1} = 1$."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct, clearly worded, and appropriate for the difficulty level.\n\n*   **Mathematical Check:** $6^3 = 6 \\times 6 \\times 6 = 36 \\times 6 = 216$. The highlighted answer (6) is correct.\n*   **Distractors:**\n    *   **72:** Plausible for students confusing cubing with multiplying by 3 ($216 \\div 3 = 72$).\n    *   **5:** Plausible estimation error ($5^3 = 125$).\n    *   **7:** Plausible estimation error ($7^3 = 343$).",
+    "validationText": "OK",
     "error": null
   }
 }

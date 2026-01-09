@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:05:01.854Z",
+  "level": 11,
+  "topic": "Quadratic Equations",
+  "questionType": 2,
+  "metadata": {
+    "level": 11,
+    "topic": "Quadratic Equations",
+    "questionType": 2,
+    "questionText": "(x - 2)(x - 7) < 0",
+    "instruction": "SOLVE THE INEQUALITY",
+    "correctAnswer": "2 < x < 7",
+    "distractors": [
+      "x < 2 \\text{ or } x > 7",
+      "x < 7",
+      "x > 2"
+    ],
+    "allOptions": [
+      "x < 7",
+      "x < 2 or x > 7",
+      "2 < x < 7",
+      "x > 2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "The critical points are x = 2 and x = 7. Test values: for x < 2, both factors negative, product positive ✗. For 2 < x < 7, factors have opposite signs, product negative ✓. For x > 7, both factors positive, product positive ✗. Solution: 2 < x < 7."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

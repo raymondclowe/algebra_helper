@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:10:07.036Z",
+  "level": 15,
+  "topic": "Functions",
+  "questionType": 1,
+  "metadata": {
+    "level": 15,
+    "topic": "Functions",
+    "questionType": 1,
+    "questionText": "𝑓(x) = 7x + 8 \\\\[0.5em] 𝑓(7) = ?",
+    "instruction": "CALCULATE",
+    "correctAnswer": "57",
+    "distractors": [
+      "49",
+      "64",
+      "35"
+    ],
+    "allOptions": [
+      "57",
+      "49",
+      "64",
+      "35",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Substitute x = 7 into the function: 𝑓(7) = 7(7) + 8 = 49 + 8 = 57."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

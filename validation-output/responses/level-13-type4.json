@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:08:17.818Z",
+  "level": 13,
+  "topic": "Exponentials & Logarithms",
+  "questionType": 4,
+  "metadata": {
+    "level": 13,
+    "topic": "Exponentials & Logarithms",
+    "questionType": 4,
+    "questionText": "e^x = e^{4}",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x = 4",
+    "distractors": [
+      "x = e^{4}",
+      "x = 4e",
+      "x = \\ln(4)"
+    ],
+    "allOptions": [
+      "x = 4e",
+      "x = 4",
+      "𝑥 =ln⁡(4)",
+      "𝑥 =𝑒4",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "If e^x = e^4, then the exponents must be equal: x = 4."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

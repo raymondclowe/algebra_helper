@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:22:58.438Z",
+  "level": 25,
+  "topic": "Integration & Series",
+  "questionType": 3,
+  "metadata": {
+    "level": 25,
+    "topic": "Integration & Series",
+    "questionType": 3,
+    "questionText": "\\text{If } \\int_{0}^{2} 𝑓(x)dx = 6\\\\[0.5em]\\text{and } \\int_{2}^{4} 𝑓(x)dx = 7\\\\[0.5em]\\text{find } \\int_{0}^{4} 𝑓(x)dx",
+    "instruction": "CALCULATE USING INTEGRAL PROPERTIES",
+    "correctAnswer": "13",
+    "distractors": [
+      "6",
+      "7",
+      "42"
+    ],
+    "allOptions": [
+      "13",
+      "42",
+      "7",
+      "6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "By the additive property: ∫₀^4 f(x)dx = ∫₀^2 f(x)dx + ∫₂^4 f(x)dx = 6 + 7 = 13. Integrals over adjacent intervals add up."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

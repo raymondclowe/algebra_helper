@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:02:19.079Z",
+  "level": 7,
+  "topic": "Two-Step Equations",
+  "questionType": 2,
+  "metadata": {
+    "level": 7,
+    "topic": "Two-Step Equations",
+    "questionType": 2,
+    "questionText": "\\text{Line } L_1 \\text{ has equation } y = 4x + 1. \\\\[0.5em]\\text{ What is the gradient of a line perpendicular to } L_1?",
+    "instruction": "FIND THE GRADIENT",
+    "correctAnswer": "-\\frac{1}{4}",
+    "distractors": [
+      "4",
+      "\\frac{1}{4}",
+      "-4"
+    ],
+    "allOptions": [
+      "14",
+      "4",
+      "-4",
+      "−14",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Perpendicular lines have gradients that multiply to -1. If m₁ = 4, then m₂ = -1/4. This gives m₁ × m₂ = 4 × (-1/4) = -1."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "not OK\n\nThe question is mathematically correct, but it is categorized under the wrong topic.\n\n**Issue:**\nThe topic label in the top-left corner (and provided in the context) is **\"Two-Step Equations\"**. However, the question asks for the gradient of a perpendicular line, which is a **Coordinate Geometry** or **Linear Functions** concept. Solving this does not involve solving a two-step algebraic equation (e.g., $2x + 4 = 10$).\n\n**Fix:**\nUpdate the topic metadata for this question to **\"Coordinate Geometry\"**, **\"Linear Graphs\"**, or **\"Gradients\"** to match the content.",
+    "error": null
+  }
+}

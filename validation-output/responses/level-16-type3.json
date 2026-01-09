@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:12:01.589Z",
+  "level": 16,
+  "topic": "Basic Trigonometry",
+  "questionType": 3,
+  "metadata": {
+    "level": 16,
+    "topic": "Basic Trigonometry",
+    "questionType": 3,
+    "questionText": "\\text{Triangle: } a = 5, b = 6, C = 120°\\\\[0.5em]\\text{Find side c using cosine rule}",
+    "instruction": "CALCULATE (ROUND TO 2 DP)",
+    "correctAnswer": "9.54",
+    "distractors": [
+      "7.81",
+      "5.57",
+      "11"
+    ],
+    "allOptions": [
+      "11",
+      "9.54",
+      "7.81",
+      "5.57",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Cosine rule: c² = a² + b² - 2ab·cos(C) = 5² + 6² - 2(5)(6)cos(120°) = 25 + 36 - 60(-0.500) = 91.00. So c = √91.00 ≈ 9.54."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:57:26.032Z",
+  "timestamp": "2026-01-09T08:55:36.376Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 2,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 2,
-    "questionText": "27 - 15",
+    "questionText": "29 - 7",
     "instruction": "CALCULATE",
-    "correctAnswer": "12",
+    "correctAnswer": "22",
     "distractors": [
-      "13",
-      "11",
-      "42"
+      "23",
+      "21",
+      "36"
     ],
     "allOptions": [
-      "12",
-      "42",
-      "11",
-      "13",
+      "23",
+      "21",
+      "36",
+      "22",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Subtracting 15 from 27 gives 12. You can verify by adding: 12 + 15 = 27."
+    "explanation": "Subtracting 7 from 29 gives 22. You can verify by adding: 22 + 7 = 29."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n- **Calculation:** $27 - 15 = 12$.\n- **Distractors:**\n  - $42$ is the result of addition ($27 + 15$), checking for sign errors.\n  - $11$ and $13$ are close values, checking for precision.",
+    "validationText": "OK",
     "error": null
   }
 }

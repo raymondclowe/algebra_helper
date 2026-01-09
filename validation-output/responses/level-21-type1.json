@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:17:07.062Z",
+  "level": 21,
+  "topic": "Advanced Calculus",
+  "questionType": 1,
+  "metadata": {
+    "level": 21,
+    "topic": "Advanced Calculus",
+    "questionType": 1,
+    "questionText": "\\text{For } xy = 1, \\text{ find } \\frac{dy}{dx}",
+    "instruction": "USE IMPLICIT DIFFERENTIATION",
+    "correctAnswer": "-\\frac{y}{x}",
+    "distractors": [
+      "\\frac{y}{x}",
+      "-\\frac{x}{y}",
+      "-\\frac{1}{x^2}"
+    ],
+    "allOptions": [
+      "−1𝑥2",
+      "−𝑥𝑦",
+      "−𝑦𝑥",
+      "𝑦𝑥",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Use product rule on left side: y + x(dy/dx) = 0. Solve for dy/dx: x(dy/dx) = -y, so dy/dx = -y/x. Alternative: since y = 1/x, dy/dx = -1/x² = -y/x (equivalent)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "not OK\n\nThe question has a significant flaw: **it contains two correct answers.**\n\n**Explanation:**\n1.  **Intended Solution (Implicit Differentiation):**\n    Starting with $xy = 1$, differentiating both sides with respect to $x$ gives:\n    $$x \\frac{dy}{dx} + y = 0$$\n    $$\\frac{dy}{dx} = -\\frac{y}{x}$$\n    This matches the highlighted correct option.\n\n2.  **Alternative Solution (Explicit Differentiation):**\n    Starting with $xy = 1$, we can solve for $y$:\n    $$y = \\frac{1}{x} = x^{-1}$$\n    Differentiating with respect to $x$:\n    $$\\frac{dy}{dx} = -x^{-2} = -\\frac{1}{x^2}$$\n    This matches the top-left option.\n\n**The Issue:**\nSince $y = \\frac{1}{x}$, the expression $-\\frac{y}{x}$ is mathematically identical to $-\\frac{1}{x^2}$.\n$$-\\frac{y}{x} = -\\frac{(1/x)}{x} = -\\frac{1}{x^2}$$\nTherefore, both the top-left option ($-\\frac{1}{x^2}$) and the bottom-left option ($-\\frac{y}{x",
+    "error": null
+  }
+}

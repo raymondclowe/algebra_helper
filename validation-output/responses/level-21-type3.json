@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:17:48.382Z",
+  "level": 21,
+  "topic": "Advanced Calculus",
+  "questionType": 3,
+  "metadata": {
+    "level": 21,
+    "topic": "Advanced Calculus",
+    "questionType": 3,
+    "questionText": "\\text{For } x^3 + y^3 = 6xy,\\\\[0.5em]\\text{what is the first step to find } \\frac{dy}{dx}?",
+    "instruction": "SELECT THE CORRECT FIRST STEP",
+    "correctAnswer": "\\text{Differentiate both sides with respect to x}",
+    "distractors": [
+      "\\text{Solve for y first}",
+      "\\text{Factor both sides}",
+      "\\text{Set the equation to zero}"
+    ],
+    "allOptions": [
+      "Solve for y first",
+      "Set the equation to zero",
+      "Factor both sides",
+      "Differentiate both sides with respect to x",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "First step: differentiate both sides with respect to x. For x³ + y³ = 6xy, get: 3x² + 3y²(dy/dx) = 6y + 6x(dy/dx). Then collect dy/dx terms and solve."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

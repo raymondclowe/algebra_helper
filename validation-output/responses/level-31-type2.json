@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:32:33.464Z",
+  "level": 31,
+  "topic": "Advanced Integration",
+  "questionType": 2,
+  "metadata": {
+    "level": 31,
+    "topic": "Advanced Integration",
+    "questionType": 2,
+    "questionText": "\\text{Rotate } y = x \\text{ from } x = 0\\\\[0.5em]\\text{to } x = 4 \\text{ about x-axis}\\\\[0.5em]\\text{Volume?}",
+    "instruction": "CALCULATE THE VOLUME",
+    "correctAnswer": "\\frac{\\pi 4^3}{3}",
+    "distractors": [
+      "\\pi 4^3",
+      "\\frac{4^3}{3}",
+      "\\frac{\\pi 4^2}{2}"
+    ],
+    "allOptions": [
+      "𝜋⁢433",
+      "𝜋⁢422",
+      "𝜋⁢43",
+      "433",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "V = π∫₀^4 x² dx = π[x³/3]₀^4 = π·4³/3. This is the volume of a cone with radius and height both equal to 4."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

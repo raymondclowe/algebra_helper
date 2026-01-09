@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:57:36.983Z",
+  "timestamp": "2026-01-09T08:55:47.729Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 3,
@@ -7,26 +7,26 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 3,
-    "questionText": "? + 6 = 12",
+    "questionText": "? + 5 = 8",
     "instruction": "FIND THE MISSING NUMBER",
-    "correctAnswer": "6",
+    "correctAnswer": "3",
     "distractors": [
-      "7",
-      "12",
-      "15"
+      "4",
+      "8",
+      "5"
     ],
     "allOptions": [
-      "15",
-      "6",
-      "12",
-      "7",
+      "5",
+      "3",
+      "4",
+      "8",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "To find the missing number, subtract 6 from 12: 12 - 6 = 6. Check: 6 + 6 = 12 ✓"
+    "explanation": "To find the missing number, subtract 5 from 8: 8 - 5 = 3. Check: 3 + 5 = 8 ✓"
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct and appropriate for Level 1 Basic Arithmetic.\n\n*   **Calculation:** $12 - 6 = 6$.\n*   **Correct Answer:** The option \"6\" is correctly identified.\n*   **Distractors:** The incorrect options (15, 12, 7) are distinct and unambiguous.",
+    "validationText": "OK",
     "error": null
   }
 }

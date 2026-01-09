@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:04:50.516Z",
+  "level": 11,
+  "topic": "Quadratic Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 11,
+    "topic": "Quadratic Equations",
+    "questionType": 1,
+    "questionText": "(x - 1)(x - 6) > 0",
+    "instruction": "SOLVE THE INEQUALITY",
+    "correctAnswer": "x < 1 \\text{ or } x > 6",
+    "distractors": [
+      "1 < x < 6",
+      "x < 1",
+      "x > 6"
+    ],
+    "allOptions": [
+      "x < 1",
+      "1 < x < 6",
+      "x > 6",
+      "x < 1 or x > 6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "The critical points are x = 1 and x = 6. Test values: for x < 1, both factors negative, product positive ✓. For 1 < x < 6, factors have opposite signs, product negative ✗. For x > 6, both factors positive, product positive ✓. Solution: x < 1 or x > 6."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

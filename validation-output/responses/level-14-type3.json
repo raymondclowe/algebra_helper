@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:09:37.610Z",
+  "level": 14,
+  "topic": "Sequences & Series",
+  "questionType": 3,
+  "metadata": {
+    "level": 14,
+    "topic": "Sequences & Series",
+    "questionType": 3,
+    "questionText": "\\text{Sum of arithmetic series: } a_1 = 3, d = 3, n = 5",
+    "instruction": "CALCULATE S_N",
+    "correctAnswer": "45",
+    "distractors": [
+      "15",
+      "50",
+      "18"
+    ],
+    "allOptions": [
+      "15",
+      "45",
+      "18",
+      "50",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Apply S_n = n(a_1 + a_n)/2. First calculate a_5 = 3 + 12 = 15. Then S_5 = 5(3 + 15)/2 = 45."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

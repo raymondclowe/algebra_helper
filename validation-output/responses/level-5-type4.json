@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:01:19.434Z",
+  "level": 5,
+  "topic": "Decimals & Percentages",
+  "questionType": 4,
+  "metadata": {
+    "level": 5,
+    "topic": "Decimals & Percentages",
+    "questionType": 4,
+    "questionText": "\\text{Which is smallest: } 0.6, 0.04, 0.29?",
+    "instruction": "CHOOSE THE SMALLEST DECIMAL",
+    "correctAnswer": "0.04",
+    "distractors": [
+      "0.29",
+      "0.6",
+      "\\text{all equal}"
+    ],
+    "allOptions": [
+      "all equal",
+      "0.29",
+      "0.04",
+      "0.6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Compare place values: 0.04 < 0.29 < 0.6."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

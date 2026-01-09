@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:34:03.509Z",
+  "level": 32,
+  "topic": "Differential Equations",
+  "questionType": 3,
+  "metadata": {
+    "level": 32,
+    "topic": "Differential Equations",
+    "questionType": 3,
+    "questionText": "\\frac{dy}{dx} = 3x^3",
+    "instruction": "WHAT IS THE GENERAL SOLUTION?",
+    "correctAnswer": "y = \\frac{3x^{4}}{4} + C",
+    "distractors": [
+      "y = 3x^{4} + C",
+      "y = \\frac{3x^3}{3} + C",
+      "y = 3x^3 + C"
+    ],
+    "allOptions": [
+      "𝑦 =3⁢𝑥4 +𝐶",
+      "𝑦 =3⁢𝑥33 +𝐶",
+      "𝑦 =3⁢𝑥44 +𝐶",
+      "𝑦 =3⁢𝑥3 +𝐶",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For dy/dx = 3x^3, integrate directly: y = ∫3x^3 dx = 3·x^(4)/(4) + C."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

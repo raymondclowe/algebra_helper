@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:12:40.226Z",
+  "level": 17,
+  "topic": "Advanced Trigonometry",
+  "questionType": 2,
+  "metadata": {
+    "level": 17,
+    "topic": "Advanced Trigonometry",
+    "questionType": 2,
+    "questionText": "\\cos(A + B)",
+    "instruction": "EXPAND USING COMPOUND ANGLE FORMULA",
+    "correctAnswer": "\\cos A \\cos B - \\sin A \\sin B",
+    "distractors": [
+      "\\cos A \\cos B + \\sin A \\sin B",
+      "\\sin A \\cos B + \\cos A \\sin B",
+      "\\cos A + \\cos B"
+    ],
+    "allOptions": [
+      "cos⁡𝐴 +cos⁡𝐵",
+      "cos⁡𝐴⁢cos⁡𝐵 −sin⁡𝐴⁢sin⁡𝐵",
+      "cos⁡𝐴⁢cos⁡𝐵 +sin⁡𝐴⁢sin⁡𝐵",
+      "sin⁡𝐴⁢cos⁡𝐵 +cos⁡𝐴⁢sin⁡𝐵",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Compound angle formula: cos(A + B) = cos(A)cos(B) - sin(A)sin(B). Note the minus sign."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

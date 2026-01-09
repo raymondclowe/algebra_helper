@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:07:48.695Z",
+  "level": 13,
+  "topic": "Exponentials & Logarithms",
+  "questionType": 3,
+  "metadata": {
+    "level": 13,
+    "topic": "Exponentials & Logarithms",
+    "questionType": 3,
+    "questionText": "\\log(5) + \\log(5)",
+    "instruction": "SIMPLIFY USING LOG LAWS",
+    "correctAnswer": "\\log(25)",
+    "distractors": [
+      "\\log(10)",
+      "\\log(50)",
+      "\\log(5) \\times \\log(5)"
+    ],
+    "allOptions": [
+      "log⁡(10)",
+      "log⁡(25)",
+      "log⁡(50)",
+      "log⁡(5) ×log⁡(5)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Apply the product law: log(a) + log(b) = log(ab). Therefore log(5) + log(5) = log(5 × 5) = log(25)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:19:44.006Z",
+  "level": 22,
+  "topic": "Statistics",
+  "questionType": 4,
+  "metadata": {
+    "level": 22,
+    "topic": "Statistics",
+    "questionType": 4,
+    "questionText": "\\text{Data: } 14, 47, 59",
+    "instruction": "CALCULATE THE RANGE",
+    "correctAnswer": "45",
+    "distractors": [
+      "59",
+      "14",
+      "36.5"
+    ],
+    "allOptions": [
+      "59",
+      "14",
+      "45",
+      "36.5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Range = maximum - minimum = 59 - 14 = 45."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

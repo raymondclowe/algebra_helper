@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:13:44.245Z",
+  "level": 18,
+  "topic": "Vectors",
+  "questionType": 1,
+  "metadata": {
+    "level": 18,
+    "topic": "Vectors",
+    "questionType": 1,
+    "questionText": "\\begin{pmatrix} 6 \\\\ 6 \\end{pmatrix} + \\begin{pmatrix} 1 \\\\ 4 \\end{pmatrix}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "\\begin{pmatrix} 7 \\\\ 10 \\end{pmatrix}",
+    "distractors": [
+      "\\begin{pmatrix} 6 \\\\ 24 \\end{pmatrix}",
+      "\\begin{pmatrix} 7 \\\\ 6 \\end{pmatrix}",
+      "\\begin{pmatrix} 6 \\\\ 10 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "(610)",
+      "(624)",
+      "(710)",
+      "(76)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add corresponding components: (6 + 1, 6 + 4) = (7, 10)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

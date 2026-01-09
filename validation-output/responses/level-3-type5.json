@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T08:58:42.291Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 5,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 5,
+    "questionText": "96 \\div 8",
+    "instruction": "CALCULATE",
+    "correctAnswer": "12",
+    "distractors": [
+      "13",
+      "11",
+      "8"
+    ],
+    "allOptions": [
+      "8",
+      "12",
+      "13",
+      "11",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "96 ÷ 8 = 12 because 8 × 12 = 96. Division undoes multiplication."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T08:59:22.395Z",
+  "level": 4,
+  "topic": "Fractions",
+  "questionType": 2,
+  "metadata": {
+    "level": 4,
+    "topic": "Fractions",
+    "questionType": 2,
+    "questionText": "\\frac{8}{5} \\times \\frac{8}{7}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "\\frac{64}{35}",
+    "distractors": [
+      "\\frac{64}{12}",
+      "\\frac{16}{35}",
+      "\\frac{19}{9}"
+    ],
+    "allOptions": [
+      "6412",
+      "6435",
+      "1635",
+      "199",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiply numerators: 8 × 8 = 64. Multiply denominators: 5 × 7 = 35. Simplify: 64/35."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

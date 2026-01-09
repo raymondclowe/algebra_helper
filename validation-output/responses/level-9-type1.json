@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:03:18.159Z",
+  "level": 9,
+  "topic": "Expanding Expressions",
+  "questionType": 1,
+  "metadata": {
+    "level": 9,
+    "topic": "Expanding Expressions",
+    "questionType": 1,
+    "questionText": "4(x + 8)",
+    "instruction": "EXPAND",
+    "correctAnswer": "4x + 32",
+    "distractors": [
+      "4x+8",
+      "x+32",
+      "4x^2+8"
+    ],
+    "allOptions": [
+      "4x+8",
+      "4⁢𝑥2 +8",
+      "4x + 32",
+      "x+32",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Apply the distributive property by multiplying 4 by each term inside the parentheses: 4 × x = 4x, and 4 × 8 = 32. This gives 4x + 32."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:16:43.572Z",
+  "level": 20,
+  "topic": "Basic Differentiation",
+  "questionType": 2,
+  "metadata": {
+    "level": 20,
+    "topic": "Basic Differentiation",
+    "questionType": 2,
+    "questionText": "𝑓(x) = 4x^{2} + 4x^{3}",
+    "instruction": "FIND 𝑓'(X)",
+    "correctAnswer": "8x^{1} + 12x^{2}",
+    "distractors": [
+      "4x^{1} + 4x^{2}",
+      "20x^{3}",
+      "8x^{2} + 12x^{3}"
+    ],
+    "allOptions": [
+      "4⁢𝑥1 +4⁢𝑥2",
+      "8⁢𝑥1 +12⁢𝑥2",
+      "8⁢𝑥2 +12⁢𝑥3",
+      "20⁢𝑥3",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Differentiate each term separately using the power rule. For 4x^2: 4×2x^1 = 8x^1. For 4x^3: 4×3x^2 = 12x^2."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

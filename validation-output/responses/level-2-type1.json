@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T01:57:58.453Z",
+  "timestamp": "2026-01-09T08:56:28.530Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 1,
@@ -7,26 +7,26 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 1,
-    "questionText": "\\text{What is } 4^2?",
+    "questionText": "\\text{What is } 2^2?",
     "instruction": "CALCULATE THE SQUARE",
-    "correctAnswer": "16",
+    "correctAnswer": "4",
     "distractors": [
-      "8",
-      "20",
-      "12"
+      "6",
+      "2",
+      "165"
     ],
     "allOptions": [
-      "12",
-      "20",
-      "8",
-      "16",
+      "2",
+      "4",
+      "6",
+      "165",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "4^2 = 4 × 4 = 16. Squaring means multiplying a number by itself."
+    "explanation": "2^2 = 2 × 2 = 4. Squaring means multiplying a number by itself."
   },
   "apiResponse": {
     "success": true,
-    "validationText": "VALID\n\nThe question is mathematically correct, clear, and appropriate for the stated level.\n- **Calculation:** $4^2 = 4 \\times 4 = 16$.\n- **Correct Answer:** The option \"16\" is correctly identified.\n- **Distractors:** \"8\" is a good distractor (common error of doing $4 \\times 2$), and the others are plausible incorrect values.",
+    "validationText": "not OK\n\nThe question has a significant issue with the quality of the distractors (incorrect answers).\n\n**Issue:**\nThe option **165** is not a plausible distractor for the problem $2^2$. In educational assessment, distractors should represent common misconceptions or calculation errors (e.g., multiplying by the exponent instead of squaring, arithmetic slips). A value like 165 is unrelated to the problem and orders of magnitude away from the correct answer (4), suggesting a bug in the random number generation algorithm for distract",
     "error": null
   }
 }

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:01:56.466Z",
+  "level": 7,
+  "topic": "Two-Step Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 7,
+    "topic": "Two-Step Equations",
+    "questionType": 1,
+    "questionText": "7x + 2 = 65",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x=9",
+    "distractors": [
+      "x=10",
+      "x=-9",
+      "x=2"
+    ],
+    "allOptions": [
+      "x=9",
+      "x=10",
+      "x=-9",
+      "x=2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Subtract 2 from both sides: 7x = 63. Then divide both sides by 7: x = 9. Note that inverse operations are performed in reverse order of operations."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

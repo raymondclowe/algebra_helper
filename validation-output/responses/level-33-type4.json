@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:35:48.892Z",
+  "level": 33,
+  "topic": "Probability Distributions",
+  "questionType": 4,
+  "metadata": {
+    "level": 33,
+    "topic": "Probability Distributions",
+    "questionType": 4,
+    "questionText": "X \\sim U(0, 10). \\text{ Find } P(2 \\leq X \\leq 5)",
+    "instruction": "CALCULATE THE PROBABILITY",
+    "correctAnswer": "0.3",
+    "distractors": [
+      "0.5",
+      "0.2",
+      "0.7"
+    ],
+    "allOptions": [
+      "0.7",
+      "0.3",
+      "0.5",
+      "0.2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For uniform distribution, P(a ≤ X ≤ b) = (b - a)/c = (5 - 2)/10 = 3/10 = 0.3. This is the area under f(x) = 1/10 from 2 to 5."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

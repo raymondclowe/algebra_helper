@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:02:30.427Z",
+  "level": 8,
+  "topic": "Inequalities",
+  "questionType": 1,
+  "metadata": {
+    "level": 8,
+    "topic": "Inequalities",
+    "questionType": 1,
+    "questionText": "9x < 63",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x < 7",
+    "distractors": [
+      "x > 7",
+      "x = 7",
+      "x \\leq 7"
+    ],
+    "allOptions": [
+      "x ≤ 7",
+      "x < 7",
+      "x > 7",
+      "x = 7",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide both sides by 9: x < 63/9 = 7. Note that the inequality sign remains unchanged when dividing by a positive number."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

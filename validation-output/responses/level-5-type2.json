@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:00:31.910Z",
+  "level": 5,
+  "topic": "Decimals & Percentages",
+  "questionType": 2,
+  "metadata": {
+    "level": 5,
+    "topic": "Decimals & Percentages",
+    "questionType": 2,
+    "questionText": "0.7",
+    "instruction": "CONVERT TO PERCENTAGE",
+    "correctAnswer": "70\\%",
+    "distractors": [
+      "0.7\\%",
+      "7\\%",
+      "700\\%"
+    ],
+    "allOptions": [
+      "70%",
+      "7%",
+      "700%",
+      "0.7%",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiply by 100: 0.7 × 100 = 70%."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}
