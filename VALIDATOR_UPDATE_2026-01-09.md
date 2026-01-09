@@ -95,7 +95,7 @@ const testingModeActive = await this.page.evaluate(() => {
   - Testing mode banner (purple)
 
 ### Test 3: End-to-End Validation Flow
-✅ **PASSED** - Full validator workflow tested with 8 question types across 4 levels
+✅ **PASSED** - Workflow tested with sample of 8 question types (mocked API for testing purposes)
 
 **Results:**
 - 8 screenshots generated successfully
@@ -114,6 +114,32 @@ const testingModeActive = await this.page.evaluate(() => {
   - All options
   - AI feedback
   - Screenshot path
+
+**IMPORTANT NOTE**: This was a **partial test with mocked API** to verify the workflow. The actual validator is configured to test **ALL 124 question types** across **all 34 levels** when run with a real API key. See the "Validator Configuration" section below for confirmation.
+
+### Test 4: Validator Configuration Verification
+✅ **CONFIRMED** - Validator is configured to test ALL question types
+
+**Configuration Analysis:**
+- Total Levels: **34** (Level 1 through Level 34)
+- Total Question Types: **124** (sum of all question types across all levels)
+- Each level has between 1-6 question type variants
+- The validator loops through EVERY level and EVERY type
+
+**How it works:**
+1. Loops through all 34 levels defined in `tools/config.js`
+2. For each level, loops through all question types (1 to N)
+3. For each type, navigates to: `?testLevel=N&testType=M`
+4. Screenshots and validates each question with Gemini 3 Pro AI
+
+**Verification command:**
+Run `node verify-validator-config.js` to see the complete breakdown of all 124 question types that will be tested.
+
+**To run full validation:**
+```bash
+npm run validate-and-combine              # Tests ALL 124 types
+npm run validate-and-combine -- --resume  # Resume if interrupted
+```
 
 ## Debugging Features Utilized
 
