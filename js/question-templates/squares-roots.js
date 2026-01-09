@@ -16,7 +16,7 @@ window.QuestionTemplates.SquaresRoots = {
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 225)}`
+                        () => `${utils.rInt(1, 50)}`  // More plausible range for square fallback distractors
                     );
                     return {
                         tex: `\\text{What is } ${n}^2?`,
@@ -133,7 +133,7 @@ window.QuestionTemplates.SquaresRoots = {
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(4, 500)}`
+                        () => `${utils.rInt(1, 100)}`  // More plausible range for power fallback distractors
                     );
                     return {
                         tex: `${base}^${exp}`,
