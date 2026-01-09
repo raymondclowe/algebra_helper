@@ -54,6 +54,23 @@
 
 ### Reference Documents
 
+#### REMAINING_SYLLABUS_ITEMS.md
+**Audience:** Developers, implementers  
+**Purpose:** Comprehensive implementation guide for remaining topics  
+**Contains:**
+- Detailed breakdown of all 28 remaining topics
+- Specific question examples for each topic
+- Implementation notes and guidelines
+- LaTeX examples and distractor strategies
+- Quick wins identification
+- Phase-by-phase implementation order
+
+**Use when:** You're ready to implement a specific topic and need detailed guidance
+
+**Last Updated:** 2026-01-09
+
+---
+
 #### SYLLABUS_GAP_SUMMARY.md
 **Audience:** Curriculum designers, developers  
 **Purpose:** Quick reference for identified gaps  
@@ -196,11 +213,13 @@
    - Check `SYLLABUS_IMPLEMENTATION_RECOMMENDATIONS.md` for sequence
 
 2. **Research & Design**
-   - Consult `SYLLABUS_COVERAGE_MATRIX.md` for IB alignment
-   - Review `IB_HL_AA_COVERAGE.md` for similar question formats
+   - Consult `REMAINING_SYLLABUS_ITEMS.md` for detailed implementation guide
+   - Review `SYLLABUS_COVERAGE_MATRIX.md` for IB alignment
+   - Check `IB_HL_AA_COVERAGE.md` for similar question formats
 
 3. **Implement**
    - Follow guidelines in `AGENTS.md`
+   - Use examples from `REMAINING_SYLLABUS_ITEMS.md`
    - Add questions to appropriate template file
    - Update generator routing
 
@@ -334,6 +353,7 @@ All syllabus documentation should be:
 **For questions about:**
 - **Curriculum content:** Review `SYLLABUS_COVERAGE_REVIEW.md`
 - **Implementation priorities:** See `SYLLABUS_IMPLEMENTATION_RECOMMENDATIONS.md`
+- **How to implement specific topics:** Use `REMAINING_SYLLABUS_ITEMS.md`
 - **Technical guidelines:** Read `AGENTS.md`
 - **Current progress:** Check `SYLLABUS_COMPLETION_STATUS.md`
 - **IB alignment:** Consult `SYLLABUS_COVERAGE_MATRIX.md`
