@@ -100,5 +100,236 @@ window.QuestionTemplates.Trigonometry = {
                         calc: false
                     };
                 }
+    },
+    
+    getSineCosineLawQuestion: function() {
+        const utils = window.GeneratorUtils;
+        const questionType = utils.rInt(1, 8);
+        
+        if (questionType === 1) {
+            // Sine rule: find side using a/sin(A) = b/sin(B)
+            const A = [30, 45, 60][utils.rInt(0, 2)];
+            let B = [30, 45, 60][utils.rInt(0, 2)];
+            if (A === B) B = (B === 30) ? 45 : 30;
+            const a = utils.rInt(5, 12);
+            // b = a * sin(B) / sin(A)
+            const sinA = Math.sin(A * Math.PI / 180);
+            const sinB = Math.sin(B * Math.PI / 180);
+            const b = a * sinB / sinA;
+            const bRounded = Math.round(b * 100) / 100;
+            
+            const correctAnswer = `${bRounded}`;
+            const candidateDistractors = [
+                `${Math.round(a * sinA / sinB * 100) / 100}`,  // Inverted ratio
+                `${Math.round(a * sinB * 100) / 100}`,  // Forgot to divide
+                `${a}`  // Didn't apply sine rule
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round(utils.rInt(5, 20) * 100) / 100}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Triangle: } A = ${A}°, B = ${B}°, a = ${a}\\\\[0.5em]\\text{Find side b using sine rule}`),
+                instruction: "Calculate (round to 2 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Sine rule: a/sin(A) = b/sin(B). So b = a·sin(B)/sin(A) = ${a}·sin(${B}°)/sin(${A}°) = ${a}·${sinB.toFixed(3)}/${sinA.toFixed(3)} ≈ ${bRounded}.`,
+                calc: true
+            };
+        } else if (questionType === 2) {
+            // Cosine rule: find side c² = a² + b² - 2ab·cos(C)
+            const a = utils.rInt(5, 10);
+            const b = utils.rInt(5, 10);
+            const C = [60, 90, 120][utils.rInt(0, 2)];
+            const cosC = Math.cos(C * Math.PI / 180);
+            const cSquared = a*a + b*b - 2*a*b*cosC;
+            const c = Math.sqrt(cSquared);
+            const cRounded = Math.round(c * 100) / 100;
+            
+            const correctAnswer = `${cRounded}`;
+            const candidateDistractors = [
+                `${Math.round(Math.sqrt(a*a + b*b) * 100) / 100}`,  // Forgot cosine term
+                `${Math.round(Math.sqrt(a*a + b*b + 2*a*b*cosC) * 100) / 100}`,  // Wrong sign
+                `${Math.round((a + b) * 100) / 100}`  // Just added sides
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round(utils.rInt(5, 20) * 100) / 100}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Triangle: } a = ${a}, b = ${b}, C = ${C}°\\\\[0.5em]\\text{Find side c using cosine rule}`),
+                instruction: "Calculate (round to 2 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Cosine rule: c² = a² + b² - 2ab·cos(C) = ${a}² + ${b}² - 2(${a})(${b})cos(${C}°) = ${a*a} + ${b*b} - ${2*a*b}(${cosC.toFixed(3)}) = ${cSquared.toFixed(2)}. So c = √${cSquared.toFixed(2)} ≈ ${cRounded}.`,
+                calc: true
+            };
+        } else if (questionType === 3) {
+            // When to use sine rule vs cosine rule
+            const scenarios = [
+                { given: "Two angles and one side (AAS)", rule: "Sine rule" },
+                { given: "Two sides and included angle (SAS)", rule: "Cosine rule" },
+                { given: "All three sides (SSS)", rule: "Cosine rule" },
+                { given: "Two sides and non-included angle (SSA)", rule: "Sine rule" }
+            ];
+            const scenario = scenarios[utils.rInt(0, scenarios.length - 1)];
+            
+            const correctAnswer = scenario.rule;
+            const candidateDistractors = [
+                scenario.rule === "Sine rule" ? "Cosine rule" : "Sine rule",  // Opposite
+                "Pythagorean theorem",  // Related but different
+                "Neither rule applies"  // Wrong
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => ["Sine rule", "Cosine rule", "Tangent rule"][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Given: ${scenario.given}}\\\\[0.5em]\\text{Which rule should you use?}`),
+                instruction: "Select the appropriate rule",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `${scenario.given}: Use ${scenario.rule}. Sine rule works with angle-side pairs. Cosine rule works when you have two sides and the included angle (SAS) or all three sides (SSS).`,
+                calc: false
+            };
+        } else if (questionType === 4) {
+            // Triangle area using ½ab·sin(C)
+            const a = utils.rInt(4, 10);
+            const b = utils.rInt(4, 10);
+            const C = [30, 45, 60, 90][utils.rInt(0, 3)];
+            const sinC = Math.sin(C * Math.PI / 180);
+            const area = 0.5 * a * b * sinC;
+            const areaRounded = Math.round(area * 100) / 100;
+            
+            const correctAnswer = `${areaRounded}`;
+            const candidateDistractors = [
+                `${Math.round(a * b * 100) / 100}`,  // Forgot ½ and sin
+                `${Math.round(0.5 * a * b * 100) / 100}`,  // Forgot sin(C)
+                `${Math.round(a * b * sinC * 100) / 100}`  // Forgot ½
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round(utils.rInt(10, 50) * 100) / 100}`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Triangle: } a = ${a}, b = ${b}, C = ${C}°\\\\[0.5em]\\text{Find the area}`),
+                instruction: "Calculate (round to 2 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Area = ½ab·sin(C) = ½(${a})(${b})sin(${C}°) = ½(${a * b})(${sinC.toFixed(3)}) = ${areaRounded}.`,
+                calc: true
+            };
+        } else if (questionType === 5) {
+            // Find angle using sine rule: sin(A)/a = sin(B)/b
+            const a = 10;
+            const A = [30, 45, 60][utils.rInt(0, 2)];
+            const b = utils.rInt(6, 9);
+            const sinA = Math.sin(A * Math.PI / 180);
+            const sinB = b * sinA / a;
+            const B = Math.asin(sinB) * 180 / Math.PI;
+            const BRounded = Math.round(B * 10) / 10;
+            
+            const correctAnswer = `${BRounded}°`;
+            const candidateDistractors = [
+                `${Math.round((90 - BRounded) * 10) / 10}°`,  // Complementary angle
+                `${Math.round((180 - BRounded) * 10) / 10}°`,  // Supplementary angle
+                `${A}°`  // Used wrong angle
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round(utils.rInt(20, 80) * 10) / 10}°`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Triangle: } a = ${a}, A = ${A}°, b = ${b}\\\\[0.5em]\\text{Find angle B using sine rule}`),
+                instruction: "Calculate (round to 1 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Sine rule: sin(A)/a = sin(B)/b. So sin(B) = b·sin(A)/a = ${b}·sin(${A}°)/${a} = ${b}·${sinA.toFixed(3)}/${a} = ${sinB.toFixed(3)}. Therefore B = sin⁻¹(${sinB.toFixed(3)}) ≈ ${BRounded}°.`,
+                calc: true
+            };
+        } else if (questionType === 6) {
+            // Find angle using cosine rule: cos(C) = (a² + b² - c²)/(2ab)
+            const a = utils.rInt(6, 10);
+            const b = utils.rInt(6, 10);
+            const c = utils.rInt(5, 9);
+            const cosC = (a*a + b*b - c*c) / (2*a*b);
+            const C = Math.acos(cosC) * 180 / Math.PI;
+            const CRounded = Math.round(C * 10) / 10;
+            
+            const correctAnswer = `${CRounded}°`;
+            const candidateDistractors = [
+                `${Math.round((90 - CRounded) * 10) / 10}°`,  // Complementary
+                `${Math.round((180 - CRounded) * 10) / 10}°`,  // Supplementary
+                `${Math.round(C * 2 * 10) / 10}°`  // Doubled
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => `${Math.round(utils.rInt(20, 80) * 10) / 10}°`
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{Triangle: } a = ${a}, b = ${b}, c = ${c}\\\\[0.5em]\\text{Find angle C using cosine rule}`),
+                instruction: "Calculate (round to 1 dp)",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `Cosine rule: cos(C) = (a² + b² - c²)/(2ab) = (${a}² + ${b}² - ${c}²)/(2·${a}·${b}) = (${a*a} + ${b*b} - ${c*c})/${2*a*b} = ${cosC.toFixed(3)}. Therefore C = cos⁻¹(${cosC.toFixed(3)}) ≈ ${CRounded}°.`,
+                calc: true
+            };
+        } else if (questionType === 7) {
+            // Identify the sine rule formula
+            const correctAnswer = `\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C}`;
+            const candidateDistractors = [
+                `c^2 = a^2 + b^2 - 2ab\\cos C`,  // Cosine rule
+                `\\frac{a}{\\cos A} = \\frac{b}{\\cos B}`,  // Wrong function
+                `a^2 + b^2 = c^2`  // Pythagorean theorem
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => [`\\frac{\\sin A}{a} = \\frac{\\sin B}{b}`, `a\\sin A = b\\sin B`, `\\sin A = \\sin B`][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{What is the sine rule?}`),
+                instruction: "Select the correct formula",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `The sine rule states: a/sin(A) = b/sin(B) = c/sin(C), where a, b, c are sides opposite to angles A, B, C respectively. Used for finding unknown sides or angles.`,
+                calc: false
+            };
+        } else {
+            // Identify the cosine rule formula
+            const correctAnswer = `c^2 = a^2 + b^2 - 2ab\\cos C`;
+            const candidateDistractors = [
+                `\\frac{a}{\\sin A} = \\frac{b}{\\sin B}`,  // Sine rule
+                `c^2 = a^2 + b^2 + 2ab\\cos C`,  // Wrong sign
+                `a^2 + b^2 = c^2`  // Pythagorean theorem
+            ];
+            const distractors = utils.ensureUniqueDistractors(
+                correctAnswer,
+                candidateDistractors,
+                () => [`c = a + b - 2ab\\cos C`, `c^2 = a^2 - b^2 + 2ab\\cos C`, `a^2 = b^2 + c^2`][utils.rInt(0, 2)]
+            );
+            
+            return {
+                tex: utils.toUnicodeFunction(`\\text{What is the cosine rule for side c?}`),
+                instruction: "Select the correct formula",
+                displayAnswer: correctAnswer,
+                distractors: distractors,
+                explanation: `The cosine rule states: c² = a² + b² - 2ab·cos(C), where c is the side opposite angle C. Used when you know two sides and the included angle (SAS) or all three sides (SSS).`,
+                calc: false
+            };
+        }
     }
 };

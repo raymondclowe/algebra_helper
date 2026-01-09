@@ -238,10 +238,12 @@ window.Generator = {
         if (band <= 14) return this.getSequencesSeries();
         if (band <= 15) return this.getFunctionProblems();
         if (band <= 16) {
-            // Mix trigonometry and arc/sector questions (Level 15-16)
-            const questionType = this.rInt(1, 3);
+            // Mix trigonometry, arc/sector questions, and sine/cosine law (Level 15-16)
+            const questionType = this.rInt(1, 5);
             if (questionType === 1 && window.QuestionTemplates.ArcSector) {
                 return window.QuestionTemplates.ArcSector.getArcSectorQuestion();
+            } else if (questionType === 2 && window.QuestionTemplates.Trigonometry.getSineCosineLawQuestion) {
+                return window.QuestionTemplates.Trigonometry.getSineCosineLawQuestion();
             }
             return this.getTrigonometry();
         }
@@ -304,7 +306,16 @@ window.Generator = {
     getBasicArithmetic: function() { return window.QuestionTemplates.BasicArithmetic.getBasicArithmetic(); },
     getSquaresAndRoots: function() { return window.QuestionTemplates.SquaresRoots.getSquaresAndRoots(); },
     getMultiplicationTables: function() { return window.QuestionTemplates.MultiplicationTables.getMultiplicationTables(); },
-    getFunctionProblems: function() { return window.QuestionTemplates.Functions.getFunctionProblems(); },
+    getFunctionProblems: function() { 
+        // Mix regular functions, rational functions, and graph transformations (Level 14-15)
+        const questionType = this.rInt(1, 5);
+        if (questionType === 1 && window.QuestionTemplates.Functions.getRationalFunctionQuestion) {
+            return window.QuestionTemplates.Functions.getRationalFunctionQuestion();
+        } else if (questionType === 2 && window.QuestionTemplates.Functions.getGraphTransformationQuestion) {
+            return window.QuestionTemplates.Functions.getGraphTransformationQuestion();
+        }
+        return window.QuestionTemplates.Functions.getFunctionProblems(); 
+    },
     getTrigonometry: function() { return window.QuestionTemplates.Trigonometry.getTrigonometry(); },
     getProbability: function() { return window.QuestionTemplates.Probability.getProbability(); },
     getCalculus: function() { return window.QuestionTemplates.Calculus.getCalculus(); },
