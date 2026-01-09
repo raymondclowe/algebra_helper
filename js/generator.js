@@ -237,13 +237,34 @@ window.Generator = {
         if (band <= 13) return this.getExponentialsLogs();
         if (band <= 14) return this.getSequencesSeries();
         if (band <= 15) return this.getFunctionProblems();
-        if (band <= 16) return this.getTrigonometry();
+        if (band <= 16) {
+            // Mix trigonometry and arc/sector questions (Level 15-16)
+            const questionType = this.rInt(1, 3);
+            if (questionType === 1 && window.QuestionTemplates.ArcSector) {
+                return window.QuestionTemplates.ArcSector.getArcSectorQuestion();
+            }
+            return this.getTrigonometry();
+        }
         if (band <= 17) return this.getAdvancedTrig();
         if (band <= 18) return this.getVectors();
         if (band <= 19) return this.getComplexNumbers();
-        if (band <= 20) return this.lvl5();
+        if (band <= 20) {
+            // Mix basic calculus and tangent/normal questions (Level 19-20)
+            const questionType = this.rInt(1, 3);
+            if (questionType === 1 && window.QuestionTemplates.TangentNormal) {
+                return window.QuestionTemplates.TangentNormal.getTangentNormalQuestion();
+            }
+            return this.lvl5();
+        }
         if (band <= 21) return this.getAdvancedCalculus();
-        if (band <= 22) return this.getStatistics();
+        if (band <= 22) {
+            // Mix statistics and statistics-spread questions (Level 21-22)
+            const questionType = this.rInt(1, 4);
+            if (questionType === 1 && window.QuestionTemplates.StatisticsSpread) {
+                return window.QuestionTemplates.StatisticsSpread.getStatisticsSpreadQuestion();
+            }
+            return this.getStatistics();
+        }
         if (band <= 23) return this.getProbability();
         if (band <= 24) return this.getAdvancedProbability();
         if (band <= 25) return this.getCalculus();
@@ -308,7 +329,14 @@ window.Generator = {
         }
         return window.QuestionTemplates.SequencesSeries.getSequencesSeries(); 
     },
-    getAdvancedTrig: function() { return window.QuestionTemplates.AdvancedTrig.getAdvancedTrig(); },
+    getAdvancedTrig: function() { 
+        // Mix advanced trig and arc/sector questions (Level 16-17)
+        const questionType = this.rInt(1, 3);
+        if (questionType === 1 && window.QuestionTemplates.ArcSector) {
+            return window.QuestionTemplates.ArcSector.getArcSectorQuestion();
+        }
+        return window.QuestionTemplates.AdvancedTrig.getAdvancedTrig(); 
+    },
     getVectors: function() { return window.QuestionTemplates.Vectors.getVectors(); },
     getComplexNumbers: function() { return window.QuestionTemplates.ComplexNumbers.getComplexNumbers(); },
     getAdvancedCalculus: function() { return window.QuestionTemplates.AdvancedCalculus.getAdvancedCalculus(); },
