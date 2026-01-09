@@ -457,14 +457,17 @@ window.QuestionTemplates.Statistics = {
             // Regression equation form
             const correctAnswer = `y = ax + b`;
             const candidateDistractors = [
-                `y = a + bx`,  // Different but equivalent
-                `x = ay + b`,  // Wrong direction
-                `y = ax^2 + bx + c`  // Quadratic, not linear
+                `x = ay + b`,  // Wrong direction (x as dependent variable)
+                `y = ax^2 + bx + c`,  // Quadratic, not linear
+                `y = a \\cdot b \\cdot x`  // Wrong (multiplication of parameters)
             ];
             const distractors = utils.ensureUniqueDistractors(
                 correctAnswer,
                 candidateDistractors,
-                () => [`y = mx + c`, `y = b + ax`, `y = \\frac{x}{a} + b`][utils.rInt(0, 2)]
+                () => {
+                    const opts = [`y = ax^3 + b`, `y = \\frac{a}{x} + b`, `xy = a + b`];
+                    return opts[utils.rInt(0, opts.length - 1)];
+                }
             );
             
             return {
@@ -472,7 +475,7 @@ window.QuestionTemplates.Statistics = {
                 instruction: "Select the standard form",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
-                explanation: `The linear regression equation is y = ax + b, where a is the slope (rate of change), b is the y-intercept (value when x=0), x is the independent variable, and y is the dependent variable being predicted. This is also written as y = mx + c or ŷ = a + bx.`,
+                explanation: `The linear regression equation is y = ax + b, where a is the slope (rate of change), b is the y-intercept (value when x=0), x is the independent variable, and y is the dependent variable being predicted. This is also written as y = mx + c or ŷ = a + bx (equivalent forms with different parameter notation).`,
                 calc: false
             };
         } else {

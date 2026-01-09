@@ -9,14 +9,31 @@ window.QuestionTemplates.Functions = {
         
         if (questionType === 1) {
             // Find vertical asymptote of f(x) = (ax+b)/(cx+d)
-            const a = utils.rInt(1, 5);
-            const b = utils.rInt(-8, 8);
-            const c = utils.rInt(1, 4);
-            let d = utils.rInt(-8, 8);
-            if (d === 0) {
-                d = 3;
-            }
-            const asymptote = -d / c;
+            // Ensure numerator is non-zero at asymptote location (no hole)
+            let a, b, c, d, asymptote;
+            let attempts = 0;
+            do {
+                a = utils.rInt(1, 5);
+                b = utils.rInt(-8, 8);
+                c = utils.rInt(1, 4);
+                d = utils.rInt(-8, 8);
+                if (d === 0) {
+                    d = 3;
+                }
+                asymptote = -d / c;
+                // Check if numerator is non-zero at asymptote location
+                // If a*asymptote + b = 0, we have a hole, not an asymptote
+                attempts++;
+                if (attempts > 100) {
+                    // Fallback: manually set values to ensure asymptote
+                    a = 1;
+                    b = 1;
+                    c = 1;
+                    d = -2;
+                    asymptote = 2;
+                    break;
+                }
+            } while (Math.abs(a * asymptote + b) < 0.0001);
             
             const correctAnswer = `x = ${asymptote}`;
             const candidateDistractors = [
@@ -35,7 +52,7 @@ window.QuestionTemplates.Functions = {
                 instruction: "Find the vertical asymptote",
                 displayAnswer: correctAnswer,
                 distractors: distractors,
-                explanation: `Vertical asymptotes occur where the denominator equals zero. Set ${c}x ${d >= 0 ? '+' : ''}${d} = 0. Solving: ${c}x = ${-d}, so x = ${asymptote}. The function is undefined at x = ${asymptote}, creating a vertical asymptote.`,
+                explanation: `Vertical asymptotes occur where the denominator equals zero and the numerator is non-zero. Set ${c}x ${d >= 0 ? '+' : ''}${d} = 0. Solving: ${c}x = ${-d}, so x = ${asymptote}. At x = ${asymptote}, the numerator is non-zero, so we have a vertical asymptote.`,
                 calc: false
             };
         } else if (questionType === 2) {
