@@ -9,10 +9,10 @@
 ## Current Implementation Status
 
 **Phase 1:** 7/12 topics complete (58%)  
-**Phase 2:** 0/14 topics complete (0%)  
+**Phase 2:** 1/14 topics complete (7%)  
 **Phase 3:** 0/5 topics complete (0%) - Visual/Graphing using SVG  
 **Phase 4:** 4/4 topics complete (100%) ✅  
-**Overall:** 11/35 topics complete (31%)
+**Overall:** 12/35 topics complete (34%)
 
 **Note:** Phase 3 previously marked as "text-based limitations" is now feasible using SVG (like trig diagrams)
 
@@ -78,13 +78,13 @@
 
 | Topic | Status | Questions Added | Level | PR/Issue | Completed |
 |-------|--------|-----------------|-------|----------|-----------|
-| Permutations P(n,r) | 🔴 Not Started | 0/4 | 22-23 | - | - |
+| Permutations P(n,r) | 🟢 Complete | 4/4 | 22-23 | - | 2026-01-09 |
 | Sum/product of roots | 🔴 Not Started | 0/5 | 11-12 | - | - |
 | Modulus equations | 🔴 Not Started | 0/6 | 7-8, 14-15 | - | - |
 | 3×3 linear systems | 🔴 Not Started | 0/5 | 28 | - | - |
 
 **Target:** Q4 2026  
-**Progress:** 0/20 questions (0%)
+**Progress:** 4/20 questions (20%)
 
 ---
 
@@ -226,6 +226,11 @@ These low-effort, high-impact items can be fast-tracked:
 ## Recent Updates
 
 ### 2026-01-09
+- ✅ **IMPLEMENTED:** Permutations P(n,r) (4 questions)
+  - Calculating P(n,r) = n!/(n-r)!
+  - When to use permutations vs combinations
+  - Real-world permutation problems (medals, prizes)
+  - Permutation formula recognition
 - ✅ **IMPLEMENTED:** Quadratic vertex form (5 questions)
   - Converting standard form to vertex form: x² + bx + c → (x+h)² + k
   - Finding vertex coordinates from standard form

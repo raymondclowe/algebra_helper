@@ -524,17 +524,27 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 **Topics:**
 - Simple probability (favorable/total)
 - Complementary probability
-- Combinations setup
+- Combinations C(n,r) = n!/(r!(n-r)!)
+- **NEW: Permutations P(n,r) = n!/(n-r)!**
+- **NEW: When to use permutations vs combinations**
+- **NEW: Order matters vs order doesn't matter**
+- **NEW: Real-world permutation problems**
 
 **Example Problems:**
 - `Bag has 12 balls, 5 are red. P(red) = ?` → 5/12
 - `P(success) = 0.6, find P(failure)` → 0.4
 - `Choose 2 from 6 balls` → C(6,2) = 15
+- **NEW: `Calculate P(7, 3)` → 210**
+- **NEW: `10 runners, 3 medals. How many outcomes?` → P(10,3) = 720**
+- **NEW: `When do we use permutations?` → When order matters**
+- **NEW: `State the permutation formula` → P(n,r) = n!/(n-r)!**
 
 **IB Curriculum:**
 - SL/HL Topic 5.2: Probability concepts
 - SL/HL Topic 5.2: Complementary events
 - SL/HL Topic 5.3: Combinatorics
+- **NEW: HL Topic 1.10: Permutations and combinations**
+- **NEW: HL Topic 1.10: Distinguishing permutations from combinations**
 
 ---
 
