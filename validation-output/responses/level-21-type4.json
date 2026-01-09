@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:18:14.050Z",
+  "level": 21,
+  "topic": "Advanced Calculus",
+  "questionType": 4,
+  "metadata": {
+    "level": 21,
+    "topic": "Advanced Calculus",
+    "questionType": 4,
+    "questionText": "\\text{If } \\frac{dr}{dt} = 1 \\text{ and } A = \\pi r^2,\\\\[0.5em]\\text{find } \\frac{dA}{dt} \\text{ when } r = 3",
+    "instruction": "CALCULATE THE RATE (1 DP)",
+    "correctAnswer": "18.8",
+    "distractors": [
+      "28.3",
+      "1",
+      "6"
+    ],
+    "allOptions": [
+      "28.3",
+      "18.8",
+      "1",
+      "6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "From A = πr², differentiate with respect to t: dA/dt = 2πr·dr/dt. When r = 3 and dr/dt = 1: dA/dt = 2π(3)(1) = 6π ≈ 18.8."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

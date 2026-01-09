@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:10:25.935Z",
+  "level": 15,
+  "topic": "Functions",
+  "questionType": 2,
+  "metadata": {
+    "level": 15,
+    "topic": "Functions",
+    "questionType": 2,
+    "questionText": "𝑓(x) = 2x \\\\[0.5em] 𝑔(x) = x + 3 \\\\[0.5em] 𝑓(𝑔(4)) = ?",
+    "instruction": "CALCULATE",
+    "correctAnswer": "14",
+    "distractors": [
+      "16",
+      "7",
+      "11"
+    ],
+    "allOptions": [
+      "11",
+      "16",
+      "14",
+      "7",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Evaluate 𝑔(4) first: 𝑔(4) = 4 + 3 = 7. Then evaluate 𝑓(7): 𝑓(7) = 2(7) = 14."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

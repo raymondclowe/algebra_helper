@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:11:32.991Z",
+  "level": 16,
+  "topic": "Basic Trigonometry",
+  "questionType": 2,
+  "metadata": {
+    "level": 16,
+    "topic": "Basic Trigonometry",
+    "questionType": 2,
+    "questionText": "\\text{Triangle: } a = 10, b = 7, C = 60°\\\\[0.5em]\\text{Find the area}",
+    "instruction": "CALCULATE (ROUND TO 2 DP)",
+    "correctAnswer": "30.31",
+    "distractors": [
+      "70",
+      "35",
+      "60.62"
+    ],
+    "allOptions": [
+      "70",
+      "30.31",
+      "35",
+      "60.62",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Area = ½ab·sin(C) = ½(10)(7)sin(60°) = ½(70)(0.866) = 30.31."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

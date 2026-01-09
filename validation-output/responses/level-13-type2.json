@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:07:25.879Z",
+  "level": 13,
+  "topic": "Exponentials & Logarithms",
+  "questionType": 2,
+  "metadata": {
+    "level": 13,
+    "topic": "Exponentials & Logarithms",
+    "questionType": 2,
+    "questionText": "\\log_{2}(8)",
+    "instruction": "CALCULATE",
+    "correctAnswer": "3",
+    "distractors": [
+      "4",
+      "8",
+      "10"
+    ],
+    "allOptions": [
+      "3",
+      "10",
+      "4",
+      "8",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "\\log_{2}(8) = 3 because 2^3 = 8. The logarithm is the inverse of the exponential function."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

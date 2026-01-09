@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:13:31.335Z",
+  "level": 17,
+  "topic": "Advanced Trigonometry",
+  "questionType": 4,
+  "metadata": {
+    "level": 17,
+    "topic": "Advanced Trigonometry",
+    "questionType": 4,
+    "questionText": "\\sin(A + B)",
+    "instruction": "EXPAND USING COMPOUND ANGLE FORMULA",
+    "correctAnswer": "\\sin A \\cos B + \\cos A \\sin B",
+    "distractors": [
+      "\\sin A + \\sin B",
+      "\\sin A \\cos B - \\cos A \\sin B",
+      "\\cos A \\cos B + \\sin A \\sin B"
+    ],
+    "allOptions": [
+      "sin⁡𝐴 +sin⁡𝐵",
+      "sin⁡𝐴⁢cos⁡𝐵 −cos⁡𝐴⁢sin⁡𝐵",
+      "sin⁡𝐴⁢cos⁡𝐵 +cos⁡𝐴⁢sin⁡𝐵",
+      "cos⁡𝐴⁢cos⁡𝐵 +sin⁡𝐴⁢sin⁡𝐵",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Compound angle formula: sin(A + B) = sin(A)cos(B) + cos(A)sin(B). Note the plus sign."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

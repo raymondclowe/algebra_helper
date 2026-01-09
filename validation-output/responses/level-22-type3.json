@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:19:30.274Z",
+  "level": 22,
+  "topic": "Statistics",
+  "questionType": 3,
+  "metadata": {
+    "level": 22,
+    "topic": "Statistics",
+    "questionType": 3,
+    "questionText": "\\text{A dataset has mean 25 and standard deviation 7. \\\\[0.5em]If 8 is added to every value, what are the new mean and standard deviation?}",
+    "instruction": "GIVE AS: NEW MEAN, NEW Σ",
+    "correctAnswer": "33, 7",
+    "distractors": [
+      "33, 15",
+      "33, 7.7",
+      "25, 7"
+    ],
+    "allOptions": [
+      "33, 7.7",
+      "25, 7",
+      "33, 7",
+      "33, 15",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Adding a constant to all values shifts the mean by that constant: new mean = 25 + 8 = 33. However, standard deviation measures spread from the mean, which doesn't change when all values shift equally. New σ = 7."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "not OK\n\n**Issue:**\nThe question text is not visible to the student. Instead, a yellow error box is displayed containing the message: `\\] is only supported in math mode`.\n\n**Explanation:**\nThis is a technical LaTeX rendering error caused by the formatting code in the question text. Specifically, the command `\\\\[0.5em]` (used to create a line break with extra spacing) is placed inside a `\\text{...}` block.",
+    "error": null
+  }
+}

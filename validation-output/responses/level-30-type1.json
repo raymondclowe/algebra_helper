@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:29:38.455Z",
+  "level": 30,
+  "topic": "Complex Numbers (Polar)",
+  "questionType": 1,
+  "metadata": {
+    "level": 30,
+    "topic": "Complex Numbers (Polar)",
+    "questionType": 1,
+    "questionText": "-1 + 0i",
+    "instruction": "EXPRESS IN POLAR FORM R·E^(IΘ)",
+    "correctAnswer": "1e^{i\\pi}",
+    "distractors": [
+      "1e^{-i\\pi}",
+      "-1e^{i\\pi}",
+      "0e^{i\\pi}"
+    ],
+    "allOptions": [
+      "0⁢𝑒𝑖⁢𝜋",
+      "1⁢𝑒𝑖⁢𝜋",
+      "−1⁢𝑒𝑖⁢𝜋",
+      "1⁢𝑒−𝑖⁢𝜋",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For z = -1 + 0i, modulus r = √(-1² + 0²) = 1, argument θ = \\pi. Polar form: z = r·e^(iθ) = 1e^{i\\pi}."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**Examining Polar Forms**\n\nI'm currently reviewing a math question from an educational app, specifically asking to express -1 + 0i in polar form. The context is IB Math, Level 30. My immediate approach is to convert the rectangular form into its polar equivalent. I'm focusing on finding the magnitude (r) and the angle (θ) to fit the R * e^(iΘ) format.\n\n\n**Dissecting The Solutions**\n\nI've examined the provided solutions, identifying the correct answer as $1e^{i\\pi}$. However, I noted a potential issue in option D, $1e^{-i\\pi}$. While it *looks* correct (in that the modulus *r* seems correct), the angle is off; it results in the same complex number, -1. Both $1e^{i\\pi}$ and $1e^{-i\\pi}$ are valid, due to the periodic nature of the complex exponential. The educational app should probably flag $1e^{-i\\pi}$ as another solution.\n\n\n**Assessing the Ambiguity**\n\nI'm now contemplating the subtleties of the question. My focus is on the nuances of the \"polar form\" prompt. The question's wording isn't explicit about seeking the *principal* argument. The equivalence between $1e^{i\\pi}$ and $1e^{-i\\pi}$ has led me to question the question's design, given both yield the same result. I'm considering whether this could trip up a student.\n\n\n**Clarifying Ambiguities**\n\nI'm now diving deeper into how to frame this educational app question. I see a potential pitfall because both $1e^{i\\pi}$ and $1e^{-i\\pi}$ are valid, and could be equally chosen by students. I'm considering rephrasing the question to specify the \"principal argument\" to avoid ambiguity and to test the students understanding of principal argument specifically. Alternatively, the app could flag both answers as correct.\n\n\n**Evaluating Distractor Quality**\n\nI'm now zeroing in on the quality of the distractors, specifically the inclusion of $1e^{-i\\pi}$. While mathematically equivalent to the correct answer, it creates ambiguity. It might confuse students. My assessment is that the question is fine but could be improved, perhaps by specifying \"principal argument,\" or adjusting the distractor. The app could mark both answers as correct, but that depends on the app.\n\n\n**Refining the Critique**\n\nI'm now zeroing in on the multiple choice options. The question, as designed, isn't optimal because option D, $1e^{-i\\pi}$, while mathematically correct for representing -1, is likely to cause confusion. My concern lies with the implied expectation of principal arguments without explicit clarification. Additionally, there's a mismatch between the displayed topic and question content, indicating a potential classification error.\n\n\n**Addressing Question Ambiguity**\n\nI'm now assessing the ambiguity within the question and its distractors. The core problem remains the equivalence of the correct answer and distractor D. Both $1e^{i\\pi}$ and $1e^{-i\\pi}$ represent -1, rendering the distractor not genuinely incorrect. The question's lack of explicit mention of the principal argument further compounds this ambiguity.\n\n\n**Addressing Question Issues**\n\nI've now concluded the question's design is flawed. My primary concern stems from the inclusion of $1e^{-i\\pi}$ as a distractor, which, like the correct answer $1e^{i\\pi}$, evaluates to -1. This ambiguity undermines the purpose of a multiple-choice question. The lack of clarification about the principal argument exacerbates this issue. A secondary concern is the discrepancy between the question's content and its listed topic.\n\n\n",
+    "error": null
+  }
+}

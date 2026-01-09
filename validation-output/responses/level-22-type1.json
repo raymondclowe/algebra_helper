@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:18:40.249Z",
+  "level": 22,
+  "topic": "Statistics",
+  "questionType": 1,
+  "metadata": {
+    "level": 22,
+    "topic": "Statistics",
+    "questionType": 1,
+    "questionText": "\n            <div style=\"width: 400px; height: 300px; margin: 10px auto;\">\n                <canvas id=\"chart-065mqfaom\"></canvas>\n            </div>\n            <script>\n            (function() {\n                if (typeof Chart === 'undefined') {\n                    console.warn('Chart.js library not loaded yet');\n                    return;\n                }\n                try {\n                    const ctx = document.getElementById('chart-065mqfaom').getContext('2d');\n                    new Chart(ctx, {\n                        type: 'boxplot',\n                        data: {\"labels\":[\"Group A\",\"Group B\"],\"datasets\":[{\"label\":\"Groups\",\"data\":[[{\"min\":10,\"q1\":15,\"median\":20,\"q3\":25,\"max\":30}],[{\"min\":20,\"q1\":30,\"median\":40,\"q3\":50,\"max\":60}]],\"backgroundColor\":[\"rgba(255, 159, 64, 0.5)\",\"rgba(75, 192, 192, 0.5)\"]}]},\n                        options: {\"responsive\":true,\"plugins\":{\"legend\":{\"display\":false},\"title\":{\"display\":true,\"text\":\"Comparison of Two Groups\"}}}\n                    });\n                } catch (e) {\n                    console.error('Error creating chart:', e);\n                }\n            })();\n            </script>\n        ",
+    "instruction": "WHICH GROUP HAS THE GREATER SPREAD (IQR)?",
+    "correctAnswer": "Group B",
+    "distractors": [
+      "Group A",
+      "Both the same",
+      "Cannot be determined"
+    ],
+    "allOptions": [
+      "Group A",
+      "Both the same",
+      "Cannot be determined",
+      "Group B",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Group A has IQR = 10, Group B has IQR = 20. Group B has the greater spread. The IQR measures the width of the box, which represents the middle 50% of the data."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "not OK\n\n**Issue:**\nThe question is impossible to answer because the data visualization (the boxplot chart) is not rendering in the screenshot. Instead of the chart, there are empty LaTeX display math delimiters (`\\[` and `\\]`) shown in the center of the screen. The student has no information about Group A or Group B to calculate the IQR.\n\n**Detailed Explanation:**\n1.  **Rendering Error:** The screenshot shows `\\[` and `\\]` with a large empty space between them. This suggests that the HTML code for the chart (provided in the prompt text) was accidentally wrapped in LaTeX math delimiters. Since HTML `<canvas>` elements cannot be rendered inside LaTeX math mode, the chart fails to appear.\n2.  **Missing Context:** The question asks \"Which group has the greater spread (IQR)?\", but without the visual boxplots, the values for Q1 and Q3 are unknown to the user.\n\n**Correction Required:**\n1.  **Remove LaTeX Tags:** Remove the `\\[` and `\\]` delimiters surrounding the chart code in the question source. The HTML/JavaScript for the chart should stand alone to render properly.\n2.  **Verify Rendering:** Ensure the Chart.js visualization appears visible to the user, showing the two boxplots side-by-side.\n\n**Mathematical Verification (based on the provided code snippet):**\nOnce the chart is visible, the math is correct:\n- **Group A:** $Q1 = 15$, $Q3 = 25$. $IQR = 25 - 15 = 10$.\n- **Group B:** $Q1 = 30$, $Q3 = 50$. $IQR = 50 - 30 = 20$.\n- **Comparison:** $20 > 10$, so **Group B** has the greater spread.\n- The marked correct answer (Group B) is mathematically correct based on the hidden data.",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:02:42.547Z",
+  "level": 8,
+  "topic": "Inequalities",
+  "questionType": 2,
+  "metadata": {
+    "level": 8,
+    "topic": "Inequalities",
+    "questionType": 2,
+    "questionText": "-3x > -12",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x < 4",
+    "distractors": [
+      "x > 4",
+      "x = 4",
+      "x < -4"
+    ],
+    "allOptions": [
+      "x > 4",
+      "x < -4",
+      "x < 4",
+      "x = 4",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide both sides by -3 and reverse the inequality sign: x < -12/(-3) = 4. Note that dividing by a negative number reverses the inequality sign."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

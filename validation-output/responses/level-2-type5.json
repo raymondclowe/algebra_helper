@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:04:16.330Z",
+  "timestamp": "2026-01-09T08:57:16.998Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 5,
@@ -7,22 +7,22 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 5,
-    "questionText": "\\sqrt{64}",
+    "questionText": "\\sqrt{1}",
     "instruction": "CALCULATE",
-    "correctAnswer": "8",
+    "correctAnswer": "1",
     "distractors": [
-      "9",
-      "7",
-      "32"
+      "2",
+      "0",
+      "3"
     ],
     "allOptions": [
-      "7",
-      "9",
-      "32",
-      "8",
+      "2",
+      "3",
+      "1",
+      "0",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "The square root of 64 is 8 because 8 × 8 = 64."
+    "explanation": "The square root of 1 is 1 because 1 × 1 = 1."
   },
   "apiResponse": {
     "success": true,

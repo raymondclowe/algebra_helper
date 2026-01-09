@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:14:10.812Z",
+  "level": 18,
+  "topic": "Vectors",
+  "questionType": 3,
+  "metadata": {
+    "level": 18,
+    "topic": "Vectors",
+    "questionType": 3,
+    "questionText": "\\left|\\begin{pmatrix} 5 \\\\ 3 \\end{pmatrix}\\right|",
+    "instruction": "FIND THE MAGNITUDE",
+    "correctAnswer": "\\sqrt{34}",
+    "distractors": [
+      "8",
+      "5",
+      "\\sqrt{15}"
+    ],
+    "allOptions": [
+      "√34",
+      "5",
+      "√15",
+      "8",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Magnitude = $\\sqrt{5^2 + 3^2} = \\sqrt{25 + 9} = \\sqrt{34}$."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

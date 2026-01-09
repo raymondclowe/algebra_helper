@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:26:07.100Z",
+  "level": 28,
+  "topic": "Matrix Algebra",
+  "questionType": 5,
+  "metadata": {
+    "level": 28,
+    "topic": "Matrix Algebra",
+    "questionType": 5,
+    "questionText": "\\begin{pmatrix} 2 & 2 \\\\ 1 & 3 \\end{pmatrix}^{-1}",
+    "instruction": "FIND THE INVERSE MATRIX",
+    "correctAnswer": "\\frac{1}{4}\\begin{pmatrix} 3 & -2 \\\\ -1 & 2 \\end{pmatrix}",
+    "distractors": [
+      "\\frac{1}{4}\\begin{pmatrix} 2 & 2 \\\\ 1 & 3 \\end{pmatrix}",
+      "\\begin{pmatrix} 3 & -2 \\\\ -1 & 2 \\end{pmatrix}",
+      "\\frac{1}{4}\\begin{pmatrix} 3 & 2 \\\\ 1 & 2 \\end{pmatrix}"
+    ],
+    "allOptions": [
+      "14⁢(3212)",
+      "14⁢(2213)",
+      "14⁢(3−2−12)",
+      "(3−2−12)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For a 2×2 matrix, A⁻¹ = (1/det(A)) × [[d, -b], [-c, a]]. Here det = 2×3 - 2×1 = 4. So A⁻¹ = (1/4)[[3, -2], [-1, 2]]."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "**Analyzing the Matrix**\n\nI've just started by looking at the matrix itself. It's a 2x2, so calculating the inverse should be pretty straightforward using the standard formula. I'm already mentally checking the determinant to make sure it's not zero.\n\n\n**Deconstructing the Solution**\n\nOkay, now I'm diving deeper into the solution process. I'm focusing on each step: calculating the determinant, applying the inverse formula, and meticulously checking each answer option against my derived result. The level indicator seems a bit off, as this problem leans more towards basic matrix algebra than integration.\n\n\n**Reviewing Question Categorization**\n\nMy focus has shifted towards the app's categorization of the question. I've pinpointed a discrepancy: the question clearly tests matrix algebra, yet the app's level heading displays \"Integration & Series\". I'm starting to suspect a metadata error within the app. I must verify if this mislabeling impacts the question's validity.\n\n\n**Scrutinizing the Question**\n\nI've carefully examined the question and its solution. The math is flawless – the inverse is correctly computed and the distractors are intelligently constructed. The core issue, as I see it, is the categorical mislabeling. The app's header incorrectly labels the question under \"Integration & Series\" when it clearly concerns matrix algebra.\n\n\n**Reflecting on the Metadata**\n\nI am now completely convinced that the key issue is the metadata. The question's mathematical integrity is unquestionable, its difficulty is reasonable, and the distractors are skillfully crafted. The problem lies with the \"Integration & Series\" label, which plainly doesn't align with the matrix algebra topic. This app categorizes questions poorly.\n\n\n**Addressing the Categorization Issue**\n\nThe math problem is solved, and the distractors are appropriate. However, the screenshot's \"Integration & Series\" level header doesn't fit the question about matrix inverses. This categorization error, in my opinion, is a significant issue. It's a bug that needs to be resolved for the user experience.\n\n\n**Evaluating the Math Content**\n\nI've confirmed the math is accurate and the distractors are well-crafted. The matrix inverse is correctly computed, and the question's difficulty seems appropriate. My concern now pivots towards the app's categorization: the mismatch between the question's content and the category label is clear.\n\n\n**Examining the Core Math**\n\nI've rigorously calculated the inverse, confirming my result matches the provided solution. All the distractors are cleverly constructed, reflecting common errors. My conclusion is that the core mathematics of the question is undeniably sound.\n\n\n",
+    "error": null
+  }
+}

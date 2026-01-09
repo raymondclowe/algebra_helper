@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:02:29.470Z",
+  "timestamp": "2026-01-09T08:55:36.376Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 2,
@@ -7,22 +7,22 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 2,
-    "questionText": "26 - 10",
+    "questionText": "29 - 7",
     "instruction": "CALCULATE",
-    "correctAnswer": "16",
+    "correctAnswer": "22",
     "distractors": [
-      "17",
-      "15",
+      "23",
+      "21",
       "36"
     ],
     "allOptions": [
-      "17",
+      "23",
+      "21",
       "36",
-      "15",
-      "16",
+      "22",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Subtracting 10 from 26 gives 16. You can verify by adding: 16 + 10 = 26."
+    "explanation": "Subtracting 7 from 29 gives 22. You can verify by adding: 22 + 7 = 29."
   },
   "apiResponse": {
     "success": true,

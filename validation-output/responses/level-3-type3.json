@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T08:58:18.808Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 3,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 3,
+    "questionText": "6 \\times ? = 36",
+    "instruction": "FIND THE MISSING NUMBER",
+    "correctAnswer": "6",
+    "distractors": [
+      "7",
+      "5",
+      "11"
+    ],
+    "allOptions": [
+      "11",
+      "6",
+      "7",
+      "5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "To find the missing number, divide 36 by 6: 36 ÷ 6 = 6. Check: 6 × 6 = 36 ✓"
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:01:31.754Z",
+  "level": 6,
+  "topic": "Simple Linear Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 6,
+    "topic": "Simple Linear Equations",
+    "questionType": 1,
+    "questionText": "4x = 20",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x=5",
+    "distractors": [
+      "x=6",
+      "x=4",
+      "x=2"
+    ],
+    "allOptions": [
+      "x=2",
+      "x=4",
+      "x=6",
+      "x=5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Divide both sides by 4 to isolate x: 4x ÷ 4 = 20 ÷ 4, which gives x = 5."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

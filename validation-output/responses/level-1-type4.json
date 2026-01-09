@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:03:10.979Z",
+  "timestamp": "2026-01-09T08:56:02.669Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 4,
@@ -7,22 +7,22 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 4,
-    "questionText": "48 \\div 6",
+    "questionText": "18 \\div 6",
     "instruction": "CALCULATE",
-    "correctAnswer": "8",
+    "correctAnswer": "3",
     "distractors": [
-      "9",
-      "7",
+      "4",
+      "2",
       "6"
     ],
     "allOptions": [
+      "4",
+      "3",
       "6",
-      "9",
-      "8",
-      "7",
+      "2",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "48 divided by 6 equals 8 because 6 × 8 = 48. Division is the inverse of multiplication."
+    "explanation": "18 divided by 6 equals 3 because 6 × 3 = 18. Division is the inverse of multiplication."
   },
   "apiResponse": {
     "success": true,

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:03:55.271Z",
+  "timestamp": "2026-01-09T08:57:06.981Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 4,
@@ -13,13 +13,13 @@
     "distractors": [
       "2",
       "0",
-      "4"
+      "7"
     ],
     "allOptions": [
-      "1",
+      "7",
       "2",
       "0",
-      "4",
+      "1",
       "I don't know\n                    (no penalty)"
     ],
     "explanation": "Since 1 × 1 × 1 = 1, the answer is 1. This is finding the cube root: $\\sqrt[3]{1} = 1$."

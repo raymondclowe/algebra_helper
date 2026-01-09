@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:02:08.974Z",
+  "timestamp": "2026-01-09T08:55:26.296Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 1,
@@ -7,22 +7,22 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 1,
-    "questionText": "10 + 1",
+    "questionText": "5 + 16",
     "instruction": "CALCULATE",
-    "correctAnswer": "11",
+    "correctAnswer": "21",
     "distractors": [
-      "12",
-      "10",
-      "9"
+      "22",
+      "20",
+      "-11"
     ],
     "allOptions": [
-      "11",
-      "12",
-      "10",
-      "9",
+      "21",
+      "22",
+      "20",
+      "-11",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "Adding 10 and 1 gives 11. You can verify by counting up from 10 by 1 steps."
+    "explanation": "Adding 5 and 16 gives 21. You can verify by counting up from 5 by 16 steps."
   },
   "apiResponse": {
     "success": true,

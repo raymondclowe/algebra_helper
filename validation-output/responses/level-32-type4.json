@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:34:16.203Z",
+  "level": 32,
+  "topic": "Differential Equations",
+  "questionType": 4,
+  "metadata": {
+    "level": 32,
+    "topic": "Differential Equations",
+    "questionType": 4,
+    "questionText": "\\frac{dy}{dx} = 3y, \\quad y(0) = 4",
+    "instruction": "WHAT IS THE PARTICULAR SOLUTION?",
+    "correctAnswer": "y = 4e^{3x}",
+    "distractors": [
+      "y = 3e^{4x}",
+      "y = e^{3x}",
+      "y = 4e^{x}"
+    ],
+    "allOptions": [
+      "𝑦 =𝑒3⁢𝑥",
+      "𝑦 =4⁢𝑒𝑥",
+      "𝑦 =3⁢𝑒4⁢𝑥",
+      "𝑦 =4⁢𝑒3⁢𝑥",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "General solution: y = Ae^(3x). Using y(0) = 4: 4 = Ae^0 = A. So A = 4, giving y = 4e^(3x)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

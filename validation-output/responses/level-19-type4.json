@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:16:15.749Z",
+  "level": 19,
+  "topic": "Complex Numbers",
+  "questionType": 4,
+  "metadata": {
+    "level": 19,
+    "topic": "Complex Numbers",
+    "questionType": 4,
+    "questionText": "i^{2}",
+    "instruction": "SIMPLIFY",
+    "correctAnswer": "-1",
+    "distractors": [
+      "i",
+      "2i",
+      "2"
+    ],
+    "allOptions": [
+      "2i",
+      "-1",
+      "i",
+      "2",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "i¹ = i, i² = -1, i³ = -i, i⁴ = 1, and the pattern repeats. So i^2 = -1."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

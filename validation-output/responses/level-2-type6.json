@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:04:28.532Z",
+  "timestamp": "2026-01-09T08:57:32.829Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 6,
@@ -7,22 +7,22 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 6,
-    "questionText": "\\sqrt[3]{27}",
+    "questionText": "\\sqrt[3]{343}",
     "instruction": "CALCULATE",
-    "correctAnswer": "3",
+    "correctAnswer": "7",
     "distractors": [
-      "4",
-      "2",
-      "9"
+      "8",
+      "6",
+      "114"
     ],
     "allOptions": [
-      "2",
-      "9",
-      "4",
-      "3",
+      "8",
+      "7",
+      "6",
+      "114",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "The cube root of 27 is 3 because 3 × 3 × 3 = 27."
+    "explanation": "The cube root of 343 is 7 because 7 × 7 × 7 = 343."
   },
   "apiResponse": {
     "success": true,

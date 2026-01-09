@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:15:50.458Z",
+  "level": 19,
+  "topic": "Complex Numbers",
+  "questionType": 3,
+  "metadata": {
+    "level": 19,
+    "topic": "Complex Numbers",
+    "questionType": 3,
+    "questionText": "|4 + 4i|",
+    "instruction": "FIND THE MODULUS",
+    "correctAnswer": "\\sqrt{32}",
+    "distractors": [
+      "8",
+      "4",
+      "16"
+    ],
+    "allOptions": [
+      "√32",
+      "4",
+      "16",
+      "8",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Modulus = $\\sqrt{a^2 + b^2} = \\sqrt{4^2 + 4^2} = \\sqrt{32}$."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

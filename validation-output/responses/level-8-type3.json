@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:02:57.326Z",
+  "level": 8,
+  "topic": "Inequalities",
+  "questionType": 3,
+  "metadata": {
+    "level": 8,
+    "topic": "Inequalities",
+    "questionType": 3,
+    "questionText": "8x + 7 < 71",
+    "instruction": "SOLVE FOR X",
+    "correctAnswer": "x < 8",
+    "distractors": [
+      "x > 8",
+      "x < 9",
+      "x \\leq 8"
+    ],
+    "allOptions": [
+      "x ≤ 8",
+      "x > 8",
+      "x < 8",
+      "x < 9",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Subtract 7 from both sides: 8x < 64. Divide by 8: x < 8."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

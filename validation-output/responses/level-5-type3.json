@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:00:44.056Z",
+  "level": 5,
+  "topic": "Decimals & Percentages",
+  "questionType": 3,
+  "metadata": {
+    "level": 5,
+    "topic": "Decimals & Percentages",
+    "questionType": 3,
+    "questionText": "25\\% \\text{ of } 43",
+    "instruction": "CALCULATE",
+    "correctAnswer": "10.75",
+    "distractors": [
+      "20.75",
+      "5.75",
+      "32.25"
+    ],
+    "allOptions": [
+      "5.75",
+      "10.75",
+      "20.75",
+      "32.25",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "25% of 43 = (25/100) × 43 = 10.75."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

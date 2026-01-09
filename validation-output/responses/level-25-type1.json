@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:22:18.940Z",
+  "level": 25,
+  "topic": "Integration & Series",
+  "questionType": 1,
+  "metadata": {
+    "level": 25,
+    "topic": "Integration & Series",
+    "questionType": 1,
+    "questionText": "\\text{Evaluate } \\int_{-5}^{5} x^3 \\, dx",
+    "instruction": "USE SYMMETRY PROPERTIES",
+    "correctAnswer": "0",
+    "distractors": [
+      "10",
+      "5",
+      "Cannot be determined"
+    ],
+    "allOptions": [
+      "Cannot be determined",
+      "0",
+      "10",
+      "5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "x³ is an odd function (f(-x) = -f(x)). For odd functions, ∫₋ₐ^a f(x)dx = 0 because the positive and negative areas cancel. Therefore ∫₋5^5 x³ dx = 0."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

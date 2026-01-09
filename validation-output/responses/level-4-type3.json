@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T08:59:35.742Z",
+  "level": 4,
+  "topic": "Fractions",
+  "questionType": 3,
+  "metadata": {
+    "level": 4,
+    "topic": "Fractions",
+    "questionType": 3,
+    "questionText": "\\frac{5}{4} \\div \\frac{4}{7}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "\\frac{35}{16}",
+    "distractors": [
+      "\\frac{20}{28}",
+      "\\frac{4}{5}",
+      "\\frac{5}{16}"
+    ],
+    "allOptions": [
+      "45",
+      "516",
+      "3516",
+      "2028",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Dividing by a fraction means multiplying by its reciprocal: (5/4) × (7/4) = 35/16."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:02:49.130Z",
+  "timestamp": "2026-01-09T08:55:47.729Z",
   "level": 1,
   "topic": "Basic Arithmetic",
   "questionType": 3,
@@ -7,22 +7,22 @@
     "level": 1,
     "topic": "Basic Arithmetic",
     "questionType": 3,
-    "questionText": "? + 15 = 21",
+    "questionText": "? + 5 = 8",
     "instruction": "FIND THE MISSING NUMBER",
-    "correctAnswer": "6",
+    "correctAnswer": "3",
     "distractors": [
-      "7",
-      "21",
-      "15"
+      "4",
+      "8",
+      "5"
     ],
     "allOptions": [
-      "6",
-      "15",
-      "21",
-      "7",
+      "5",
+      "3",
+      "4",
+      "8",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "To find the missing number, subtract 15 from 21: 21 - 15 = 6. Check: 6 + 15 = 21 ✓"
+    "explanation": "To find the missing number, subtract 5 from 8: 8 - 5 = 3. Check: 3 + 5 = 8 ✓"
   },
   "apiResponse": {
     "success": true,

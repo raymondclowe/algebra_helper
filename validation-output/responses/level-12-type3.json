@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:06:22.299Z",
+  "level": 12,
+  "topic": "Polynomials",
+  "questionType": 3,
+  "metadata": {
+    "level": 12,
+    "topic": "Polynomials",
+    "questionType": 3,
+    "questionText": "𝑓(x) = x^2 + 4x + 6",
+    "instruction": "Find the remainder when 𝑓⁡(𝑥) is divided by (𝑥 −2)",
+    "correctAnswer": "18",
+    "distractors": [
+      "16",
+      "6",
+      "0"
+    ],
+    "allOptions": [
+      "18",
+      "0",
+      "16",
+      "6",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "By the remainder theorem, when 𝑓(x) is divided by (x - 2), the remainder is 𝑓(2). Calculate 𝑓(2) = 2² + 4(2) + 6 = 18."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

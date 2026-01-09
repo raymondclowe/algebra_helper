@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:04:00.959Z",
+  "level": 10,
+  "topic": "Factorising Quadratics",
+  "questionType": 1,
+  "metadata": {
+    "level": 10,
+    "topic": "Factorising Quadratics",
+    "questionType": 1,
+    "questionText": "x^2 + 9x + 20",
+    "instruction": "FACTORIZE",
+    "correctAnswer": "(x+4)(x+5)",
+    "distractors": [
+      "(x+9)(x+20)",
+      "x(x+9)",
+      "(x-4)(x-5)"
+    ],
+    "allOptions": [
+      "(x+4)(x+5)",
+      "(x+9)(x+20)",
+      "x(x+9)",
+      "(x-4)(x-5)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Find two numbers that multiply to 20 (the constant term) and add to 9 (the coefficient of x). These numbers are 4 and 5: 4 × 5 = 20 and 4 + 5 = 9. Therefore (x+4)(x+5). This can be verified by expanding."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

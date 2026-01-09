@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T08:59:49.083Z",
+  "level": 4,
+  "topic": "Fractions",
+  "questionType": 4,
+  "metadata": {
+    "level": 4,
+    "topic": "Fractions",
+    "questionType": 4,
+    "questionText": "\\frac{1}{2} + \\frac{2}{5}",
+    "instruction": "CALCULATE",
+    "correctAnswer": "\\frac{9}{10}",
+    "distractors": [
+      "\\frac{3}{7}",
+      "\\frac{5}{10}",
+      "\\frac{25}{20}"
+    ],
+    "allOptions": [
+      "910",
+      "37",
+      "510",
+      "2520",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Find LCD = 10. Convert: 1/2 = 5/10 and 2/5 = 4/10. Add: 9/10 = 9/10."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

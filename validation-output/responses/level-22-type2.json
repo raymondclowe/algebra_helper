@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:18:52.250Z",
+  "level": 22,
+  "topic": "Statistics",
+  "questionType": 2,
+  "metadata": {
+    "level": 22,
+    "topic": "Statistics",
+    "questionType": 2,
+    "questionText": "\\text{Which correlation coefficient}\\\\[0.5em]\\text{indicates the strongest relationship?}",
+    "instruction": "SELECT THE STRONGEST CORRELATION",
+    "correctAnswer": "r = -0.7",
+    "distractors": [
+      "r = 0.3",
+      "r = 0.5",
+      "r = -0.2"
+    ],
+    "allOptions": [
+      "r = -0.7",
+      "r = 0.3",
+      "r = -0.2",
+      "r = 0.5",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "r = -0.7 has the largest absolute value (|-0.7| = 0.7). The strength of correlation is determined by |r|, not by sign. |r| closer to 1 means stronger linear relationship."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

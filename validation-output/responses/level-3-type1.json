@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:04:43.251Z",
+  "timestamp": "2026-01-09T08:57:44.090Z",
   "level": 3,
   "topic": "Multiplication and Division",
   "questionType": 1,
@@ -7,22 +7,22 @@
     "level": 3,
     "topic": "Multiplication and Division",
     "questionType": 1,
-    "questionText": "8 \\times 5",
+    "questionText": "6 \\times 5",
     "instruction": "CALCULATE",
-    "correctAnswer": "40",
+    "correctAnswer": "30",
     "distractors": [
-      "48",
-      "35",
-      "13"
+      "36",
+      "25",
+      "11"
     ],
     "allOptions": [
-      "35",
-      "40",
-      "48",
-      "13",
+      "11",
+      "25",
+      "36",
+      "30",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "8 × 5 = 40. You can think of this as 8 groups of 5, or 5 groups of 8."
+    "explanation": "6 × 5 = 30. You can think of this as 6 groups of 5, or 5 groups of 6."
   },
   "apiResponse": {
     "success": true,

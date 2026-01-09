@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:33:33.431Z",
+  "level": 32,
+  "topic": "Differential Equations",
+  "questionType": 1,
+  "metadata": {
+    "level": 32,
+    "topic": "Differential Equations",
+    "questionType": 1,
+    "questionText": "\\text{Euler's method uses the formula:}",
+    "instruction": "WHICH FORMULA REPRESENTS EULER'S METHOD?",
+    "correctAnswer": "y_{n+1} = y_n + h \\cdot f(x_n, y_n)",
+    "distractors": [
+      "y_{n+1} = y_n + f(x_n, y_n)",
+      "y_{n+1} = h \\cdot f(x_n, y_n)",
+      "y_{n+1} = y_n \\cdot h \\cdot f(x_n, y_n)"
+    ],
+    "allOptions": [
+      "𝑦𝑛+1 =𝑦𝑛 +ℎ ⋅𝑓⁡(𝑥𝑛,𝑦𝑛)",
+      "𝑦𝑛+1 =𝑦𝑛 +𝑓⁡(𝑥𝑛,𝑦𝑛)",
+      "𝑦𝑛+1 =ℎ ⋅𝑓⁡(𝑥𝑛,𝑦𝑛)",
+      "𝑦𝑛+1 =𝑦𝑛 ⋅ℎ ⋅𝑓⁡(𝑥𝑛,𝑦𝑛)",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Euler's method approximates y(x+h) using: y_{n+1} = y_n + h·f(x_n, y_n), where h is the step size and dy/dx = f(x, y)."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

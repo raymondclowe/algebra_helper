@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-09T08:03:44.194Z",
+  "timestamp": "2026-01-09T08:56:54.311Z",
   "level": 2,
   "topic": "Powers and Roots",
   "questionType": 3,
@@ -7,22 +7,22 @@
     "level": 2,
     "topic": "Powers and Roots",
     "questionType": 3,
-    "questionText": "\\text{What is } 4^3?",
+    "questionText": "\\text{What is } 2^3?",
     "instruction": "CALCULATE THE CUBE",
-    "correctAnswer": "64",
+    "correctAnswer": "8",
     "distractors": [
-      "12",
-      "16",
-      "68"
+      "6",
+      "4",
+      "10"
     ],
     "allOptions": [
-      "16",
-      "68",
-      "12",
-      "64",
+      "4",
+      "10",
+      "8",
+      "6",
       "I don't know\n                    (no penalty)"
     ],
-    "explanation": "4^3 = 4 × 4 × 4 = 64. Cubing means multiplying a number by itself three times."
+    "explanation": "2^3 = 2 × 2 × 2 = 8. Cubing means multiplying a number by itself three times."
   },
   "apiResponse": {
     "success": true,

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:14:48.469Z",
+  "level": 19,
+  "topic": "Complex Numbers",
+  "questionType": 1,
+  "metadata": {
+    "level": 19,
+    "topic": "Complex Numbers",
+    "questionType": 1,
+    "questionText": "(3 + 2i) + (7 + 7i)",
+    "instruction": "CALCULATE",
+    "correctAnswer": "10 + 9i",
+    "distractors": [
+      "10i",
+      "10 + 2i",
+      "3 + 9i"
+    ],
+    "allOptions": [
+      "3 + 9i",
+      "10i",
+      "10 + 9i",
+      "10 + 2i",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Add real parts and imaginary parts separately: (3 + 7) + (2 + 7)i = 10 + 9i."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:15:25.232Z",
+  "level": 19,
+  "topic": "Complex Numbers",
+  "questionType": 2,
+  "metadata": {
+    "level": 19,
+    "topic": "Complex Numbers",
+    "questionType": 2,
+    "questionText": "(5 + 5i)(5 - 5i)",
+    "instruction": "MULTIPLY (USE I² = -1)",
+    "correctAnswer": "50",
+    "distractors": [
+      "25 - 25",
+      "25i",
+      "50i"
+    ],
+    "allOptions": [
+      "50i",
+      "50",
+      "25 - 25",
+      "25i",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Using (a+bi)(a-bi) = a² - (bi)² = a² - b²i² = a² - b²(-1) = a² + b². So 5² + 5² = 50."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

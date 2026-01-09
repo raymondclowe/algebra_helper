@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:09:52.646Z",
+  "level": 14,
+  "topic": "Sequences & Series",
+  "questionType": 4,
+  "metadata": {
+    "level": 14,
+    "topic": "Sequences & Series",
+    "questionType": 4,
+    "questionText": "\\sum_{k=1}^{4} k",
+    "instruction": "CALCULATE",
+    "correctAnswer": "10",
+    "distractors": [
+      "16",
+      "5",
+      "14"
+    ],
+    "allOptions": [
+      "14",
+      "10",
+      "5",
+      "16",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "The sum of the first 4 natural numbers is given by n(n+1)/2. Therefore 1 + 2 + ... + 4 = 4(5)/2 = 10."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

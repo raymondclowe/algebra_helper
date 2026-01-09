@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:32:17.071Z",
+  "level": 31,
+  "topic": "Advanced Integration",
+  "questionType": 1,
+  "metadata": {
+    "level": 31,
+    "topic": "Advanced Integration",
+    "questionType": 1,
+    "questionText": "\\int 4x(x^2 + 1)^3 \\, dx",
+    "instruction": "STATE AN APPROPRIATE SUBSTITUTION",
+    "correctAnswer": "u = x^2 + 1",
+    "distractors": [
+      "u = x^2",
+      "u = (x^2 + 1)^3",
+      "u = 4x"
+    ],
+    "allOptions": [
+      "𝑢 =𝑥2",
+      "𝑢 =𝑥2 +1",
+      "𝑢 =(𝑥2+1)3",
+      "u = 4x",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For ∫4x(x² + 1)³ dx, let u = x² + 1. Then du = 2x dx, so x dx = du/2. The integral becomes ∫(4/2)u³ du."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

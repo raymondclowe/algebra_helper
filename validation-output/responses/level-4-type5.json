@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:00:02.430Z",
+  "level": 4,
+  "topic": "Fractions",
+  "questionType": 5,
+  "metadata": {
+    "level": 4,
+    "topic": "Fractions",
+    "questionType": 5,
+    "questionText": "\\frac{12}{14}",
+    "instruction": "SIMPLIFY TO LOWEST TERMS",
+    "correctAnswer": "\\frac{6}{7}",
+    "distractors": [
+      "\\frac{12}{14}",
+      "\\frac{7}{7}",
+      "\\frac{8}{15}"
+    ],
+    "allOptions": [
+      "815",
+      "77",
+      "67",
+      "1214",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Both 12 and 14 are divisible by 2. Divide both by 2: 12÷2 = 6 and 14÷2 = 7."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

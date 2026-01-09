@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:34:28.341Z",
+  "level": 33,
+  "topic": "Probability Distributions",
+  "questionType": 1,
+  "metadata": {
+    "level": 33,
+    "topic": "Probability Distributions",
+    "questionType": 1,
+    "questionText": "\\text{For a continuous random variable } X \\text{ with PDF } f(x)",
+    "instruction": "What must ∫∞−∞𝑓⁡(𝑥) 𝑑𝑥 equal?",
+    "correctAnswer": "1",
+    "distractors": [
+      "0",
+      "E(X)",
+      "\\text{Var}(X)"
+    ],
+    "allOptions": [
+      "E(X)",
+      "Var(X)",
+      "1",
+      "0",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "For any probability density function (PDF), the total area under the curve must equal 1: ∫_{-∞}^{∞} f(x) dx = 1. This ensures all probabilities sum to 1."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

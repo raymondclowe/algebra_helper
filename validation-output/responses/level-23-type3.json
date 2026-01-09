@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T09:20:48.195Z",
+  "level": 23,
+  "topic": "Basic Probability",
+  "questionType": 3,
+  "metadata": {
+    "level": 23,
+    "topic": "Basic Probability",
+    "questionType": 3,
+    "questionText": "\\text{If P(success) = } \\frac{5}{11}\\text{,}\\\\[0.5em]\\text{what is P(failure)?}",
+    "instruction": "CALCULATE THE COMPLEMENTARY PROBABILITY",
+    "correctAnswer": "\\frac{6}{11}",
+    "distractors": [
+      "\\frac{5}{11}",
+      "\\frac{11}{6}",
+      "\\frac{4}{9}"
+    ],
+    "allOptions": [
+      "511",
+      "611",
+      "49",
+      "116",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "P(failure) = 1 - P(success) = 1 - 5/11 = 6/11. Note that complementary probabilities sum to 1."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

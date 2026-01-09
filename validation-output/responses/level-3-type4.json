@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T08:58:30.660Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 4,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 4,
+    "questionText": "91 \\times 100",
+    "instruction": "CALCULATE",
+    "correctAnswer": "9100",
+    "distractors": [
+      "9200",
+      "191",
+      "910"
+    ],
+    "allOptions": [
+      "191",
+      "910",
+      "9100",
+      "9200",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "Multiplying by 100 is like adding 2 zeros: 91 × 100 = 9100."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}

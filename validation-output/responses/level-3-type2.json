@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-01-09T08:57:55.175Z",
+  "level": 3,
+  "topic": "Multiplication and Division",
+  "questionType": 2,
+  "metadata": {
+    "level": 3,
+    "topic": "Multiplication and Division",
+    "questionType": 2,
+    "questionText": "12 \\times 7",
+    "instruction": "CALCULATE",
+    "correctAnswer": "84",
+    "distractors": [
+      "94",
+      "74",
+      "19"
+    ],
+    "allOptions": [
+      "74",
+      "94",
+      "84",
+      "19",
+      "I don't know\n                    (no penalty)"
+    ],
+    "explanation": "12 × 7 = 84. Break it down: (10 × 7) + (2 × 7) = 70 + 14 = 84."
+  },
+  "apiResponse": {
+    "success": true,
+    "validationText": "OK",
+    "error": null
+  }
+}
