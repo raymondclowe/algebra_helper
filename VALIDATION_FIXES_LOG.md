@@ -35,13 +35,15 @@ This document tracks all issues identified by Gemini validation and the actions 
 **File**: `/js/question-templates/generator-utils.js` line 688
 **Status**: FIXED
 
-### 4. Level 15 - Functions: Graph Rendering Issue ✅
+### 4. Level 15 - Functions: Graph Rendering Issue ⚠️
 **Issue**: Function graph appears as raw HTML/script instead of rendered graph
-**Root Cause**: The HTML plot code was placed inside the LaTeX `tex` field, which the renderer tries to display as LaTeX. The validator screenshots show the raw `<div>` and `<script>` tags.
-**Analysis**: This is a more complex issue that requires proper HTML injection, not LaTeX rendering. The function-plot library needs to be properly integrated.
-**Fix**: Wrapped the graph HTML in a special marker that the LaTeX renderer recognizes to pass through as raw HTML.
-**File**: `/js/question-templates/function-graphs.js`
-**Status**: FIXED
+**Root Cause**: The HTML plot code is placed inside the LaTeX `tex` field, which MathJax tries to interpret as LaTeX.
+**Analysis**: This is an architectural limitation. The app's current design expects all question content in the `tex` field for LaTeX rendering. HTML/JavaScript for interactive graphs doesn't fit this model.
+**Status**: KNOWN LIMITATION - Requires architectural refactoring beyond scope of this fix
+**Recommendation**: Either:
+  1. Create a separate `htmlContent` field for questions that need HTML rendering
+  2. Use static image alternatives for graph-based questions
+  3. Move these question types to a specialized interface
 
 ### 5. Level 17 - Advanced Trigonometry: LaTeX Fraction in Text Mode ✅
 **Issue**: Arc length question has rendering error with `\frac{\pi}{4}` inside `\text{}`
@@ -50,12 +52,10 @@ This document tracks all issues identified by Gemini validation and the actions 
 **File**: `/js/question-templates/arc-sector.js`
 **Status**: FIXED
 
-### 6. Level 17 - Advanced Trigonometry: Trig Graph Rendering ✅
+### 6. Level 17 - Advanced Trigonometry: Trig Graph Rendering ⚠️
 **Issue**: Trig graph appears as raw HTML/script
 **Root Cause**: Same as issue #4 - HTML in LaTeX field
-**Fix**: Same approach as #4 - wrapped graph HTML properly
-**File**: `/js/question-templates/trig-graphs.js`
-**Status**: FIXED
+**Status**: KNOWN LIMITATION - Same architectural issue as #4
 
 ### 7. Level 21 - Advanced Calculus: Duplicate Correct Answers ✅
 **Issue**: Implicit differentiation question has two mathematically equivalent correct answers: `-y/x` and `-1/x²`
@@ -70,6 +70,11 @@ This document tracks all issues identified by Gemini validation and the actions 
 **Fix**: Wrapped chart HTML properly for pass-through rendering
 **File**: `/js/question-templates/statistics.js`
 **Status**: FIXED
+
+### 8. Level 22 - Statistics: Chart Rendering Issue ⚠️
+**Issue**: Box plot chart doesn't render, shows empty LaTeX delimiters
+**Root Cause**: Same as issues #4 and #6 - Chart.js HTML in LaTeX field
+**Status**: KNOWN LIMITATION - Same architectural issue as #4
 
 ### 9. Level 24 - Advanced Probability: Topic Header Mismatch ⚠️
 **Issue**: Bayes' theorem question shows "Integration & Series" in header but is about probability
@@ -123,35 +128,47 @@ The mix includes calibration questions to ensure students have the basics. Not e
 
 ## Summary of Changes
 
+### Summary of Changes
+
 ### Files Modified:
 1. `/js/question-templates/squares-roots.js` - Fixed distractor ranges
 2. `/js/question-templates/generator-utils.js` - Fixed LaTeX line break handling
-3. `/js/question-templates/function-graphs.js` - Fixed graph rendering
-4. `/js/question-templates/arc-sector.js` - Fixed LaTeX fraction in text mode
-5. `/js/question-templates/trig-graphs.js` - Fixed trig graph rendering
-6. `/js/question-templates/advanced-calculus.js` - Fixed duplicate correct answers
-7. `/js/question-templates/statistics.js` - Fixed chart rendering
-8. `/js/question-templates/vectors-3d.js` - Fixed normal vector ambiguity
+3. `/js/question-templates/arc-sector.js` - Fixed LaTeX fraction in text mode
+4. `/js/question-templates/advanced-calculus.js` - Fixed duplicate correct answers
+5. `/js/question-templates/vectors-3d.js` - Fixed normal vector ambiguity
 
-### Total Fixes: 8 actual issues
+### Total Fixes: 5 actual issues fixed
+### Known Limitations: 3 issues (HTML/graph rendering - architectural limitation)
 ### False Positives: 5 issues (display/UI layer or intentional design)
 
 ## Testing Recommendations
 
-1. Test Level 2 questions to verify plausible distractors
-2. Test Level 14 compound interest questions for LaTeX rendering
-3. Test Level 15 function graph questions for proper rendering
-4. Test Level 17 arc length questions for LaTeX rendering
-5. Test Level 17 trig graph questions for proper rendering
-6. Test Level 21 implicit differentiation for no duplicate answers
-7. Test Level 22 box plot questions for proper chart rendering
-8. Test Level 29 plane normal vector questions for clarity
-9. Investigate UI/display layer for topic header mismatches (separate issue)
+1. Test Level 2 questions to verify plausible distractors ✅
+2. Test Level 14 compound interest questions for LaTeX rendering ✅
+3. Test Level 17 arc length questions for LaTeX rendering ✅
+4. Test Level 21 implicit differentiation for no duplicate answers ✅
+5. Test Level 29 plane normal vector questions for clarity ✅
+6. Investigate UI/display layer for topic header mismatches (separate issue)
+7. **Graph/Chart rendering issues**: These require architectural changes to support HTML content alongside LaTeX. Consider:
+   - Creating a separate rendering path for HTML-based questions
+   - Using static images as alternatives
+   - Implementing a component-based question system
 
 ## Conclusion
 
 Of the 13 "not OK" issues reported:
-- **8 were genuine bugs** that have been fixed
+- **5 were genuine bugs** that have been fixed
+- **3 were architectural limitations** (HTML/graph rendering in LaTeX-only system)
 - **5 were false positives** (display issues, intentional design, or misunderstandings of the app's architecture)
 
 The remaining 39 issues were marked "OK" by Gemini with various notes about difficulty levels, which are largely intentional design choices for the progressive learning system.
+
+## Recommendations for Future Improvements
+
+1. **HTML Content Support**: Implement a dual rendering system that can handle both LaTeX and HTML content
+2. **Graph Alternatives**: For graph-based questions, consider static SVG images or a dedicated graphing component
+3. **Topic Display**: Investigate the UI layer to ensure topic headers match the generated content
+4. **Validation Enhancement**: Add automated checks for:
+   - Mathematically equivalent answers (like the xy = 1 case)
+   - Distractor plausibility (value ranges)
+   - LaTeX syntax errors before generation
