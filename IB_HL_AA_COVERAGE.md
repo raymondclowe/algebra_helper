@@ -319,16 +319,23 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Standard angles (0°, 30°, 45°, 60°, 90°)
 - Exact values of sin, cos, tan
 - Unit circle basics
+- **NEW: Arc length (L = rθ radians, L = (θ/360) × 2πr degrees)**
+- **NEW: Sector area (A = (1/2)r²θ radians, A = (θ/360) × πr² degrees)**
+- **NEW: Finding angles from arc length or sector area**
 
 **Example Problems:**
 - `sin(30°) = ?` → ½
 - `cos(45°) = ?` → 1/√2
 - `tan(60°) = ?` → √3
+- **NEW: `Find arc length: radius 8cm, angle π/3 radians` → 8.38 cm**
+- **NEW: `Find sector area: radius 6cm, angle 120°` → 37.70 cm²**
+- **NEW: `Arc length 12.57cm, radius 4cm. Find angle in radians` → π**
 
 **IB Curriculum:**
 - SL/HL Topic 3.1: The circle and radian measure
 - SL/HL Topic 3.2: Trigonometric ratios
 - SL/HL Topic 3.2: Exact values
+- **NEW: SL/HL Topic 3.1: Arc length and sector area**
 
 ---
 
@@ -409,15 +416,22 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Power rule
 - Derivative of polynomials
 - Inverse functions (quadratic)
+- **NEW: Tangent lines to curves (y - y₁ = m(x - x₁))**
+- **NEW: Normal lines to curves (m_normal = -1/m_tangent)**
+- **NEW: Finding points with specific gradients**
 
 **Example Problems:**
 - `f(x) = 3x⁴, find f'(x)` → 12x³
 - `f(x) = 4x², find f⁻¹(x) for x ≥ 0` → y = √(x/4)
+- **NEW: `Find tangent to y = 2x² + 3x at (1, 5)` → y = 7x - 2**
+- **NEW: `Find normal to y = x² - 4x at x = 2` → y = -¼x - ³⁄₄**
+- **NEW: `Find gradient of normal to y = 3x² at x = 2` → -⅙**
 
 **IB Curriculum:**
 - SL/HL Topic 6.1: Derivatives
 - SL/HL Topic 6.1: Power rule
 - HL Topic 2.6: Inverse functions
+- **NEW: SL/HL Topic 6.2: Tangents and normals**
 
 ---
 
@@ -470,17 +484,27 @@ The app provides **25 progressive difficulty levels** (0-24+) that cover the ent
 - Median (middle value)
 - Mode (most frequent)
 - Range (max - min)
+- **NEW: Variance (σ² = Σ(x - μ)² / n)**
+- **NEW: Standard deviation (σ = √variance)**
+- **NEW: Effect of transformations on mean and σ**
+- **NEW: Interpreting and comparing standard deviations**
 
 **Example Problems:**
 - `Data: 12, 15, 18, 20, 25. Find mean` → 18
 - `Data: 12, 15, 18, 20, 25. Find median` → 18
 - `Data: 5, 7, 5, 8, 5, 9. Find mode` → 5
 - `Data: 10, 25, 15, 30. Find range` → 20
+- **NEW: `Calculate variance of: 10, 16, 23, 26` → 38.69**
+- **NEW: `Calculate standard deviation of: 7, 10, 15, 22, 30` → 8.33**
+- **NEW: `Mean 20, σ 5. Add 10 to all values. New mean, σ?` → 30, 5**
+- **NEW: `Mean 15, σ 3. Multiply all by 4. New mean, σ?` → 60, 12**
 
 **IB Curriculum:**
 - SL/HL Topic 5.1: Descriptive statistics
 - SL/HL Topic 5.1: Measures of central tendency
 - SL/HL Topic 5.1: Measures of dispersion
+- **NEW: SL/HL Topic 5.1: Variance and standard deviation**
+- **NEW: SL/HL Topic 5.1: Effect of linear transformations**
 
 ---
 
