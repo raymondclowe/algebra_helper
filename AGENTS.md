@@ -4,6 +4,10 @@
 
 This document provides critical guidelines for AI agents (including GitHub Copilot, custom agents, and other automated tools) working on the Algebra Helper codebase. These guidelines ensure that changes preserve student data integrity and maintain backward compatibility.
 
+## Goals
+
+The student who has practiced with this app should be so well prepared for the exam, able to answer basic questions instantly, that they can focus their mental energy on the more complex, higher-order thinking questions during the exam. Therefore they get a perfect IB score of 7 !
+
 ## Critical Rule: Preserve Student Data Integrity
 
 **NEVER make changes that could corrupt, lose, or make inaccessible existing student data.**

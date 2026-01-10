@@ -101,7 +101,7 @@ Question Text: ${questionMetadata.questionText}`
         const requestBody = {
             model: this.modelName,
             messages: messages,
-            max_tokens: 2000, // Increased for more complete responses
+            max_tokens: 8000, // Increased for reasoning models which use tokens for reasoning before responding
             temperature: 0.3 // Lower temperature for more consistent validation
         };
         
@@ -178,6 +178,15 @@ Question Text: ${questionMetadata.questionText}`
                 
                 // Warn if response is empty
                 if (!validationText || validationText.trim().length === 0) {
+                    // Check if model ran out of tokens
+                    const finishReason = data.choices?.[0]?.finish_reason;
+                    if (finishReason === 'length') {
+                        console.warn('   ⚠️ Warning: Model ran out of tokens (reasoning consumed all tokens)');
+                        return {
+                            success: false,
+                            error: 'Model ran out of tokens (reasoning consumed all tokens). Try increasing max_tokens.'
+                        };
+                    }
                     console.warn('   ⚠️ Warning: Empty response from API');
                 }
                 
