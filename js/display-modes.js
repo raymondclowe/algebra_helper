@@ -34,16 +34,26 @@ window.DisplayModes = {
             21: "Advanced Calculus",
             22: "Statistics",
             23: "Probability",
-            24: "Integration & Series"
+            24: "Advanced Probability",
+            25: "Integration & Series",
+            26: "Proof by Induction",
+            27: "Proof by Contradiction",
+            28: "Matrix Algebra",
+            29: "3D Vectors",
+            30: "Complex Numbers (Polar)",
+            31: "Advanced Integration",
+            32: "Differential Equations",
+            33: "Probability Distributions",
+            34: "Hypothesis Testing"
         };
         
-        return skillMap[levelInt] || skillMap[Math.min(24, Math.max(1, levelInt))];
+        return skillMap[levelInt] || skillMap[Math.min(34, Math.max(1, levelInt))];
     },
     
     // Get level band description (e.g., "5-6" instead of "5.3")
     getLevelBand: function(level) {
         const lower = Math.floor(level);
-        const upper = Math.min(24, lower + 1);
+        const upper = Math.min(34, lower + 1);
         return `${lower}-${upper}`;
     },
     
