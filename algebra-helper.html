@@ -326,6 +326,11 @@
                     <span class="animate-pulse text-base text-gray-500">Waiting for MathJax...</span>
                 </div>
             </div>
+            
+            <!-- Graph/Chart Container - Hidden by default, shown when question requires visualization -->
+            <div id="graph-container" class="hidden w-full px-4 py-4 graph-container">
+                <!-- Dynamically rendered graphs/charts will appear here -->
+            </div>
         </div>
 
         <!-- Explanation box with reserved space to prevent UI shift -->
@@ -380,6 +385,7 @@
     <script src="js/activity-tracker.js?v=1.0.1"></script>
     <script src="js/storage-manager.js?v=1.0.1"></script>
     <script src="js/topic-definitions.js?v=1.0.1"></script>
+    <script src="js/graph-renderer.js?v=1.0.1"></script>
     <script src="js/stats-modal.js?v=1.0.1"></script>
     <script src="js/time-tracking-modal.js?v=1.0.1"></script>
     <script src="js/explanation-modal.js?v=1.0.1"></script>

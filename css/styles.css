@@ -299,6 +299,99 @@ input[type="checkbox"] {
     }
 }
 
+/* Graph/Chart Container Styles */
+.graph-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(17, 24, 39, 0.5); /* gray-900 with transparency */
+    border-radius: 0.5rem;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.graph-container.visible {
+    display: flex;
+}
+
+/* Single graph display */
+.graph-container .single-graph {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Multiple graphs in grid (for MC questions with graph choices) */
+.graph-container .graph-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.graph-container .graph-choice {
+    background: rgba(31, 41, 55, 0.8); /* gray-800 */
+    border: 2px solid #374151; /* gray-700 */
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.graph-container .graph-choice:hover {
+    border-color: #60a5fa; /* blue-400 */
+    background: rgba(31, 41, 55, 1);
+}
+
+.graph-container .graph-choice.selected {
+    border-color: #3b82f6; /* blue-500 */
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.graph-container .graph-choice-label {
+    text-align: center;
+    color: #d1d5db; /* gray-300 */
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Graph canvas/svg containers */
+.graph-container canvas,
+.graph-container svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 640px) {
+    .graph-container .single-graph {
+        max-width: 100%;
+    }
+    
+    .graph-container .graph-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .graph-container canvas,
+    .graph-container svg {
+        max-height: 250px;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1024px) {
+    .graph-container .graph-grid {
+        max-width: 90%;
+    }
+}
+
 /* Mobile Optimizations */
 /* Note: 1920px breakpoint targets mobile, tablet, and standard desktop screens
    Only ultra-wide monitors (>1920px) get desktop-specific styling */
