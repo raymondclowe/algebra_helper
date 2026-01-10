@@ -16,7 +16,12 @@ window.QuestionTemplates.SquaresRoots = {
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 50)}`  // More plausible range for square fallback distractors
+                        () => {
+                            // Generate fallback distractors in reasonable range: ±50% of answer, min 1
+                            const minRange = Math.max(1, Math.floor(answer * 0.5));
+                            const maxRange = Math.ceil(answer * 1.5);
+                            return `${utils.rInt(minRange, maxRange)}`;
+                        }
                     );
                     return {
                         tex: `\\text{What is } ${n}^2?`,
@@ -54,7 +59,12 @@ window.QuestionTemplates.SquaresRoots = {
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 1000)}`
+                        () => {
+                            // Generate fallback distractors in reasonable range: ±50% of answer, min 1
+                            const minRange = Math.max(1, Math.floor(answer * 0.5));
+                            const maxRange = Math.ceil(answer * 1.5);
+                            return `${utils.rInt(minRange, maxRange)}`;
+                        }
                     );
                     return {
                         tex: `\\text{What is } ${n}^3?`,
@@ -133,7 +143,12 @@ window.QuestionTemplates.SquaresRoots = {
                     const distractors = utils.ensureUniqueDistractors(
                         correctAnswer,
                         candidateDistractors,
-                        () => `${utils.rInt(1, 100)}`  // More plausible range for power fallback distractors
+                        () => {
+                            // Generate fallback distractors in reasonable range: ±50% of answer, min 1
+                            const minRange = Math.max(1, Math.floor(answer * 0.5));
+                            const maxRange = Math.ceil(answer * 1.5);
+                            return `${utils.rInt(minRange, maxRange)}`;
+                        }
                     );
                     return {
                         tex: `${base}^${exp}`,
