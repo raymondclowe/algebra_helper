@@ -92,9 +92,11 @@ IMPORTANT - Response Format:
 
 Context:
 - This is an IB Math curriculum aligned practice tool
-- Questions use LaTeX math notation
+- Questions use LaTeX math notation for maths
+- May have graphs for charting questions
 - Multiple choice format with one correct answer and 3 distractors
 - Questions should be solvable within 30-60 seconds by a student at the appropriate level
+- "Levels" in this app are internal gamification "levels" and are not related to IB or academic or education levels.
 
 Review the question screenshot carefully and provide your assessment.`;
     }
