@@ -108,11 +108,11 @@ window.UI = {
         }
         const qDiv = document.getElementById('question-math');
         
-        // Check if this is a diagram-based question (SVG)
-        if (window.APP.currentQ.isDiagram && window.APP.currentQ.tex.startsWith('<svg')) {
-            // Render SVG diagram directly
+        // Check if this is a diagram-based question (SVG or HTML content)
+        if (window.APP.currentQ.isDiagram && (window.APP.currentQ.tex.includes('<svg') || window.APP.currentQ.tex.includes('<div'))) {
+            // Render SVG/HTML diagram directly
             qDiv.innerHTML = window.APP.currentQ.tex;
-            // No MathJax needed for SVG
+            // No MathJax needed for diagrams
         } else {
             // Process LaTeX to improve line breaks and spacing
             // Replace \\[...em] line breaks with proper display breaks
