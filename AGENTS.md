@@ -19,9 +19,11 @@ Student progress, statistics, and historical data are stored locally in:
 **DO NOT renumber or reorder levels without a migration strategy.**
 
 - Levels 0-34 map to specific topics via `TopicDefinitions.getTopicForLevel()`
+- "Levels" are internal gamification constructs and must remain stable, they are unrelated to any educational or ib standards
 - Historical question data stores `level` field (e.g., level 12 = "Polynomials")
 - Student stats and CSV exports rely on level numbers for topic identification
 - **If levels must change**: Implement a migration in `StorageManager.migrateExistingData()`
+
 
 **Example Protected Mapping:**
 ```javascript
