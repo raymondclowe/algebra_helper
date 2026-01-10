@@ -327,6 +327,22 @@ window.Generator = {
         if (band <= 31) return this.getAdvancedIntegration();
         if (band <= 32) return this.getDifferentialEquations();
         if (band <= 33) return this.getProbabilityDistributions();
+        if (band <= 34) return this.getHypothesisTesting();
+        
+        // Demo level for graph rendering (testLevel=35)
+        if (band === 35) {
+            // Demonstrate new graphData system
+            // If testType is forced, use it; otherwise pick randomly
+            const demoType = window.FORCED_QUESTION_TYPE || this.rInt(1, 3);
+            if (demoType === 1 && window.QuestionTemplates.GraphDemo) {
+                return window.QuestionTemplates.GraphDemo.getYInterceptQuestion();
+            } else if (demoType === 2 && window.QuestionTemplates.GraphDemo) {
+                return window.QuestionTemplates.GraphDemo.getIdentifySineQuestion();
+            } else if (window.QuestionTemplates.GraphDemo) {
+                return window.QuestionTemplates.GraphDemo.getBarChartQuestion();
+            }
+        }
+        
         return this.getHypothesisTesting();
     },
     

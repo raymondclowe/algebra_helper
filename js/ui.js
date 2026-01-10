@@ -79,6 +79,11 @@ window.UI = {
         document.getElementById('mc-options').innerHTML = '';
         // delta-display is permanently hidden (internal level tracking)
         
+        // Clear any previous graphs
+        if (window.GraphRenderer) {
+            window.GraphRenderer.clearContainer();
+        }
+        
         this.updateNavigationButtons();
 
         // Generate Question
@@ -103,11 +108,11 @@ window.UI = {
         }
         const qDiv = document.getElementById('question-math');
         
-        // Check if this is a diagram-based question (SVG)
-        if (window.APP.currentQ.isDiagram && window.APP.currentQ.tex.startsWith('<svg')) {
-            // Render SVG diagram directly
+        // Check if this is a diagram-based question (SVG or HTML content)
+        if (window.APP.currentQ.isDiagram && (window.APP.currentQ.tex.includes('<svg') || window.APP.currentQ.tex.includes('<div'))) {
+            // Render SVG/HTML diagram directly
             qDiv.innerHTML = window.APP.currentQ.tex;
-            // No MathJax needed for SVG
+            // No MathJax needed for diagrams
         } else {
             // Process LaTeX to improve line breaks and spacing
             // Replace \\[...em] line breaks with proper display breaks
@@ -129,6 +134,12 @@ window.UI = {
                 // Adjust font size if question is too big for mobile
                 this.adjustQuestionFontSize(qDiv);
             });
+        }
+        
+        // Render graph/chart if question requires it
+        // Support new graphData property for dedicated container rendering
+        if (window.APP.currentQ.graphData && window.GraphRenderer) {
+            this.renderQuestionGraph(window.APP.currentQ.graphData);
         }
 
         // Icon
@@ -256,6 +267,37 @@ window.UI = {
         
         // Hide calc indicator when viewing history
         document.getElementById('calc-indicator').innerHTML = '';
+    },
+    
+    // Render graph/chart for a question using the dedicated graph container
+    renderQuestionGraph: function(graphData) {
+        if (!window.GraphRenderer) {
+            console.warn('GraphRenderer not available');
+            return;
+        }
+        
+        // graphData structure:
+        // {
+        //   type: 'function' | 'chart' | 'multiple',
+        //   ... type-specific data
+        // }
+        
+        if (graphData.type === 'function') {
+            // Single function plot
+            window.GraphRenderer.renderFunctionPlot(graphData.functions, graphData.options);
+        } else if (graphData.type === 'chart') {
+            // Single chart
+            window.GraphRenderer.renderChart(graphData.chartType, graphData.data, graphData.options);
+        } else if (graphData.type === 'multiple') {
+            // Multiple graphs as answer choices
+            // This requires special handling in the question template
+            window.GraphRenderer.renderGraphChoices(graphData.choices, (index, label) => {
+                // Store selected answer
+                if (window.APP.currentQ) {
+                    window.APP.currentQ.selectedGraphChoice = { index, label };
+                }
+            });
+        }
     },
     
     setNavigationButtonState: function(button, enabled) {
