@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Renderer Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Graph Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/function-plot@1.23.3/dist/function-plot.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-gray-900 text-gray-100 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-center">Graph/Chart Rendering Test</h1>
+        
+        <div class="mb-8 bg-gray-800 p-6 rounded-lg">
+            <h2 class="text-xl font-bold mb-4">Test 1: Single Function Plot</h2>
+            <button id="test1-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded mb-4">
+                Render Function Graph
+            </button>
+            <div id="test1-result" class="text-green-400"></div>
+        </div>
+        
+        <div class="mb-8 bg-gray-800 p-6 rounded-lg">
+            <h2 class="text-xl font-bold mb-4">Test 2: Bar Chart</h2>
+            <button id="test2-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded mb-4">
+                Render Bar Chart
+            </button>
+            <div id="test2-result" class="text-green-400"></div>
+        </div>
+        
+        <div class="mb-8 bg-gray-800 p-6 rounded-lg">
+            <h2 class="text-xl font-bold mb-4">Test 3: Multiple Graph Choices</h2>
+            <button id="test3-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded mb-4">
+                Render Graph Grid
+            </button>
+            <div id="test3-result" class="text-green-400"></div>
+        </div>
+        
+        <div class="mb-8 bg-gray-800 p-6 rounded-lg">
+            <h2 class="text-xl font-bold mb-4">Test 4: Clear Container</h2>
+            <button id="test4-btn" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded mb-4">
+                Clear Graphs
+            </button>
+            <div id="test4-result" class="text-green-400"></div>
+        </div>
+        
+        <!-- Graph Container -->
+        <div class="mb-8">
+            <h2 class="text-xl font-bold mb-4">Graph Container (rendered graphs appear here)</h2>
+            <div id="graph-container" class="hidden w-full px-4 py-4 graph-container">
+                <!-- Graphs render here -->
+            </div>
+            <div id="empty-msg" class="text-gray-500 text-center py-8">No graphs rendered yet</div>
+        </div>
+    </div>
+    
+    <script src="js/graph-renderer.js"></script>
+    <script>
+        // Wait for libraries to load
+        window.addEventListener('load', () => {
+            const emptyMsg = document.getElementById('empty-msg');
+            const graphContainer = document.getElementById('graph-container');
+            
+            function showContainer() {
+                emptyMsg.classList.add('hidden');
+                graphContainer.classList.remove('hidden');
+                graphContainer.classList.add('visible');
+            }
+            
+            function hideContainer() {
+                emptyMsg.classList.remove('hidden');
+                graphContainer.classList.add('hidden');
+                graphContainer.classList.remove('visible');
+            }
+            
+            // Test 1: Function Plot
+            document.getElementById('test1-btn').addEventListener('click', () => {
+                window.GraphRenderer.clearContainer();
+                
+                const functions = [
+                    { fn: '2*x^2 - 3*x + 1', color: 'blue' }
+                ];
+                
+                window.GraphRenderer.renderFunctionPlot(functions, {
+                    xDomain: [-5, 5],
+                    yDomain: [-5, 15],
+                    width: 500,
+                    height: 350
+                });
+                
+                showContainer();
+                document.getElementById('test1-result').textContent = '✓ Function graph rendered';
+                setTimeout(() => {
+                    document.getElementById('test1-result').textContent = '';
+                }, 3000);
+            });
+            
+            // Test 2: Bar Chart
+            document.getElementById('test2-btn').addEventListener('click', () => {
+                window.GraphRenderer.clearContainer();
+                
+                const data = {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [12, 19, 8, 15, 22],
+                        backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2
+                    }]
+                };
+                
+                window.GraphRenderer.renderChart('bar', data, {
+                    width: 500,
+                    height: 350,
+                    chartOptions: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false },
+                            title: {
+                                display: true,
+                                text: 'Monthly Sales',
+                                color: '#d1d5db'
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: { color: '#9ca3af' },
+                                grid: { color: 'rgba(156, 163, 175, 0.1)' }
+                            },
+                            x: {
+                                ticks: { color: '#9ca3af' },
+                                grid: { color: 'rgba(156, 163, 175, 0.1)' }
+                            }
+                        }
+                    }
+                });
+                
+                showContainer();
+                document.getElementById('test2-result').textContent = '✓ Bar chart rendered';
+                setTimeout(() => {
+                    document.getElementById('test2-result').textContent = '';
+                }, 3000);
+            });
+            
+            // Test 3: Multiple Graph Choices
+            document.getElementById('test3-btn').addEventListener('click', () => {
+                window.GraphRenderer.clearContainer();
+                
+                const choices = [
+                    {
+                        label: 'A: x²',
+                        type: 'function',
+                        functions: [{ fn: 'x^2', color: 'blue' }],
+                        options: { xDomain: [-3, 3], yDomain: [-1, 9] }
+                    },
+                    {
+                        label: 'B: -x²',
+                        type: 'function',
+                        functions: [{ fn: '-x^2', color: 'red' }],
+                        options: { xDomain: [-3, 3], yDomain: [-9, 1] }
+                    },
+                    {
+                        label: 'C: x³',
+                        type: 'function',
+                        functions: [{ fn: 'x^3', color: 'green' }],
+                        options: { xDomain: [-2, 2], yDomain: [-8, 8] }
+                    },
+                    {
+                        label: 'D: 2x',
+                        type: 'function',
+                        functions: [{ fn: '2*x', color: 'purple' }],
+                        options: { xDomain: [-3, 3], yDomain: [-6, 6] }
+                    }
+                ];
+                
+                window.GraphRenderer.renderGraphChoices(choices, (index, label) => {
+                    document.getElementById('test3-result').textContent = `✓ Selected: ${label}`;
+                });
+                
+                showContainer();
+                setTimeout(() => {
+                    if (!document.getElementById('test3-result').textContent.includes('Selected')) {
+                        document.getElementById('test3-result').textContent = '✓ Graph grid rendered (click a graph to select)';
+                    }
+                }, 2000);
+                setTimeout(() => {
+                    if (!document.getElementById('test3-result').textContent.includes('Selected')) {
+                        document.getElementById('test3-result').textContent = '';
+                    }
+                }, 5000);
+            });
+            
+            // Test 4: Clear
+            document.getElementById('test4-btn').addEventListener('click', () => {
+                window.GraphRenderer.clearContainer();
+                hideContainer();
+                document.getElementById('test4-result').textContent = '✓ Container cleared';
+                setTimeout(() => {
+                    document.getElementById('test4-result').textContent = '';
+                }, 3000);
+            });
+            
+            // Check library status
+            setTimeout(() => {
+                const libs = window.GraphRenderer.checkLibrariesLoaded();
+                console.log('Library status:', libs);
+                
+                if (!libs.functionPlot) {
+                    console.warn('function-plot not loaded');
+                }
+                if (!libs.chartJs) {
+                    console.warn('Chart.js not loaded');
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
