@@ -97,7 +97,9 @@ An intelligent, adaptive math practice tool that helps students master mathemati
    - All features work without internet!
    - Your progress is saved locally
 
-📖 **Detailed instructions**: See [Offline PWA Guide](OFFLINE_PWA_GUIDE.md)
+📖 **Documentation:**
+- [Offline PWA Guide](OFFLINE_PWA_GUIDE.md) - User installation and usage instructions
+- [PWA Install & Auto-Update Mechanics](PWA_INSTALL_AND_UPDATE.md) - Technical explanation of how install prompts and auto-updates work
 
 ---
 
