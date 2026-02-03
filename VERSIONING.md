@@ -111,8 +111,15 @@ The version number in the HTML comment and console logs shows the Unix timestamp
 - `1704067200` = Jan 1, 2024 00:00:00 GMT (example)
 - You can convert timestamps at [epochconverter.com](https://www.epochconverter.com/)
 
+## Related Documentation
+
+- [PWA Install & Auto-Update Mechanics](PWA_INSTALL_AND_UPDATE.md) - Detailed explanation of how service worker updates work
+- [Offline PWA Guide](OFFLINE_PWA_GUIDE.md) - User-facing guide for installing and using the app offline
+
 ## Related Files
 
 - `tools/version-assets.js` - Versioning script
 - `.github/workflows/static.yml` - Deployment workflow with versioning step
 - `package.json` - Contains `version-assets` npm script
+- `service-worker.js` - Service worker with cache versioning
+- `manifest.json` - PWA manifest with version field
